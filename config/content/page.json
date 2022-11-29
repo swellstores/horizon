@@ -1,0 +1,21 @@
+{
+  "name": "Page",
+  "slug": "page",
+  "model": "content/pages",
+  "fields": [
+    {
+      "id": "sections",
+      "type": "collection",
+      "item_types": [
+        "categories_preview",
+        "multiple_features",
+        "full_width_media",
+        "heading_with_text",
+        "multiple_panels",
+        "products_preview",
+        "reviews",
+        "divider"
+      ]
+    }
+  ]
+}

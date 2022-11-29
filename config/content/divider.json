@@ -1,0 +1,46 @@
+{
+  "name": "Divider",
+  "slug": "divider",
+  "description": "Divider that adds space between sections",
+  "fields": [
+    {
+      "label": "Styling",
+      "type": "field_group",
+      "fields": [
+        {
+          "id": "vertical_spacing",
+          "label": "Vertical padding",
+          "type": "select",
+          "default": "small",
+          "options": [
+            {
+              "label": "Extra small",
+              "value": "extra_small"
+            },
+            {
+              "label": "Small",
+              "value": "small"
+            },
+            {
+              "label": "Medium",
+              "value": "medium"
+            },
+            {
+              "label": "Large",
+              "value": "large"
+            },
+            {
+              "label": "Extra large",
+              "value": "extra_large"
+            }
+          ]
+        },
+        {
+          "id": "background_color",
+          "label": "Background color",
+          "type": "color"
+        }
+      ]
+    }
+  ]
+}

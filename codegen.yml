@@ -1,0 +1,18 @@
+overwrite: true
+schema: ${NEXT_PUBLIC_SWELL_STORE_URL}/graphql
+headers: { cache-control: 'no-cache' }
+documents: 'lib/graphql/**/*.gql'
+generates:
+  ./graphql.schema.json:
+    plugins:
+      - 'introspection'
+  lib/graphql/generated/sdk.ts:
+    config:
+      gqlImport: graphql-request#gql
+      useTypeImports: true
+      rawRequest: true
+      documentMode: string
+    plugins:
+      - 'typescript'
+      - 'typescript-operations'
+      - 'typescript-graphql-request'

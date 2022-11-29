@@ -1,0 +1,47 @@
+{
+  "name": "Transition page",
+  "slug": "quiz_transition",
+  "fields": [
+    {
+      "id": "layout_option",
+      "label": "Layout option",
+      "type": "select",
+      "options": [
+        {
+          "value": "image_left_aligned",
+          "label": "Image left aligned"
+        },
+        {
+          "value": "image_right_aligned",
+          "label": "Image right aligned"
+        },
+        {
+          "value": "no_image",
+          "label": "no_image"
+        }
+      ]
+    },
+    {
+      "id": "image",
+      "label": "Image",
+      "type": "image",
+      "conditions": {
+        "layout_option": {
+          "$or": ["image_left_aligned", "image_right_aligned"]
+        }
+      }
+    },
+    {
+      "id": "title",
+      "label": "Title",
+      "type": "text"
+    },
+    {
+      "id": "description",
+      "label": "Description",
+      "type": "basic_html"
+    }
+  ],
+  "source_type": "theme",
+  "source_id": "horizon"
+}

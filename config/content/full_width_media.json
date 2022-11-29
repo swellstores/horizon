@@ -1,0 +1,237 @@
+{
+  "name": "Full width media",
+  "slug": "full_width_media",
+  "description": "Text and call to action buttons on a color/image background",
+  "fields": [
+    {
+      "label": "Content",
+      "type": "field_group",
+      "fields": [
+        {
+          "id": "title",
+          "label": "Title",
+          "type": "basic_html",
+          "required": false,
+          "localized": true
+        },
+        {
+          "id": "description",
+          "label": "Description",
+          "type": "basic_html",
+          "required": false,
+          "localized": true
+        },
+        {
+          "id": "links",
+          "label": "Links",
+          "type": "collection",
+          "max": 5,
+          "fields": [
+            {
+              "id": "style",
+              "label": "Style",
+              "type": "select",
+              "default": "button_primary",
+              "options": [
+                {
+                  "value": "button_primary",
+                  "label": "Primary button"
+                },
+                {
+                  "value": "button_secondary",
+                  "label": "Secondary button"
+                },
+                {
+                  "value": "button_anchor",
+                  "label": "Text button"
+                }
+              ]
+            },
+            {
+              "id": "label",
+              "label": "Label",
+              "type": "text",
+              "required": true,
+              "localized": true
+            },
+            {
+              "id": "link",
+              "label": "Link URL",
+              "hint": "For external URLs, include the protocol (http:// or https://)",
+              "type": "url",
+              "required": true,
+              "localized": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Styling",
+      "type": "field_group",
+      "fields": [
+        {
+          "id": "text_color",
+          "label": "Text color",
+          "type": "color"
+        },
+        {
+          "id": "horizontal_spacing",
+          "label": "Horizontal padding",
+          "type": "select",
+          "default": "medium",
+          "options": [
+            {
+              "value": "none",
+              "label": "None"
+            },
+            {
+              "value": "small",
+              "label": "Small"
+            },
+            {
+              "value": "medium",
+              "label": "Medium"
+            },
+            {
+              "value": "large",
+              "label": "Large"
+            },
+            {
+              "value": "extra_large",
+              "label": "Extra Large"
+            }
+          ]
+        },
+        {
+          "id": "vertical_spacing",
+          "label": "Vertical padding",
+          "type": "select",
+          "default": "medium",
+          "options": [
+            {
+              "value": "none",
+              "label": "None"
+            },
+            {
+              "value": "small",
+              "label": "Small"
+            },
+            {
+              "value": "medium",
+              "label": "Medium"
+            },
+            {
+              "value": "large",
+              "label": "Large"
+            },
+            {
+              "value": "extra_large",
+              "label": "Extra Large"
+            }
+          ]
+        },
+        {
+          "id": "background_color",
+          "label": "Background color",
+          "type": "color"
+        },
+        {
+          "id": "background_image",
+          "label": "Background image",
+          "type": "image"
+        },
+        {
+          "id": "horizontal_background_alignment",
+          "label": "Horizontal background alignment",
+          "type": "select",
+          "default": "center",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            }
+          ]
+        },
+        {
+          "id": "vertical_background_alignment",
+          "label": "Vertical background alignment",
+          "type": "select",
+          "default": "center",
+          "options": [
+            {
+              "value": "top",
+              "label": "Top"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "bottom",
+              "label": "Bottom"
+            }
+          ]
+        },
+        {
+          "id": "horizontal_content_alignment",
+          "label": "Horizontal content alignment",
+          "type": "select",
+          "default": "center",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            }
+          ]
+        },
+        {
+          "id": "vertical_content_alignment",
+          "label": "Vertical content alignment",
+          "type": "select",
+          "default": "center",
+          "options": [
+            {
+              "value": "top",
+              "label": "Top"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "bottom",
+              "label": "Bottom"
+            }
+          ]
+        },
+        {
+          "id": "overlay_opacity",
+          "label": "Overlay opacity",
+          "type": "slider",
+          "unit": "%",
+          "increment": 1,
+          "default": 50,
+          "min": 0,
+          "max": 100
+        }
+      ]
+    }
+  ]
+}

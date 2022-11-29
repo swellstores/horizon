@@ -1,0 +1,291 @@
+query getCategories {
+  categories {
+    results {
+      name
+      slug
+      images {
+        id
+        caption
+        file {
+          url
+          width
+          height
+        }
+      }
+      content {
+        showProductsPrice
+        showProductsDescription
+        showFeaturedCategories
+        productsPerRow
+        enableQuickAdd
+        featuredCategories {
+          category {
+            slug
+            name
+            description
+            images {
+              caption
+              file {
+                url
+                width
+                height
+              }
+              id
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+query getCategoryPaths {
+  categories {
+    results {
+      slug
+    }
+  }
+}
+
+query getCategory($slug: String) {
+  categoryBySlug(slug: $slug) {
+    name
+    slug
+    description
+    metaKeywords
+    metaDescription
+    products {
+      id
+      name
+      description
+      slug
+      price
+      currency
+      images {
+        caption
+        file {
+          width
+          height
+          url
+        }
+      }
+      options {
+        id
+        attributeId
+        name
+        inputType
+        active
+        required
+        variant
+        values {
+          id
+          name
+          price
+          description
+        }
+      }
+      purchaseOptions {
+        standard {
+          price
+          sale
+          salePrice
+        }
+        subscription {
+          active
+        }
+      }
+      variants {
+        results {
+          name
+          price
+          prices {
+            price
+            discountPercent
+            quantityMin
+            quantityMax
+            accountGroup
+          }
+          images {
+            id
+            caption
+            file {
+              url
+              width
+              height
+            }
+          }
+          optionValueIds
+          purchaseOptions {
+            standard {
+              price
+              sale
+              salePrice
+              prices {
+                price
+                discountPercent
+                quantityMin
+                quantityMax
+                accountGroup
+              }
+            }
+          }
+          stockLevel
+          currency
+        }
+      }
+    }
+  }
+}
+
+query getFeaturedCategory($slug: String) {
+  categoryBySlug(slug: $slug) {
+    name
+    description
+    slug
+    images {
+      caption
+      file {
+        url
+        width
+        height
+      }
+    }
+  }
+}
+
+query getFilteredProducts($filter: JSON) {
+  products(limit: 20, where: $filter) {
+    count
+    results {
+      id
+      name
+      description
+      slug
+      price
+      currency
+      attributes
+      categories {
+        name
+        slug
+      }
+      images {
+        caption
+        file {
+          width
+          height
+          url
+        }
+      }
+      categories {
+        slug
+      }
+      options {
+        id
+        attributeId
+        name
+        inputType
+        active
+        required
+        variant
+        values {
+          id
+          name
+          price
+          description
+        }
+      }
+      purchaseOptions {
+        standard {
+          price
+          sale
+          salePrice
+        }
+        subscription {
+          active
+        }
+      }
+      variants {
+        results {
+          name
+          price
+          prices {
+            price
+            discountPercent
+            quantityMin
+            quantityMax
+            accountGroup
+          }
+          images {
+            id
+            caption
+            file {
+              url
+              width
+              height
+            }
+          }
+          optionValueIds
+          purchaseOptions {
+            standard {
+              price
+              sale
+              salePrice
+              prices {
+                price
+                discountPercent
+                quantityMin
+                quantityMax
+                accountGroup
+              }
+            }
+          }
+          stockLevel
+          currency
+        }
+      }
+    }
+  }
+}
+
+query getCategoryInCurrency($slug: String, $currency: String) {
+  categoryBySlug(slug: $slug, _currency: $currency) {
+    products {
+      id
+      price
+      currency
+    }
+  }
+}
+
+query getCategorySlugs {
+  categories {
+    results {
+      slug
+    }
+  }
+}
+
+query getCategoryPreviewData($slug: String) {
+  categoryBySlug(slug: $slug) {
+    name
+    description
+    slug
+    images {
+      caption
+      file {
+        url
+        width
+        height
+      }
+    }
+  }
+}
+
+query getCategoryWithProductSlugs($slug: String) {
+  categoryBySlug(slug: $slug) {
+    slug
+    products {
+      slug
+    }
+  }
+}

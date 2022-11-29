@@ -1,0 +1,99 @@
+{
+  "name": "Product detail page",
+  "slug": "product",
+  "description": "Page displaying a single product",
+  "model": "products",
+  "fields": [
+    {
+      "id": "callout_title",
+      "label": "Callout title",
+      "type": "basic_html",
+      "localized": true
+    },
+    {
+      "id": "callout_description",
+      "label": "Callout description",
+      "type": "basic_html",
+      "localized": true
+    },
+    {
+      "id": "show_stock_levels",
+      "label": "Show stock levels",
+      "type": "toggle"
+    },
+    {
+      "id": "low_stock_indicator",
+      "label": "Low stock indicator",
+      "type": "number",
+      "min": "1"
+    },
+    {
+      "id": "enable_product_counter",
+      "label": "Enable product counter",
+      "type": "toggle"
+    },
+    {
+      "id": "layout_options",
+      "label": "Layout options",
+      "type": "select",
+      "default": "standard",
+      "options": [
+        {
+          "value": "standard",
+          "label": "Standard"
+        },
+        {
+          "value": "left_aligned",
+          "label": "Left aligned"
+        }
+      ]
+    },
+    {
+      "id": "product_highlights",
+      "label": "Product Highlights",
+      "type": "collection",
+      "fields": [
+        {
+          "id": "label",
+          "label": "Label",
+          "type": "text",
+          "required": true,
+          "localized": true
+        },
+        {
+          "id": "icon",
+          "label": "Icon",
+          "type": "icon"
+        },
+        {
+          "id": "custom_icon",
+          "label": "Custom Icon",
+          "type": "asset"
+        }
+      ],
+      "admin_zone": "content"
+    },
+    {
+      "id": "expandable_details",
+      "label": "Expandable Details",
+      "type": "collection",
+      "fields": [
+        {
+          "id": "label",
+          "label": "Label",
+          "type": "text",
+          "required": true,
+          "localized": true
+        },
+        {
+          "id": "details",
+          "label": "Details",
+          "type": "text",
+          "required": true,
+          "localized": true
+        }
+      ],
+      "admin_zone": "content"
+    }
+  ]
+}

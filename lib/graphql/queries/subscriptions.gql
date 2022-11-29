@@ -1,0 +1,111 @@
+query getSubscriptionById($id: String!) {
+  subscriptionById(id: $id) {
+    status
+    dateCreated
+    datePeriodEnd
+    dateOrderPeriodEnd
+    quantity
+    trial
+    dateTrialEnd
+    product {
+      name
+      slug
+      images {
+        caption
+        file {
+          width
+          height
+          url
+        }
+      }
+    }
+    options {
+      value
+    }
+    subTotal
+    discountTotal
+    taxTotal
+    grandTotal
+    currency
+    shipping {
+      name
+      address1
+      address2
+      city
+      state
+      country
+      zip
+      phone
+      service
+      serviceName
+      price
+    }
+    billing {
+      name
+      address1
+      address2
+      city
+      state
+      country
+      zip
+      method
+      card {
+        brand
+        last4
+        expMonth
+        expYear
+      }
+    }
+    billingSchedule {
+      interval
+      intervalCount
+      limit
+      limitCurrent
+    }
+    orderSchedule {
+      interval
+      intervalCount
+      limit
+      limitCurrent
+    }
+  }
+}
+
+query getSubscriptions($currency: String) {
+  subscriptions(_currency: $currency) {
+    results {
+      id
+      status
+      datePeriodEnd
+      dateOrderPeriodEnd
+      product {
+        name
+        images {
+          id
+          caption
+          file {
+            url
+            width
+            height
+          }
+        }
+      }
+      billingSchedule {
+        interval
+        intervalCount
+        trialDays
+      }
+      orderSchedule {
+        interval
+        intervalCount
+      }
+      recurringTotal
+    }
+  }
+}
+
+mutation cancelSubscription($id: String) {
+  updateSubscription(id: $id, input: { canceled: true }) {
+    canceled
+  }
+}

@@ -1,0 +1,20 @@
+.rich-text img {
+  display: inline-block;
+}
+
+.rich-text :is(h1, h2, h3, h4, h5, h6) {
+  @apply font-semibold;
+}
+
+.rich-text > *:not(br) + * {
+  margin-top: 0.5em;
+}
+
+.rich-text ul li::before {
+  @apply mx-2.5;
+  content: '•';
+}
+
+.rich-text a {
+  text-decoration: underline;
+}

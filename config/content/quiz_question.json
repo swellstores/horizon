@@ -1,0 +1,263 @@
+{
+  "name": "Question page",
+  "slug": "quiz_question",
+  "fields": [
+    {
+      "id": "question_type",
+      "label": "Question type",
+      "type": "select",
+      "options": [
+        {
+          "value": "text",
+          "label": "Short text field"
+        },
+        {
+          "value": "email",
+          "label": "Email field"
+        },
+        {
+          "value": "textarea",
+          "label": "Long text field"
+        },
+        {
+          "value": "single_select",
+          "label": "Single select"
+        },
+        {
+          "value": "multiple_select",
+          "label": "Multiple select"
+        }
+      ]
+    },
+    {
+      "id": "layout_type_single_select",
+      "label": "Layout type",
+      "conditions": { "question_type": "single_select" },
+      "type": "select",
+      "default": "card",
+      "options": [
+        {
+          "value": "card",
+          "label": "Card"
+        },
+        {
+          "value": "stack",
+          "label": "Stack"
+        },
+        {
+          "value": "grid",
+          "label": "Grid"
+        },
+        {
+          "value": "slider",
+          "label": "Slider"
+        }
+      ]
+    },
+    {
+      "id": "layout_type_multiple_select",
+      "label": "Layout type",
+      "conditions": { "question_type": "multiple_select" },
+      "type": "select",
+      "default": "card",
+      "options": [
+        {
+          "value": "card",
+          "label": "Card"
+        },
+        {
+          "value": "stack",
+          "label": "Stack"
+        },
+        {
+          "value": "grid",
+          "label": "Grid"
+        }
+      ]
+    },
+    {
+      "id": "question_prompt",
+      "label": "Question prompt",
+      "type": "text",
+      "default": "What's your question?"
+    },
+    {
+      "id": "question_description",
+      "label": "Question description",
+      "type": "text",
+      "default": "More information about this question"
+    },
+    {
+      "id": "question_note",
+      "label": "Question note",
+      "type": "text"
+    },
+    {
+      "id": "placeholder",
+      "label": "Placeholder text",
+      "conditions": {
+        "question_type": {
+          "$or": ["text", "email", "textarea"]
+        }
+      },
+      "type": "text"
+    },
+    {
+      "id": "max_chars",
+      "label": "Max characters",
+      "conditions": {
+        "question_type": {
+          "$or": ["text", "email", "textarea"]
+        }
+      },
+      "type": "number"
+    },
+    {
+      "id": "columns",
+      "label": "Columns",
+      "type": "select",
+      "conditions": {
+        "$or": [
+          {
+            "question_type": "single_select",
+            "layout_type_single_select": {
+              "$or": ["grid", "card"]
+            }
+          },
+          {
+            "question_type": "multiple_select",
+            "layout_type_multiple_select": {
+              "$or": ["grid", "card"]
+            }
+          }
+        ]
+      },
+      "options": [2, 3, 4],
+      "default": 3
+    },
+    {
+      "id": "is_customer_name",
+      "label": "Is customer name",
+      "type": "toggle",
+      "conditions": {
+        "question_type": "text"
+      }
+    },
+    {
+      "id": "required",
+      "label": "Required",
+      "type": "toggle"
+    },
+    {
+      "id": "answers",
+      "label": "Answers",
+      "conditions": {
+        "$or": [
+          {
+            "question_type": "single_select",
+            "layout_type_single_select": {
+              "$or": ["stack", "grid", "slider"]
+            }
+          },
+          {
+            "question_type": "multiple_select",
+            "layout_type_multiple_select": {
+              "$or": ["stack", "grid"]
+            }
+          }
+        ]
+      },
+      "type": "collection",
+      "min": "1",
+      "fields": [
+        {
+          "id": "option",
+          "label": "Answer option",
+          "type": "text",
+          "required": true
+        },
+        {
+          "id": "selection",
+          "label": "Selection",
+          "type": "collection",
+          "item_label": "product_selection",
+          "icon": "cube",
+          "fields": [
+            {
+              "id": "product_selection",
+              "label": "Product selection",
+              "type": "generic_lookup",
+              "placeholder": "Pick products and categories",
+              "models": ["products", "categories"],
+              "required": true
+            },
+            {
+              "id": "points",
+              "label": "Points",
+              "description": "These are points",
+              "type": "number",
+              "required": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "answers_card",
+      "label": "Answers",
+      "conditions": {
+        "$or": [
+          {
+            "question_type": "single_select",
+            "layout_type_single_select": "card"
+          },
+          {
+            "question_type": "multiple_select",
+            "layout_type_multiple_select": "card"
+          }
+        ]
+      },
+      "type": "collection",
+      "min": "1",
+      "fields": [
+        {
+          "id": "option",
+          "label": "Answer option",
+          "type": "text",
+          "required": true
+        },
+        {
+          "id": "image",
+          "label": "Answer image",
+          "type": "image"
+        },
+        {
+          "id": "selection",
+          "label": "Selection",
+          "type": "collection",
+          "item_label": "product_selection",
+          "icon": "cube",
+          "fields": [
+            {
+              "id": "product_selection",
+              "label": "Product selection",
+              "type": "generic_lookup",
+              "placeholder": "Pick products and categories",
+              "models": ["products", "categories"],
+              "required": true
+            },
+            {
+              "id": "points",
+              "label": "Points",
+              "description": "These are points",
+              "type": "number",
+              "required": true
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "source_type": "theme",
+  "source_id": "horizon"
+}

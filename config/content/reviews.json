@@ -1,0 +1,148 @@
+{
+  "name": "Customer reviews",
+  "slug": "reviews",
+  "description": "Selection of customer reviews or quotes",
+  "fields": [
+    {
+      "label": "Content",
+      "type": "field_group",
+      "fields": [
+        {
+          "id": "title",
+          "label": "Title",
+          "type": "text",
+          "localized": true
+        },
+        {
+          "id": "reviews",
+          "label": "Reviews",
+          "type": "collection",
+          "fields": [
+            {
+              "id": "user_name",
+              "label": "Name",
+              "type": "text",
+              "required": true
+            },
+            {
+              "id": "user_location",
+              "label": "Location",
+              "type": "text",
+              "localized": true
+            },
+            {
+              "id": "user_image",
+              "label": "Image",
+              "type": "image"
+            },
+            {
+              "id": "comment",
+              "label": "Customer Review",
+              "type": "basic_html",
+              "localized": true,
+              "required": true
+            },
+            {
+              "id": "rating",
+              "label": "Rating",
+              "type": "slider",
+              "unit": "stars",
+              "increment": 1,
+              "min": 0,
+              "max": 5,
+              "default": 3
+            },
+            {
+              "id": "date",
+              "label": "Date",
+              "type": "text",
+              "localized": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Styling",
+      "type": "field_group",
+      "fields": [
+        {
+          "id": "content_alignment",
+          "label": "Content alignment",
+          "type": "select",
+          "default": "left",
+          "options": [
+            {
+              "label": "Left",
+              "value": "left"
+            },
+            {
+              "label": "Center",
+              "value": "center"
+            },
+            {
+              "label": "Right",
+              "value": "right"
+            }
+          ]
+        },
+        {
+          "id": "horizontal_spacing",
+          "label": "Horizontal padding",
+          "type": "select",
+          "default": "small",
+          "options": [
+            {
+              "label": "None",
+              "value": "none"
+            },
+            {
+              "label": "Small",
+              "value": "small"
+            },
+            {
+              "label": "Medium",
+              "value": "medium"
+            },
+            {
+              "label": "Large",
+              "value": "large"
+            },
+            {
+              "label": "Extra large",
+              "value": "extra_large"
+            }
+          ]
+        },
+        {
+          "id": "vertical_spacing",
+          "label": "Vertical padding",
+          "type": "select",
+          "default": "small",
+          "options": [
+            {
+              "label": "None",
+              "value": "none"
+            },
+            {
+              "label": "Small",
+              "value": "small"
+            },
+            {
+              "label": "Medium",
+              "value": "medium"
+            },
+            {
+              "label": "Large",
+              "value": "large"
+            },
+            {
+              "label": "Extra Large",
+              "value": "extra_large"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

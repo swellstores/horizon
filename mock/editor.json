@@ -1,0 +1,1364 @@
+{
+  "cart": {
+    "headerLabel": "Your bag",
+    "cartEmptyMessage": "Your bag is empty."
+  },
+  "header": {
+    "storeName": "Horizon",
+    "showAnnouncementBar": true,
+    "announcementText": "<i>End of winter sale! Get 30% off with every purchase you make with the code BYEWINTER.</i>",
+    "menu": [
+      {
+        "label": "shop",
+        "link": "/products"
+      },
+      {
+        "label": "learn",
+        "link": "/blog"
+      },
+      {
+        "label": "quiz",
+        "link": "/quiz/wellness/name"
+      },
+      {
+        "label": "membership",
+        "link": "/membership"
+      }
+    ],
+    "hideOnScroll": true
+  },
+  "footer": {
+    "horizontal_spacing": "small",
+    "copyright": "©2022 Horizon. Powered by Swell",
+    "newsletter": {
+      "title": "Let's keep in touch.",
+      "enabled": true
+    },
+    "bottomLinks": [
+      {
+        "href": "/shipping-and-returns",
+        "title": "Shipping & Returns"
+      },
+      {
+        "href": "/privacy-policy",
+        "title": "Privacy Policy"
+      },
+      {
+        "title": "Terms & Conditions",
+        "href": "/terms-and-conditions"
+      }
+    ],
+    "paymentMethods": [
+      {
+        "icon": {
+          "alt": "Visa",
+          "width": 37,
+          "height": 22,
+          "src": "/images/footer/visa.svg"
+        },
+        "name": "Visa"
+      },
+      {
+        "icon": {
+          "alt": "MasterCard",
+          "width": 37,
+          "height": 22,
+          "src": "/images/footer/mastercard.svg"
+        },
+        "name": "MasterCard"
+      },
+      {
+        "icon": {
+          "alt": "American Express",
+          "width": 37,
+          "height": 22,
+          "src": "/images/footer/amex.svg"
+        },
+        "name": "American Express"
+      },
+      {
+        "icon": {
+          "alt": "PayPal",
+          "width": 37,
+          "height": 22,
+          "src": "/images/footer/paypal.svg"
+        },
+        "name": "PayPal"
+      },
+      {
+        "icon": {
+          "alt": "Visa Electron",
+          "width": 37,
+          "height": 22,
+          "src": "/images/footer/visa-electron.svg"
+        },
+        "name": "Visa Electron"
+      }
+    ],
+    "socials": [
+      {
+        "href": "#",
+        "icon": {
+          "alt": "Facebook",
+          "src": "/images/footer/facebook.svg",
+          "width": 24,
+          "height": 24
+        },
+        "name": "Facebook"
+      },
+      {
+        "href": "#",
+        "icon": {
+          "alt": "Instagram",
+          "src": "/images/footer/instagram.svg",
+          "width": 24,
+          "height": 24
+        },
+        "name": "Instagram"
+      },
+      {
+        "href": "#",
+        "icon": {
+          "alt": "Twitter",
+          "src": "/images/footer/twitter.svg",
+          "width": 24,
+          "height": 24
+        },
+        "name": "Twitter"
+      },
+      {
+        "href": "#",
+        "icon": {
+          "alt": "Pinterest",
+          "src": "/images/footer/pinterest.svg",
+          "width": 24,
+          "height": 24
+        },
+        "name": "Pinterest"
+      }
+    ],
+    "columns": [
+      {
+        "name": "Shop",
+        "items": [
+          {
+            "href": "/categories/skincare-essentials",
+            "title": "Skin"
+          },
+          {
+            "href": "/categories/hair-essentials",
+            "title": "Hair"
+          },
+          {
+            "href": "/categories/supplements",
+            "title": "Supplements"
+          }
+        ]
+      },
+      {
+        "name": "Company",
+        "items": [
+          {
+            "href": "/membership",
+            "title": "Membership"
+          },
+          {
+            "href": "/about-us",
+            "title": "About us"
+          }
+        ]
+      }
+    ]
+  },
+  "account_header": {
+    "hideOnScroll": true,
+    "backToShopLabel": "Back to shop",
+    "storeUrl": "/",
+    "logo": {
+      "src": "/images/logo.png",
+      "width": 126.5,
+      "height": 20,
+      "alt": "Horizon logo"
+    }
+  },
+  "quizzes": [
+    {
+      "id": "1",
+      "title": "Quiz one",
+      "layout": "multiple_page",
+      "next_button_label": "Next",
+      "see_results_label": "See results",
+      "questions": [
+        {
+          "id": "1",
+          "type": "quiz_question",
+          "question_prompt": "What's your name?",
+          "question_description": "",
+          "question_type": "text",
+          "placeholder": "Your first name",
+          "required": true,
+          "is_customer_name": true
+        },
+        {
+          "id": "2",
+          "type": "quiz_question",
+          "question_prompt": "What's your age?",
+          "question_description": "",
+          "question_note": "Our bodies change over time. This helps us assess your needs better.",
+          "question_type": "single_select",
+          "layout_type_single_select": "grid",
+          "answers": [
+            {
+              "option": "< 20",
+              "selections": [
+                {
+                  "points": 15,
+                  "product_selection": [
+                    {
+                      "slug": "liposomal-serum",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "foaming-cleanser",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "skincare-essentials",
+                      "model": "categories"
+                    }
+                  ]
+                },
+                {
+                  "points": 10,
+                  "product_selection": [
+                    {
+                      "slug": "hair-booster-conditioner",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "hair-booster-shampoo",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "hair-booster-bundle",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "hair-essentials",
+                      "model": "categories"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "option": "20-30",
+              "selections": [
+                {
+                  "points": 15,
+                  "product_selection": [
+                    {
+                      "slug": "liposomal-serum",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "foaming-cleanser",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "skincare-essentials",
+                      "model": "categories"
+                    }
+                  ]
+                },
+                {
+                  "points": 10,
+                  "product_selection": [
+                    {
+                      "slug": "hair-booster-conditioner",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "hair-booster-shampoo",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "hair-booster-bundle",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "hair-essentials",
+                      "model": "categories"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "option": "30-40",
+              "selections": [
+                {
+                  "points": 15,
+                  "product_selection": [
+                    {
+                      "slug": "liposomal-serum",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "foaming-cleanser",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "skincare-essentials",
+                      "model": "categories"
+                    }
+                  ]
+                },
+                {
+                  "points": 10,
+                  "product_selection": [
+                    {
+                      "slug": "hair-booster-conditioner",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "hair-booster-shampoo",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "hair-booster-bundle",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "hair-essentials",
+                      "model": "categories"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "option": "40-50",
+              "selections": [
+                {
+                  "points": 15,
+                  "product_selection": [
+                    {
+                      "slug": "liposomal-serum",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "foaming-cleanser",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "skincare-essentials",
+                      "model": "categories"
+                    }
+                  ]
+                },
+                {
+                  "points": 10,
+                  "product_selection": [
+                    {
+                      "slug": "hair-booster-conditioner",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "hair-booster-shampoo",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "hair-booster-bundle",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "hair-essentials",
+                      "model": "categories"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "option": "50-60",
+              "selections": [
+                {
+                  "points": 15,
+                  "product_selection": [
+                    {
+                      "slug": "liposomal-serum",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "foaming-cleanser",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "skincare-essentials",
+                      "model": "categories"
+                    }
+                  ]
+                },
+                {
+                  "points": 10,
+                  "product_selection": [
+                    {
+                      "slug": "hair-booster-conditioner",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "hair-booster-shampoo",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "hair-booster-bundle",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "hair-essentials",
+                      "model": "categories"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "option": "60 >",
+              "selections": [
+                {
+                  "points": 15,
+                  "product_selection": [
+                    {
+                      "slug": "liposomal-serum",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "foaming-cleanser",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "skincare-essentials",
+                      "model": "categories"
+                    }
+                  ]
+                },
+                {
+                  "points": 10,
+                  "product_selection": [
+                    {
+                      "slug": "hair-booster-conditioner",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "hair-booster-shampoo",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "hair-booster-bundle",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "hair-essentials",
+                      "model": "categories"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "required": true
+        },
+        {
+          "id": "3",
+          "type": "quiz_transition",
+          "image": {
+            "src": "/images/non-alcoholic-drink.jpg",
+            "alt": "A person holding a glass of non-alcoholic drink",
+            "width": 640,
+            "height": 720
+          },
+          "title": "Let's get to know each other",
+          "description": "<p>To give you the best products especially made for you, we need to know more.</p><p>This will take around 5 minutes.</p>",
+          "layout_option": "image_left_aligned"
+        },
+        {
+          "id": "4",
+          "type": "quiz_question",
+          "question_prompt": "How would you define your lifestyle?",
+          "question_description": "Select as many as you like",
+          "question_type": "single_select",
+          "layout_type_single_select": "card",
+          "answers_card": [
+            {
+              "option": "Country",
+              "image": {
+                "src": "/images/country.png",
+                "alt": "Illustration of a road up the hill",
+                "width": 100,
+                "height": 100
+              },
+              "selections": [
+                {
+                  "points": 15,
+                  "product_selection": [
+                    {
+                      "slug": "liposomal-serum",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "foaming-cleanser",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "skincare-essentials",
+                      "model": "categories"
+                    }
+                  ]
+                },
+                {
+                  "points": 10,
+                  "product_selection": [
+                    {
+                      "slug": "hair-booster-conditioner",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "hair-booster-shampoo",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "hair-booster-bundle",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "hair-essentials",
+                      "model": "categories"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "option": "City",
+              "image": {
+                "src": "/images/city.png",
+                "alt": "Illustration of tall buildings in a city",
+                "width": 100,
+                "height": 100
+              },
+              "selections": [
+                {
+                  "points": 15,
+                  "product_selection": [
+                    {
+                      "slug": "liposomal-serum",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "foaming-cleanser",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "skincare-essentials",
+                      "model": "categories"
+                    }
+                  ]
+                },
+                {
+                  "points": 10,
+                  "product_selection": [
+                    {
+                      "slug": "hair-booster-conditioner",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "hair-booster-shampoo",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "hair-booster-bundle",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "hair-essentials",
+                      "model": "categories"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "columns": 3,
+          "required": true
+        },
+        {
+          "id": "5",
+          "type": "quiz_question",
+          "question_prompt": "How would you define your lifestyle?",
+          "question_description": "Select as many as you like",
+          "question_type": "multiple_select",
+          "layout_type_multiple_select": "card",
+          "answers_card": [
+            {
+              "option": "Regular exercise",
+              "image": {
+                "src": "/images/regular-exercise.png",
+                "alt": "Illustration of a sport shoe and a gym weight",
+                "width": 100,
+                "height": 100
+              },
+              "selections": [
+                {
+                  "points": 15,
+                  "product_selection": [
+                    {
+                      "slug": "liposomal-serum",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "foaming-cleanser",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "skincare-essentials",
+                      "model": "categories"
+                    }
+                  ]
+                },
+                {
+                  "points": 10,
+                  "product_selection": [
+                    {
+                      "slug": "hair-booster-conditioner",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "hair-booster-shampoo",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "hair-booster-bundle",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "hair-essentials",
+                      "model": "categories"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "option": "Kids",
+              "image": {
+                "src": "/images/kids.png",
+                "alt": "Illustration of a stroller",
+                "width": 100,
+                "height": 100
+              },
+              "selections": [
+                {
+                  "points": 15,
+                  "product_selection": [
+                    {
+                      "slug": "liposomal-serum",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "foaming-cleanser",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "skincare-essentials",
+                      "model": "categories"
+                    }
+                  ]
+                },
+                {
+                  "points": 10,
+                  "product_selection": [
+                    {
+                      "slug": "hair-booster-conditioner",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "hair-booster-shampoo",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "hair-booster-bundle",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "hair-essentials",
+                      "model": "categories"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "option": "Balanced diet",
+              "image": {
+                "src": "/images/balanced-diet.png",
+                "alt": "Illustration of foods such as fruits, vegetables and meats",
+                "width": 100,
+                "height": 100
+              },
+              "selections": [
+                {
+                  "points": 15,
+                  "product_selection": [
+                    {
+                      "slug": "liposomal-serum",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "foaming-cleanser",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "skincare-essentials",
+                      "model": "categories"
+                    }
+                  ]
+                },
+                {
+                  "points": 10,
+                  "product_selection": [
+                    {
+                      "slug": "hair-booster-conditioner",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "hair-booster-shampoo",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "hair-booster-bundle",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "hair-essentials",
+                      "model": "categories"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "option": "Love for alcohol",
+              "image": {
+                "src": "/images/love-for-alcohol.png",
+                "alt": "Illustration of two alcoholic drinks",
+                "width": 100,
+                "height": 100
+              },
+              "selections": [
+                {
+                  "points": 15,
+                  "product_selection": [
+                    {
+                      "slug": "liposomal-serum",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "foaming-cleanser",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "skincare-essentials",
+                      "model": "categories"
+                    }
+                  ]
+                },
+                {
+                  "points": 10,
+                  "product_selection": [
+                    {
+                      "slug": "hair-booster-conditioner",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "hair-booster-shampoo",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "hair-booster-bundle",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "hair-essentials",
+                      "model": "categories"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "columns": 4,
+          "required": true
+        },
+        {
+          "id": "6",
+          "type": "quiz_question",
+          "question_prompt": "How much stress do you experience on a regular basis?",
+          "question_description": "Slide to select your answer",
+          "question_type": "single_select",
+          "layout_type_single_select": "slider",
+          "answers": [
+            {
+              "option": "Low",
+              "selections": [
+                {
+                  "points": 15,
+                  "product_selection": [
+                    {
+                      "slug": "liposomal-serum",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "foaming-cleanser",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "skincare-essentials",
+                      "model": "categories"
+                    }
+                  ]
+                },
+                {
+                  "points": 10,
+                  "product_selection": [
+                    {
+                      "slug": "hair-booster-conditioner",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "hair-booster-shampoo",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "hair-booster-bundle",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "hair-essentials",
+                      "model": "categories"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "option": "Slight",
+              "selections": [
+                {
+                  "points": 15,
+                  "product_selection": [
+                    {
+                      "slug": "liposomal-serum",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "foaming-cleanser",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "skincare-essentials",
+                      "model": "categories"
+                    }
+                  ]
+                },
+                {
+                  "points": 10,
+                  "product_selection": [
+                    {
+                      "slug": "hair-booster-conditioner",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "hair-booster-shampoo",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "hair-booster-bundle",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "hair-essentials",
+                      "model": "categories"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "option": "Mild",
+              "selections": [
+                {
+                  "points": 15,
+                  "product_selection": [
+                    {
+                      "slug": "liposomal-serum",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "foaming-cleanser",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "skincare-essentials",
+                      "model": "categories"
+                    }
+                  ]
+                },
+                {
+                  "points": 10,
+                  "product_selection": [
+                    {
+                      "slug": "hair-booster-conditioner",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "hair-booster-shampoo",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "hair-booster-bundle",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "hair-essentials",
+                      "model": "categories"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "option": "High",
+              "selections": [
+                {
+                  "points": 15,
+                  "product_selection": [
+                    {
+                      "slug": "liposomal-serum",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "foaming-cleanser",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "skincare-essentials",
+                      "model": "categories"
+                    }
+                  ]
+                },
+                {
+                  "points": 10,
+                  "product_selection": [
+                    {
+                      "slug": "hair-booster-conditioner",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "hair-booster-shampoo",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "hair-booster-bundle",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "hair-essentials",
+                      "model": "categories"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "option": "Extreme",
+              "selections": [
+                {
+                  "points": 15,
+                  "product_selection": [
+                    {
+                      "slug": "liposomal-serum",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "foaming-cleanser",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "skincare-essentials",
+                      "model": "categories"
+                    }
+                  ]
+                },
+                {
+                  "points": 10,
+                  "product_selection": [
+                    {
+                      "slug": "hair-booster-conditioner",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "hair-booster-shampoo",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "hair-booster-bundle",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "hair-essentials",
+                      "model": "categories"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "required": true
+        },
+        {
+          "id": "7",
+          "type": "quiz_transition",
+          "image": {
+            "src": "/images/face-cream.jpg",
+            "alt": "A person applying face cream",
+            "width": 640,
+            "height": 720
+          },
+          "title": "Almost there! Tell us a little more",
+          "description": "We're trying to find the best matches for you.",
+          "layout_option": "image_left_aligned"
+        },
+        {
+          "id": "8",
+          "type": "quiz_question",
+          "question_prompt": "What areas do you want to improve?",
+          "question_description": "Select as many as you like",
+          "question_type": "multiple_select",
+          "layout_type_multiple_select": "stack",
+          "answers": [
+            {
+              "option": "Face",
+              "selections": [
+                {
+                  "points": 15,
+                  "product_selection": [
+                    {
+                      "slug": "liposomal-serum",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "foaming-cleanser",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "skincare-essentials",
+                      "model": "categories"
+                    }
+                  ]
+                },
+                {
+                  "points": 10,
+                  "product_selection": [
+                    {
+                      "slug": "hair-booster-conditioner",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "hair-booster-shampoo",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "hair-booster-bundle",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "hair-essentials",
+                      "model": "categories"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "option": "Body",
+              "selections": [
+                {
+                  "points": 15,
+                  "product_selection": [
+                    {
+                      "slug": "liposomal-serum",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "foaming-cleanser",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "skincare-essentials",
+                      "model": "categories"
+                    }
+                  ]
+                },
+                {
+                  "points": 10,
+                  "product_selection": [
+                    {
+                      "slug": "hair-booster-conditioner",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "hair-booster-shampoo",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "hair-booster-bundle",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "hair-essentials",
+                      "model": "categories"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "option": "Gut",
+              "selections": [
+                {
+                  "points": 15,
+                  "product_selection": [
+                    {
+                      "slug": "liposomal-serum",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "foaming-cleanser",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "skincare-essentials",
+                      "model": "categories"
+                    }
+                  ]
+                },
+                {
+                  "points": 10,
+                  "product_selection": [
+                    {
+                      "slug": "hair-booster-conditioner",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "hair-booster-shampoo",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "hair-booster-bundle",
+                      "model": "products"
+                    },
+                    {
+                      "slug": "hair-essentials",
+                      "model": "categories"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "required": true
+        },
+        {
+          "id": "9",
+          "type": "quiz_question",
+          "question_prompt": "Do you have anything you want to share?",
+          "question_description": "",
+          "question_type": "textarea",
+          "placeholder": "Tell us more about you",
+          "max_chars": 200,
+          "required": false
+        },
+        {
+          "id": "10",
+          "type": "quiz_question",
+          "question_prompt": "What's your email address?",
+          "question_description": "",
+          "errorLabel": "Please enter a valid email address",
+          "question_type": "email",
+          "placeholder": "Email",
+          "required": true
+        }
+      ]
+    }
+  ],
+  "shop": {
+    "featuredCategories": [
+      {
+        "slug": "skincare-essentials",
+        "image": {
+          "src": "https://cdn.schema.io/horizon-demo/623a4aba6899c0013dce028e/1ff2a50143dd734f48a108202a2a165a?padded=true",
+          "width": 736,
+          "height": 820,
+          "alt": "image"
+        }
+      },
+      {
+        "slug": "hair-essentials"
+      },
+      {
+        "slug": "supplements"
+      }
+    ]
+  },
+  "product": {
+    "showStockIndicator": true,
+    "alignment": "standard"
+  },
+  "pages": {
+    "blog-index": {
+      "sections": [
+        {
+          "id": "1",
+          "type": "separator",
+          "height": 6,
+          "mobileHeight": 5
+        },
+        {
+          "id": "2",
+          "type": "blog_listing",
+          "horizontal_spacing": "large",
+          "blogCollection": [
+            {
+              "image": {
+                "alt": "Woman shaving face",
+                "src": "/images/blog-preview/blog-woman-shaving-face.jpg",
+                "height": 323,
+                "width": 428
+              },
+              "title": "To shave or not to shave. This is totally up to you, honestly.",
+              "description": "It's all about your personal comfort and not what others may think. Here are some things you should know about how it impacts your skin.",
+              "tag": "social dilemma",
+              "date": "2021-03-04T22:00:00.000Z",
+              "href": "/blog/to-shave-or-not-to-shave",
+              "size": "extra_large"
+            },
+            {
+              "image": {
+                "alt": "Woman with frizzy hair",
+                "src": "/images/blog-preview/blog-frizzy-hair.jpg",
+                "height": 213,
+                "width": 282
+              },
+              "title": "Frizzy hair, do we care?",
+              "description": "Frizzy hair is often portrayed as damaged hair. But is it?",
+              "tag": "hair",
+              "date": "2022-03-04T22:00:00.000Z",
+              "href": "/blog/to-shave-or-not-to-shave",
+              "size": "extra_small"
+            },
+            {
+              "image": {
+                "alt": "Woman looking in the mirror",
+                "src": "/images/blog-preview/blog-ingredient-layering.jpg",
+                "height": 213,
+                "width": 282
+              },
+              "title": "Ingredient layering 101",
+              "description": "Minimalist skincare is the new vibe, let’s get it right.",
+              "tag": "hair",
+              "date": "2022-02-04T22:00:00.000Z",
+              "href": "/blog/to-shave-or-not-to-shave",
+              "size": "extra_small"
+            },
+            {
+              "image": {
+                "alt": "Person holding a bottle of retinol",
+                "src": "/images/blog-preview/blog-retinol.jpg",
+                "height": 213,
+                "width": 282
+              },
+              "title": "Retinol: a love story",
+              "description": "Retinol is one of our new favorites. What the heck is it?",
+              "tag": "hair",
+              "date": "2022-01-04T22:00:00.000Z",
+              "href": "/blog/to-shave-or-not-to-shave",
+              "size": "extra_small"
+            },
+            {
+              "image": {
+                "alt": "Woman doing yoga",
+                "src": "/images/blog-preview/blog-wabi-sabi.jpg",
+                "height": 213,
+                "width": 282
+              },
+              "title": "Wabi-sabi the body",
+              "description": "Start embracing every part of yourself.",
+              "tag": "hair",
+              "date": "2021-12-04T22:00:00.000Z",
+              "href": "/blog/to-shave-or-not-to-shave",
+              "size": "extra_small"
+            },
+            {
+              "image": {
+                "alt": "Woman with frizzy hair",
+                "src": "/images/blog-preview/blog-spf.jpg",
+                "height": 213,
+                "width": 282
+              },
+              "title": "SPF will save your skin",
+              "description": "Minimalist skincare is the new vibe, let’s get it right.",
+              "tag": "hair",
+              "date": "2021-11-04T22:00:00.000Z",
+              "href": "/blog/to-shave-or-not-to-shave",
+              "size": "extra_small"
+            },
+            {
+              "image": {
+                "alt": "Man wearing a mask and looking in the mirror",
+                "src": "/images/blog-preview/blog-dealing-with-masks.jpg",
+                "height": 213,
+                "width": 282
+              },
+              "title": "Are you dealing with masks?",
+              "description": "Masks are a part of our new routine. Keep your skin safe.",
+              "tag": "hair",
+              "date": "2021-10-04T22:00:00.000Z",
+              "href": "/blog/to-shave-or-not-to-shave",
+              "size": "extra_small"
+            }
+          ]
+        },
+        {
+          "id": "3",
+          "type": "separator",
+          "height": 9,
+          "mobileHeight": 5
+        },
+        {
+          "id": "4",
+          "type": "heading_with_text",
+          "horizontal_spacing": "large",
+          "description": "<p>Different bodies, different needs.</p><p><b>Find what yours needs.</b></p>",
+          "backgroundColor": "#F6F4EF",
+          "textAlignment": "left",
+          "padding": "medium",
+          "primaryCTA": {
+            "href": "/quiz/wellness/name",
+            "label": "Take the quiz"
+          }
+        }
+      ]
+    }
+  }
+}

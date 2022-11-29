@@ -1,0 +1,73 @@
+{
+  "name": "Press mentions carousel",
+  "slug": "press_mentions_carousel",
+  "description": "Selection of press mentions",
+  "fields": [
+    {
+      "label": "Content",
+      "type": "field_group",
+      "fields": [
+        {
+          "id": "title",
+          "label": "Title text",
+          "type": "text",
+          "localized": true
+        },
+        {
+          "id": "press_mentions",
+          "label": "Press mentions",
+          "type": "collection",
+          "fields": [
+            {
+              "id": "image",
+              "label": "Image",
+              "type": "image",
+              "required": true
+            },
+            {
+              "id": "quote",
+              "label": "Quote",
+              "type": "textarea",
+              "localized": true,
+              "required": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Styling",
+      "type": "field_group",
+      "fields": [
+        {
+          "id": "horizontal_spacing",
+          "label": "Horizontal padding",
+          "type": "select",
+          "default": "none",
+          "options": [
+            {
+              "value": "none",
+              "label": "None"
+            },
+            {
+              "value": "small",
+              "label": "Small"
+            },
+            {
+              "value": "medium",
+              "label": "Medium"
+            },
+            {
+              "value": "large",
+              "label": "Large"
+            },
+            {
+              "value": "extra_large",
+              "label": "Extra Large"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

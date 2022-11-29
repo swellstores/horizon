@@ -1,0 +1,43 @@
+query getStoreSettings($locale: String) {
+  storeSettings(_locale: $locale) {
+    store {
+      name
+      homePage
+      currency
+      currencies {
+        code
+        name
+        rate
+        symbol
+        decimals
+        priced
+        type
+      }
+      locale
+      locales {
+        name
+        code
+        fallback
+      }
+    }
+    values
+  }
+}
+
+query getStoreUrl {
+  storeSettings {
+    store {
+      url
+    }
+  }
+}
+
+query getMenus {
+  menuSettings {
+    sections {
+      id
+      name
+      items
+    }
+  }
+}

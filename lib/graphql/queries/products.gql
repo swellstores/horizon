@@ -1,0 +1,534 @@
+query getAllProducts($currency: String) {
+  products(_currency: $currency) {
+    count
+    results {
+      id
+      name
+      description
+      slug
+      price
+      sale
+      salePrice
+      origPrice
+      currency
+      attributes
+      categories {
+        name
+        slug
+      }
+      images {
+        caption
+        file {
+          width
+          height
+          url
+        }
+      }
+      options {
+        id
+        attributeId
+        name
+        inputType
+        active
+        required
+        variant
+        values {
+          id
+          name
+          price
+          description
+        }
+      }
+      purchaseOptions {
+        standard {
+          price
+          sale
+          salePrice
+          origPrice
+        }
+        subscription {
+          active
+        }
+      }
+      variants {
+        results {
+          name
+          price
+          origPrice
+          prices {
+            price
+            discountPercent
+            quantityMin
+            quantityMax
+            accountGroup
+          }
+          images {
+            id
+            caption
+            file {
+              url
+              width
+              height
+            }
+          }
+          optionValueIds
+          purchaseOptions {
+            standard {
+              price
+              sale
+              salePrice
+              origPrice
+              prices {
+                price
+                discountPercent
+                quantityMin
+                quantityMax
+                accountGroup
+              }
+            }
+          }
+          stockLevel
+          currency
+        }
+      }
+    }
+  }
+}
+
+query getProductsPricesInCurrency($currency: String) {
+  products(limit: 20, _currency: $currency) {
+    results {
+      id
+      price
+      sale
+      origPrice
+      currency
+    }
+  }
+}
+
+query getProduct($slug: String, $currency: String, $locale: String) {
+  productBySlug(slug: $slug, _currency: $currency, _locale: $locale) {
+    slug
+    id
+    name
+    description
+    currency
+    metaTitle
+    metaDescription
+    price
+    sale
+    origPrice
+    images {
+      id
+      caption
+      file {
+        url
+        width
+        height
+      }
+    }
+    categories {
+      name
+      slug
+    }
+    options {
+      id
+      attributeId
+      name
+      description
+      inputType
+      active
+      required
+      variant
+      parentId
+      parentValueIds
+      inputHint
+      values {
+        id
+        name
+        price
+      }
+    }
+    purchaseOptions {
+      standard {
+        price
+        sale
+        salePrice
+        origPrice
+      }
+      subscription {
+        plans {
+          id
+          name
+          price
+          billingSchedule {
+            interval
+            intervalCount
+            trialDays
+          }
+          orderSchedule {
+            interval
+            intervalCount
+          }
+        }
+      }
+    }
+    upSells {
+      product {
+        id
+        name
+        description
+        slug
+        price
+        sale
+        origPrice
+        currency
+        images {
+          caption
+          file {
+            url
+            width
+            height
+          }
+        }
+        options {
+          id
+          attributeId
+          name
+          inputType
+          active
+          required
+          variant
+          values {
+            id
+            name
+            price
+          }
+        }
+        purchaseOptions {
+          standard {
+            price
+            sale
+            salePrice
+            origPrice
+          }
+          subscription {
+            plans {
+              id
+            }
+          }
+        }
+        variants {
+          results {
+            name
+            price
+            origPrice
+            prices {
+              price
+              discountPercent
+              quantityMin
+              quantityMax
+              accountGroup
+            }
+            images {
+              id
+              caption
+              file {
+                url
+                width
+                height
+              }
+            }
+            optionValueIds
+            purchaseOptions {
+              standard {
+                price
+                sale
+                salePrice
+                origPrice
+                prices {
+                  price
+                  discountPercent
+                  quantityMin
+                  quantityMax
+                  accountGroup
+                }
+              }
+            }
+            stockLevel
+            currency
+          }
+        }
+      }
+    }
+    crossSells {
+      discountType
+      discountAmount
+      discountPercent
+      product {
+        id
+        name
+        slug
+        currency
+        price
+        origPrice
+        sale
+        images {
+          caption
+          file {
+            url
+            width
+            height
+          }
+        }
+      }
+    }
+    content {
+      productHighlights {
+        id
+        icon
+        label
+        customIcon {
+          url
+          width
+          height
+        }
+      }
+      expandableDetails {
+        id
+        details
+        label
+      }
+      layoutOptions
+      showStockLevels
+      lowStockIndicator
+      calloutTitle
+      calloutDescription
+      enableProductCounter
+    }
+    stockLevel
+    stockStatus
+    stockTracking
+    stockPurchasable
+    variants {
+      results {
+        name
+        price
+        origPrice
+        prices {
+          price
+          discountPercent
+          quantityMin
+          quantityMax
+          accountGroup
+        }
+        images {
+          id
+          caption
+          file {
+            url
+            width
+            height
+          }
+        }
+        optionValueIds
+        purchaseOptions {
+          standard {
+            price
+            sale
+            salePrice
+            origPrice
+            prices {
+              price
+              discountPercent
+              quantityMin
+              quantityMax
+              accountGroup
+            }
+          }
+        }
+        stockLevel
+        currency
+      }
+    }
+  }
+}
+
+query getProductPricesInCurrency($slug: String, $currency: String) {
+  productBySlug(slug: $slug, _currency: $currency) {
+    id
+    price
+    sale
+    origPrice
+    currency
+    options {
+      id
+      values {
+        id
+        price
+      }
+    }
+    purchaseOptions {
+      standard {
+        price
+        sale
+        salePrice
+        origPrice
+      }
+      subscription {
+        plans {
+          id
+          price
+        }
+      }
+    }
+    upSells {
+      product {
+        id
+        price
+        sale
+        origPrice
+        currency
+        options {
+          id
+          attributeId
+          name
+          inputType
+          active
+          required
+          variant
+          values {
+            id
+            name
+            price
+          }
+        }
+        purchaseOptions {
+          standard {
+            price
+            sale
+            salePrice
+            origPrice
+          }
+          subscription {
+            plans {
+              id
+            }
+          }
+        }
+        variants {
+          results {
+            name
+            price
+            origPrice
+            prices {
+              price
+              discountPercent
+              quantityMin
+              quantityMax
+              accountGroup
+            }
+            images {
+              id
+              caption
+              file {
+                url
+                width
+                height
+              }
+            }
+            optionValueIds
+            purchaseOptions {
+              standard {
+                price
+                sale
+                salePrice
+                origPrice
+                prices {
+                  price
+                  discountPercent
+                  quantityMin
+                  quantityMax
+                  accountGroup
+                }
+              }
+            }
+            stockLevel
+            currency
+          }
+        }
+      }
+    }
+    crossSells {
+      product {
+        id
+        currency
+        price
+        sale
+        origPrice
+      }
+    }
+    variants {
+      results {
+        price
+        origPrice
+        currency
+        purchaseOptions {
+          standard {
+            price
+            sale
+            salePrice
+            origPrice
+            prices {
+              price
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+query getProductSlugs {
+  products {
+    results {
+      slug
+    }
+  }
+}
+
+query searchProducts($searchTerm: String, $currency: String) {
+  products(search: $searchTerm, _currency: $currency) {
+    results {
+      id
+      name
+      currency
+      description
+      slug
+      price
+      sale
+      origPrice
+      images {
+        caption
+        file {
+          width
+          height
+          url
+        }
+      }
+    }
+  }
+}
+
+query getFilteredSortedProducts(
+  $filter: JSON
+  $sort: String
+  $limit: Int = 20
+) {
+  products(where: $filter, sort: $sort, limit: $limit) {
+    results {
+      slug
+    }
+  }
+}

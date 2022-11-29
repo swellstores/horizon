@@ -1,0 +1,324 @@
+mutation addToCart($cartItemInput: SwellCartItemInput) {
+  addCartItem(input: $cartItemInput) {
+    checkoutId
+    checkoutUrl
+    grandTotal
+    items {
+      id
+      quantity
+      price
+      priceTotal
+      purchaseOption {
+        type
+        planId
+        planName
+        billingSchedule {
+          interval
+          intervalCount
+          trialDays
+        }
+        orderSchedule {
+          interval
+          intervalCount
+        }
+      }
+      options {
+        id
+        name
+        value
+        valueId
+        variant
+        price
+      }
+      discountTotal
+      discountEach
+      taxes {
+        id
+        amount
+      }
+      taxTotal
+      productId
+      variantId
+      product {
+        id
+        name
+        slug
+        stockTracking
+        stockPurchasable
+        stockLevel
+        images {
+          id
+          caption
+          file {
+            url
+            width
+            height
+          }
+        }
+      }
+      variant {
+        name
+        price
+        stockLevel
+        purchaseOptions {
+          standard {
+            price
+          }
+        }
+        currency
+        images {
+          id
+          caption
+          file {
+            url
+            width
+            height
+          }
+        }
+      }
+    }
+  }
+}
+
+mutation updateCartItem($itemId: String, $input: SwellCartItemInput) {
+  updateCartItem(itemId: $itemId, input: $input) {
+    checkoutUrl
+    grandTotal
+    items {
+      id
+      quantity
+      price
+      priceTotal
+      purchaseOption {
+        type
+        planId
+        planName
+        billingSchedule {
+          interval
+          intervalCount
+          trialDays
+        }
+        orderSchedule {
+          interval
+          intervalCount
+        }
+      }
+      options {
+        id
+        name
+        value
+        valueId
+        variant
+        price
+      }
+      discountTotal
+      discountEach
+      taxes {
+        id
+        amount
+      }
+      taxTotal
+      productId
+      variantId
+      product {
+        id
+        name
+        slug
+        stockTracking
+        stockPurchasable
+        stockLevel
+        images {
+          id
+          caption
+          file {
+            url
+            width
+            height
+          }
+        }
+      }
+      variant {
+        name
+        price
+        stockLevel
+        purchaseOptions {
+          standard {
+            price
+          }
+        }
+        currency
+        images {
+          id
+          caption
+          file {
+            url
+            width
+            height
+          }
+        }
+      }
+    }
+  }
+}
+
+mutation deleteCartItem($itemId: String) {
+  deleteCartItem(itemId: $itemId) {
+    checkoutUrl
+    grandTotal
+    items {
+      id
+      quantity
+      price
+      priceTotal
+      purchaseOption {
+        type
+        planId
+        planName
+        billingSchedule {
+          interval
+          intervalCount
+          trialDays
+        }
+        orderSchedule {
+          interval
+          intervalCount
+        }
+      }
+      options {
+        id
+        name
+        value
+        valueId
+        variant
+        price
+      }
+      discountTotal
+      discountEach
+      taxes {
+        id
+        amount
+      }
+      taxTotal
+      productId
+      variantId
+      product {
+        id
+        name
+        slug
+        stockTracking
+        stockPurchasable
+        stockLevel
+        images {
+          id
+          caption
+          file {
+            url
+            width
+            height
+          }
+        }
+      }
+      variant {
+        name
+        price
+        stockLevel
+        purchaseOptions {
+          standard {
+            price
+          }
+        }
+        currency
+        images {
+          id
+          caption
+          file {
+            url
+            width
+            height
+          }
+        }
+      }
+    }
+  }
+}
+
+query getCart {
+  cart {
+    checkoutUrl
+    grandTotal
+    items {
+      id
+      quantity
+      price
+      priceTotal
+      purchaseOption {
+        type
+        planId
+        planName
+        billingSchedule {
+          interval
+          intervalCount
+          trialDays
+        }
+        orderSchedule {
+          interval
+          intervalCount
+        }
+      }
+      options {
+        id
+        name
+        value
+        valueId
+        variant
+        price
+      }
+      discountTotal
+      discountEach
+      taxes {
+        id
+        amount
+      }
+      taxTotal
+      productId
+      variantId
+      product {
+        id
+        name
+        slug
+        stockTracking
+        stockPurchasable
+        stockLevel
+        images {
+          id
+          caption
+          file {
+            url
+            width
+            height
+          }
+        }
+      }
+      variant {
+        name
+        price
+        stockLevel
+        purchaseOptions {
+          standard {
+            price
+          }
+        }
+        currency
+        images {
+          id
+          caption
+          file {
+            url
+            width
+            height
+          }
+        }
+      }
+    }
+  }
+}

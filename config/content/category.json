@@ -1,0 +1,67 @@
+{
+    "name": "Category list page",
+    "slug": "category",
+    "description": "Page displaying multiple products",
+    "model": "categories",
+    "fields": [
+        {
+            "id": "show_products_price",
+            "label": "Product pricing",
+            "type": "toggle",
+            "default": true
+        },
+        {
+            "id": "show_products_description",
+            "label": "Product description",
+            "type": "toggle",
+            "default": true
+        },
+        {
+            "id": "show_featured_categories",
+            "label": "Show featured categories",
+            "type": "toggle",
+            "default": true
+        },
+        {
+            "id": "featured_categories",
+            "label": "Featured categories",
+            "type": "collection",
+            "fields": [
+                {
+                    "id": "category",
+                    "label": "Category",
+                    "type": "category_lookup"
+                }
+            ]
+        },
+        {
+            "id": "products_per_row",
+            "label": "Products per row",
+            "type": "select",
+            "default": "4",
+            "options": [
+                {
+                    "value": "2",
+                    "label": "2"
+                },
+                {
+                    "value": "3",
+                    "label": "3"
+                },
+                {
+                    "value": "4",
+                    "label": "4"
+                },
+                {
+                    "value": "5",
+                    "label": "5"
+                }
+            ]
+        },
+        {
+            "id": "enable_quick_add",
+            "label": "Enable quick add",
+            "type": "toggle"
+        }
+    ]
+}
