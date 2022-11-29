@@ -1,0 +1,368 @@
+{
+  "name": "Multiple panels",
+  "slug": "multiple_panels",
+  "description": "Multiple panels with an image or text",
+  "fields": [
+    {
+      "label": "Content",
+      "type": "field_group",
+      "fields": [
+        {
+          "id": "panels",
+          "label": "Panels",
+          "type": "collection",
+          "item_types": [
+            {
+              "id": "image",
+              "label": "Image",
+              "fields": [
+                {
+                  "label": "Content",
+                  "type": "field_group",
+                  "fields": [
+                    {
+                      "id": "image",
+                      "label": "Image",
+                      "type": "image"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "text",
+              "label": "Text",
+              "fields": [
+                {
+                  "id": "title",
+                  "label": "Title",
+                  "type": "basic_html",
+                  "localized": true
+                },
+                {
+                  "id": "description",
+                  "label": "Description",
+                  "type": "basic_html",
+                  "localized": true
+                },
+                {
+                  "id": "links",
+                  "label": "Links",
+                  "type": "collection",
+                  "fields": [
+                    {
+                      "id": "style",
+                      "label": "Style",
+                      "type": "select",
+                      "default": "button_primary",
+                      "options": [
+                        {
+                          "value": "button_primary",
+                          "label": "Primary button"
+                        },
+                        {
+                          "value": "button_secondary",
+                          "label": "Secondary button"
+                        },
+                        {
+                          "value": "button_anchor",
+                          "label": "Text button"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "label",
+                      "label": "Label",
+                      "type": "basic_html",
+                      "required": false,
+                      "localized": true
+                    },
+                    {
+                      "id": "link",
+                      "label": "Link URL",
+                      "hint": "For external URLs, include the protocol (http:// or https://)",
+                      "type": "url",
+                      "required": false,
+                      "localized": false
+                    }
+                  ]
+                },
+                {
+                  "id": "background_color",
+                  "label": "Background color",
+                  "type": "color"
+                },
+                {
+                  "id": "background_image",
+                  "label": "Background image",
+                  "type": "image"
+                },
+                {
+                  "id": "image_scaling",
+                  "label": "Image scaling",
+                  "type": "select",
+                  "default": "fill",
+                  "options": [
+                    {
+                      "value": "fill",
+                      "label": "Fill"
+                    },
+                    {
+                      "value": "cover",
+                      "label": "Cover"
+                    },
+                    {
+                      "value": "contain",
+                      "label": "Contain"
+                    }
+                  ]
+                },
+                {
+                  "id": "horizontal_background_alignment",
+                  "label": "Horizontal background alignment",
+                  "type": "select",
+                  "default": "center",
+                  "options": [
+                    {
+                      "value": "left",
+                      "label": "Left"
+                    },
+                    {
+                      "value": "center",
+                      "label": "Center"
+                    },
+                    {
+                      "value": "right",
+                      "label": "Right"
+                    }
+                  ]
+                },
+                {
+                  "id": "vertical_background_alignment",
+                  "label": "Vertical background alignment",
+                  "type": "select",
+                  "default": "center",
+                  "options": [
+                    {
+                      "value": "top",
+                      "label": "Top"
+                    },
+                    {
+                      "value": "center",
+                      "label": "Center"
+                    },
+                    {
+                      "value": "bottom",
+                      "label": "Bottom"
+                    }
+                  ]
+                },
+                {
+                  "id": "horizontal_spacing",
+                  "label": "Horizontal padding",
+                  "type": "select",
+                  "default": "small",
+                  "options": [
+                    {
+                      "value": "none",
+                      "label": "None"
+                    },
+                    {
+                      "value": "small",
+                      "label": "Small"
+                    },
+                    {
+                      "value": "medium",
+                      "label": "Medium"
+                    },
+                    {
+                      "value": "large",
+                      "label": "Large"
+                    },
+                    {
+                      "value": "extra_large",
+                      "label": "Extra Large"
+                    }
+                  ]
+                },
+                {
+                  "id": "vertical_spacing",
+                  "label": "Vertical padding",
+                  "type": "select",
+                  "default": "small",
+                  "options": [
+                    {
+                      "value": "none",
+                      "label": "None"
+                    },
+                    {
+                      "value": "small",
+                      "label": "Small"
+                    },
+                    {
+                      "value": "medium",
+                      "label": "Medium"
+                    },
+                    {
+                      "value": "large",
+                      "label": "Large"
+                    },
+                    {
+                      "value": "extra_large",
+                      "label": "Extra Large"
+                    }
+                  ]
+                },
+                {
+                  "id": "content_gap",
+                  "label": "Content gap",
+                  "type": "select",
+                  "default": "small",
+                  "options": [
+                    {
+                      "value": "none",
+                      "label": "None"
+                    },
+                    {
+                      "value": "small",
+                      "label": "Small"
+                    },
+                    {
+                      "value": "medium",
+                      "label": "Medium"
+                    },
+                    {
+                      "value": "large",
+                      "label": "Large"
+                    },
+                    {
+                      "value": "extra_large",
+                      "label": "Extra Large"
+                    }
+                  ]
+                },
+                {
+                  "id": "overlay_opacity",
+                  "label": "Overlay opacity",
+                  "type": "slider",
+                  "unit": "%",
+                  "increment": 1,
+                  "default": 50,
+                  "min": 0,
+                  "max": 100
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Styling",
+      "type": "field_group",
+      "fields": [
+        {
+          "id": "background_color",
+          "label": "Background color",
+          "type": "color"
+        },
+        {
+          "id": "horizontal_spacing",
+          "label": "Horizontal padding",
+          "type": "select",
+          "default": "none",
+          "options": [
+            {
+              "value": "none",
+              "label": "None"
+            },
+            {
+              "value": "small",
+              "label": "Small"
+            },
+            {
+              "value": "medium",
+              "label": "Medium"
+            },
+            {
+              "value": "large",
+              "label": "Large"
+            },
+            {
+              "value": "extra_large",
+              "label": "Extra Large"
+            }
+          ]
+        },
+        {
+          "id": "vertical_spacing",
+          "label": "Vertical padding",
+          "type": "select",
+          "default": "none",
+          "options": [
+            {
+              "value": "none",
+              "label": "None"
+            },
+            {
+              "value": "small",
+              "label": "Small"
+            },
+            {
+              "value": "medium",
+              "label": "Medium"
+            },
+            {
+              "value": "large",
+              "label": "Large"
+            },
+            {
+              "value": "extra_large",
+              "label": "Extra Large"
+            }
+          ]
+        },
+        {
+          "id": "horizontal_content_alignment",
+          "label": "Horizontal content alignment",
+          "type": "select",
+          "default": "center",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ]
+        },
+        {
+          "id": "vertical_content_alignment",
+          "label": "Vertical content alignment",
+          "type": "select",
+          "default": "center",
+          "options": [
+            {
+              "value": "top",
+              "label": "Top"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "bottom",
+              "label": "Bottom"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

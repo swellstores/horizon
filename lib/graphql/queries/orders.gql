@@ -1,0 +1,105 @@
+query getOrders($currency: String) {
+  orders(_currency: $currency) {
+    results {
+      status
+      id
+      number
+      dateCreated
+      itemQuantity
+      currency
+      grandTotal
+      subTotal
+      items {
+        product {
+          images {
+            id
+            caption
+            file {
+              url
+              width
+              height
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+query getOrderById($id: String) {
+  orderById(id: $id) {
+    status
+    id
+    number
+    dateCreated
+    itemQuantity
+    currency
+    grandTotal
+    subTotal
+    shipmentTotal
+    subTotal
+    discountTotal
+    taxTotal
+    items {
+      purchaseOption {
+        billingSchedule {
+          interval
+          intervalCount
+        }
+      }
+      product {
+        name
+        slug
+        images {
+          id
+          caption
+          file {
+            url
+            width
+            height
+          }
+        }
+      }
+      quantity
+      options {
+        value
+      }
+      priceTotal
+    }
+    refunds {
+      results {
+        amount
+        currency
+      }
+    }
+    shipping {
+      name
+      address1
+      address2
+      city
+      state
+      country
+      zip
+      phone
+      serviceName
+      price
+    }
+    billing {
+      name
+      address1
+      address2
+      city
+      state
+      country
+      zip
+      method
+      card {
+        brand
+        last4
+        expMonth
+        expYear
+      }
+    }
+    comments
+  }
+}

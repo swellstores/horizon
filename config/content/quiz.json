@@ -1,0 +1,76 @@
+{
+  "name": "Quiz",
+  "slug": "quiz",
+  "description": "Quiz including multiple steps",
+  "model": "content/quizzes",
+  "fields": [
+    {
+      "id": "name",
+      "label": "Title",
+      "type": "text"
+    },
+    {
+      "id": "layout",
+      "label": "Layout",
+      "type": "select",
+      "options": [
+        {
+          "value": "multiple_page",
+          "label": "Multiple page"
+        },
+        {
+          "value": "single_page",
+          "label": "Single page"
+        }
+      ]
+    },
+    {
+      "id": "questions",
+      "label": "Questions",
+      "type": "collection",
+      "conditions": {
+        "layout": {
+          "$or": ["single_page", "multiple_page"]
+        }
+      },
+      "item_types": ["quiz_question", "quiz_transition"]
+    },
+    {
+      "id": "next_button_label",
+      "label": "Next button label",
+      "type": "text",
+      "default": "Next"
+    },
+    {
+      "id": "see_results_label",
+      "label": "See results label",
+      "type": "text",
+      "default": "See results"
+    },
+    {
+      "id": "results_page",
+      "label": "Results page",
+      "type": "collection",
+      "fields": [
+        {
+          "id": "title",
+          "label": "Page title",
+          "type": "text"
+        },
+        {
+          "id": "heading_section",
+          "label": "Heading section",
+          "type": "collection",
+          "item_types": ["multiple_panels"]
+        },
+        {
+          "id": "results_title",
+          "label": "Results section title",
+          "type": "text"
+        }
+      ]
+    }
+  ],
+  "source_type": "theme",
+  "source_id": "horizon"
+}

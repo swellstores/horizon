@@ -1,0 +1,21 @@
+.progress-bar::-webkit-progress-bar {
+  background-color: transparent;
+  background-color: var(--progress-bar-background);
+  width: 100%;
+}
+
+.progress-bar::-webkit-progress-value {
+  background-color: #1d0a43;
+  background-color: var(--progress-bar-value);
+  transition: width 1s;
+}
+
+.progress-bar::-moz-progress-bar {
+  background-color: var(--progress-bar-value);
+}
+
+.progress-bar {
+  background-color: var(--progress-bar-background);
+  color: var(--progress-bar-value);
+  width: 100%;
+}

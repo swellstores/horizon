@@ -1,0 +1,54 @@
+mutation login($email: String, $password: String) {
+  loginAccount(email: $email, password: $password) {
+    __typename
+  }
+}
+
+mutation logout {
+  logoutAccount {
+    success
+  }
+}
+
+mutation signup(
+  $email: String
+  $password: String
+  $firstName: String
+  $lastName: String
+) {
+  createAccount(
+    input: {
+      firstName: $firstName
+      lastName: $lastName
+      email: $email
+      password: $password
+    }
+  ) {
+    email
+  }
+}
+
+query checkTokenValidity {
+  session {
+    accountId
+  }
+}
+
+mutation sendResetPasswordMail($email: String, $passwordResetUrl: String) {
+  sendAccountRecovery(email: $email, passwordResetUrl: $passwordResetUrl) {
+    success
+  }
+}
+
+mutation resetPassword($password: String, $passwordResetKey: String) {
+  recoverAccount(password: $password, passwordResetKey: $passwordResetKey) {
+    success
+  }
+}
+
+query getAccountDetails {
+  account {
+    name
+    email
+  }
+}

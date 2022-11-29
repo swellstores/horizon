@@ -1,0 +1,111 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../public/fonts/Poppins-Regular.ttf') format('TrueType');
+}
+
+@font-face {
+  font-family: 'Poppins';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../public/fonts/Poppins-Italic.ttf') format('TrueType');
+}
+
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('../public/fonts/Poppins-Medium.ttf') format('TrueType');
+}
+
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('../public/fonts/Poppins-SemiBold.ttf') format('TrueType');
+}
+
+@font-face {
+  font-family: 'Poppins';
+  font-style: italic;
+  font-weight: 600;
+  font-display: swap;
+  src: url('../public/fonts/Poppins-SemiBoldItalic.ttf') format('TrueType');
+}
+
+html,
+body {
+  @apply font-body antialiased;
+}
+
+.font-headings {
+  font-weight: var(--typography-font-weight-headings);
+}
+
+.font-body {
+  font-weight: var(--typography-font-weight-body);
+}
+
+.uppercase {
+  @apply tracking-wide;
+}
+
+.line-clamp > *,
+[class*='line-clamp-'] > * {
+  display: contents;
+}
+
+@layer utilities {
+  .all-ease-in-out-400 {
+    @apply transition-all duration-400 ease-in-out;
+  }
+
+  .rich-text-p-spacing-sm p {
+    @apply mb-4;
+  }
+
+  .rich-text-p-spacing-sm p:last-child {
+    @apply mb-0;
+  }
+
+  .path-fill-primary path {
+    @apply fill-primary;
+  }
+
+  .path-fill-background-primary path {
+    @apply fill-background-primary;
+  }
+
+  .straight-quotation {
+    quotes: '"' '"' "'" "'";
+  }
+
+  .safe-aspect-square {
+    @apply w-full pb-[100%];
+  }
+
+  .safe-aspect-4-3 {
+    @apply w-full pb-[75%]; /* 4:3 */
+  }
+
+  .safe-aspect-portrait {
+    @apply w-full pb-[133.33%]; /* 3:4 */
+  }
+
+  .scrollbar-hidden::-webkit-scrollbar {
+    @apply hidden;
+  }
+
+  .decoration-skip-ink-none {
+    text-decoration-skip-ink: none;
+  }
+}

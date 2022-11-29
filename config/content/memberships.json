@@ -1,0 +1,157 @@
+{
+  "name": "Memberships",
+  "slug": "memberships",
+  "description": "Collection of membership plans",
+  "fields": [
+    {
+      "label": "Content",
+      "type": "field_group",
+      "fields": [
+        {
+          "id": "title",
+          "label": "Title",
+          "type": "basic_html"
+        },
+        {
+          "id": "description",
+          "label": "Description",
+          "type": "basic_html"
+        },
+        {
+          "id": "memberships",
+          "label": "Memberships",
+          "type": "collection",
+          "fields": [
+            {
+              "id": "membership",
+              "label": "Membership",
+              "type": "product_lookup"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Styling",
+      "type": "field_group",
+      "fields": [
+        {
+          "id": "horizontal_spacing",
+          "label": "Horizontal padding",
+          "type": "select",
+          "default": "small",
+          "options": [
+            {
+              "label": "None",
+              "value": "none"
+            },
+            {
+              "label": "Small",
+              "value": "small"
+            },
+            {
+              "label": "Medium",
+              "value": "medium"
+            },
+            {
+              "label": "Large",
+              "value": "large"
+            },
+            {
+              "label": "Extra large",
+              "value": "extra_large"
+            }
+          ]
+        },
+        {
+          "id": "vertical_spacing",
+          "label": "Vertical padding",
+          "type": "select",
+          "default": "small",
+          "options": [
+            {
+              "label": "Extra small",
+              "value": "extra_small"
+            },
+            {
+              "label": "Small",
+              "value": "small"
+            },
+            {
+              "label": "Medium",
+              "value": "medium"
+            },
+            {
+              "label": "Large",
+              "value": "large"
+            },
+            {
+              "label": "Extra large",
+              "value": "extra_large"
+            }
+          ]
+        },
+        {
+          "id": "background_color",
+          "label": "Background color",
+          "type": "color"
+        },
+        {
+          "id": "background_image",
+          "label": "Background image",
+          "type": "image"
+        },
+        {
+          "id": "horizontal_background_alignment",
+          "label": "Horizontal background alignment",
+          "type": "select",
+          "default": "center",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            }
+          ]
+        },
+        {
+          "id": "vertical_background_alignment",
+          "label": "Vertical background alignment",
+          "type": "select",
+          "default": "center",
+          "options": [
+            {
+              "value": "top",
+              "label": "Top"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "bottom",
+              "label": "Bottom"
+            }
+          ]
+        },
+        {
+          "id": "overlay_opacity",
+          "label": "Overlay opacity",
+          "type": "slider",
+          "unit": "%",
+          "increment": 1,
+          "default": 50,
+          "min": 0,
+          "max": 100
+        }
+      ]
+    }
+  ]
+}

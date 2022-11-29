@@ -1,0 +1,8 @@
+query getContentPages {
+  contentPages {
+    results {
+      slug
+      published
+    }
+  }
+}
