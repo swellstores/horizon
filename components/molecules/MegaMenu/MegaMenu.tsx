@@ -26,12 +26,8 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ items, ...props }) => {
 
   const getExpandedMenuItem = useCallback((item: NavItem, index: number) => {
     const defaultLink = (
-      <li>
-        <MenuLink
-          key={index}
-          item={item}
-          className="text-md font-normal text-primary"
-        />
+      <li key={index}>
+        <MenuLink item={item} className="text-md font-normal text-primary" />
       </li>
     );
 
@@ -40,9 +36,8 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ items, ...props }) => {
         if (!item.value?.slug) return defaultLink;
 
         return (
-          <li>
+          <li key={index}>
             <CategoryDisplay
-              key={index}
               href={`/categories/${item.value?.slug}`}
               image={{
                 src: item.value?.images?.[0]?.file?.url ?? '',
@@ -60,9 +55,8 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ items, ...props }) => {
         if (!item.value?.slug) return defaultLink;
 
         return (
-          <li>
+          <li key={index}>
             <ProductDisplay
-              key={index}
               product={{
                 id: item.value.id ?? '',
                 href: `/products/${item.value.slug}`,
