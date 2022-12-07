@@ -240,20 +240,16 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     <>
       <ToastProvider>
         {getLayout(<Component {...pageProps} />)}
-        {!!notifications.length && (
-          <>
-            {notifications.map((notification) => (
-              <Notification
-                id={notification.id}
-                type={notification.type}
-                message={notification.message}
-                timeout={notification.timeout}
-                key={notification.id}
-              />
-            ))}
-            <ToastViewport className="fixed top-0 right-0 z-modal m-4 flex max-w-[500px] flex-col gap-2" />
-          </>
-        )}
+        {notifications.map((notification) => (
+          <Notification
+            id={notification.id}
+            type={notification.type}
+            message={notification.message}
+            timeout={notification.timeout}
+            key={notification.id}
+          />
+        ))}
+        <ToastViewport className="fixed top-0 right-0 z-modal m-4 flex max-w-[500px] flex-col gap-2" />
       </ToastProvider>
     </>
   );
