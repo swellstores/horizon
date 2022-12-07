@@ -1,7 +1,6 @@
-const MainLayout = dynamic(() => import('page_layouts/MainLayout'));
-const AccountLayout = dynamic(() => import('page_layouts/AccountLayout'));
-import dynamic from 'next/dynamic';
+import AccountLayout from 'page_layouts/AccountLayout';
 import AuthLayout from 'page_layouts/AuthLayout';
+import MainLayout from 'page_layouts/MainLayout';
 import type { ReactElement } from 'react';
 
 export const getMainLayout = (page: ReactElement) => {
