@@ -18,6 +18,7 @@ import { getAuthLayout } from 'lib/utils/layout_getters';
 import { withAuthLayout } from 'lib/utils/fetch_decorators';
 import Link from 'next/link';
 import { API_ROUTES } from 'types/shared/api';
+import { validateRequiredFields } from 'utils/validation';
 
 interface SignUpProps extends PageProps {
   text: {
@@ -105,6 +106,25 @@ const SignUpPage: NextPageWithLayout<
   const fetching = useRef(false);
   const emailInputRef = useRef<HTMLInputElement>(null);
 
+  const requiredErrorPayloads = {
+    [ERROR_FIELD.FIRST_NAME]: {
+      field: ERROR_FIELD.FIRST_NAME,
+      message: text.firstNameEmptyErrorText,
+    },
+    [ERROR_FIELD.LAST_NAME]: {
+      field: ERROR_FIELD.LAST_NAME,
+      message: text.lastNameEmptyErrorText,
+    },
+    [ERROR_FIELD.EMAIL]: {
+      field: ERROR_FIELD.EMAIL,
+      message: text.emailEmptyErrorText,
+    },
+    [ERROR_FIELD.PASSWORD]: {
+      field: ERROR_FIELD.PASSWORD,
+      message: text.passwordEmptyErrorText,
+    },
+  };
+
   return (
     <article className="mx-6 h-full pt-12 pb-10 md:pb-18 md:pt-16">
       <Head>
@@ -121,17 +141,19 @@ const SignUpPage: NextPageWithLayout<
 
           if (fetching.current) return;
 
-          if (email === '') {
-            return setError({
-              field: ERROR_FIELD.EMAIL,
-              message: text.emailEmptyErrorText,
-            });
-          }
-          if (password === '') {
-            return setError({
-              field: ERROR_FIELD.PASSWORD,
-              message: text.passwordEmptyErrorText,
-            });
+          const requiredFields = {
+            [ERROR_FIELD.FIRST_NAME]: firstName,
+            [ERROR_FIELD.LAST_NAME]: lastName,
+            [ERROR_FIELD.EMAIL]: email,
+            [ERROR_FIELD.PASSWORD]: password,
+          };
+          const requiredError = validateRequiredFields(
+            requiredFields,
+            requiredErrorPayloads,
+          );
+
+          if (requiredError) {
+            return setError(requiredError);
           }
 
           if (password.length < 6) {
