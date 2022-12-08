@@ -4,7 +4,7 @@ Horizon is a fully-featured headless e-commerce theme developed around Swell's p
 
 ### Deploy Horizon on Vercel
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fswellstores%2Fhorizon%2F&env=NEXT_PUBLIC_SWELL_STORE_URL,NEXT_PUBLIC_SWELL_PUBLIC_KEY,SWELL_STORE_ID,NEXT_PUBLIC_SWELL_EDITOR&envDescription=These%20environment%20variables%20are%20required%20to%20connect%20Horizon%20to%20your%20Swell%20Store.&envLink=https%3A%2F%2Fdevelopers.swell.is%2Fstorefronts%2FStorefront-hosting%2Fstorefronts-on-vercel%23adjusting-the-build-settings&project-name=swell-horizon&repository-name=swell-horizon&demo-title=Swell%20-%20Horizon%20&demo-description=E-commerce%20theme%20built%20around%20Swell.js%20powerful%20subscription%20features.&demo-url=https%3A%2F%2Fstorefronts-horizon.vercel.app%2F)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fswellstores%2Fhorizon%2F&env=NEXT_PUBLIC_SWELL_STORE_URL,NEXT_PUBLIC_SWELL_PUBLIC_KEY,SWELL_STORE_ID,SWELL_SECRET_KEY,NEXT_PUBLIC_SWELL_EDITOR&envDescription=These%20environment%20variables%20are%20required%20to%20connect%20Horizon%20to%20your%20Swell%20Store.&envLink=https%3A%2F%2Fdevelopers.swell.is%2Fstorefronts%2FStorefront-hosting%2Fstorefronts-on-vercel%23adjusting-the-build-settings&project-name=swell-horizon&repository-name=swell-horizon&demo-title=Swell%20-%20Horizon%20&demo-description=E-commerce%20theme%20built%20around%20Swell.js%20powerful%20subscription%20features.&demo-url=https%3A%2F%2Fstorefronts-horizon.vercel.app%2F)
 
 The link above should automatically pre-select this repository as the source and pre-fill the names of the required environment variables. For more information on these, please see the "Setting up your environment" section below.
 
@@ -51,6 +51,8 @@ The first step will be to set up the environment variables. Create an `.env` fil
 - `NEXT_PUBLIC_SWELL_PUBLIC_KEY`: This value refers to a Store's Public Key that can be found inside the Developer > API Keys route in the Admin Dashboard.
 
 - `SWELL_STORE_ID`: The store's ID. It can be found at the top of the Developer > API Keys route in the Admin Dashboard.
+
+- `SWELL_SECRET_KEY`: A Store's Secret Key. Can be found inside the Developer > API Keys route in the Admin Dashboard, and it's used to sync the store with the local editor configuration.
 
 - `NEXT_PUBLIC_SWELL_EDITOR`: This should be set to `true` to allow for correct functionality when using the swell editor. In a production environment you can safely set this to false.
 
@@ -141,7 +143,9 @@ Storybook should now be running on [http://localhost:6006](http://localhost:6006
 
 # Customizing the theme
 
-In the `prepare` step, the node script located inside of `builds-utils/generate-theme.mjs` will be executed. This script will attempt to fetch the theme data that has been set through the store's Editor, and that can be accessed through the endpoint `https://{{your store id}}.swell.store/api/settings`. This script can also be ran on its own by using the command `npm run theme:generate`.
+The `config/` folder contains JSON files that dictate the editor's schema and default values. The top-level structure is defined inside of the `editor.json` file, while the content blocks that make up the dynamic pages are located inside of the `content/` folder.
+
+In the `prepare` step these files are pushed upstream to update the store's editor and afterwards the node script `builds-utils/generate-theme.mjs` is executed. This script will attempt to fetch the theme data that has been set through the editor, and that can be accessed through the endpoint `https://{{your store id}}.swell.store/api/settings`. This script can also be ran on its own by using the command `npm run theme:generate`.
 
 Using this theme data, the script will create a `theme.css` file that exposes these settings as css variables, so that they can then be used by the Tailwind config and throughout the application.
 
