@@ -3,7 +3,7 @@
   "version": "0.2.0",
   "private": true,
   "engines": {
-    "node": "^16.15",
+    "node": "^16.18.1",
     "npm": ">=8"
   },
   "scripts": {
@@ -19,12 +19,16 @@
     "lintfix:prettier": "prettier --ignore-path .gitignore --write --plugin-search-dir=. --list-different .",
     "lintfix": "tsc --noEmit && npm run lintfix:prettier && eslint --fix .",
     "prepare": "husky install && if [ -f codegen.yml ] && [ -f build-utils/generate-theme.mjs ]; then npm run setup; fi",
-    "setup": "npm run graphql:generate && npm run theme:generate",
+    "setup": "npm run sync && npm run graphql:generate && npm run theme:generate",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "graphql:generate": "graphql-codegen --config codegen.yml -r dotenv/config",
     "theme:generate": "node -r dotenv/config ./build-utils/generate-theme.mjs",
-    "chromatic": "npx chromatic"
+    "chromatic": "npx chromatic",
+    "sync:defaults": "swell storefront settings push settings -f ./config/defaults.json --strategy \"defaults\" --store $SWELL_STORE_ID --secret-key $SWELL_SECRET_KEY",
+    "sync:content-blocks": "ls ./config/content/*.json | xargs -L 1 swell model push --store $SWELL_STORE_ID --secret-key $SWELL_SECRET_KEY --strategy \"merge\" --content -f",
+    "sync:editor": "swell storefront settings push editor -f config/editor.json --strategy \"merge\" --store $SWELL_STORE_ID --secret-key $SWELL_SECRET_KEY",
+    "sync": "set -a && if [ -f .env ]; then source .env; fi && npm run sync:defaults && npm run sync:content-blocks && npm run sync:editor"
   },
   "dependencies": {
     "@headlessui/react": "^1.6.4",
@@ -34,6 +38,7 @@
     "@radix-ui/react-tabs": "^0.1.5",
     "@radix-ui/react-toast": "^0.1.1",
     "@radix-ui/react-tooltip": "^0.1.7",
+    "@swell/cli": "^0.1.0",
     "click-to-react-component": "^1.0.7",
     "cookie": "^0.4.2",
     "framer-motion": "^6.3.4",
