@@ -27,7 +27,7 @@ export const ScheduleLabel: React.FC<ScheduleLabelProps> = ({
   if (!schedule) return null;
   const IconSvg = type === 'order' ? ShippingIcon : SyncIcon;
 
-  const Label = () => (
+  const label = (
     <span className={textClasses ?? ''}>
       {getScheduleLabel(base, schedule)}
     </span>
@@ -40,12 +40,12 @@ export const ScheduleLabel: React.FC<ScheduleLabelProps> = ({
           className ?? ''
         }`}>
         <IconSvg className={iconClasses ?? ''} />
-        <Label />
+        {label}
       </div>
     );
   }
 
-  return <Label />;
+  return label;
 };
 
 export default ScheduleLabel;
