@@ -359,7 +359,7 @@ const SignUpPage: NextPageWithLayout<
               {text.registeredUser && <span>{text.registeredUser}&nbsp;</span>}
 
               <Link href="/account/login">
-                <a className="underline">{text.loginLink}</a>
+                <a className="font-bold hover:underline">{text.loginLink}</a>
               </Link>
             </div>
           </div>

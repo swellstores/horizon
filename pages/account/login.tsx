@@ -240,7 +240,7 @@ const LoginPage: NextPageWithLayout<LoginProps> = ({
               </p>
               <p className="mt-2">
                 <Link href="/account/password-recovery">
-                  <a className="text-xs text-body underline">
+                  <a className="text-xs text-body hover:underline">
                     {text.passwordRecovery}
                   </a>
                 </Link>
@@ -264,7 +264,7 @@ const LoginPage: NextPageWithLayout<LoginProps> = ({
               <p className="mt-4 text-center text-sm text-primary md:mt-6">
                 {text.noAccount}&nbsp;
                 <Link href="/account/sign-up">
-                  <a className="underline">{text.signUp}</a>
+                  <a className="font-bold hover:underline">{text.signUp}</a>
                 </Link>
               </p>
             </div>
