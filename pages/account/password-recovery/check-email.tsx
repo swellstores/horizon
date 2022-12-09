@@ -25,7 +25,7 @@ const propsCallback: GetStaticProps<CheckEmailProps> = async () => {
         message:
           'If you have an account, you should receive an email shortly with a link to reset your password.',
         backToLoginText: 'Back to',
-        backToLoginLink: 'login',
+        backToLoginLink: 'Log in',
       },
     },
   };

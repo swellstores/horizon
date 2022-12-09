@@ -46,7 +46,7 @@ const propsCallback: GetStaticProps<PasswordRecoveryProps> = async () => {
         emailPlaceholder: 'Enter your email',
         submitButtonLabel: 'SEND EMAIL',
         backToLoginText: 'Back to',
-        backToLoginLink: 'login',
+        backToLoginLink: 'Log in',
         serverErrorText: 'Something went wrong',
       },
     },
