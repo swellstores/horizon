@@ -73,6 +73,10 @@ const LoginPage: NextPageWithLayout<SetPasswordProps> = ({
     field: ACCOUNT_FIELD;
     message: string;
   }>();
+  const otherError = error?.field === ACCOUNT_FIELD.OTHER;
+  const passwordError = error?.field === ACCOUNT_FIELD.PASSWORD || otherError;
+  const confirmPasswordError =
+    error?.field === ACCOUNT_FIELD.CONFIRM_PASSWORD || otherError;
 
   const fetching = useRef(false);
 
@@ -189,17 +193,9 @@ const LoginPage: NextPageWithLayout<SetPasswordProps> = ({
                   id="password"
                   minLength={6}
                   aria-required
-                  aria-invalid={
-                    error?.field === ACCOUNT_FIELD.PASSWORD ||
-                    error?.field === ACCOUNT_FIELD.OTHER
-                  }
-                  aria-errormessage={
-                    error?.field === ACCOUNT_FIELD.PASSWORD ||
-                    error?.field === ACCOUNT_FIELD.OTHER
-                      ? error.message
-                      : undefined
-                  }
-                  error={error?.field === ACCOUNT_FIELD.PASSWORD}
+                  aria-invalid={passwordError}
+                  aria-errormessage={passwordError ? error.message : undefined}
+                  error={passwordError}
                   placeholder={text.passwordPlaceholder}
                   value={password}
                   onChange={(e) => {
@@ -224,17 +220,11 @@ const LoginPage: NextPageWithLayout<SetPasswordProps> = ({
                 <PasswordInput
                   id="confirm-password"
                   aria-required
-                  aria-invalid={
-                    error?.field === ACCOUNT_FIELD.CONFIRM_PASSWORD ||
-                    error?.field === ACCOUNT_FIELD.OTHER
-                  }
+                  aria-invalid={confirmPasswordError}
                   aria-errormessage={
-                    error?.field === ACCOUNT_FIELD.CONFIRM_PASSWORD ||
-                    error?.field === ACCOUNT_FIELD.OTHER
-                      ? error.message
-                      : undefined
+                    confirmPasswordError ? error.message : undefined
                   }
-                  error={error?.field === ACCOUNT_FIELD.CONFIRM_PASSWORD}
+                  error={confirmPasswordError}
                   placeholder={text.confirmPasswordPlaceholder}
                   value={passwordConfirmation}
                   onChange={(e) => {
@@ -250,7 +240,7 @@ const LoginPage: NextPageWithLayout<SetPasswordProps> = ({
           </div>
 
           <div className="mt-4 flex flex-col gap-2">
-            {error?.field === ACCOUNT_FIELD.OTHER ? (
+            {otherError ? (
               <BannerInfo
                 bannerStyle={BANNER_INFO_STYLE.ERROR}
                 textAlignment={TEXT_ALIGNMENT.CENTER}>

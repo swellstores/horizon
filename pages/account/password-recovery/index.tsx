@@ -67,6 +67,8 @@ const PasswordRecoveryPage: NextPageWithLayout<PasswordRecoveryProps> = ({
     field: ACCOUNT_FIELD;
     message: string;
   }>();
+  const otherError = error?.field === ACCOUNT_FIELD.OTHER;
+  const emailError = error?.field === ACCOUNT_FIELD.EMAIL || otherError;
 
   const fetching = useRef(false);
   const emailInputRef = useRef<HTMLInputElement>(null);
@@ -172,17 +174,9 @@ const PasswordRecoveryPage: NextPageWithLayout<PasswordRecoveryProps> = ({
                   type="email"
                   ref={emailInputRef}
                   aria-required
-                  aria-invalid={
-                    error?.field === ACCOUNT_FIELD.EMAIL ||
-                    error?.field === ACCOUNT_FIELD.OTHER
-                  }
-                  aria-errormessage={
-                    error?.field === ACCOUNT_FIELD.EMAIL ||
-                    error?.field === ACCOUNT_FIELD.OTHER
-                      ? error.message
-                      : undefined
-                  }
-                  error={error?.field === ACCOUNT_FIELD.EMAIL}
+                  aria-invalid={emailError}
+                  aria-errormessage={emailError ? error.message : undefined}
+                  error={emailError}
                   placeholder={text.emailPlaceholder}
                   value={email}
                   onChange={(e) => {
@@ -200,7 +194,7 @@ const PasswordRecoveryPage: NextPageWithLayout<PasswordRecoveryProps> = ({
           </div>
 
           <div className="mt-4 flex flex-col gap-2">
-            {error?.field === ACCOUNT_FIELD.OTHER ? (
+            {otherError ? (
               <BannerInfo
                 bannerStyle={BANNER_INFO_STYLE.ERROR}
                 textAlignment={TEXT_ALIGNMENT.CENTER}>
