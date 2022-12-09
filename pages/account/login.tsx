@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Link from 'next/link';
@@ -16,6 +16,7 @@ import { withAuthLayout } from 'lib/utils/fetch_decorators';
 import { API_ROUTES } from 'types/shared/api';
 import { validateNonEmptyFields } from 'utils/validation';
 import { ACCOUNT_FIELD } from 'types/account';
+import useFetchApi from 'hooks/useFetchApi';
 
 interface LoginProps extends PageProps {
   text: {
@@ -73,6 +74,7 @@ const LoginPage: NextPageWithLayout<LoginProps> = ({
   metaDescription,
 }) => {
   const router = useRouter();
+  const fetchApi = useFetchApi();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<{
@@ -82,20 +84,103 @@ const LoginPage: NextPageWithLayout<LoginProps> = ({
   const otherError = error?.field === ACCOUNT_FIELD.OTHER;
   const emailError = error?.field === ACCOUNT_FIELD.EMAIL || otherError;
   const passwordError = error?.field === ACCOUNT_FIELD.PASSWORD || otherError;
-
-  const fetching = useRef(false);
   const emailInputRef = useRef<HTMLInputElement>(null);
 
-  const requiredErrorPayloads = {
-    [ACCOUNT_FIELD.EMAIL]: {
-      field: ACCOUNT_FIELD.EMAIL,
-      message: text.emailEmptyErrorText,
+  const responseCallback = useCallback(
+    (res: Response) => {
+      if (res.status === 401 || res.status === 403) {
+        setError({
+          field: ACCOUNT_FIELD.OTHER,
+          message: text.invalidCredentialsErrorText,
+        });
+        return false;
+      } else if (res.status === 500) {
+        setError({
+          field: ACCOUNT_FIELD.OTHER,
+          message: text.serverErrorText,
+        });
+        return false;
+      }
     },
-    [ACCOUNT_FIELD.PASSWORD]: {
-      field: ACCOUNT_FIELD.PASSWORD,
-      message: text.passwordEmptyErrorText,
+    [text],
+  );
+
+  const errorCallback = useCallback(() => {
+    setError({
+      field: ACCOUNT_FIELD.OTHER,
+      message: text.serverErrorText,
+    });
+  }, [text]);
+
+  const validationCallback = useCallback(() => {
+    const requiredErrorPayloads = {
+      [ACCOUNT_FIELD.EMAIL]: {
+        field: ACCOUNT_FIELD.EMAIL,
+        message: text.emailEmptyErrorText,
+      },
+      [ACCOUNT_FIELD.PASSWORD]: {
+        field: ACCOUNT_FIELD.PASSWORD,
+        message: text.passwordEmptyErrorText,
+      },
+    };
+
+    const requiredFields = {
+      [ACCOUNT_FIELD.EMAIL]: email,
+      [ACCOUNT_FIELD.PASSWORD]: password,
+    };
+    const requiredError = validateNonEmptyFields(
+      requiredFields,
+      requiredErrorPayloads,
+    );
+
+    if (requiredError) {
+      setError(requiredError);
+      return false;
+    }
+
+    const emailValid = emailInputRef.current?.checkValidity();
+
+    if (!emailValid) {
+      setError({
+        field: ACCOUNT_FIELD.EMAIL,
+        message: text.emailInvalidErrorText,
+      });
+      return false;
+    }
+  }, [email, password, text]);
+
+  const completeCallback = useCallback(() => {
+    setError(undefined);
+    router.push('/account/orders');
+  }, [router]);
+
+  const handleSubmit = useCallback(
+    async (e) => {
+      e.preventDefault();
+      await fetchApi(
+        {
+          url: API_ROUTES.LOGIN,
+          options: {
+            method: 'POST',
+            body: JSON.stringify({ email, password }),
+          },
+        },
+        responseCallback,
+        errorCallback,
+        validationCallback,
+        completeCallback,
+      );
     },
-  };
+    [
+      responseCallback,
+      errorCallback,
+      validationCallback,
+      completeCallback,
+      fetchApi,
+      email,
+      password,
+    ],
+  );
 
   return (
     <article className="mx-6 h-full pt-12 pb-10 md:pb-18 md:pt-16">
@@ -108,72 +193,7 @@ const LoginPage: NextPageWithLayout<LoginProps> = ({
       <form
         noValidate
         className="mx-auto h-full w-full md:w-[400px]"
-        onSubmit={async (e) => {
-          e.preventDefault();
-
-          if (fetching.current) return;
-
-          const requiredFields = {
-            [ACCOUNT_FIELD.EMAIL]: email,
-            [ACCOUNT_FIELD.PASSWORD]: password,
-          };
-          const requiredError = validateNonEmptyFields(
-            requiredFields,
-            requiredErrorPayloads,
-          );
-
-          if (requiredError) {
-            return setError(requiredError);
-          }
-
-          const emailValid = emailInputRef.current?.checkValidity();
-
-          if (!emailValid) {
-            return setError({
-              field: ACCOUNT_FIELD.EMAIL,
-              message: text.emailInvalidErrorText,
-            });
-          }
-
-          try {
-            fetching.current = true;
-
-            const res = await fetch(API_ROUTES.LOGIN, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                email,
-                password,
-              }),
-            });
-
-            fetching.current = false;
-
-            if (res.status === 401 || res.status === 403) {
-              return setError({
-                field: ACCOUNT_FIELD.OTHER,
-                message: text.invalidCredentialsErrorText,
-              });
-            } else if (res.status === 500) {
-              return setError({
-                field: ACCOUNT_FIELD.OTHER,
-                message: text.serverErrorText,
-              });
-            }
-          } catch (error) {
-            fetching.current = false;
-            return setError({
-              field: ACCOUNT_FIELD.OTHER,
-              message: text.serverErrorText,
-            });
-          }
-
-          setError(undefined);
-
-          router.push('/account/orders');
-        }}>
+        onSubmit={handleSubmit}>
         <fieldset className="flex h-full w-full flex-1 flex-col justify-between">
           <div>
             <legend className="w-full text-center">

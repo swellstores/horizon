@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import type { GetServerSideProps } from 'next';
@@ -20,6 +20,7 @@ import Link from 'next/link';
 import { API_ROUTES } from 'types/shared/api';
 import { validateNonEmptyFields } from 'utils/validation';
 import { ACCOUNT_FIELD } from 'types/account';
+import useFetchApi from 'hooks/useFetchApi';
 
 interface SignUpProps extends PageProps {
   text: {
@@ -87,6 +88,7 @@ const SignUpPage: NextPageWithLayout<
   ServerSideProps<typeof getServerSideProps>
 > = ({ text, title, metaTitle, metaDescription }) => {
   const router = useRouter();
+  const fetchApi = useFetchApi();
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -101,28 +103,124 @@ const SignUpPage: NextPageWithLayout<
   const lastNameError = error?.field === ACCOUNT_FIELD.LAST_NAME || otherError;
   const emailError = error?.field === ACCOUNT_FIELD.EMAIL || otherError;
   const passwordError = error?.field === ACCOUNT_FIELD.PASSWORD || otherError;
-
-  const fetching = useRef(false);
   const emailInputRef = useRef<HTMLInputElement>(null);
 
-  const requiredErrorPayloads = {
-    [ACCOUNT_FIELD.FIRST_NAME]: {
-      field: ACCOUNT_FIELD.FIRST_NAME,
-      message: text.firstNameEmptyErrorText,
+  const responseCallback = useCallback(
+    (res: Response) => {
+      if (res.status === 409) {
+        setError({
+          field: ACCOUNT_FIELD.OTHER,
+          message: text.emailTakenErrorText,
+        });
+        return false;
+      } else if (res.status !== 200) {
+        setError({
+          field: ACCOUNT_FIELD.OTHER,
+          message: text.serverErrorText,
+        });
+        return false;
+      }
     },
-    [ACCOUNT_FIELD.LAST_NAME]: {
-      field: ACCOUNT_FIELD.LAST_NAME,
-      message: text.lastNameEmptyErrorText,
+    [text],
+  );
+
+  const errorCallback = useCallback(() => {
+    setError({
+      field: ACCOUNT_FIELD.OTHER,
+      message: text.serverErrorText,
+    });
+  }, [text]);
+
+  const validationCallback = useCallback(() => {
+    const requiredErrorPayloads = {
+      [ACCOUNT_FIELD.FIRST_NAME]: {
+        field: ACCOUNT_FIELD.FIRST_NAME,
+        message: text.firstNameEmptyErrorText,
+      },
+      [ACCOUNT_FIELD.LAST_NAME]: {
+        field: ACCOUNT_FIELD.LAST_NAME,
+        message: text.lastNameEmptyErrorText,
+      },
+      [ACCOUNT_FIELD.EMAIL]: {
+        field: ACCOUNT_FIELD.EMAIL,
+        message: text.emailEmptyErrorText,
+      },
+      [ACCOUNT_FIELD.PASSWORD]: {
+        field: ACCOUNT_FIELD.PASSWORD,
+        message: text.passwordEmptyErrorText,
+      },
+    };
+
+    const requiredFields = {
+      [ACCOUNT_FIELD.FIRST_NAME]: firstName,
+      [ACCOUNT_FIELD.LAST_NAME]: lastName,
+      [ACCOUNT_FIELD.EMAIL]: email,
+      [ACCOUNT_FIELD.PASSWORD]: password,
+    };
+
+    const requiredError = validateNonEmptyFields(
+      requiredFields,
+      requiredErrorPayloads,
+    );
+
+    if (requiredError) {
+      setError(requiredError);
+      return false;
+    }
+
+    if (password.length < 6) {
+      setError({
+        field: ACCOUNT_FIELD.PASSWORD,
+        message: text.passwordInvalidErrorText,
+      });
+      return false;
+    }
+
+    const emailValid = emailInputRef.current?.checkValidity();
+
+    if (!emailValid) {
+      setError({
+        field: ACCOUNT_FIELD.EMAIL,
+        message: text.emailInvalidErrorText,
+      });
+      return false;
+    }
+  }, [email, password, firstName, lastName, text]);
+
+  const completeCallback = useCallback(() => {
+    setError(undefined);
+    router.push('/account/orders');
+  }, [router]);
+
+  const handleSubmit = useCallback(
+    async (e) => {
+      e.preventDefault();
+      await fetchApi(
+        {
+          url: API_ROUTES.SIGN_UP,
+          options: {
+            method: 'POST',
+            body: JSON.stringify({ email, password, firstName, lastName }),
+          },
+        },
+        responseCallback,
+        errorCallback,
+        validationCallback,
+        completeCallback,
+      );
     },
-    [ACCOUNT_FIELD.EMAIL]: {
-      field: ACCOUNT_FIELD.EMAIL,
-      message: text.emailEmptyErrorText,
-    },
-    [ACCOUNT_FIELD.PASSWORD]: {
-      field: ACCOUNT_FIELD.PASSWORD,
-      message: text.passwordEmptyErrorText,
-    },
-  };
+    [
+      responseCallback,
+      errorCallback,
+      validationCallback,
+      completeCallback,
+      fetchApi,
+      email,
+      password,
+      firstName,
+      lastName,
+    ],
+  );
 
   return (
     <article className="mx-6 h-full pt-12 pb-10 md:pb-18 md:pt-16">
@@ -135,83 +233,7 @@ const SignUpPage: NextPageWithLayout<
       <form
         noValidate
         className="mx-auto h-full w-full md:w-[400px]"
-        onSubmit={async (e) => {
-          e.preventDefault();
-
-          if (fetching.current) return;
-
-          const requiredFields = {
-            [ACCOUNT_FIELD.FIRST_NAME]: firstName,
-            [ACCOUNT_FIELD.LAST_NAME]: lastName,
-            [ACCOUNT_FIELD.EMAIL]: email,
-            [ACCOUNT_FIELD.PASSWORD]: password,
-          };
-          const requiredError = validateNonEmptyFields(
-            requiredFields,
-            requiredErrorPayloads,
-          );
-
-          if (requiredError) {
-            return setError(requiredError);
-          }
-
-          if (password.length < 6) {
-            return setError({
-              field: ACCOUNT_FIELD.PASSWORD,
-              message: text.passwordInvalidErrorText,
-            });
-          }
-
-          const emailValid = emailInputRef.current?.checkValidity();
-
-          if (!emailValid) {
-            return setError({
-              field: ACCOUNT_FIELD.EMAIL,
-              message: text.emailInvalidErrorText,
-            });
-          }
-
-          try {
-            fetching.current = true;
-
-            const res = await fetch(API_ROUTES.SIGN_UP, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                email,
-                password,
-                firstName,
-                lastName,
-              }),
-            });
-
-            fetching.current = false;
-
-            if (res.status === 409) {
-              return setError({
-                field: ACCOUNT_FIELD.OTHER,
-                message: text.emailTakenErrorText,
-              });
-            } else if (res.status !== 200) {
-              return setError({
-                field: ACCOUNT_FIELD.OTHER,
-                message: text.serverErrorText,
-              });
-            }
-          } catch (error) {
-            fetching.current = false;
-            return setError({
-              field: ACCOUNT_FIELD.OTHER,
-              message: text.serverErrorText,
-            });
-          }
-
-          setError(undefined);
-
-          router.push('/account/orders');
-        }}>
+        onSubmit={handleSubmit}>
         <fieldset className="flex h-full w-full flex-1 flex-col justify-between">
           <div>
             <legend className="w-full text-center">

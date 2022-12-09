@@ -10,10 +10,16 @@ const useFetchApi = () => {
 
   const fetchApi = async (
     config: FetchConfig,
-    responseCallback?: (res: Response) => void,
-    errorCallback?: () => void,
+    responseCallback?: (res: Response) => void | Promise<void> | boolean,
+    errorCallback?: () => void | boolean,
+    validationCallback?: () => void | boolean,
+    completeCallback?: () => void,
   ) => {
     if (fetching.current) return;
+    if (validationCallback) {
+      const valid = validationCallback();
+      if (valid === false) return;
+    }
     try {
       fetching.current = true;
 
@@ -27,14 +33,18 @@ const useFetchApi = () => {
       fetching.current = false;
 
       if (responseCallback) {
-        responseCallback(res);
+        const validResponse = responseCallback(res);
+        if (validResponse === false) return;
       }
     } catch (error) {
       fetching.current = false;
       if (errorCallback) {
         errorCallback();
+        return;
       }
     }
+
+    if (completeCallback) completeCallback();
   };
 
   return fetchApi;

@@ -4,7 +4,7 @@ import { getAuthLayout } from 'lib/utils/layout_getters';
 import { withAuthLayout } from 'lib/utils/fetch_decorators';
 import type { NextPageWithLayout, PageProps } from 'types/shared/pages';
 import { useRouter } from 'next/router';
-import { useRef, useState } from 'react';
+import { useCallback, useState } from 'react';
 import PasswordInput from 'components/molecules/PasswordInput';
 import ValidationErrorText from 'components/atoms/ValidationErrorText';
 import BannerInfo, { BANNER_INFO_STYLE } from 'components/atoms/BannerInfo';
@@ -14,6 +14,7 @@ import Button from 'components/atoms/Button';
 import { API_ROUTES } from 'types/shared/api';
 import { ACCOUNT_FIELD } from 'types/account';
 import { validateNonEmptyFields } from 'utils/validation';
+import useFetchApi from 'hooks/useFetchApi';
 
 interface SetPasswordProps extends PageProps {
   text: {
@@ -67,6 +68,7 @@ const LoginPage: NextPageWithLayout<SetPasswordProps> = ({
   metaDescription,
 }) => {
   const router = useRouter();
+  const fetchApi = useFetchApi();
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
   const [error, setError] = useState<{
@@ -78,18 +80,106 @@ const LoginPage: NextPageWithLayout<SetPasswordProps> = ({
   const confirmPasswordError =
     error?.field === ACCOUNT_FIELD.CONFIRM_PASSWORD || otherError;
 
-  const fetching = useRef(false);
+  const responseCallback = useCallback(
+    (res: Response) => {
+      if (res.status === 401) {
+        router.push('/account/set-password/expired');
+        return false;
+      } else if (res.status !== 200) {
+        setError({
+          field: ACCOUNT_FIELD.OTHER,
+          message: text.serverErrorText,
+        });
+        return false;
+      }
+    },
+    [text, router],
+  );
 
-  const requiredErrorPayloads = {
-    [ACCOUNT_FIELD.PASSWORD]: {
-      field: ACCOUNT_FIELD.PASSWORD,
-      message: text.passwordEmptyErrorText,
+  const errorCallback = useCallback(() => {
+    setError({
+      field: ACCOUNT_FIELD.OTHER,
+      message: text.serverErrorText,
+    });
+  }, [text]);
+
+  const validationCallback = useCallback(() => {
+    const requiredErrorPayloads = {
+      [ACCOUNT_FIELD.PASSWORD]: {
+        field: ACCOUNT_FIELD.PASSWORD,
+        message: text.passwordEmptyErrorText,
+      },
+      [ACCOUNT_FIELD.CONFIRM_PASSWORD]: {
+        field: ACCOUNT_FIELD.CONFIRM_PASSWORD,
+        message: text.confirmPasswordEmptyErrorText,
+      },
+    };
+
+    const requiredFields = {
+      [ACCOUNT_FIELD.PASSWORD]: password,
+      [ACCOUNT_FIELD.CONFIRM_PASSWORD]: passwordConfirmation,
+    };
+    const requiredError = validateNonEmptyFields(
+      requiredFields,
+      requiredErrorPayloads,
+    );
+
+    if (requiredError) {
+      setError(requiredError);
+      return false;
+    }
+
+    if (password.length < 6) {
+      setError({
+        field: ACCOUNT_FIELD.PASSWORD,
+        message: text.passwordInvalidErrorText,
+      });
+      return false;
+    }
+
+    if (password !== passwordConfirmation) {
+      setError({
+        field: ACCOUNT_FIELD.CONFIRM_PASSWORD,
+        message: text.passwordMismatchErrorText,
+      });
+      return false;
+    }
+  }, [password, passwordConfirmation, text]);
+
+  const completeCallback = useCallback(() => {
+    setError(undefined);
+    router.push('/account/set-password/success');
+  }, [router]);
+
+  const handleSubmit = useCallback(
+    async (e) => {
+      e.preventDefault();
+      await fetchApi(
+        {
+          url: API_ROUTES.SET_PASSWORD,
+          options: {
+            method: 'POST',
+            body: JSON.stringify({
+              key: window.location.pathname.split('/').pop(),
+              password: password,
+            }),
+          },
+        },
+        responseCallback,
+        errorCallback,
+        validationCallback,
+        completeCallback,
+      );
     },
-    [ACCOUNT_FIELD.CONFIRM_PASSWORD]: {
-      field: ACCOUNT_FIELD.CONFIRM_PASSWORD,
-      message: text.confirmPasswordEmptyErrorText,
-    },
-  };
+    [
+      responseCallback,
+      errorCallback,
+      validationCallback,
+      completeCallback,
+      fetchApi,
+      password,
+    ],
+  );
 
   return (
     <article className="mx-6 h-full pt-12 pb-10 md:pb-18 md:pt-16">
@@ -102,74 +192,7 @@ const LoginPage: NextPageWithLayout<SetPasswordProps> = ({
       <form
         noValidate
         className="mx-auto h-full w-full md:w-[400px]"
-        onSubmit={async (e) => {
-          e.preventDefault();
-
-          if (fetching.current) return;
-
-          const requiredFields = {
-            [ACCOUNT_FIELD.PASSWORD]: password,
-            [ACCOUNT_FIELD.CONFIRM_PASSWORD]: passwordConfirmation,
-          };
-          const requiredError = validateNonEmptyFields(
-            requiredFields,
-            requiredErrorPayloads,
-          );
-
-          if (requiredError) {
-            return setError(requiredError);
-          }
-
-          if (password.length < 6) {
-            return setError({
-              field: ACCOUNT_FIELD.PASSWORD,
-              message: text.passwordInvalidErrorText,
-            });
-          }
-
-          if (password !== passwordConfirmation) {
-            return setError({
-              field: ACCOUNT_FIELD.CONFIRM_PASSWORD,
-              message: text.passwordMismatchErrorText,
-            });
-          }
-
-          try {
-            fetching.current = true;
-
-            const res = await fetch(API_ROUTES.SET_PASSWORD, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                key: window.location.pathname.split('/').pop(),
-                password: password,
-              }),
-            });
-
-            fetching.current = false;
-
-            if (res.status === 401) {
-              return router.push('/account/set-password/expired');
-            } else if (res.status !== 200) {
-              return setError({
-                field: ACCOUNT_FIELD.OTHER,
-                message: text.serverErrorText,
-              });
-            }
-          } catch (error) {
-            fetching.current = false;
-            return setError({
-              field: ACCOUNT_FIELD.OTHER,
-              message: text.serverErrorText,
-            });
-          }
-
-          setError(undefined);
-
-          router.push('/account/set-password/success');
-        }}>
+        onSubmit={handleSubmit}>
         <fieldset className="flex h-full w-full flex-1 flex-col justify-between">
           <div>
             <legend className="w-full text-center">
