@@ -14,6 +14,8 @@ import { TEXT_ALIGNMENT } from 'types/shared/alignment';
 import { getAuthLayout } from 'lib/utils/layout_getters';
 import { withAuthLayout } from 'lib/utils/fetch_decorators';
 import { API_ROUTES } from 'types/shared/api';
+import { validateNonEmptyFields } from 'utils/validation';
+import { ACCOUNT_FIELD } from 'types/account';
 
 interface LoginProps extends PageProps {
   text: {
@@ -64,12 +66,6 @@ const propsCallback: GetStaticProps<LoginProps> = async () => {
 
 export const getStaticProps = withAuthLayout(propsCallback);
 
-enum ERROR_FIELD {
-  EMAIL = 'email',
-  PASSWORD = 'password',
-  OTHER = 'other',
-}
-
 const LoginPage: NextPageWithLayout<LoginProps> = ({
   text,
   title,
@@ -80,12 +76,23 @@ const LoginPage: NextPageWithLayout<LoginProps> = ({
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<{
-    field: ERROR_FIELD;
+    field: ACCOUNT_FIELD;
     message: string;
   }>();
 
   const fetching = useRef(false);
   const emailInputRef = useRef<HTMLInputElement>(null);
+
+  const requiredErrorPayloads = {
+    [ACCOUNT_FIELD.EMAIL]: {
+      field: ACCOUNT_FIELD.EMAIL,
+      message: text.emailEmptyErrorText,
+    },
+    [ACCOUNT_FIELD.PASSWORD]: {
+      field: ACCOUNT_FIELD.PASSWORD,
+      message: text.passwordEmptyErrorText,
+    },
+  };
 
   return (
     <article className="mx-6 h-full pt-12 pb-10 md:pb-18 md:pt-16">
@@ -103,24 +110,24 @@ const LoginPage: NextPageWithLayout<LoginProps> = ({
 
           if (fetching.current) return;
 
-          if (email === '') {
-            return setError({
-              field: ERROR_FIELD.EMAIL,
-              message: text.emailEmptyErrorText,
-            });
-          }
-          if (password === '') {
-            return setError({
-              field: ERROR_FIELD.PASSWORD,
-              message: text.passwordEmptyErrorText,
-            });
+          const requiredFields = {
+            [ACCOUNT_FIELD.EMAIL]: email,
+            [ACCOUNT_FIELD.PASSWORD]: password,
+          };
+          const requiredError = validateNonEmptyFields(
+            requiredFields,
+            requiredErrorPayloads,
+          );
+
+          if (requiredError) {
+            return setError(requiredError);
           }
 
           const emailValid = emailInputRef.current?.checkValidity();
 
           if (!emailValid) {
             return setError({
-              field: ERROR_FIELD.EMAIL,
+              field: ACCOUNT_FIELD.EMAIL,
               message: text.emailInvalidErrorText,
             });
           }
@@ -143,19 +150,19 @@ const LoginPage: NextPageWithLayout<LoginProps> = ({
 
             if (res.status === 401 || res.status === 403) {
               return setError({
-                field: ERROR_FIELD.OTHER,
+                field: ACCOUNT_FIELD.OTHER,
                 message: text.invalidCredentialsErrorText,
               });
             } else if (res.status === 500) {
               return setError({
-                field: ERROR_FIELD.OTHER,
+                field: ACCOUNT_FIELD.OTHER,
                 message: text.serverErrorText,
               });
             }
           } catch (error) {
             fetching.current = false;
             return setError({
-              field: ERROR_FIELD.OTHER,
+              field: ACCOUNT_FIELD.OTHER,
               message: text.serverErrorText,
             });
           }
@@ -184,16 +191,16 @@ const LoginPage: NextPageWithLayout<LoginProps> = ({
                   ref={emailInputRef}
                   aria-required
                   aria-invalid={
-                    error?.field === ERROR_FIELD.EMAIL ||
-                    error?.field === ERROR_FIELD.OTHER
+                    error?.field === ACCOUNT_FIELD.EMAIL ||
+                    error?.field === ACCOUNT_FIELD.OTHER
                   }
                   aria-errormessage={
-                    error?.field === ERROR_FIELD.EMAIL ||
-                    error?.field === ERROR_FIELD.OTHER
+                    error?.field === ACCOUNT_FIELD.EMAIL ||
+                    error?.field === ACCOUNT_FIELD.OTHER
                       ? error.message
                       : undefined
                   }
-                  error={error?.field === ERROR_FIELD.EMAIL}
+                  error={error?.field === ACCOUNT_FIELD.EMAIL}
                   placeholder={text.emailPlaceholder}
                   value={email}
                   onChange={(e) => {
@@ -201,7 +208,7 @@ const LoginPage: NextPageWithLayout<LoginProps> = ({
                     setEmail(e.currentTarget.value);
                   }}
                 />
-                {error?.field === ERROR_FIELD.EMAIL && (
+                {error?.field === ACCOUNT_FIELD.EMAIL && (
                   <ValidationErrorText id="email-error">
                     {error.message}
                   </ValidationErrorText>
@@ -217,16 +224,16 @@ const LoginPage: NextPageWithLayout<LoginProps> = ({
                   id="password"
                   aria-required
                   aria-invalid={
-                    error?.field === ERROR_FIELD.PASSWORD ||
-                    error?.field === ERROR_FIELD.OTHER
+                    error?.field === ACCOUNT_FIELD.PASSWORD ||
+                    error?.field === ACCOUNT_FIELD.OTHER
                   }
                   aria-errormessage={
-                    error?.field === ERROR_FIELD.PASSWORD ||
-                    error?.field === ERROR_FIELD.OTHER
+                    error?.field === ACCOUNT_FIELD.PASSWORD ||
+                    error?.field === ACCOUNT_FIELD.OTHER
                       ? error.message
                       : undefined
                   }
-                  error={error?.field === ERROR_FIELD.PASSWORD}
+                  error={error?.field === ACCOUNT_FIELD.PASSWORD}
                   placeholder={text.passwordPlaceholder}
                   value={password}
                   onChange={(e) => {
@@ -234,7 +241,7 @@ const LoginPage: NextPageWithLayout<LoginProps> = ({
                     setPassword(e.currentTarget.value);
                   }}
                 />
-                {error?.field === ERROR_FIELD.PASSWORD && (
+                {error?.field === ACCOUNT_FIELD.PASSWORD && (
                   <ValidationErrorText>{error.message}</ValidationErrorText>
                 )}
               </p>
@@ -249,7 +256,7 @@ const LoginPage: NextPageWithLayout<LoginProps> = ({
           </div>
 
           <div className="mt-4 flex flex-col gap-2">
-            {error?.field === ERROR_FIELD.OTHER ? (
+            {error?.field === ACCOUNT_FIELD.OTHER ? (
               <BannerInfo
                 bannerStyle={BANNER_INFO_STYLE.ERROR}
                 textAlignment={TEXT_ALIGNMENT.CENTER}>

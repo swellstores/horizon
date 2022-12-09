@@ -12,6 +12,8 @@ import { TEXT_ALIGNMENT } from 'types/shared/alignment';
 import { BUTTON_TYPE } from 'types/shared/button';
 import Button from 'components/atoms/Button';
 import { API_ROUTES } from 'types/shared/api';
+import { ACCOUNT_FIELD } from 'types/account';
+import { validateNonEmptyFields } from 'utils/validation';
 
 interface SetPasswordProps extends PageProps {
   text: {
@@ -58,12 +60,6 @@ const propsCallback: GetServerSideProps<SetPasswordProps> = async () => {
 
 export const getServerSideProps = withAuthLayout(propsCallback);
 
-enum ERROR_FIELD {
-  PASSWORD = 'password',
-  CONFIRM_PASSWORD = 'confirm_password',
-  OTHER = 'other',
-}
-
 const LoginPage: NextPageWithLayout<SetPasswordProps> = ({
   text,
   title,
@@ -74,11 +70,22 @@ const LoginPage: NextPageWithLayout<SetPasswordProps> = ({
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
   const [error, setError] = useState<{
-    field: ERROR_FIELD;
+    field: ACCOUNT_FIELD;
     message: string;
   }>();
 
   const fetching = useRef(false);
+
+  const requiredErrorPayloads = {
+    [ACCOUNT_FIELD.PASSWORD]: {
+      field: ACCOUNT_FIELD.PASSWORD,
+      message: text.passwordEmptyErrorText,
+    },
+    [ACCOUNT_FIELD.CONFIRM_PASSWORD]: {
+      field: ACCOUNT_FIELD.CONFIRM_PASSWORD,
+      message: text.confirmPasswordEmptyErrorText,
+    },
+  };
 
   return (
     <article className="mx-6 h-full pt-12 pb-10 md:pb-18 md:pt-16">
@@ -96,30 +103,29 @@ const LoginPage: NextPageWithLayout<SetPasswordProps> = ({
 
           if (fetching.current) return;
 
-          if (password === '') {
-            return setError({
-              field: ERROR_FIELD.PASSWORD,
-              message: text.passwordEmptyErrorText,
-            });
+          const requiredFields = {
+            [ACCOUNT_FIELD.PASSWORD]: password,
+            [ACCOUNT_FIELD.CONFIRM_PASSWORD]: passwordConfirmation,
+          };
+          const requiredError = validateNonEmptyFields(
+            requiredFields,
+            requiredErrorPayloads,
+          );
+
+          if (requiredError) {
+            return setError(requiredError);
           }
 
           if (password.length < 6) {
             return setError({
-              field: ERROR_FIELD.PASSWORD,
+              field: ACCOUNT_FIELD.PASSWORD,
               message: text.passwordInvalidErrorText,
-            });
-          }
-
-          if (passwordConfirmation === '') {
-            return setError({
-              field: ERROR_FIELD.CONFIRM_PASSWORD,
-              message: text.confirmPasswordEmptyErrorText,
             });
           }
 
           if (password !== passwordConfirmation) {
             return setError({
-              field: ERROR_FIELD.CONFIRM_PASSWORD,
+              field: ACCOUNT_FIELD.CONFIRM_PASSWORD,
               message: text.passwordMismatchErrorText,
             });
           }
@@ -144,14 +150,14 @@ const LoginPage: NextPageWithLayout<SetPasswordProps> = ({
               return router.push('/account/set-password/expired');
             } else if (res.status !== 200) {
               return setError({
-                field: ERROR_FIELD.OTHER,
+                field: ACCOUNT_FIELD.OTHER,
                 message: text.serverErrorText,
               });
             }
           } catch (error) {
             fetching.current = false;
             return setError({
-              field: ERROR_FIELD.OTHER,
+              field: ACCOUNT_FIELD.OTHER,
               message: text.serverErrorText,
             });
           }
@@ -184,16 +190,16 @@ const LoginPage: NextPageWithLayout<SetPasswordProps> = ({
                   minLength={6}
                   aria-required
                   aria-invalid={
-                    error?.field === ERROR_FIELD.PASSWORD ||
-                    error?.field === ERROR_FIELD.OTHER
+                    error?.field === ACCOUNT_FIELD.PASSWORD ||
+                    error?.field === ACCOUNT_FIELD.OTHER
                   }
                   aria-errormessage={
-                    error?.field === ERROR_FIELD.PASSWORD ||
-                    error?.field === ERROR_FIELD.OTHER
+                    error?.field === ACCOUNT_FIELD.PASSWORD ||
+                    error?.field === ACCOUNT_FIELD.OTHER
                       ? error.message
                       : undefined
                   }
-                  error={error?.field === ERROR_FIELD.PASSWORD}
+                  error={error?.field === ACCOUNT_FIELD.PASSWORD}
                   placeholder={text.passwordPlaceholder}
                   value={password}
                   onChange={(e) => {
@@ -201,7 +207,7 @@ const LoginPage: NextPageWithLayout<SetPasswordProps> = ({
                     setPassword(e.currentTarget.value);
                   }}
                 />
-                {error?.field === ERROR_FIELD.PASSWORD ? (
+                {error?.field === ACCOUNT_FIELD.PASSWORD ? (
                   <ValidationErrorText>{error.message}</ValidationErrorText>
                 ) : (
                   <span className="mt-2 text-2xs text-body">
@@ -219,16 +225,16 @@ const LoginPage: NextPageWithLayout<SetPasswordProps> = ({
                   id="confirm-password"
                   aria-required
                   aria-invalid={
-                    error?.field === ERROR_FIELD.CONFIRM_PASSWORD ||
-                    error?.field === ERROR_FIELD.OTHER
+                    error?.field === ACCOUNT_FIELD.CONFIRM_PASSWORD ||
+                    error?.field === ACCOUNT_FIELD.OTHER
                   }
                   aria-errormessage={
-                    error?.field === ERROR_FIELD.CONFIRM_PASSWORD ||
-                    error?.field === ERROR_FIELD.OTHER
+                    error?.field === ACCOUNT_FIELD.CONFIRM_PASSWORD ||
+                    error?.field === ACCOUNT_FIELD.OTHER
                       ? error.message
                       : undefined
                   }
-                  error={error?.field === ERROR_FIELD.CONFIRM_PASSWORD}
+                  error={error?.field === ACCOUNT_FIELD.CONFIRM_PASSWORD}
                   placeholder={text.confirmPasswordPlaceholder}
                   value={passwordConfirmation}
                   onChange={(e) => {
@@ -236,7 +242,7 @@ const LoginPage: NextPageWithLayout<SetPasswordProps> = ({
                     setPasswordConfirmation(e.currentTarget.value);
                   }}
                 />
-                {error?.field === ERROR_FIELD.CONFIRM_PASSWORD && (
+                {error?.field === ACCOUNT_FIELD.CONFIRM_PASSWORD && (
                   <ValidationErrorText>{error.message}</ValidationErrorText>
                 )}
               </p>
@@ -244,7 +250,7 @@ const LoginPage: NextPageWithLayout<SetPasswordProps> = ({
           </div>
 
           <div className="mt-4 flex flex-col gap-2">
-            {error?.field === ERROR_FIELD.OTHER ? (
+            {error?.field === ACCOUNT_FIELD.OTHER ? (
               <BannerInfo
                 bannerStyle={BANNER_INFO_STYLE.ERROR}
                 textAlignment={TEXT_ALIGNMENT.CENTER}>

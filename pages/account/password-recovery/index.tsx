@@ -13,6 +13,8 @@ import { getAuthLayout } from 'lib/utils/layout_getters';
 import { withAuthLayout } from 'lib/utils/fetch_decorators';
 import type { NextPageWithLayout, PageProps } from 'types/shared/pages';
 import { API_ROUTES } from 'types/shared/api';
+import { ACCOUNT_FIELD } from 'types/account';
+import { validateNonEmptyFields } from 'utils/validation';
 
 interface PasswordRecoveryProps extends PageProps {
   text: {
@@ -53,11 +55,6 @@ const propsCallback: GetStaticProps<PasswordRecoveryProps> = async () => {
 
 export const getStaticProps = withAuthLayout(propsCallback);
 
-enum ERROR_FIELD {
-  EMAIL = 'email',
-  OTHER = 'other',
-}
-
 const PasswordRecoveryPage: NextPageWithLayout<PasswordRecoveryProps> = ({
   text,
   title,
@@ -67,12 +64,19 @@ const PasswordRecoveryPage: NextPageWithLayout<PasswordRecoveryProps> = ({
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [error, setError] = useState<{
-    field: ERROR_FIELD;
+    field: ACCOUNT_FIELD;
     message: string;
   }>();
 
   const fetching = useRef(false);
   const emailInputRef = useRef<HTMLInputElement>(null);
+
+  const requiredErrorPayloads = {
+    [ACCOUNT_FIELD.EMAIL]: {
+      field: ACCOUNT_FIELD.EMAIL,
+      message: text.emailEmptyErrorText,
+    },
+  };
 
   return (
     <article className="mx-6 h-full pt-12 pb-10 md:pb-18 md:pt-16">
@@ -90,18 +94,23 @@ const PasswordRecoveryPage: NextPageWithLayout<PasswordRecoveryProps> = ({
 
           if (fetching.current) return;
 
-          if (email === '') {
-            return setError({
-              field: ERROR_FIELD.EMAIL,
-              message: text.emailEmptyErrorText,
-            });
+          const requiredFields = {
+            [ACCOUNT_FIELD.EMAIL]: email,
+          };
+          const requiredError = validateNonEmptyFields(
+            requiredFields,
+            requiredErrorPayloads,
+          );
+
+          if (requiredError) {
+            return setError(requiredError);
           }
 
           const emailValid = emailInputRef.current?.checkValidity();
 
           if (!emailValid) {
             return setError({
-              field: ERROR_FIELD.EMAIL,
+              field: ACCOUNT_FIELD.EMAIL,
               message: text.emailInvalidErrorText,
             });
           }
@@ -123,14 +132,14 @@ const PasswordRecoveryPage: NextPageWithLayout<PasswordRecoveryProps> = ({
 
             if (res.status !== 200) {
               return setError({
-                field: ERROR_FIELD.OTHER,
+                field: ACCOUNT_FIELD.OTHER,
                 message: text.serverErrorText,
               });
             }
           } catch (error) {
             fetching.current = false;
             return setError({
-              field: ERROR_FIELD.OTHER,
+              field: ACCOUNT_FIELD.OTHER,
               message: text.serverErrorText,
             });
           }
@@ -164,16 +173,16 @@ const PasswordRecoveryPage: NextPageWithLayout<PasswordRecoveryProps> = ({
                   ref={emailInputRef}
                   aria-required
                   aria-invalid={
-                    error?.field === ERROR_FIELD.EMAIL ||
-                    error?.field === ERROR_FIELD.OTHER
+                    error?.field === ACCOUNT_FIELD.EMAIL ||
+                    error?.field === ACCOUNT_FIELD.OTHER
                   }
                   aria-errormessage={
-                    error?.field === ERROR_FIELD.EMAIL ||
-                    error?.field === ERROR_FIELD.OTHER
+                    error?.field === ACCOUNT_FIELD.EMAIL ||
+                    error?.field === ACCOUNT_FIELD.OTHER
                       ? error.message
                       : undefined
                   }
-                  error={error?.field === ERROR_FIELD.EMAIL}
+                  error={error?.field === ACCOUNT_FIELD.EMAIL}
                   placeholder={text.emailPlaceholder}
                   value={email}
                   onChange={(e) => {
@@ -181,7 +190,7 @@ const PasswordRecoveryPage: NextPageWithLayout<PasswordRecoveryProps> = ({
                     setEmail(e.currentTarget.value);
                   }}
                 />
-                {error?.field === ERROR_FIELD.EMAIL && (
+                {error?.field === ACCOUNT_FIELD.EMAIL && (
                   <ValidationErrorText id="email-error">
                     {error.message}
                   </ValidationErrorText>
@@ -191,7 +200,7 @@ const PasswordRecoveryPage: NextPageWithLayout<PasswordRecoveryProps> = ({
           </div>
 
           <div className="mt-4 flex flex-col gap-2">
-            {error?.field === ERROR_FIELD.OTHER ? (
+            {error?.field === ACCOUNT_FIELD.OTHER ? (
               <BannerInfo
                 bannerStyle={BANNER_INFO_STYLE.ERROR}
                 textAlignment={TEXT_ALIGNMENT.CENTER}>

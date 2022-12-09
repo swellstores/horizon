@@ -19,6 +19,7 @@ import { withAuthLayout } from 'lib/utils/fetch_decorators';
 import Link from 'next/link';
 import { API_ROUTES } from 'types/shared/api';
 import { validateNonEmptyFields } from 'utils/validation';
+import { ACCOUNT_FIELD } from 'types/account';
 
 interface SignUpProps extends PageProps {
   text: {
@@ -82,14 +83,6 @@ const propsCallback: GetServerSideProps<SignUpProps> = async () => {
 
 export const getServerSideProps = withAuthLayout(propsCallback);
 
-enum ERROR_FIELD {
-  FIRST_NAME = 'firstName',
-  LAST_NAME = 'lastName',
-  EMAIL = 'email',
-  PASSWORD = 'password',
-  OTHER = 'other',
-}
-
 const SignUpPage: NextPageWithLayout<
   ServerSideProps<typeof getServerSideProps>
 > = ({ text, title, metaTitle, metaDescription }) => {
@@ -99,7 +92,7 @@ const SignUpPage: NextPageWithLayout<
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<{
-    field: ERROR_FIELD;
+    field: ACCOUNT_FIELD;
     message: string;
   }>();
 
@@ -107,20 +100,20 @@ const SignUpPage: NextPageWithLayout<
   const emailInputRef = useRef<HTMLInputElement>(null);
 
   const requiredErrorPayloads = {
-    [ERROR_FIELD.FIRST_NAME]: {
-      field: ERROR_FIELD.FIRST_NAME,
+    [ACCOUNT_FIELD.FIRST_NAME]: {
+      field: ACCOUNT_FIELD.FIRST_NAME,
       message: text.firstNameEmptyErrorText,
     },
-    [ERROR_FIELD.LAST_NAME]: {
-      field: ERROR_FIELD.LAST_NAME,
+    [ACCOUNT_FIELD.LAST_NAME]: {
+      field: ACCOUNT_FIELD.LAST_NAME,
       message: text.lastNameEmptyErrorText,
     },
-    [ERROR_FIELD.EMAIL]: {
-      field: ERROR_FIELD.EMAIL,
+    [ACCOUNT_FIELD.EMAIL]: {
+      field: ACCOUNT_FIELD.EMAIL,
       message: text.emailEmptyErrorText,
     },
-    [ERROR_FIELD.PASSWORD]: {
-      field: ERROR_FIELD.PASSWORD,
+    [ACCOUNT_FIELD.PASSWORD]: {
+      field: ACCOUNT_FIELD.PASSWORD,
       message: text.passwordEmptyErrorText,
     },
   };
@@ -142,10 +135,10 @@ const SignUpPage: NextPageWithLayout<
           if (fetching.current) return;
 
           const requiredFields = {
-            [ERROR_FIELD.FIRST_NAME]: firstName,
-            [ERROR_FIELD.LAST_NAME]: lastName,
-            [ERROR_FIELD.EMAIL]: email,
-            [ERROR_FIELD.PASSWORD]: password,
+            [ACCOUNT_FIELD.FIRST_NAME]: firstName,
+            [ACCOUNT_FIELD.LAST_NAME]: lastName,
+            [ACCOUNT_FIELD.EMAIL]: email,
+            [ACCOUNT_FIELD.PASSWORD]: password,
           };
           const requiredError = validateNonEmptyFields(
             requiredFields,
@@ -158,7 +151,7 @@ const SignUpPage: NextPageWithLayout<
 
           if (password.length < 6) {
             return setError({
-              field: ERROR_FIELD.PASSWORD,
+              field: ACCOUNT_FIELD.PASSWORD,
               message: text.passwordInvalidErrorText,
             });
           }
@@ -167,7 +160,7 @@ const SignUpPage: NextPageWithLayout<
 
           if (!emailValid) {
             return setError({
-              field: ERROR_FIELD.EMAIL,
+              field: ACCOUNT_FIELD.EMAIL,
               message: text.emailInvalidErrorText,
             });
           }
@@ -192,19 +185,19 @@ const SignUpPage: NextPageWithLayout<
 
             if (res.status === 409) {
               return setError({
-                field: ERROR_FIELD.OTHER,
+                field: ACCOUNT_FIELD.OTHER,
                 message: text.emailTakenErrorText,
               });
             } else if (res.status !== 200) {
               return setError({
-                field: ERROR_FIELD.OTHER,
+                field: ACCOUNT_FIELD.OTHER,
                 message: text.serverErrorText,
               });
             }
           } catch (error) {
             fetching.current = false;
             return setError({
-              field: ERROR_FIELD.OTHER,
+              field: ACCOUNT_FIELD.OTHER,
               message: text.serverErrorText,
             });
           }
@@ -232,16 +225,16 @@ const SignUpPage: NextPageWithLayout<
                   type="text"
                   aria-required
                   aria-invalid={
-                    error?.field === ERROR_FIELD.FIRST_NAME ||
-                    error?.field === ERROR_FIELD.OTHER
+                    error?.field === ACCOUNT_FIELD.FIRST_NAME ||
+                    error?.field === ACCOUNT_FIELD.OTHER
                   }
                   aria-errormessage={
-                    error?.field === ERROR_FIELD.FIRST_NAME ||
-                    error?.field === ERROR_FIELD.OTHER
+                    error?.field === ACCOUNT_FIELD.FIRST_NAME ||
+                    error?.field === ACCOUNT_FIELD.OTHER
                       ? error.message
                       : undefined
                   }
-                  error={error?.field === ERROR_FIELD.FIRST_NAME}
+                  error={error?.field === ACCOUNT_FIELD.FIRST_NAME}
                   placeholder={text.firstNamePlaceholder}
                   value={firstName}
                   onChange={(e) => {
@@ -249,7 +242,7 @@ const SignUpPage: NextPageWithLayout<
                     setFirstName(e.currentTarget.value);
                   }}
                 />
-                {error?.field === ERROR_FIELD.FIRST_NAME && (
+                {error?.field === ACCOUNT_FIELD.FIRST_NAME && (
                   <ValidationErrorText id="first-name-error">
                     {error.message}
                   </ValidationErrorText>
@@ -266,16 +259,16 @@ const SignUpPage: NextPageWithLayout<
                   type="text"
                   aria-required
                   aria-invalid={
-                    error?.field === ERROR_FIELD.LAST_NAME ||
-                    error?.field === ERROR_FIELD.OTHER
+                    error?.field === ACCOUNT_FIELD.LAST_NAME ||
+                    error?.field === ACCOUNT_FIELD.OTHER
                   }
                   aria-errormessage={
-                    error?.field === ERROR_FIELD.LAST_NAME ||
-                    error?.field === ERROR_FIELD.OTHER
+                    error?.field === ACCOUNT_FIELD.LAST_NAME ||
+                    error?.field === ACCOUNT_FIELD.OTHER
                       ? error.message
                       : undefined
                   }
-                  error={error?.field === ERROR_FIELD.LAST_NAME}
+                  error={error?.field === ACCOUNT_FIELD.LAST_NAME}
                   placeholder={text.lastNamePlaceholder}
                   value={lastName}
                   onChange={(e) => {
@@ -283,7 +276,7 @@ const SignUpPage: NextPageWithLayout<
                     setLastName(e.currentTarget.value);
                   }}
                 />
-                {error?.field === ERROR_FIELD.LAST_NAME && (
+                {error?.field === ACCOUNT_FIELD.LAST_NAME && (
                   <ValidationErrorText id="last-name-error">
                     {error.message}
                   </ValidationErrorText>
@@ -301,16 +294,16 @@ const SignUpPage: NextPageWithLayout<
                   ref={emailInputRef}
                   aria-required
                   aria-invalid={
-                    error?.field === ERROR_FIELD.EMAIL ||
-                    error?.field === ERROR_FIELD.OTHER
+                    error?.field === ACCOUNT_FIELD.EMAIL ||
+                    error?.field === ACCOUNT_FIELD.OTHER
                   }
                   aria-errormessage={
-                    error?.field === ERROR_FIELD.EMAIL ||
-                    error?.field === ERROR_FIELD.OTHER
+                    error?.field === ACCOUNT_FIELD.EMAIL ||
+                    error?.field === ACCOUNT_FIELD.OTHER
                       ? error.message
                       : undefined
                   }
-                  error={error?.field === ERROR_FIELD.EMAIL}
+                  error={error?.field === ACCOUNT_FIELD.EMAIL}
                   placeholder={text.emailPlaceholder}
                   value={email}
                   onChange={(e) => {
@@ -318,7 +311,7 @@ const SignUpPage: NextPageWithLayout<
                     setEmail(e.currentTarget.value);
                   }}
                 />
-                {error?.field === ERROR_FIELD.EMAIL && (
+                {error?.field === ACCOUNT_FIELD.EMAIL && (
                   <ValidationErrorText id="email-error">
                     {error.message}
                   </ValidationErrorText>
@@ -335,16 +328,16 @@ const SignUpPage: NextPageWithLayout<
                   minLength={6}
                   aria-required
                   aria-invalid={
-                    error?.field === ERROR_FIELD.PASSWORD ||
-                    error?.field === ERROR_FIELD.OTHER
+                    error?.field === ACCOUNT_FIELD.PASSWORD ||
+                    error?.field === ACCOUNT_FIELD.OTHER
                   }
                   aria-errormessage={
-                    error?.field === ERROR_FIELD.PASSWORD ||
-                    error?.field === ERROR_FIELD.OTHER
+                    error?.field === ACCOUNT_FIELD.PASSWORD ||
+                    error?.field === ACCOUNT_FIELD.OTHER
                       ? error.message
                       : undefined
                   }
-                  error={error?.field === ERROR_FIELD.PASSWORD}
+                  error={error?.field === ACCOUNT_FIELD.PASSWORD}
                   placeholder={text.passwordPlaceholder}
                   value={password}
                   onChange={(e) => {
@@ -352,7 +345,7 @@ const SignUpPage: NextPageWithLayout<
                     setPassword(e.currentTarget.value);
                   }}
                 />
-                {error?.field === ERROR_FIELD.PASSWORD && (
+                {error?.field === ACCOUNT_FIELD.PASSWORD && (
                   <ValidationErrorText>{error.message}</ValidationErrorText>
                 )}
                 {text.passwordRequirementsText && (
@@ -365,7 +358,7 @@ const SignUpPage: NextPageWithLayout<
           </div>
 
           <div className="mt-4 flex flex-col gap-2">
-            {error?.field === ERROR_FIELD.OTHER ? (
+            {error?.field === ACCOUNT_FIELD.OTHER ? (
               <BannerInfo
                 bannerStyle={BANNER_INFO_STYLE.ERROR}
                 textAlignment={TEXT_ALIGNMENT.CENTER}>
