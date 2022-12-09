@@ -18,7 +18,7 @@ import { getAuthLayout } from 'lib/utils/layout_getters';
 import { withAuthLayout } from 'lib/utils/fetch_decorators';
 import Link from 'next/link';
 import { API_ROUTES } from 'types/shared/api';
-import { validateRequiredFields } from 'utils/validation';
+import { validateNonEmptyFields } from 'utils/validation';
 
 interface SignUpProps extends PageProps {
   text: {
@@ -147,7 +147,7 @@ const SignUpPage: NextPageWithLayout<
             [ERROR_FIELD.EMAIL]: email,
             [ERROR_FIELD.PASSWORD]: password,
           };
-          const requiredError = validateRequiredFields(
+          const requiredError = validateNonEmptyFields(
             requiredFields,
             requiredErrorPayloads,
           );
