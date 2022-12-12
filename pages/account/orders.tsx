@@ -1,6 +1,6 @@
 import React from 'react';
+import PurchaseList from 'components/templates/PurchaseList';
 import { getClientWithSessionToken } from 'lib/graphql/client';
-import PurchaseGroup from 'components/organisms/PurchaseGroup';
 import {
   withAccountLayout,
   withAuthentication,
@@ -13,13 +13,14 @@ import type { NextPageWithLayout, PageProps } from 'types/shared/pages';
 import { PURCHASE_TYPE } from 'types/purchase';
 import { formatProductImages } from 'lib/utils/products';
 
-interface GroupedOrderValue {
+interface GroupedOrder {
   title: string;
-  orders: OrderCardProps[];
+  purchases: OrderCardProps[];
 }
 
-type GroupedOrders = {
-  [key in ORDER_STATUS]?: GroupedOrderValue;
+// TODO: Move to purchase group? Reuse with subscriptions page.
+export type GroupedOrders = {
+  [key in ORDER_STATUS]?: GroupedOrder;
 };
 
 interface OrdersPageProps extends PageProps {
@@ -69,13 +70,13 @@ export const propsCallback: GetServerSideProps<OrdersPageProps> = async (
     (accumulator, currentValue) => {
       const { status } = currentValue;
       if (status && !accumulator[status]) {
-        const firstEntry: GroupedOrderValue = {
+        const firstEntry: GroupedOrder = {
           title: GROUP_TITLES[status],
-          orders: [currentValue],
+          purchases: [currentValue],
         };
         accumulator[status] = firstEntry;
       } else if (accumulator[status]) {
-        accumulator[status]?.orders.push(currentValue);
+        accumulator[status]?.purchases.push(currentValue);
       }
       return accumulator;
     },
@@ -94,22 +95,16 @@ export const getServerSideProps = withAccountLayout(
   withAuthentication(propsCallback),
 );
 
-const OrdersPage: NextPageWithLayout<OrdersPageProps> = ({ groupedOrders }) => {
+const OrdersPage: NextPageWithLayout<OrdersPageProps> = ({
+  pageTitle,
+  groupedOrders,
+}) => {
   return (
-    <article className="">
-      <h1 className="hidden font-headings text-2xl font-semibold text-primary lg:block">
-        Orders & Returns
-      </h1>
-      <div className="space-y-12 md:mt-12">
-        {Object.entries(groupedOrders).map(([key, value]) => (
-          <PurchaseGroup
-            key={key}
-            title={value.title}
-            purchases={value.orders}
-          />
-        ))}
-      </div>
-    </article>
+    <PurchaseList
+      title={pageTitle}
+      groupedPurchases={groupedOrders}
+      type={PURCHASE_TYPE.ORDER}
+    />
   );
 };
 

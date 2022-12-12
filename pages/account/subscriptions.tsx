@@ -1,6 +1,6 @@
 import React from 'react';
+import PurchaseList from 'components/templates/PurchaseList';
 import { getClientWithSessionToken } from 'lib/graphql/client';
-import PurchaseGroup from 'components/organisms/PurchaseGroup';
 import {
   withAccountLayout,
   withAuthentication,
@@ -15,10 +15,10 @@ import { PURCHASE_TYPE } from 'types/purchase';
 
 interface SubscriptionGroup {
   title: string;
-  subscriptions: SubscriptionCardProps[];
+  purchases: SubscriptionCardProps[];
 }
 
-type GroupedSubscriptions = {
+export type GroupedSubscriptions = {
   [key in SUBSCRIPTION_STATUS]?: SubscriptionGroup;
 };
 
@@ -74,11 +74,11 @@ export const propsCallback: GetServerSideProps<SubscriptionsPageProps> = async (
       if (status && !accumulator[status]) {
         const firstEntry: SubscriptionGroup = {
           title: GROUP_TITLES[status],
-          subscriptions: [currentValue],
+          purchases: [currentValue],
         };
         accumulator[status] = firstEntry;
       } else if (accumulator[status]) {
-        accumulator[status]?.subscriptions.push(currentValue);
+        accumulator[status]?.purchases.push(currentValue);
       }
       return accumulator;
     }, {} as GroupedSubscriptions);
@@ -96,23 +96,15 @@ export const getServerSideProps = withAccountLayout(
 );
 
 const SubscriptionsPage: NextPageWithLayout<SubscriptionsPageProps> = ({
+  pageTitle,
   groupedSubscriptions,
 }) => {
   return (
-    <article className="">
-      <h1 className="hidden font-headings text-2xl font-semibold text-primary lg:block">
-        Subscriptions
-      </h1>
-      <div className="space-y-12 md:mt-12">
-        {Object.entries(groupedSubscriptions).map(([key, value]) => (
-          <PurchaseGroup
-            key={key}
-            title={value.title}
-            purchases={value.subscriptions}
-          />
-        ))}
-      </div>
-    </article>
+    <PurchaseList
+      title={pageTitle}
+      groupedPurchases={groupedSubscriptions}
+      type={PURCHASE_TYPE.SUBSCRIPTION}
+    />
   );
 };
 
