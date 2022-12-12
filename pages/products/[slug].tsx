@@ -194,6 +194,19 @@ const ProductsPage: React.FC<ProductsPageProps> = ({
     isGiftCard,
     stockLevel,
   });
+  const standardPriceTotal = activeVariation?.standardPrice?.price
+    ? activeVariation?.standardPrice?.price * state.quantity
+    : 0;
+  const subscriptionPriceTotal = activeVariation?.subscriptionPrice?.price
+    ? activeVariation?.subscriptionPrice?.price * state.quantity
+    : 0;
+  const origStandardPriceTotal = activeVariation?.standardPrice?.origPrice
+    ? activeVariation?.standardPrice?.origPrice * state.quantity
+    : undefined;
+  const origSubscriptionPriceTotal = activeVariation?.subscriptionPrice
+    ?.origPrice
+    ? activeVariation?.subscriptionPrice?.origPrice * state.quantity
+    : undefined;
 
   const [stockStatus, maxQuantity] = useProductStock({
     stockTracking,
@@ -364,13 +377,13 @@ const ProductsPage: React.FC<ProductsPageProps> = ({
                   {state.selectedPurchaseOption ===
                   PURCHASE_OPTION_TYPE.SUBSCRIPTION ? (
                     <Price
-                      price={activeVariation?.subscriptionPrice?.price ?? 0}
-                      origPrice={activeVariation?.subscriptionPrice?.origPrice}
+                      price={subscriptionPriceTotal}
+                      origPrice={origSubscriptionPriceTotal}
                     />
                   ) : (
                     <Price
-                      price={activeVariation?.standardPrice?.price ?? 0}
-                      origPrice={activeVariation?.standardPrice?.origPrice}
+                      price={standardPriceTotal}
+                      origPrice={origStandardPriceTotal}
                     />
                   )}
                 </Button>
