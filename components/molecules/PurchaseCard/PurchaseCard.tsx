@@ -102,7 +102,7 @@ const PurchaseCard: React.FC<PurchaseCardProps> = ({
               key={image.alt + i}
               className="relative aspect-square md:h-full md:w-auto">
               <Image
-                {...image}
+                src={image.src}
                 layout="fill"
                 alt={image.alt}
                 className="rounded-lg"

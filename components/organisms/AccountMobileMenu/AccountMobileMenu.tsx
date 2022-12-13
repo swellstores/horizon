@@ -51,9 +51,13 @@ const AccountMobileMenu: React.FC<AccountMobileMenuProps> = ({
                         <ul className="flex flex-col gap-4">
                           {links.map(({ link, label }) => (
                             <li key={`${label}-${link}`}>
-                              <Disclosure.Button as={Link} href={link}>
-                                <a onClick={() => close()}>{label}</a>
-                              </Disclosure.Button>
+                              <Link href={link} passHref>
+                                <Disclosure.Button
+                                  as="a"
+                                  onClick={() => close()}>
+                                  {label}
+                                </Disclosure.Button>
+                              </Link>
                             </li>
                           ))}
                         </ul>

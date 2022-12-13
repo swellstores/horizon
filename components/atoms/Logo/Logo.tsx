@@ -32,13 +32,7 @@ const Logo = React.forwardRef<HTMLDivElement, LogoProps>(
           <span
             style={logoCssProperties as React.CSSProperties}
             className="h-[var(--logo-mobile-height)] w-[var(--logo-mobile-width)] lg:h-[var(--logo-desktop-height)] lg:w-[var(--logo-desktop-width)]">
-            <Image
-              alt="Logo"
-              src={logo.src}
-              layout="fill"
-              height={logo.height}
-              width={logo.width}
-            />
+            <Image alt="Logo" src={logo.src} layout="fill" />
           </span>
         ) : (
           <span className="text-3xl font-medium uppercase text-primary lg:text-5xl">
