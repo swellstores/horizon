@@ -4,9 +4,7 @@ Horizon is a fully-featured headless e-commerce theme developed around Swell's p
 
 ### Deploy Horizon on Vercel
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fswellstores%2Fhorizon%2F&env=NEXT_PUBLIC_SWELL_STORE_URL,NEXT_PUBLIC_SWELL_PUBLIC_KEY,SWELL_STORE_ID,SWELL_SECRET_KEY,NEXT_PUBLIC_SWELL_EDITOR&envDescription=These%20environment%20variables%20are%20required%20to%20connect%20Horizon%20to%20your%20Swell%20Store.&envLink=https%3A%2F%2Fdevelopers.swell.is%2Fstorefronts%2FStorefront-hosting%2Fstorefronts-on-vercel%23adjusting-the-build-settings&project-name=swell-horizon&repository-name=swell-horizon&demo-title=Swell%20-%20Horizon%20&demo-description=E-commerce%20theme%20built%20around%20Swell.js%20powerful%20subscription%20features.&demo-url=https%3A%2F%2Fstorefronts-horizon.vercel.app%2F)
-
-The link above should automatically pre-select this repository as the source and pre-fill the names of the required environment variables. For more information on these, please see the "Setting up your environment" section below.
+Since Horizon is a standard Next.js app, deploying it on Vercel only takes a few steps. Follow [this guide](https://developers.swell.is/guides/deploy-horizon-to-vercel) for a walk-through on how to do so.
 
 ## Features
 
