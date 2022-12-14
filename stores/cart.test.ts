@@ -14,6 +14,7 @@ const cartItems: CartItemProps[] = [
       src: 'https://placekitten.com/100/100',
     },
     price: 10,
+    priceTotal: 10,
     productOptions: [
       {
         id: 'abc',

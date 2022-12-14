@@ -29,6 +29,7 @@ export interface CartItemProps {
   image: MandatoryImageProps;
   title: string;
   price: number;
+  priceTotal: number;
   quantity: number;
   minQuantity: number;
   purchaseOption: Maybe<SwellCartItemPurchaseOption>;
@@ -47,6 +48,7 @@ const CartItem: React.FC<CartItemProps> = ({
   title,
   image,
   price,
+  priceTotal,
   quantity,
   minQuantity = 1,
   purchaseOption,
@@ -70,6 +72,10 @@ const CartItem: React.FC<CartItemProps> = ({
 
   const [quantityInputValue, setQuantityInputValue] = useState(quantity);
   const debounceTimeout = useRef<ReturnType<typeof setTimeout> | undefined>();
+
+  // Price to be shown in the trial text. We can't use priceTotal
+  // because that will return the price for the first order, which is 0
+  const afterTrialPrice = useMemo(() => price * quantity, [price, quantity]);
 
   useEffect(() => {
     // Ignore quantity changes if the user is changing the input value
@@ -165,16 +171,16 @@ const CartItem: React.FC<CartItemProps> = ({
             {hasTrial ? (
               <>
                 <span className="text-sm font-semibold text-primary">
-                  <Price price={0} origPrice={price} />
+                  <Price price={0} origPrice={afterTrialPrice} />
                 </span>
                 <TrialLabel
                   trialDays={purchaseOption?.billingSchedule?.trialDays}
-                  price={price}
+                  price={afterTrialPrice}
                 />
               </>
             ) : (
               <span className="text-sm font-semibold text-primary">
-                <Price price={price} />
+                <Price price={priceTotal} />
               </span>
             )}
           </span>

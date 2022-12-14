@@ -31,6 +31,7 @@ Default.args = {
       title: 'Vitamin D',
       href: '/products/vitamin-d',
       price: 10,
+      priceTotal: 50,
       image: {
         src: '/images/product-preview-card-1.webp',
         width: 1072,
@@ -48,6 +49,7 @@ Default.args = {
       title: 'Vitamin D',
       href: '/products/vitamin-d',
       price: 20,
+      priceTotal: 100,
       image: {
         src: '/images/product-preview-card-1.webp',
         width: 1072,
@@ -65,6 +67,7 @@ Default.args = {
       title: 'Vitamin D',
       href: '/products/vitamin-d',
       price: 10,
+      priceTotal: 100,
       image: {
         src: '/images/product-preview-card-1.webp',
         width: 1072,
@@ -82,6 +85,7 @@ Default.args = {
       title: 'Vitamin D',
       href: '/products/vitamin-d',
       price: 20,
+      priceTotal: 100,
       image: {
         src: '/images/product-preview-card-1.webp',
         width: 1072,
@@ -99,6 +103,7 @@ Default.args = {
       title: 'Vitamin D',
       href: '/products/vitamin-d',
       price: 10,
+      priceTotal: 100,
       image: {
         src: '/images/product-preview-card-1.webp',
         width: 1072,
@@ -116,6 +121,7 @@ Default.args = {
       title: 'Vitamin D',
       href: '/products/vitamin-d',
       price: 20,
+      priceTotal: 100,
       image: {
         src: '/images/product-preview-card-1.webp',
         width: 1072,

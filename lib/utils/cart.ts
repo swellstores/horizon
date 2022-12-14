@@ -8,6 +8,7 @@ export const getCartItems = (cart: SwellCart) =>
           id: item.id ?? '',
           title: item.product?.name ?? '',
           price: item.price ?? 0,
+          priceTotal: item.priceTotal ?? 0,
           quantity: item.quantity ?? 1,
           minQuantity: 1,
           href: `/products/${item.product?.slug}`,
