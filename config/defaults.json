@@ -1,0 +1,83 @@
+{
+  "colors": {
+    "primary": "#1D0A43",
+    "body": "#585165",
+    "accent": "#F2DCA6",
+    "success": {
+      "dark": "#00BA99"
+    },
+    "error": {
+      "dark": "#FF766D"
+    },
+    "button": {
+      "primary": "#1D0A43",
+      "secondary": "#FFFFFF"
+    },
+    "background": {
+      "primary": "#FFFFFF",
+      "secondary": "#F6F4EF"
+    },
+    "input": {
+      "standard": "#BDB9C6"
+    },
+    "dividers": "#ECEAF0"
+  },
+  "borders": {
+    "image": {
+      "radius": 20
+    }
+  },
+  "typography": {
+    "font_size": {
+      "base": 16,
+      "scaling": 1.125
+    },
+    "font_family": {
+      "headings": {
+        "provider": "Google",
+        "name": "Inter",
+        "fallback": "-apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica neue, helvetica, Ubuntu, roboto, noto, segoe ui, arial, sans-serif",
+        "weight": 700
+      },
+      "body": {
+        "provider": "Google",
+        "name": "Roboto",
+        "fallback": "-apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica neue, helvetica, Ubuntu, roboto, noto, segoe ui, arial, sans-serif",
+        "weight": 500
+      }
+    }
+  },
+  "header": {
+    "logo_height": {
+      "mobile": 20,
+      "desktop": 31
+    },
+    "menu": "header",
+    "hide_on_scroll": true,
+    "logo": {
+      "file": {
+        "id": "6328405713f5ac0013f3dadf",
+        "date_uploaded": "2022-09-19T10:11:35.995Z",
+        "length": 3248,
+        "md5": "37e17304e2a900ba61d570feadd755b5",
+        "filename": null,
+        "content_type": "image/svg+xml",
+        "metadata": null,
+        "url": "https://cdn.schema.io/horizon-demo/6328405713f5ac0013f3dadf/37e17304e2a900ba61d570feadd755b5",
+        "width": 209,
+        "height": 33
+      }
+    },
+    "announcement_text": ""
+  },
+  "footer": {
+    "menu": "footer",
+    "secondary_menu": "footer-secondary",
+    "show_socials": true,
+    "copyright_text": "©2022 Horizon.",
+    "show_newsletter": true,
+    "newsletter_title": "Let's keep in touch.",
+    "newsletter_placeholder": "E-mail address",
+    "horizontal_padding": "large"
+  }
+}
