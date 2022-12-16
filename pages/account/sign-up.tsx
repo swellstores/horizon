@@ -21,6 +21,8 @@ import { API_ROUTES } from 'types/shared/api';
 import { validateNonEmptyFields } from 'utils/validation';
 import { ACCOUNT_FIELD } from 'types/account';
 import useFetchApi from 'hooks/useFetchApi';
+import useNotificationStore from 'stores/notification';
+import { NOTIFICATION_TYPE } from 'types/shared/notification';
 
 interface SignUpProps extends PageProps {
   text: {
@@ -45,6 +47,7 @@ interface SignUpProps extends PageProps {
     signUpButton: string;
     registeredUser?: string;
     loginLink: string;
+    accountSuccessfullyCreated: string;
   };
 }
 
@@ -77,6 +80,7 @@ const propsCallback: GetServerSideProps<SignUpProps> = async () => {
         signUpButton: 'Create account',
         registeredUser: 'Already have an account?',
         loginLink: 'Log in',
+        accountSuccessfullyCreated: 'Your account was successfully created',
       },
     },
   };
@@ -89,6 +93,7 @@ const SignUpPage: NextPageWithLayout<
 > = ({ text, title, metaTitle, metaDescription }) => {
   const router = useRouter();
   const fetchApi = useFetchApi();
+  const send = useNotificationStore((store) => store.send);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -189,8 +194,12 @@ const SignUpPage: NextPageWithLayout<
 
   const completeCallback = useCallback(() => {
     setError(undefined);
+    send({
+      message: text.accountSuccessfullyCreated,
+      type: NOTIFICATION_TYPE.INFO,
+    });
     router.push('/account/orders');
-  }, [router]);
+  }, [router, send, text]);
 
   const handleSubmit = useCallback(
     async (e) => {
