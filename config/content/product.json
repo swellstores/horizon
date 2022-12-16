@@ -96,5 +96,7 @@
       ],
       "admin_zone": "content"
     }
-  ]
+  ],
+  "source_type": "theme",
+  "source_id": "horizon"
 }

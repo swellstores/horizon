@@ -63,5 +63,7 @@
       "label": "Enable quick add",
       "type": "toggle"
     }
-  ]
+  ],
+  "source_type": "theme",
+  "source_id": "horizon"
 }
