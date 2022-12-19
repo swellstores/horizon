@@ -1,4 +1,6 @@
 const isDev = process.env.NODE_ENV === 'development';
+const storeUrl = process.env.NEXT_PUBLIC_SWELL_STORE_URL;
+const graphqlKey = process.env.NEXT_PUBLIC_SWELL_PUBLIC_KEY;
 
 /** @type {import('next').NextConfig} */
 let nextConfig = {
@@ -28,16 +30,21 @@ let nextConfig = {
 };
 
 module.exports = async () => {
-  const storeUrl = process.env.NEXT_PUBLIC_SWELL_STORE_URL;
-  const graphqlKey = process.env.NEXT_PUBLIC_SWELL_PUBLIC_KEY;
-  const getLocales = async () => {
-    const headers = {
-      Authorization: graphqlKey,
-    };
+  /**
+   *
+   * @returns @type {import('next').NextConfig['i18n']}
+   */
+  const getLocalesConfig = async () => {
+    if (!storeUrl || !graphqlKey) return null;
+
     const res = await fetch(`${storeUrl}/api/settings`, {
-      headers,
+      headers: {
+        Authorization: graphqlKey,
+      },
     });
     const data = await res.json();
+
+    if (!data?.store?.locales?.length) return null;
 
     return {
       locales: data.store.locales.map((locale) => locale.code),
@@ -45,9 +52,9 @@ module.exports = async () => {
     };
   };
 
-  const i18n = await getLocales();
+  const i18n = await getLocalesConfig();
 
-  nextConfig.i18n = i18n;
+  if (i18n) nextConfig.i18n = i18n;
 
   return nextConfig;
 };
