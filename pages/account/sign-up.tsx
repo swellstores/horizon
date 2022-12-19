@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import type { GetServerSideProps } from 'next';
@@ -18,6 +18,11 @@ import { getAuthLayout } from 'lib/utils/layout_getters';
 import { withAuthLayout } from 'lib/utils/fetch_decorators';
 import Link from 'next/link';
 import { API_ROUTES } from 'types/shared/api';
+import { validateNonEmptyFields } from 'utils/validation';
+import { ACCOUNT_FIELD } from 'types/account';
+import useFetchApi from 'hooks/useFetchApi';
+import useNotificationStore from 'stores/notification';
+import { NOTIFICATION_TYPE } from 'types/shared/notification';
 
 interface SignUpProps extends PageProps {
   text: {
@@ -42,6 +47,7 @@ interface SignUpProps extends PageProps {
     signUpButton: string;
     registeredUser?: string;
     loginLink: string;
+    accountSuccessfullyCreated: string;
   };
 }
 
@@ -74,6 +80,7 @@ const propsCallback: GetServerSideProps<SignUpProps> = async () => {
         signUpButton: 'Create account',
         registeredUser: 'Already have an account?',
         loginLink: 'Log in',
+        accountSuccessfullyCreated: 'Your account was successfully created',
       },
     },
   };
@@ -81,29 +88,148 @@ const propsCallback: GetServerSideProps<SignUpProps> = async () => {
 
 export const getServerSideProps = withAuthLayout(propsCallback);
 
-enum ERROR_FIELD {
-  FIRST_NAME = 'firstName',
-  LAST_NAME = 'lastName',
-  EMAIL = 'email',
-  PASSWORD = 'password',
-  OTHER = 'other',
-}
-
 const SignUpPage: NextPageWithLayout<
   ServerSideProps<typeof getServerSideProps>
 > = ({ text, title, metaTitle, metaDescription }) => {
   const router = useRouter();
+  const fetchApi = useFetchApi();
+  const send = useNotificationStore((store) => store.send);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<{
-    field: ERROR_FIELD;
+    field: ACCOUNT_FIELD;
     message: string;
   }>();
-
-  const fetching = useRef(false);
+  const otherError = error?.field === ACCOUNT_FIELD.OTHER;
+  const firstNameError =
+    error?.field === ACCOUNT_FIELD.FIRST_NAME || otherError;
+  const lastNameError = error?.field === ACCOUNT_FIELD.LAST_NAME || otherError;
+  const emailError = error?.field === ACCOUNT_FIELD.EMAIL || otherError;
+  const passwordError = error?.field === ACCOUNT_FIELD.PASSWORD || otherError;
   const emailInputRef = useRef<HTMLInputElement>(null);
+
+  const responseCallback = useCallback(
+    (res: Response) => {
+      if (res.status === 409) {
+        setError({
+          field: ACCOUNT_FIELD.OTHER,
+          message: text.emailTakenErrorText,
+        });
+        return false;
+      } else if (res.status !== 200) {
+        setError({
+          field: ACCOUNT_FIELD.OTHER,
+          message: text.serverErrorText,
+        });
+        return false;
+      }
+    },
+    [text],
+  );
+
+  const errorCallback = useCallback(() => {
+    setError({
+      field: ACCOUNT_FIELD.OTHER,
+      message: text.serverErrorText,
+    });
+  }, [text]);
+
+  const validationCallback = useCallback(() => {
+    const requiredErrorPayloads = {
+      [ACCOUNT_FIELD.FIRST_NAME]: {
+        field: ACCOUNT_FIELD.FIRST_NAME,
+        message: text.firstNameEmptyErrorText,
+      },
+      [ACCOUNT_FIELD.LAST_NAME]: {
+        field: ACCOUNT_FIELD.LAST_NAME,
+        message: text.lastNameEmptyErrorText,
+      },
+      [ACCOUNT_FIELD.EMAIL]: {
+        field: ACCOUNT_FIELD.EMAIL,
+        message: text.emailEmptyErrorText,
+      },
+      [ACCOUNT_FIELD.PASSWORD]: {
+        field: ACCOUNT_FIELD.PASSWORD,
+        message: text.passwordEmptyErrorText,
+      },
+    };
+
+    const requiredFields = {
+      [ACCOUNT_FIELD.FIRST_NAME]: firstName,
+      [ACCOUNT_FIELD.LAST_NAME]: lastName,
+      [ACCOUNT_FIELD.EMAIL]: email,
+      [ACCOUNT_FIELD.PASSWORD]: password,
+    };
+
+    const requiredError = validateNonEmptyFields(
+      requiredFields,
+      requiredErrorPayloads,
+    );
+
+    if (requiredError) {
+      setError(requiredError);
+      return false;
+    }
+
+    if (password.length < 6) {
+      setError({
+        field: ACCOUNT_FIELD.PASSWORD,
+        message: text.passwordInvalidErrorText,
+      });
+      return false;
+    }
+
+    const emailValid = emailInputRef.current?.checkValidity();
+
+    if (!emailValid) {
+      setError({
+        field: ACCOUNT_FIELD.EMAIL,
+        message: text.emailInvalidErrorText,
+      });
+      return false;
+    }
+  }, [email, password, firstName, lastName, text]);
+
+  const completeCallback = useCallback(() => {
+    setError(undefined);
+    send({
+      message: text.accountSuccessfullyCreated,
+      type: NOTIFICATION_TYPE.INFO,
+    });
+    router.push('/account/orders');
+  }, [router, send, text]);
+
+  const handleSubmit = useCallback(
+    async (e) => {
+      e.preventDefault();
+      await fetchApi(
+        {
+          url: API_ROUTES.SIGN_UP,
+          options: {
+            method: 'POST',
+            body: JSON.stringify({ email, password, firstName, lastName }),
+          },
+        },
+        responseCallback,
+        errorCallback,
+        validationCallback,
+        completeCallback,
+      );
+    },
+    [
+      responseCallback,
+      errorCallback,
+      validationCallback,
+      completeCallback,
+      fetchApi,
+      email,
+      password,
+      firstName,
+      lastName,
+    ],
+  );
 
   return (
     <article className="mx-6 h-full pt-12 pb-10 md:pb-18 md:pt-16">
@@ -116,81 +242,7 @@ const SignUpPage: NextPageWithLayout<
       <form
         noValidate
         className="mx-auto h-full w-full md:w-[400px]"
-        onSubmit={async (e) => {
-          e.preventDefault();
-
-          if (fetching.current) return;
-
-          if (email === '') {
-            return setError({
-              field: ERROR_FIELD.EMAIL,
-              message: text.emailEmptyErrorText,
-            });
-          }
-          if (password === '') {
-            return setError({
-              field: ERROR_FIELD.PASSWORD,
-              message: text.passwordEmptyErrorText,
-            });
-          }
-
-          if (password.length < 6) {
-            return setError({
-              field: ERROR_FIELD.PASSWORD,
-              message: text.passwordInvalidErrorText,
-            });
-          }
-
-          const emailValid = emailInputRef.current?.checkValidity();
-
-          if (!emailValid) {
-            return setError({
-              field: ERROR_FIELD.EMAIL,
-              message: text.emailInvalidErrorText,
-            });
-          }
-
-          try {
-            fetching.current = true;
-
-            const res = await fetch(API_ROUTES.SIGN_UP, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                email,
-                password,
-                firstName,
-                lastName,
-              }),
-            });
-
-            fetching.current = false;
-
-            if (res.status === 409) {
-              return setError({
-                field: ERROR_FIELD.OTHER,
-                message: text.emailTakenErrorText,
-              });
-            } else if (res.status !== 200) {
-              return setError({
-                field: ERROR_FIELD.OTHER,
-                message: text.serverErrorText,
-              });
-            }
-          } catch (error) {
-            fetching.current = false;
-            return setError({
-              field: ERROR_FIELD.OTHER,
-              message: text.serverErrorText,
-            });
-          }
-
-          setError(undefined);
-
-          router.push('/account/orders');
-        }}>
+        onSubmit={handleSubmit}>
         <fieldset className="flex h-full w-full flex-1 flex-col justify-between">
           <div>
             <legend className="w-full text-center">
@@ -209,17 +261,9 @@ const SignUpPage: NextPageWithLayout<
                   id="first-name"
                   type="text"
                   aria-required
-                  aria-invalid={
-                    error?.field === ERROR_FIELD.FIRST_NAME ||
-                    error?.field === ERROR_FIELD.OTHER
-                  }
-                  aria-errormessage={
-                    error?.field === ERROR_FIELD.FIRST_NAME ||
-                    error?.field === ERROR_FIELD.OTHER
-                      ? error.message
-                      : undefined
-                  }
-                  error={error?.field === ERROR_FIELD.FIRST_NAME}
+                  aria-invalid={firstNameError}
+                  aria-errormessage={firstNameError ? error.message : undefined}
+                  error={firstNameError}
                   placeholder={text.firstNamePlaceholder}
                   value={firstName}
                   onChange={(e) => {
@@ -227,7 +271,7 @@ const SignUpPage: NextPageWithLayout<
                     setFirstName(e.currentTarget.value);
                   }}
                 />
-                {error?.field === ERROR_FIELD.FIRST_NAME && (
+                {error?.field === ACCOUNT_FIELD.FIRST_NAME && (
                   <ValidationErrorText id="first-name-error">
                     {error.message}
                   </ValidationErrorText>
@@ -243,17 +287,9 @@ const SignUpPage: NextPageWithLayout<
                   id="last-name"
                   type="text"
                   aria-required
-                  aria-invalid={
-                    error?.field === ERROR_FIELD.LAST_NAME ||
-                    error?.field === ERROR_FIELD.OTHER
-                  }
-                  aria-errormessage={
-                    error?.field === ERROR_FIELD.LAST_NAME ||
-                    error?.field === ERROR_FIELD.OTHER
-                      ? error.message
-                      : undefined
-                  }
-                  error={error?.field === ERROR_FIELD.LAST_NAME}
+                  aria-invalid={lastNameError}
+                  aria-errormessage={lastNameError ? error.message : undefined}
+                  error={lastNameError}
                   placeholder={text.lastNamePlaceholder}
                   value={lastName}
                   onChange={(e) => {
@@ -261,7 +297,7 @@ const SignUpPage: NextPageWithLayout<
                     setLastName(e.currentTarget.value);
                   }}
                 />
-                {error?.field === ERROR_FIELD.LAST_NAME && (
+                {error?.field === ACCOUNT_FIELD.LAST_NAME && (
                   <ValidationErrorText id="last-name-error">
                     {error.message}
                   </ValidationErrorText>
@@ -278,17 +314,9 @@ const SignUpPage: NextPageWithLayout<
                   type="email"
                   ref={emailInputRef}
                   aria-required
-                  aria-invalid={
-                    error?.field === ERROR_FIELD.EMAIL ||
-                    error?.field === ERROR_FIELD.OTHER
-                  }
-                  aria-errormessage={
-                    error?.field === ERROR_FIELD.EMAIL ||
-                    error?.field === ERROR_FIELD.OTHER
-                      ? error.message
-                      : undefined
-                  }
-                  error={error?.field === ERROR_FIELD.EMAIL}
+                  aria-invalid={emailError}
+                  aria-errormessage={emailError ? error.message : undefined}
+                  error={emailError}
                   placeholder={text.emailPlaceholder}
                   value={email}
                   onChange={(e) => {
@@ -296,7 +324,7 @@ const SignUpPage: NextPageWithLayout<
                     setEmail(e.currentTarget.value);
                   }}
                 />
-                {error?.field === ERROR_FIELD.EMAIL && (
+                {error?.field === ACCOUNT_FIELD.EMAIL && (
                   <ValidationErrorText id="email-error">
                     {error.message}
                   </ValidationErrorText>
@@ -312,17 +340,9 @@ const SignUpPage: NextPageWithLayout<
                   id="password"
                   minLength={6}
                   aria-required
-                  aria-invalid={
-                    error?.field === ERROR_FIELD.PASSWORD ||
-                    error?.field === ERROR_FIELD.OTHER
-                  }
-                  aria-errormessage={
-                    error?.field === ERROR_FIELD.PASSWORD ||
-                    error?.field === ERROR_FIELD.OTHER
-                      ? error.message
-                      : undefined
-                  }
-                  error={error?.field === ERROR_FIELD.PASSWORD}
+                  aria-invalid={passwordError}
+                  aria-errormessage={passwordError ? error.message : undefined}
+                  error={passwordError}
                   placeholder={text.passwordPlaceholder}
                   value={password}
                   onChange={(e) => {
@@ -330,7 +350,7 @@ const SignUpPage: NextPageWithLayout<
                     setPassword(e.currentTarget.value);
                   }}
                 />
-                {error?.field === ERROR_FIELD.PASSWORD && (
+                {error?.field === ACCOUNT_FIELD.PASSWORD && (
                   <ValidationErrorText>{error.message}</ValidationErrorText>
                 )}
                 {text.passwordRequirementsText && (
@@ -343,7 +363,7 @@ const SignUpPage: NextPageWithLayout<
           </div>
 
           <div className="mt-4 flex flex-col gap-2">
-            {error?.field === ERROR_FIELD.OTHER ? (
+            {otherError ? (
               <BannerInfo
                 bannerStyle={BANNER_INFO_STYLE.ERROR}
                 textAlignment={TEXT_ALIGNMENT.CENTER}>
@@ -359,7 +379,7 @@ const SignUpPage: NextPageWithLayout<
               {text.registeredUser && <span>{text.registeredUser}&nbsp;</span>}
 
               <Link href="/account/login">
-                <a className="underline">{text.loginLink}</a>
+                <a className="font-bold hover:underline">{text.loginLink}</a>
               </Link>
             </div>
           </div>

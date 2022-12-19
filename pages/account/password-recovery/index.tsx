@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Link from 'next/link';
@@ -13,6 +13,9 @@ import { getAuthLayout } from 'lib/utils/layout_getters';
 import { withAuthLayout } from 'lib/utils/fetch_decorators';
 import type { NextPageWithLayout, PageProps } from 'types/shared/pages';
 import { API_ROUTES } from 'types/shared/api';
+import { ACCOUNT_FIELD } from 'types/account';
+import { validateNonEmptyFields } from 'utils/validation';
+import useFetchApi from 'hooks/useFetchApi';
 
 interface PasswordRecoveryProps extends PageProps {
   text: {
@@ -44,7 +47,7 @@ const propsCallback: GetStaticProps<PasswordRecoveryProps> = async () => {
         emailPlaceholder: 'Enter your email',
         submitButtonLabel: 'SEND EMAIL',
         backToLoginText: 'Back to',
-        backToLoginLink: 'login',
+        backToLoginLink: 'Log in',
         serverErrorText: 'Something went wrong',
       },
     },
@@ -53,11 +56,6 @@ const propsCallback: GetStaticProps<PasswordRecoveryProps> = async () => {
 
 export const getStaticProps = withAuthLayout(propsCallback);
 
-enum ERROR_FIELD {
-  EMAIL = 'email',
-  OTHER = 'other',
-}
-
 const PasswordRecoveryPage: NextPageWithLayout<PasswordRecoveryProps> = ({
   text,
   title,
@@ -65,14 +63,99 @@ const PasswordRecoveryPage: NextPageWithLayout<PasswordRecoveryProps> = ({
   metaDescription,
 }) => {
   const router = useRouter();
+  const fetchApi = useFetchApi();
   const [email, setEmail] = useState('');
   const [error, setError] = useState<{
-    field: ERROR_FIELD;
+    field: ACCOUNT_FIELD;
     message: string;
   }>();
-
-  const fetching = useRef(false);
+  const otherError = error?.field === ACCOUNT_FIELD.OTHER;
+  const emailError = error?.field === ACCOUNT_FIELD.EMAIL || otherError;
   const emailInputRef = useRef<HTMLInputElement>(null);
+
+  const responseCallback = useCallback(
+    (res: Response) => {
+      if (res.status !== 200) {
+        setError({
+          field: ACCOUNT_FIELD.OTHER,
+          message: text.serverErrorText,
+        });
+        return false;
+      }
+    },
+    [text],
+  );
+
+  const errorCallback = useCallback(() => {
+    setError({
+      field: ACCOUNT_FIELD.OTHER,
+      message: text.serverErrorText,
+    });
+  }, [text]);
+
+  const validationCallback = useCallback(() => {
+    const requiredErrorPayloads = {
+      [ACCOUNT_FIELD.EMAIL]: {
+        field: ACCOUNT_FIELD.EMAIL,
+        message: text.emailEmptyErrorText,
+      },
+    };
+
+    const requiredFields = {
+      [ACCOUNT_FIELD.EMAIL]: email,
+    };
+    const requiredError = validateNonEmptyFields(
+      requiredFields,
+      requiredErrorPayloads,
+    );
+
+    if (requiredError) {
+      setError(requiredError);
+      return false;
+    }
+
+    const emailValid = emailInputRef.current?.checkValidity();
+
+    if (!emailValid) {
+      setError({
+        field: ACCOUNT_FIELD.EMAIL,
+        message: text.emailInvalidErrorText,
+      });
+      return false;
+    }
+  }, [email, text]);
+
+  const completeCallback = useCallback(() => {
+    setError(undefined);
+    router.push('/account/password-recovery/check-email');
+  }, [router]);
+
+  const handleSubmit = useCallback(
+    async (e) => {
+      e.preventDefault();
+      await fetchApi(
+        {
+          url: API_ROUTES.PASSWORD_RECOVERY,
+          options: {
+            method: 'POST',
+            body: JSON.stringify({ email }),
+          },
+        },
+        responseCallback,
+        errorCallback,
+        validationCallback,
+        completeCallback,
+      );
+    },
+    [
+      responseCallback,
+      errorCallback,
+      validationCallback,
+      completeCallback,
+      fetchApi,
+      email,
+    ],
+  );
 
   return (
     <article className="mx-6 h-full pt-12 pb-10 md:pb-18 md:pt-16">
@@ -85,60 +168,7 @@ const PasswordRecoveryPage: NextPageWithLayout<PasswordRecoveryProps> = ({
       <form
         noValidate
         className="mx-auto h-full w-full md:w-[400px]"
-        onSubmit={async (e) => {
-          e.preventDefault();
-
-          if (fetching.current) return;
-
-          if (email === '') {
-            return setError({
-              field: ERROR_FIELD.EMAIL,
-              message: text.emailEmptyErrorText,
-            });
-          }
-
-          const emailValid = emailInputRef.current?.checkValidity();
-
-          if (!emailValid) {
-            return setError({
-              field: ERROR_FIELD.EMAIL,
-              message: text.emailInvalidErrorText,
-            });
-          }
-
-          try {
-            fetching.current = true;
-
-            const res = await fetch(API_ROUTES.PASSWORD_RECOVERY, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                email,
-              }),
-            });
-
-            fetching.current = false;
-
-            if (res.status !== 200) {
-              return setError({
-                field: ERROR_FIELD.OTHER,
-                message: text.serverErrorText,
-              });
-            }
-          } catch (error) {
-            fetching.current = false;
-            return setError({
-              field: ERROR_FIELD.OTHER,
-              message: text.serverErrorText,
-            });
-          }
-
-          setError(undefined);
-
-          router.push('/account/password-recovery/check-email');
-        }}>
+        onSubmit={handleSubmit}>
         <fieldset className="flex h-full w-full flex-1 flex-col justify-between">
           <div>
             <legend className="w-full text-center">
@@ -163,17 +193,9 @@ const PasswordRecoveryPage: NextPageWithLayout<PasswordRecoveryProps> = ({
                   type="email"
                   ref={emailInputRef}
                   aria-required
-                  aria-invalid={
-                    error?.field === ERROR_FIELD.EMAIL ||
-                    error?.field === ERROR_FIELD.OTHER
-                  }
-                  aria-errormessage={
-                    error?.field === ERROR_FIELD.EMAIL ||
-                    error?.field === ERROR_FIELD.OTHER
-                      ? error.message
-                      : undefined
-                  }
-                  error={error?.field === ERROR_FIELD.EMAIL}
+                  aria-invalid={emailError}
+                  aria-errormessage={emailError ? error.message : undefined}
+                  error={emailError}
                   placeholder={text.emailPlaceholder}
                   value={email}
                   onChange={(e) => {
@@ -181,7 +203,7 @@ const PasswordRecoveryPage: NextPageWithLayout<PasswordRecoveryProps> = ({
                     setEmail(e.currentTarget.value);
                   }}
                 />
-                {error?.field === ERROR_FIELD.EMAIL && (
+                {error?.field === ACCOUNT_FIELD.EMAIL && (
                   <ValidationErrorText id="email-error">
                     {error.message}
                   </ValidationErrorText>
@@ -191,7 +213,7 @@ const PasswordRecoveryPage: NextPageWithLayout<PasswordRecoveryProps> = ({
           </div>
 
           <div className="mt-4 flex flex-col gap-2">
-            {error?.field === ERROR_FIELD.OTHER ? (
+            {otherError ? (
               <BannerInfo
                 bannerStyle={BANNER_INFO_STYLE.ERROR}
                 textAlignment={TEXT_ALIGNMENT.CENTER}>
@@ -206,7 +228,9 @@ const PasswordRecoveryPage: NextPageWithLayout<PasswordRecoveryProps> = ({
               <p className="mt-4 text-center text-sm text-primary md:mt-6">
                 {text.backToLoginText && <>{text.backToLoginText}&nbsp;</>}
                 <Link href="/account/login">
-                  <a className="underline">{text.backToLoginLink}</a>
+                  <a className="font-bold hover:underline">
+                    {text.backToLoginLink}
+                  </a>
                 </Link>
               </p>
             </div>

@@ -17,10 +17,8 @@ const TheSidebar: React.FC<SidebarProps> = ({ links, accountDetails }) => {
   const logout = useLogout();
   return (
     <aside className="hidden h-full min-w-[275px] md:block">
-      <div
-        className="fixed flex h-full flex-col items-start justify-between gap-4 overflow-auto"
-        style={{ maxHeight: 'min(50vh, 520px)' }}>
-        <div>
+      <div className="fixed flex h-full flex-col items-start overflow-auto">
+        <div className="mb-10">
           <AccountDetails {...accountDetails} />
         </div>
         <NavMenu links={links} />
@@ -29,7 +27,7 @@ const TheSidebar: React.FC<SidebarProps> = ({ links, accountDetails }) => {
             e.preventDefault();
             logout();
           }}
-          className="mt-auto">
+          className="mt-20">
           {/* TODO: i18n */}
           <Button
             elType={BUTTON_TYPE.BUTTON}

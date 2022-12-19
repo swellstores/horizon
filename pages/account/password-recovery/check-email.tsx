@@ -25,7 +25,7 @@ const propsCallback: GetStaticProps<CheckEmailProps> = async () => {
         message:
           'If you have an account, you should receive an email shortly with a link to reset your password.',
         backToLoginText: 'Back to',
-        backToLoginLink: 'login',
+        backToLoginLink: 'Log in',
       },
     },
   };
@@ -58,7 +58,9 @@ const CheckEmailPage: NextPageWithLayout<CheckEmailProps> = ({
           <p className="mt-6 text-center text-sm text-primary md:mt-6">
             {text.backToLoginText && <>{text.backToLoginText}&nbsp;</>}
             <Link href="/account/login">
-              <a className="underline">{text.backToLoginLink}</a>
+              <a className="font-bold hover:underline">
+                {text.backToLoginLink}
+              </a>
             </Link>
           </p>
         </div>
