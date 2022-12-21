@@ -28,7 +28,7 @@
     "sync:defaults": "swell storefront settings push settings -f ./config/defaults.json --strategy \"defaults\" --store $SWELL_STORE_ID --secret-key $SWELL_SECRET_KEY",
     "sync:content-blocks": "ls ./config/content/*.json | xargs -L 1 swell model push --store $SWELL_STORE_ID --secret-key $SWELL_SECRET_KEY --strategy \"merge\" --content -f",
     "sync:editor": "swell storefront settings push editor -f config/editor.json --strategy \"merge\" --store $SWELL_STORE_ID --secret-key $SWELL_SECRET_KEY",
-    "sync": "set -a && if [ -f .env ]; then source .env; fi && npm run sync:defaults && npm run sync:content-blocks && npm run sync:editor"
+    "sync": "set -a && if [ -f .env ]; then . ./.env; fi && npm run sync:defaults && npm run sync:content-blocks && npm run sync:editor && set +a"
   },
   "dependencies": {
     "@headlessui/react": "^1.6.4",
