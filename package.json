@@ -19,7 +19,7 @@
     "lintfix:prettier": "prettier --ignore-path .gitignore --write --plugin-search-dir=. --list-different .",
     "lintfix": "tsc --noEmit && npm run lintfix:prettier && eslint --fix .",
     "prepare": "husky install && if [ -f codegen.yml ] && [ -f build-utils/generate-theme.mjs ]; then npm run setup; fi",
-    "setup": "npm run sync && npm run graphql:generate && npm run theme:generate",
+    "setup": "concurrently \"npm:sync\" \"npm:graphql:generate\" \"npm:theme:generate\"",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "graphql:generate": "graphql-codegen --config codegen.yml -r dotenv/config",
@@ -28,7 +28,7 @@
     "sync:defaults": "swell storefront settings push settings -f ./config/defaults.json --strategy \"defaults\" --store $SWELL_STORE_ID --secret-key $SWELL_SECRET_KEY",
     "sync:content-blocks": "ls ./config/content/*.json | xargs -L 1 swell model push --store $SWELL_STORE_ID --secret-key $SWELL_SECRET_KEY --strategy \"merge\" --content -f",
     "sync:editor": "swell storefront settings push editor -f config/editor.json --strategy \"merge\" --store $SWELL_STORE_ID --secret-key $SWELL_SECRET_KEY",
-    "sync": "set -a && if [ -f .env ]; then . ./.env; fi && npm run sync:defaults && npm run sync:content-blocks && npm run sync:editor && set +a"
+    "sync": "dotenv concurrently \"npm:sync:*\""
   },
   "dependencies": {
     "@headlessui/react": "^1.6.4",
@@ -93,7 +93,9 @@
     "autoprefixer": "^10.4.2",
     "babel-loader": "^8.2.3",
     "chromatic": "^6.5.1",
+    "concurrently": "^7.6.0",
     "dotenv": "^16.0.0",
+    "dotenv-cli": "^6.0.0",
     "eslint": "8.9.0",
     "eslint-config-next": "12.1.0",
     "eslint-config-prettier": "^8.4.0",
