@@ -5,6 +5,7 @@ export interface PageProps {
   title?: string;
   metaTitle?: string;
   metaDescription?: string;
+  locale?: string;
 }
 
 export type NextPageWithLayout<T = { children?: ReactElement }> =

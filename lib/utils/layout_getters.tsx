@@ -4,11 +4,11 @@ import MainLayout from 'page_layouts/MainLayout';
 import type { ReactElement } from 'react';
 
 export const getMainLayout = (page: ReactElement) => {
-  const { settings } = page.props._layout ?? {};
+  const { settings, currencies, locales } = page.props._layout ?? {};
 
-  if (!settings) return page;
+  if (!settings || !currencies || !locales) return page;
 
-  return <MainLayout settings={settings}>{page}</MainLayout>;
+  return <MainLayout {...page.props._layout}>{page}</MainLayout>;
 };
 
 export const getAccountLayout = (page: ReactElement) => {

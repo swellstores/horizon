@@ -5,6 +5,8 @@ import type { Colors, Typography, Settings, Borders } from 'stores/settings';
 import type { Column, FooterProps } from 'components/organisms/Footer/Footer';
 import type { EditorArray } from 'types/editor';
 import { generateId } from 'lib/utils/shared_functions';
+import type { Currency } from 'types/shared/currency';
+import type { Locale } from 'types/shared/locale';
 
 function getMenu(menuId: string, menuSettings?: Maybe<SwellSettingsMenus>) {
   return menuSettings?.sections?.find((section) => section?.id === menuId);
@@ -55,14 +57,16 @@ function formatColumns(items: any): Column[] {
 }
 
 export function formatStoreSettings(
-  storeName: string,
   settings: any,
   menuSettings?: Maybe<SwellSettingsMenus>,
 ): Settings {
-  const header = settings.header;
+  const storeName = settings.store.name;
+  const settingsValues = settings.values;
+
+  const header = settingsValues.header;
   const headerMenu = getMenu(header.menu, menuSettings);
 
-  const footer = settings.footer;
+  const footer = settingsValues.footer;
   const footerMenu = getMenu(footer.menu, menuSettings);
   const secondaryFooterMenu = getMenu(footer.secondaryMenu, menuSettings);
 
@@ -109,9 +113,9 @@ export function formatStoreSettings(
   };
 
   return {
-    colors: settings?.colors ?? ({} as Colors),
+    colors: settingsValues?.colors ?? ({} as Colors),
     typography:
-      settings?.typography ??
+      settingsValues?.typography ??
       ({
         fontSize: {
           base: 16,
@@ -119,7 +123,7 @@ export function formatStoreSettings(
         },
       } as Typography),
     borders:
-      settings?.borders ??
+      settingsValues?.borders ??
       ({
         image: {
           radius: 20,
@@ -127,6 +131,34 @@ export function formatStoreSettings(
       } as Borders),
     header: formattedHeader,
     footer: formattedFooter,
-    socialLinks: settings.socialLinks ?? [],
+    socialLinks: settingsValues.socialLinks ?? [],
   };
 }
+
+export const formatLocales = (settings: any): Locale[] =>
+  settings?.store?.locales
+    ?.map((locale: Locale) => {
+      if (!locale?.code || !locale?.name) return null;
+      return {
+        code: locale.code,
+        name: locale.name,
+        fallback: locale.fallback,
+      };
+    })
+    .filter(isNotNull) ?? [];
+
+export const formatCurrencies = (settings: any): Currency[] =>
+  settings?.store?.currencies
+    ?.map((currency: Currency) => {
+      if (!currency?.code || !currency?.symbol) return null;
+      return {
+        code: currency.code,
+        symbol: currency.symbol,
+        name: currency.name ?? undefined,
+        rate: currency.rate ?? undefined,
+        decimals: currency.decimals ?? 2,
+        priced: currency.priced ?? undefined,
+        type: currency.type ?? undefined,
+      };
+    })
+    .filter(isNotNull) ?? [];

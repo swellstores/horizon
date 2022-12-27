@@ -142,7 +142,10 @@ const propsCallback: GetStaticProps<ProductsPageProps> = async (context) => {
   });
 
   return {
-    props: productData,
+    props: {
+      ...productData,
+      locale,
+    },
   };
 };
 
