@@ -111,30 +111,13 @@ const propsCallback: GetStaticProps<ProductsPageProps> = async (context) => {
     };
   }
 
-  /* TODO: When locale is implemented
-     1. Get locale from context (i.e. en-US)
-     2. Get default currency for that locale
-     3. Get product data in the locale and its default currency
-     4. If no locale or currency, pass null to get the default data
-     5. If the user switches locale, redirect to the same page but in
-     the new locale
-     6. On load, and if the currency changes, the active page needs
-     to fetch the page data on the new currency and overwrite the 
-     previous data. Check that product.currency !== activeCurrency
-     so we don't fetch in vain.
-     7. If a currency was manually setup, use that in the future
-     for every page. If not, just use the locale's default
-     currency and change the activeCurrency but with userSelected: false.
-     if activeCurrency has userSelected: true then it overrides.
-  */
-
-  // TODO: Mocked default currency, replace with actual one when implemented.
-  const defaultCurrencyMap = new Map<string | undefined, string>();
-  defaultCurrencyMap.set('en', 'USD');
-  defaultCurrencyMap.set('es-ES', 'EUR');
+  const client = getGQLClient();
+  const {
+    data: { storeSettings },
+  } = await client.getStoreSettings();
 
   const { locale } = context;
-  const currency = defaultCurrencyMap.get(locale) || 'USD';
+  const currency = storeSettings?.store?.currency || undefined;
 
   const productData = await getProductBySlug(context.params.slug, {
     currency,
