@@ -132,6 +132,7 @@ export function formatStoreSettings(
     header: formattedHeader,
     footer: formattedFooter,
     socialLinks: settingsValues.socialLinks ?? [],
+    lang: settingsValues?.lang ?? {},
   };
 }
 

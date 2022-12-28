@@ -43,6 +43,7 @@ import useClassNames from 'hooks/useClassNames';
 import getGQLClient from 'lib/graphql/client';
 import { generateId } from 'lib/utils/shared_functions';
 import type { Replace } from 'types/utils';
+import useSettingsStore from 'stores/settings';
 
 export type ProductsPerRow = 2 | 3 | 4 | 5;
 
@@ -74,6 +75,7 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
     store.formatPrice,
     store.currency,
   ]);
+  const lang = useSettingsStore((state) => state.settings?.lang);
 
   const [loading, setLoading] = useState(true);
   const [products, setProducts] = useState<PurchasableProductData[]>([]);
@@ -462,7 +464,7 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
                 <div className="flex items-center justify-between py-4 text-primary">
                   <div className="flex gap-4">
                     <span className="text-md font-semibold uppercase">
-                      Filters
+                      {lang?.categories?.filters}
                     </span>
                   </div>
                   <button onClick={closeFilters}>

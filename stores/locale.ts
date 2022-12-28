@@ -13,7 +13,6 @@ const useLocaleStore = create<LocaleState>((set) => ({
   locales: [],
   setLocales: (locales) => set(() => ({ locales })),
   setActiveLocale: (activeLocale) => set(() => ({ activeLocale })),
-  // setLangSettings: (langSettings) => set(() => ({ langSettings })),
 }));
 
 export default useLocaleStore;
