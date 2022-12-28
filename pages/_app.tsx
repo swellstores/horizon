@@ -23,6 +23,7 @@ import {
 import { EDITOR_MESSAGE_TYPE } from 'types/editor';
 import { getStoreSettings } from 'lib/shop/fetchingFunctions';
 import { setPreviewMode } from 'lib/utils/previewMode';
+import { sendMessage } from 'utils/editor';
 
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
@@ -64,6 +65,13 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     if (locale) {
       const newLocale = locales.find((myLocale) => myLocale.code === locale);
       if (newLocale) setActiveLocale(newLocale);
+
+      sendMessage({
+        type: 'locale.changed',
+        details: {
+          locale: newLocale?.code,
+        },
+      });
     }
   }, [locale, locales, setActiveLocale]);
 
@@ -93,6 +101,9 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
       path.split('.').includes('menu') ||
       path.split('.').includes('logo');
 
+    const langLocalizedSetting = (path: string) =>
+      path.includes('lang.') && path.includes(`.$locale.${locale}`);
+
     async function updateSettings(event: MessageEvent) {
       if (!mounted) return;
       if (event.data.type === EDITOR_MESSAGE_TYPE.SETTINGS_UPDATE) {
@@ -100,6 +111,12 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
         if (shouldRefetch(path)) {
           const settings = await getStoreSettings(locale);
           setSettings(settings);
+        } else if (langLocalizedSetting(path)) {
+          const newPath = path
+            .replace('.$locale', '')
+            .replace(`.${locale}`, '');
+
+          setSetting(newPath, value);
         } else {
           setSetting(path, value);
         }
