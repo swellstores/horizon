@@ -13,7 +13,7 @@ const useLogout = () => {
   const responseCallback = useCallback(
     (res: Response) => {
       if (res.status === 200) {
-        router.push('/account/login');
+        router.push('/');
         // TODO: i18n
         send({
           message: "You're logged out",

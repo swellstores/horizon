@@ -25,7 +25,8 @@
       "id": "low_stock_indicator",
       "label": "Low stock indicator",
       "type": "number",
-      "min": "1"
+      "min": 1,
+      "default": 3
     },
     {
       "id": "enable_product_counter",
@@ -95,5 +96,7 @@
       ],
       "admin_zone": "content"
     }
-  ]
+  ],
+  "source_type": "theme",
+  "source_id": "horizon"
 }

@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Link from 'next/link';
@@ -14,6 +14,9 @@ import { TEXT_ALIGNMENT } from 'types/shared/alignment';
 import { getAuthLayout } from 'lib/utils/layout_getters';
 import { withAuthLayout } from 'lib/utils/fetch_decorators';
 import { API_ROUTES } from 'types/shared/api';
+import { validateNonEmptyFields } from 'utils/validation';
+import { ACCOUNT_FIELD } from 'types/account';
+import useFetchApi from 'hooks/useFetchApi';
 
 interface LoginProps extends PageProps {
   text: {
@@ -64,12 +67,6 @@ const propsCallback: GetStaticProps<LoginProps> = async () => {
 
 export const getStaticProps = withAuthLayout(propsCallback);
 
-enum ERROR_FIELD {
-  EMAIL = 'email',
-  PASSWORD = 'password',
-  OTHER = 'other',
-}
-
 const LoginPage: NextPageWithLayout<LoginProps> = ({
   text,
   title,
@@ -77,15 +74,113 @@ const LoginPage: NextPageWithLayout<LoginProps> = ({
   metaDescription,
 }) => {
   const router = useRouter();
+  const fetchApi = useFetchApi();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<{
-    field: ERROR_FIELD;
+    field: ACCOUNT_FIELD;
     message: string;
   }>();
-
-  const fetching = useRef(false);
+  const otherError = error?.field === ACCOUNT_FIELD.OTHER;
+  const emailError = error?.field === ACCOUNT_FIELD.EMAIL || otherError;
+  const passwordError = error?.field === ACCOUNT_FIELD.PASSWORD || otherError;
   const emailInputRef = useRef<HTMLInputElement>(null);
+
+  const responseCallback = useCallback(
+    (res: Response) => {
+      if (res.status === 401 || res.status === 403) {
+        setError({
+          field: ACCOUNT_FIELD.OTHER,
+          message: text.invalidCredentialsErrorText,
+        });
+        return false;
+      } else if (res.status === 500) {
+        setError({
+          field: ACCOUNT_FIELD.OTHER,
+          message: text.serverErrorText,
+        });
+        return false;
+      }
+    },
+    [text],
+  );
+
+  const errorCallback = useCallback(() => {
+    setError({
+      field: ACCOUNT_FIELD.OTHER,
+      message: text.serverErrorText,
+    });
+  }, [text]);
+
+  const validationCallback = useCallback(() => {
+    const requiredErrorPayloads = {
+      [ACCOUNT_FIELD.EMAIL]: {
+        field: ACCOUNT_FIELD.EMAIL,
+        message: text.emailEmptyErrorText,
+      },
+      [ACCOUNT_FIELD.PASSWORD]: {
+        field: ACCOUNT_FIELD.PASSWORD,
+        message: text.passwordEmptyErrorText,
+      },
+    };
+
+    const requiredFields = {
+      [ACCOUNT_FIELD.EMAIL]: email,
+      [ACCOUNT_FIELD.PASSWORD]: password,
+    };
+    const requiredError = validateNonEmptyFields(
+      requiredFields,
+      requiredErrorPayloads,
+    );
+
+    if (requiredError) {
+      setError(requiredError);
+      return false;
+    }
+
+    const emailValid = emailInputRef.current?.checkValidity();
+
+    if (!emailValid) {
+      setError({
+        field: ACCOUNT_FIELD.EMAIL,
+        message: text.emailInvalidErrorText,
+      });
+      return false;
+    }
+  }, [email, password, text]);
+
+  const completeCallback = useCallback(() => {
+    setError(undefined);
+    router.push('/account/orders');
+  }, [router]);
+
+  const handleSubmit = useCallback(
+    async (e) => {
+      e.preventDefault();
+      await fetchApi(
+        {
+          url: API_ROUTES.LOGIN,
+          options: {
+            method: 'POST',
+            body: JSON.stringify({ email, password }),
+          },
+        },
+        responseCallback,
+        errorCallback,
+        validationCallback,
+        completeCallback,
+      );
+    },
+    [
+      responseCallback,
+      errorCallback,
+      validationCallback,
+      completeCallback,
+      fetchApi,
+      email,
+      password,
+    ],
+  );
 
   return (
     <article className="mx-6 h-full pt-12 pb-10 md:pb-18 md:pt-16">
@@ -98,72 +193,7 @@ const LoginPage: NextPageWithLayout<LoginProps> = ({
       <form
         noValidate
         className="mx-auto h-full w-full md:w-[400px]"
-        onSubmit={async (e) => {
-          e.preventDefault();
-
-          if (fetching.current) return;
-
-          if (email === '') {
-            return setError({
-              field: ERROR_FIELD.EMAIL,
-              message: text.emailEmptyErrorText,
-            });
-          }
-          if (password === '') {
-            return setError({
-              field: ERROR_FIELD.PASSWORD,
-              message: text.passwordEmptyErrorText,
-            });
-          }
-
-          const emailValid = emailInputRef.current?.checkValidity();
-
-          if (!emailValid) {
-            return setError({
-              field: ERROR_FIELD.EMAIL,
-              message: text.emailInvalidErrorText,
-            });
-          }
-
-          try {
-            fetching.current = true;
-
-            const res = await fetch(API_ROUTES.LOGIN, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                email,
-                password,
-              }),
-            });
-
-            fetching.current = false;
-
-            if (res.status === 401 || res.status === 403) {
-              return setError({
-                field: ERROR_FIELD.OTHER,
-                message: text.invalidCredentialsErrorText,
-              });
-            } else if (res.status === 500) {
-              return setError({
-                field: ERROR_FIELD.OTHER,
-                message: text.serverErrorText,
-              });
-            }
-          } catch (error) {
-            fetching.current = false;
-            return setError({
-              field: ERROR_FIELD.OTHER,
-              message: text.serverErrorText,
-            });
-          }
-
-          setError(undefined);
-
-          router.push('/account/orders');
-        }}>
+        onSubmit={handleSubmit}>
         <fieldset className="flex h-full w-full flex-1 flex-col justify-between">
           <div>
             <legend className="w-full text-center">
@@ -183,17 +213,9 @@ const LoginPage: NextPageWithLayout<LoginProps> = ({
                   type="email"
                   ref={emailInputRef}
                   aria-required
-                  aria-invalid={
-                    error?.field === ERROR_FIELD.EMAIL ||
-                    error?.field === ERROR_FIELD.OTHER
-                  }
-                  aria-errormessage={
-                    error?.field === ERROR_FIELD.EMAIL ||
-                    error?.field === ERROR_FIELD.OTHER
-                      ? error.message
-                      : undefined
-                  }
-                  error={error?.field === ERROR_FIELD.EMAIL}
+                  aria-invalid={emailError}
+                  aria-errormessage={emailError ? error.message : undefined}
+                  error={emailError}
                   placeholder={text.emailPlaceholder}
                   value={email}
                   onChange={(e) => {
@@ -201,7 +223,7 @@ const LoginPage: NextPageWithLayout<LoginProps> = ({
                     setEmail(e.currentTarget.value);
                   }}
                 />
-                {error?.field === ERROR_FIELD.EMAIL && (
+                {error?.field === ACCOUNT_FIELD.EMAIL && (
                   <ValidationErrorText id="email-error">
                     {error.message}
                   </ValidationErrorText>
@@ -216,17 +238,9 @@ const LoginPage: NextPageWithLayout<LoginProps> = ({
                 <PasswordInput
                   id="password"
                   aria-required
-                  aria-invalid={
-                    error?.field === ERROR_FIELD.PASSWORD ||
-                    error?.field === ERROR_FIELD.OTHER
-                  }
-                  aria-errormessage={
-                    error?.field === ERROR_FIELD.PASSWORD ||
-                    error?.field === ERROR_FIELD.OTHER
-                      ? error.message
-                      : undefined
-                  }
-                  error={error?.field === ERROR_FIELD.PASSWORD}
+                  aria-invalid={passwordError}
+                  aria-errormessage={passwordError ? error.message : undefined}
+                  error={passwordError}
                   placeholder={text.passwordPlaceholder}
                   value={password}
                   onChange={(e) => {
@@ -234,13 +248,13 @@ const LoginPage: NextPageWithLayout<LoginProps> = ({
                     setPassword(e.currentTarget.value);
                   }}
                 />
-                {error?.field === ERROR_FIELD.PASSWORD && (
+                {error?.field === ACCOUNT_FIELD.PASSWORD && (
                   <ValidationErrorText>{error.message}</ValidationErrorText>
                 )}
               </p>
               <p className="mt-2">
                 <Link href="/account/password-recovery">
-                  <a className="text-xs text-body underline">
+                  <a className="text-xs text-body hover:underline">
                     {text.passwordRecovery}
                   </a>
                 </Link>
@@ -249,7 +263,7 @@ const LoginPage: NextPageWithLayout<LoginProps> = ({
           </div>
 
           <div className="mt-4 flex flex-col gap-2">
-            {error?.field === ERROR_FIELD.OTHER ? (
+            {otherError ? (
               <BannerInfo
                 bannerStyle={BANNER_INFO_STYLE.ERROR}
                 textAlignment={TEXT_ALIGNMENT.CENTER}>
@@ -264,7 +278,7 @@ const LoginPage: NextPageWithLayout<LoginProps> = ({
               <p className="mt-4 text-center text-sm text-primary md:mt-6">
                 {text.noAccount}&nbsp;
                 <Link href="/account/sign-up">
-                  <a className="underline">{text.signUp}</a>
+                  <a className="font-bold hover:underline">{text.signUp}</a>
                 </Link>
               </p>
             </div>

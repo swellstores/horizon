@@ -4,7 +4,7 @@ import { getAuthLayout } from 'lib/utils/layout_getters';
 import { withAuthLayout } from 'lib/utils/fetch_decorators';
 import type { NextPageWithLayout, PageProps } from 'types/shared/pages';
 import { useRouter } from 'next/router';
-import { useRef, useState } from 'react';
+import { useCallback, useState } from 'react';
 import PasswordInput from 'components/molecules/PasswordInput';
 import ValidationErrorText from 'components/atoms/ValidationErrorText';
 import BannerInfo, { BANNER_INFO_STYLE } from 'components/atoms/BannerInfo';
@@ -12,6 +12,9 @@ import { TEXT_ALIGNMENT } from 'types/shared/alignment';
 import { BUTTON_TYPE } from 'types/shared/button';
 import Button from 'components/atoms/Button';
 import { API_ROUTES } from 'types/shared/api';
+import { ACCOUNT_FIELD } from 'types/account';
+import { validateNonEmptyFields } from 'utils/validation';
+import useFetchApi from 'hooks/useFetchApi';
 
 interface SetPasswordProps extends PageProps {
   text: {
@@ -58,12 +61,6 @@ const propsCallback: GetServerSideProps<SetPasswordProps> = async () => {
 
 export const getServerSideProps = withAuthLayout(propsCallback);
 
-enum ERROR_FIELD {
-  PASSWORD = 'password',
-  CONFIRM_PASSWORD = 'confirm_password',
-  OTHER = 'other',
-}
-
 const LoginPage: NextPageWithLayout<SetPasswordProps> = ({
   text,
   title,
@@ -71,14 +68,118 @@ const LoginPage: NextPageWithLayout<SetPasswordProps> = ({
   metaDescription,
 }) => {
   const router = useRouter();
+  const fetchApi = useFetchApi();
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
   const [error, setError] = useState<{
-    field: ERROR_FIELD;
+    field: ACCOUNT_FIELD;
     message: string;
   }>();
+  const otherError = error?.field === ACCOUNT_FIELD.OTHER;
+  const passwordError = error?.field === ACCOUNT_FIELD.PASSWORD || otherError;
+  const confirmPasswordError =
+    error?.field === ACCOUNT_FIELD.CONFIRM_PASSWORD || otherError;
 
-  const fetching = useRef(false);
+  const responseCallback = useCallback(
+    (res: Response) => {
+      if (res.status === 401) {
+        router.push('/account/set-password/expired');
+        return false;
+      } else if (res.status !== 200) {
+        setError({
+          field: ACCOUNT_FIELD.OTHER,
+          message: text.serverErrorText,
+        });
+        return false;
+      }
+    },
+    [text, router],
+  );
+
+  const errorCallback = useCallback(() => {
+    setError({
+      field: ACCOUNT_FIELD.OTHER,
+      message: text.serverErrorText,
+    });
+  }, [text]);
+
+  const validationCallback = useCallback(() => {
+    const requiredErrorPayloads = {
+      [ACCOUNT_FIELD.PASSWORD]: {
+        field: ACCOUNT_FIELD.PASSWORD,
+        message: text.passwordEmptyErrorText,
+      },
+      [ACCOUNT_FIELD.CONFIRM_PASSWORD]: {
+        field: ACCOUNT_FIELD.CONFIRM_PASSWORD,
+        message: text.confirmPasswordEmptyErrorText,
+      },
+    };
+
+    const requiredFields = {
+      [ACCOUNT_FIELD.PASSWORD]: password,
+      [ACCOUNT_FIELD.CONFIRM_PASSWORD]: passwordConfirmation,
+    };
+    const requiredError = validateNonEmptyFields(
+      requiredFields,
+      requiredErrorPayloads,
+    );
+
+    if (requiredError) {
+      setError(requiredError);
+      return false;
+    }
+
+    if (password.length < 6) {
+      setError({
+        field: ACCOUNT_FIELD.PASSWORD,
+        message: text.passwordInvalidErrorText,
+      });
+      return false;
+    }
+
+    if (password !== passwordConfirmation) {
+      setError({
+        field: ACCOUNT_FIELD.CONFIRM_PASSWORD,
+        message: text.passwordMismatchErrorText,
+      });
+      return false;
+    }
+  }, [password, passwordConfirmation, text]);
+
+  const completeCallback = useCallback(() => {
+    setError(undefined);
+    router.push('/account/set-password/success');
+  }, [router]);
+
+  const handleSubmit = useCallback(
+    async (e) => {
+      e.preventDefault();
+      await fetchApi(
+        {
+          url: API_ROUTES.SET_PASSWORD,
+          options: {
+            method: 'POST',
+            body: JSON.stringify({
+              key: window.location.pathname.split('/').pop(),
+              password: password,
+            }),
+          },
+        },
+        responseCallback,
+        errorCallback,
+        validationCallback,
+        completeCallback,
+      );
+    },
+    [
+      responseCallback,
+      errorCallback,
+      validationCallback,
+      completeCallback,
+      fetchApi,
+      password,
+    ],
+  );
 
   return (
     <article className="mx-6 h-full pt-12 pb-10 md:pb-18 md:pt-16">
@@ -91,75 +192,7 @@ const LoginPage: NextPageWithLayout<SetPasswordProps> = ({
       <form
         noValidate
         className="mx-auto h-full w-full md:w-[400px]"
-        onSubmit={async (e) => {
-          e.preventDefault();
-
-          if (fetching.current) return;
-
-          if (password === '') {
-            return setError({
-              field: ERROR_FIELD.PASSWORD,
-              message: text.passwordEmptyErrorText,
-            });
-          }
-
-          if (password.length < 6) {
-            return setError({
-              field: ERROR_FIELD.PASSWORD,
-              message: text.passwordInvalidErrorText,
-            });
-          }
-
-          if (passwordConfirmation === '') {
-            return setError({
-              field: ERROR_FIELD.CONFIRM_PASSWORD,
-              message: text.confirmPasswordEmptyErrorText,
-            });
-          }
-
-          if (password !== passwordConfirmation) {
-            return setError({
-              field: ERROR_FIELD.CONFIRM_PASSWORD,
-              message: text.passwordMismatchErrorText,
-            });
-          }
-
-          try {
-            fetching.current = true;
-
-            const res = await fetch(API_ROUTES.SET_PASSWORD, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                key: window.location.pathname.split('/').pop(),
-                password: password,
-              }),
-            });
-
-            fetching.current = false;
-
-            if (res.status === 401) {
-              return router.push('/account/set-password/expired');
-            } else if (res.status !== 200) {
-              return setError({
-                field: ERROR_FIELD.OTHER,
-                message: text.serverErrorText,
-              });
-            }
-          } catch (error) {
-            fetching.current = false;
-            return setError({
-              field: ERROR_FIELD.OTHER,
-              message: text.serverErrorText,
-            });
-          }
-
-          setError(undefined);
-
-          router.push('/account/set-password/success');
-        }}>
+        onSubmit={handleSubmit}>
         <fieldset className="flex h-full w-full flex-1 flex-col justify-between">
           <div>
             <legend className="w-full text-center">
@@ -183,17 +216,9 @@ const LoginPage: NextPageWithLayout<SetPasswordProps> = ({
                   id="password"
                   minLength={6}
                   aria-required
-                  aria-invalid={
-                    error?.field === ERROR_FIELD.PASSWORD ||
-                    error?.field === ERROR_FIELD.OTHER
-                  }
-                  aria-errormessage={
-                    error?.field === ERROR_FIELD.PASSWORD ||
-                    error?.field === ERROR_FIELD.OTHER
-                      ? error.message
-                      : undefined
-                  }
-                  error={error?.field === ERROR_FIELD.PASSWORD}
+                  aria-invalid={passwordError}
+                  aria-errormessage={passwordError ? error.message : undefined}
+                  error={passwordError}
                   placeholder={text.passwordPlaceholder}
                   value={password}
                   onChange={(e) => {
@@ -201,7 +226,7 @@ const LoginPage: NextPageWithLayout<SetPasswordProps> = ({
                     setPassword(e.currentTarget.value);
                   }}
                 />
-                {error?.field === ERROR_FIELD.PASSWORD ? (
+                {error?.field === ACCOUNT_FIELD.PASSWORD ? (
                   <ValidationErrorText>{error.message}</ValidationErrorText>
                 ) : (
                   <span className="mt-2 text-2xs text-body">
@@ -218,17 +243,11 @@ const LoginPage: NextPageWithLayout<SetPasswordProps> = ({
                 <PasswordInput
                   id="confirm-password"
                   aria-required
-                  aria-invalid={
-                    error?.field === ERROR_FIELD.CONFIRM_PASSWORD ||
-                    error?.field === ERROR_FIELD.OTHER
-                  }
+                  aria-invalid={confirmPasswordError}
                   aria-errormessage={
-                    error?.field === ERROR_FIELD.CONFIRM_PASSWORD ||
-                    error?.field === ERROR_FIELD.OTHER
-                      ? error.message
-                      : undefined
+                    confirmPasswordError ? error.message : undefined
                   }
-                  error={error?.field === ERROR_FIELD.CONFIRM_PASSWORD}
+                  error={confirmPasswordError}
                   placeholder={text.confirmPasswordPlaceholder}
                   value={passwordConfirmation}
                   onChange={(e) => {
@@ -236,7 +255,7 @@ const LoginPage: NextPageWithLayout<SetPasswordProps> = ({
                     setPasswordConfirmation(e.currentTarget.value);
                   }}
                 />
-                {error?.field === ERROR_FIELD.CONFIRM_PASSWORD && (
+                {error?.field === ACCOUNT_FIELD.CONFIRM_PASSWORD && (
                   <ValidationErrorText>{error.message}</ValidationErrorText>
                 )}
               </p>
@@ -244,7 +263,7 @@ const LoginPage: NextPageWithLayout<SetPasswordProps> = ({
           </div>
 
           <div className="mt-4 flex flex-col gap-2">
-            {error?.field === ERROR_FIELD.OTHER ? (
+            {otherError ? (
               <BannerInfo
                 bannerStyle={BANNER_INFO_STYLE.ERROR}
                 textAlignment={TEXT_ALIGNMENT.CENTER}>

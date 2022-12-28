@@ -3,6 +3,14 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { isSessionTokenValid } from 'lib/utils/authentication';
 import getGQLClient, { getRawClient } from 'lib/graphql/client';
 
+type ErrorObject = {
+  response: {
+    errors?: {
+      message: string;
+    }[];
+  };
+};
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<undefined | string>,
@@ -45,6 +53,11 @@ export default async function handler(
 
     return res.status(200).send(undefined);
   } catch (error) {
+    const invalidCredentials = (error as ErrorObject)?.response?.errors?.some(
+      (err) => err.message === 'Your account credentials are invalid.',
+    );
+
+    if (invalidCredentials) return res.status(401).end('Unauthorized');
     return res.status(500).end('Internal Server Error');
   }
 }
