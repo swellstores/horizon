@@ -56,4 +56,6 @@ const useSettingsStore = create<SettingsState>((set) => ({
   },
 }));
 
+export const lang = () => useSettingsStore.getState().settings?.lang;
+
 export default useSettingsStore;

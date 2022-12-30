@@ -5,6 +5,8 @@ import type { SubscriptionSchedule } from 'types/subscription';
 import CalendarIcon from 'assets/icons/calendar.svg';
 import { useRouter } from 'next/router';
 import { formatDateToLocale } from 'lib/utils/date';
+import useSettingsStore from 'stores/settings';
+import { fallbackString } from 'utils/text';
 
 export interface SummaryRow {
   label: string;
@@ -41,6 +43,7 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({
   className,
 }) => {
   const { locale } = useRouter();
+  const lang = useSettingsStore((state) => state.settings?.lang);
 
   return (
     <div
@@ -103,6 +106,10 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({
             <div className="flex items-center space-x-4">
               <ScheduleLabel
                 type="billing"
+                base={fallbackString(
+                  lang?.account?.subscriptions?.details?.billingMessage,
+                  'Pay every {n} {interval}',
+                )}
                 schedule={subscriptionSchedule.billingSchedule}
                 textClasses="text-sm font-semibold"
                 iconClasses="w-5"
@@ -125,7 +132,10 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({
               <div className="flex items-center space-x-4">
                 <ScheduleLabel
                   type="order"
-                  base="Shipped every"
+                  base={fallbackString(
+                    lang?.account?.subscriptions?.details?.billingMessage,
+                    'Shipped every {n} {interval}',
+                  )}
                   schedule={subscriptionSchedule?.orderSchedule}
                   className="mt-0.5"
                   textClasses="text-sm font-semibold"

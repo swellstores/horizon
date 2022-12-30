@@ -44,6 +44,7 @@ import getGQLClient from 'lib/graphql/client';
 import { generateId } from 'lib/utils/shared_functions';
 import type { Replace } from 'types/utils';
 import useSettingsStore from 'stores/settings';
+import { fallbackString } from 'utils/text';
 
 export type ProductsPerRow = 2 | 3 | 4 | 5;
 
@@ -464,7 +465,7 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
                 <div className="flex items-center justify-between py-4 text-primary">
                   <div className="flex gap-4">
                     <span className="text-md font-semibold uppercase">
-                      {lang?.categories?.filters}
+                      {fallbackString(lang?.categories?.filters, 'Filters')}
                     </span>
                   </div>
                   <button onClick={closeFilters}>

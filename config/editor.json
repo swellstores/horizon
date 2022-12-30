@@ -488,5 +488,204 @@
       "description": "Small links displayed at the bottom of the site footer for store and legal policies",
       "max_items": 5
     }
+  ],
+  "lang": [
+    {
+      "id": "account.subscriptions",
+      "label": "Subscriptions",
+      "icon": "users",
+      "url": "/account/subscriptions",
+      "fields": [
+        {
+          "id": "lang.account.subscriptions.billing_message",
+          "label": "Subscription billing message",
+          "default": "Every {n} {interval}",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.order_message",
+          "label": "Subscription order message",
+          "default": "Every {n} {interval}",
+          "type": "short_text",
+          "localized": true
+        }
+      ]
+    },
+    {
+      "id": "account.subscriptions.details",
+      "label": "Subscription details",
+      "icon": "users",
+      "url": "/account/subscriptions/:id",
+      "fields": [
+        {
+          "id": "lang.account.subscriptions.details.billing_message",
+          "label": "Subscription order message",
+          "default": "Pay every {n} {interval}",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.order_message",
+          "label": "Subscription order message",
+          "default": "Shipped every {n} {interval}",
+          "type": "short_text",
+          "localized": true
+        }
+      ]
+    },
+    {
+      "id": "products.page",
+      "label": "Product page",
+      "url": "/products",
+      "fields": [
+        {
+          "id": "lang.products.add_to_cart",
+          "label": "Add to cart",
+          "default": "Add to cart",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "label": "Subscription",
+          "type": "heading"
+        },
+        {
+          "id": "lang.products.subscription.billing_message",
+          "label": "Subscription billing message",
+          "default": "Pay every {n} {interval}",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.products.subscription.order_message",
+          "label": "Subscription order message",
+          "default": "Receive it every {n} {interval}",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "label": "Subscription intervals singular",
+          "type": "heading"
+        },
+        {
+          "id": "lang.products.interval.singular.daily",
+          "label": "Interval singular day",
+          "default": "day",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.products.interval.singular.weekly",
+          "label": "Interval singular week",
+          "default": "week",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.products.interval.singular.monthly",
+          "label": "Interval singular month",
+          "default": "month",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.products.interval.singular.yearly",
+          "label": "Interval singular year",
+          "default": "year",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "label": "Subscription intervals plural",
+          "type": "heading"
+        },
+        {
+          "id": "lang.products.interval.plural.daily",
+          "label": "Interval plural days",
+          "default": "days",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.products.interval.plural.weekly",
+          "label": "Interval plural weeks",
+          "default": "weeks",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.products.interval.plural.monthly",
+          "label": "Interval plural months",
+          "default": "months",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.products.interval.plural.yearly",
+          "label": "Interval plural years",
+          "default": "years",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "label": "Subscription intervals shorthand",
+          "type": "heading"
+        },
+        {
+          "id": "lang.products.interval.short.daily",
+          "label": "Interval shorthand day",
+          "default": "day",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.products.interval.short.weekly",
+          "label": "Interval shorthand week",
+          "default": "wk",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.products.interval.short.monthly",
+          "label": "Interval shorthand month",
+          "default": "mo",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.products.interval.short.yearly",
+          "label": "Interval shorthand year",
+          "default": "yr",
+          "type": "short_text",
+          "localized": true
+        }
+      ]
+    },
+    {
+      "id": "categories.page",
+      "label": "Category page",
+      "url": "/categories",
+      "fields": [
+        {
+          "id": "lang.categories.filters",
+          "label": "Filters",
+          "default": "Filters",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "label": "Product Preview",
+          "type": "heading"
+        },
+        {
+          "id": "lang.products.preview.from",
+          "label": "From label",
+          "default": "From",
+          "type": "short_text",
+          "localized": true
+        }
+      ]
+    }
   ]
 }

@@ -1,5 +1,7 @@
-import React, { useMemo } from 'react';
+import React from 'react';
+import useSettingsStore from 'stores/settings';
 import type { PurchasableProductData } from 'types/shared/products';
+import { fallbackString } from 'utils/text';
 import ProductPreviewCardPurchasable from './ProductPreviewCardPurchasable';
 import ProductPreviewCardSimple from './ProductPreviewCardSimple';
 import ProductPreviewCardSkeleton from './ProductPreviewCardSkeleton';
@@ -19,11 +21,11 @@ const ProductPreviewCard: React.FC<ProductPreviewCardProps> = ({
   show_product_description = true,
   ...props
 }) => {
-  const fromPriceLabel = useMemo(() => {
-    const hasStandardPrice = !!product?.purchaseOptions?.standard?.price;
-    // TODO: i18n
-    return !hasStandardPrice ? 'From ' : '';
-  }, [product?.purchaseOptions?.standard?.price]);
+  const lang = useSettingsStore((state) => state.settings?.lang);
+  const hasStandardPrice = !!product?.purchaseOptions?.standard?.price;
+  const fromPriceLabel = !hasStandardPrice
+    ? fallbackString(lang?.products?.preview?.from, 'From')
+    : '';
 
   if (loading) return <ProductPreviewCardSkeleton />;
 

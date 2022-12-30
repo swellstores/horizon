@@ -9,9 +9,20 @@ export const parseTextWithVariables = (
   variablesKeys.forEach((key) => {
     const variableText = wrapWithCurlyBraces(key);
     if (text.includes(variableText)) {
-      text = text.replace(variableText, variables[key]);
+      text = text.replaceAll(variableText, variables[key]);
     }
   });
+
+  return text;
+};
+
+export const fallbackString = (
+  text: string | undefined | null,
+  fallback = '',
+) => {
+  if (text === null || text === undefined) {
+    return fallback;
+  }
 
   return text;
 };
