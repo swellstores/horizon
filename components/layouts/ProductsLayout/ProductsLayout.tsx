@@ -44,7 +44,7 @@ import getGQLClient from 'lib/graphql/client';
 import { generateId } from 'lib/utils/shared_functions';
 import type { Replace } from 'types/utils';
 import useSettingsStore from 'stores/settings';
-import { fallbackString } from 'utils/text';
+import { fallbackString, parseTextWithVariables } from 'utils/text';
 
 export type ProductsPerRow = 2 | 3 | 4 | 5;
 
@@ -76,7 +76,6 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
     store.formatPrice,
     store.currency,
   ]);
-  const lang = useSettingsStore((state) => state.settings?.lang);
 
   const [loading, setLoading] = useState(true);
   const [products, setProducts] = useState<PurchasableProductData[]>([]);
@@ -89,6 +88,23 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
     0, 0,
   ]);
   const [liveSettings, setLiveSettings] = useState(settings);
+
+  const lang = useSettingsStore((state) => state.settings?.lang);
+  const filtersLabel = fallbackString(
+    lang?.categories?.filters?.title,
+    'Filters',
+  );
+  const removeAllLabel = fallbackString(
+    lang?.categories?.filters?.removeAll,
+    'Remove all',
+  );
+  const seeResultsLabel = fallbackString(
+    lang?.categories?.filters?.seeResults,
+    'See results ({count})',
+  );
+  const parsedSeeResultsLabel = parseTextWithVariables(seeResultsLabel, {
+    count: (products?.length || 0).toString(),
+  });
 
   const debounceTimeout = useRef<NodeJS.Timeout | undefined>();
 
@@ -465,7 +481,7 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
                 <div className="flex items-center justify-between py-4 text-primary">
                   <div className="flex gap-4">
                     <span className="text-md font-semibold uppercase">
-                      {fallbackString(lang?.categories?.filters, 'Filters')}
+                      {filtersLabel}
                     </span>
                   </div>
                   <button onClick={closeFilters}>
@@ -577,8 +593,7 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
                       <button
                         className="text-xs font-semibold text-primary"
                         onClick={() => onFiltersChange([])}>
-                        {/* TODO: i8n */}
-                        Remove all
+                        {removeAllLabel}
                       </button>
                     )}
                   </li>
@@ -589,8 +604,7 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
                   className="text-center uppercase"
                   onClick={closeFilters}
                   fullWidth>
-                  {/* TODO: i8n */}
-                  See results ({products?.length || 0})
+                  {parsedSeeResultsLabel}
                 </Button>
               </div>
             </Transition.Child>

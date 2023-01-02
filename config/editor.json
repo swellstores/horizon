@@ -542,7 +542,7 @@
         {
           "id": "lang.products.add_to_cart",
           "label": "Add to cart",
-          "default": "Add to cart",
+          "default": "Add to bag",
           "type": "short_text",
           "localized": true
         },
@@ -689,9 +689,30 @@
       "url": "/categories",
       "fields": [
         {
-          "id": "lang.categories.filters",
+          "id": "lang.categories.filters.title",
           "label": "Filters",
           "default": "Filters",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.categories.filters.remove_all",
+          "label": "Filters remove all label",
+          "default": "Remove all",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.categories.filters.see_results",
+          "label": "Filters see results label",
+          "default": "See results ({count})",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.categories.product_count",
+          "label": "Products count label",
+          "default": "All products ({count})",
           "type": "short_text",
           "localized": true
         },
