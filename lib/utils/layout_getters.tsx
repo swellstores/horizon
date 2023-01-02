@@ -12,17 +12,17 @@ export const getMainLayout = (page: ReactElement) => {
 };
 
 export const getAccountLayout = (page: ReactElement) => {
-  const { header } = page.props._layout ?? {};
+  const { header, settings } = page.props._layout ?? {};
 
-  if (!header) return page;
+  if (!header || !settings) return page;
 
-  return <AccountLayout header={header}>{page}</AccountLayout>;
+  return <AccountLayout {...page.props._layout}>{page}</AccountLayout>;
 };
 
 export const getAuthLayout = (page: ReactElement) => {
-  const { header } = page.props._layout ?? {};
+  const { header, settings } = page.props._layout ?? {};
 
-  if (!header) return page;
+  if (!header || !settings) return page;
 
-  return <AuthLayout header={header}>{page}</AuthLayout>;
+  return <AuthLayout {...page.props._layout}>{page}</AuthLayout>;
 };
