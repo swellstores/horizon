@@ -329,13 +329,6 @@ export async function getQuizProducts(
     };
   }
 
-  // TODO: dictionary management & i18n
-  const resultsDictionary = {
-    hrefCta: 'See product details',
-    addLabel: 'Add to Bag',
-    addedLabel: 'Added',
-  };
-
   const getProductsBySlugs = (slugs: string[]) =>
     slugs.map((slug) =>
       client
@@ -380,7 +373,6 @@ export async function getQuizProducts(
       },
     ),
     productVariants: denullifyArray(product?.variants?.results),
-    ...resultsDictionary,
   }));
 
   return {

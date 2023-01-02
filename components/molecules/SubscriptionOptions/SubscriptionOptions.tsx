@@ -7,6 +7,8 @@ import type {
   Maybe,
   SwellProductPurchaseOptionsSubscriptionPlan,
 } from 'lib/graphql/generated/sdk';
+import useSettingsStore from 'stores/settings';
+import { fallbackString } from 'utils/text';
 
 export interface SubscriptionOptionsProps {
   value: Maybe<SwellProductPurchaseOptionsSubscriptionPlan>;
@@ -21,14 +23,17 @@ const SubscriptionOptions: React.FC<SubscriptionOptionsProps> = ({
   plans,
   className,
 }) => {
+  const lang = useSettingsStore((state) => state.settings?.lang);
   if (!plans?.length) return null;
+
+  const title = fallbackString(
+    lang?.products?.subscription?.options,
+    'Subscription options',
+  );
 
   return (
     <div className={className ?? ''}>
-      {/* TODO: i18n */}
-      <h3 className="font-headings text-sm text-primary">
-        Subscription options
-      </h3>
+      <h3 className="font-headings text-sm text-primary">{title}</h3>
       <Listbox value={value} onChange={onChange}>
         {({ open }) => (
           <div className="relative mt-2 text-primary">

@@ -65,14 +65,14 @@ describe('subscription utils', () => {
   describe('#getScheduleLabel', () => {
     it('formats schedules correctly', () => {
       expect(
-        getScheduleLabel('Pay every', {
+        getScheduleLabel('Pay every {n} {interval}', {
           interval: INTERVAL.Daily,
           intervalCount: 1,
         }),
       ).toBe('Pay every day');
 
       expect(
-        getScheduleLabel('Receive it every', {
+        getScheduleLabel('Receive it every {n} {interval}', {
           interval: INTERVAL.Weekly,
           intervalCount: 3,
         }),
@@ -80,9 +80,13 @@ describe('subscription utils', () => {
     });
 
     it('returns empty string when no schedule, interval or intervalCount', () => {
-      expect(getScheduleLabel('Pay every', null)).toBe('');
-      expect(getScheduleLabel('Pay every', { interval: null })).toBe('');
-      expect(getScheduleLabel('Pay every', { intervalCount: null })).toBe('');
+      expect(getScheduleLabel('Pay every {n} {interval}', null)).toBe('');
+      expect(
+        getScheduleLabel('Pay every {n} {interval}', { interval: null }),
+      ).toBe('');
+      expect(
+        getScheduleLabel('Pay every {n} {interval}', { intervalCount: null }),
+      ).toBe('');
     });
   });
 

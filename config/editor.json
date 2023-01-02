@@ -547,8 +547,22 @@
           "localized": true
         },
         {
+          "id": "lang.products.trial_message",
+          "label": "Trial message",
+          "default": "{n} days free trial, then {price}",
+          "type": "short_text",
+          "localized": true
+        },
+        {
           "label": "Subscription",
           "type": "heading"
+        },
+        {
+          "id": "lang.products.subscription.options",
+          "label": "Subscription options label",
+          "default": "Subscription options",
+          "type": "short_text",
+          "localized": true
         },
         {
           "id": "lang.products.subscription.billing_message",
@@ -659,6 +673,13 @@
           "default": "yr",
           "type": "short_text",
           "localized": true
+        },
+        {
+          "id": "lang.products.upsells.title",
+          "label": "Upsells title",
+          "default": "You may also like",
+          "type": "short_text",
+          "localized": true
         }
       ]
     },
@@ -682,6 +703,118 @@
           "id": "lang.products.preview.from",
           "label": "From label",
           "default": "From",
+          "type": "short_text",
+          "localized": true
+        }
+      ]
+    },
+    {
+      "id": "errors",
+      "label": "Error messages",
+      "icon": "exclamation-circle",
+      "fields": [
+        {
+          "id": "lang.errors.error_code",
+          "label": "Error code title",
+          "default": "Error {code}",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.errors.internal.title",
+          "label": "Internal server error title",
+          "default": "Page unavailable",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.errors.internal.message",
+          "label": "Internal server error message",
+          "default": "The page you were looking for is temporarily unavailable. Please try refreshing the page or contact us if the issue persists.",
+          "type": "long_text",
+          "localized": true
+        },
+        {
+          "id": "lang.errors.internal.reload",
+          "label": "Internal server error reload page button",
+          "default": "Refresh page",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.errors.internal.return_home",
+          "label": "Internal server error return home message",
+          "default": "or go {link}",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.errors.internal.return_home_link",
+          "label": "Internal server error return home link",
+          "default": "back to home",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.errors.page_not_found.title",
+          "label": "Page not found title",
+          "default": "Page not found",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.errors.page_not_found.message",
+          "label": "Page not found message",
+          "default": "The page you were looking for is not available. Double check your URL or explore Horizon for new findings.",
+          "type": "long_text",
+          "localized": true
+        },
+        {
+          "id": "lang.errors.page_not_found.return_home_link",
+          "label": "Page not found return home link",
+          "default": "Back to home",
+          "type": "short_text",
+          "localized": true
+        }
+      ]
+    },
+    {
+      "id": "search",
+      "label": "Search",
+      "icon": "search",
+      "fields": [
+        {
+          "id": "lang.search.placeholder",
+          "label": "Search placeholder",
+          "default": "Search by product name or SKU",
+          "type": "short_text",
+          "localized": true
+        }
+      ]
+    },
+    {
+      "id": "quiz",
+      "label": "Quiz",
+      "icon": "question-square",
+      "fields": [
+        {
+          "id": "lang.quiz.step_count",
+          "label": "Step count label",
+          "default": "{currentStep} of {totalSteps}",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.quiz.results.see_product",
+          "label": "See product details label",
+          "default": "See product details",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.quiz.results.prices_separator",
+          "label": "Prices separator label",
+          "default": "or",
           "type": "short_text",
           "localized": true
         }

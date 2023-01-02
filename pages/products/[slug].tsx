@@ -41,6 +41,8 @@ import { withMainLayout } from 'lib/utils/fetch_decorators';
 import type { ParsedUrlQuery } from 'querystring';
 import StatusIndicator from 'components/atoms/StatusIndicator';
 import { useEffect } from 'react';
+import useSettingsStore from 'stores/settings';
+import { fallbackString } from 'utils/text';
 
 export enum LAYOUT_ALIGNMENT {
   STANDARD = 'standard',
@@ -154,6 +156,13 @@ const ProductsPage: React.FC<ProductsPageProps> = ({
   meta,
 }) => {
   const { locale } = useRouter();
+  const lang = useSettingsStore((state) => state.settings?.lang);
+
+  const addLabel = fallbackString(lang?.products?.addToCart, 'Add to bag');
+  const upsellsTitle = fallbackString(
+    lang?.products?.upsells?.title,
+    'You may also like',
+  );
 
   const [liveSettings, setLiveSettings] = useState(settings);
 
@@ -358,8 +367,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({
                   fullWidth
                   type="submit"
                   disabled={stockStatus === STOCK_STATUS.OUT_OF_STOCK}>
-                  {/* TODO: i18n */}
-                  ADD TO BAG -{' '}
+                  {addLabel} -{' '}
                   {state.selectedPurchaseOption ===
                   PURCHASE_OPTION_TYPE.SUBSCRIPTION ? (
                     <Price
@@ -394,7 +402,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({
       {!!upSells?.length && (
         <div className="py-10 lg:pl-14">
           <h4 className="py-6 pl-6 font-headings text-2xl font-semibold text-primary lg:pl-0">
-            You may also like
+            {upsellsTitle}
           </h4>
 
           <UpSell items={upSells} />

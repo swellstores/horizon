@@ -21,6 +21,8 @@ import type {
   SwellProductVariant,
 } from 'lib/graphql/generated/sdk';
 import ProductOptions from 'components/organisms/ProductOptions';
+import { fallbackString } from 'utils/text';
+import useSettingsStore from 'stores/settings';
 
 export type QuizResultCardProps = Omit<
   ProductData,
@@ -34,37 +36,20 @@ export type QuizResultCardProps = Omit<
    */
   purchaseOptions: SwellProductPurchaseOptions;
   /**
-   * Text for cta link to product's page
-   */
-  hrefCta: string;
-  /**
    * Text to display in case the product is subscription only
    */
   subscriptionOnlyText?: string;
-  /**
-   * Text for cta button to add to bundle
-   */
-  addLabel: string;
-  /**
-   * Text for cta button when product is already added to bundle
-   */
-  addedLabel: string;
   /**
    * All the currently selected products
    */
   selectedProducts: Map<string, number>;
 };
 
-const PRICE_SEPARATOR = 'or';
-
 const QuizResultCard: React.FC<QuizResultCardProps> = ({
   image,
   title,
   description,
   href,
-  hrefCta,
-  addLabel,
-  // addedLabel,
   subscriptionOnlyText,
   purchaseOptions,
   productId,
@@ -77,6 +62,17 @@ const QuizResultCard: React.FC<QuizResultCardProps> = ({
     purchaseOptions,
     productVariants,
   });
+  const lang = useSettingsStore((state) => state.settings?.lang);
+
+  const addLabel = fallbackString(lang?.products?.addToCart, 'Add to bag');
+  const hrefCta = fallbackString(
+    lang?.quiz?.results?.seeProduct,
+    'See product details',
+  );
+  const pricesSeparator = fallbackString(
+    lang?.quiz?.results?.pricesSeparator,
+    'or',
+  );
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -125,7 +121,7 @@ const QuizResultCard: React.FC<QuizResultCardProps> = ({
                     origPrice={activeVariation?.standardPrice?.origPrice}
                   />
                 )}
-                {hasMultiplePurchaseOptions ? ` ${PRICE_SEPARATOR} ` : ''}
+                {hasMultiplePurchaseOptions ? ` ${pricesSeparator} ` : ''}
                 {activeVariation?.subscriptionPrice?.price && (
                   <Price
                     price={activeVariation?.subscriptionPrice?.price}

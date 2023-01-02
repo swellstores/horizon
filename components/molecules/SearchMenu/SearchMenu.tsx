@@ -7,9 +7,8 @@ import CloseIcon from 'assets/icons/close.svg';
 import useProductSearch from 'hooks/useProductSearch';
 import useClassNames from 'hooks/useClassNames';
 import ProductPreviewCardSimple from 'components/atoms/ProductPreviewCard/ProductPreviewCardSimple';
-
-// TODO: i18n
-const placeholderLabel = 'Search by product name or SKU';
+import useSettingsStore from 'stores/settings';
+import { fallbackString } from 'utils/text';
 
 interface SearchMenuProps {
   closeMenu: () => void;
@@ -22,11 +21,17 @@ const SearchMenu: React.FC<SearchMenuProps> = ({
   show,
   openDelay,
 }) => {
+  const lang = useSettingsStore((state) => state.settings?.lang);
   const { searchTerm, onSearchTermChange, isSearching, results, clear } =
     useProductSearch();
   const hideProducts = useMemo(
     () => !results.length && !isSearching,
     [isSearching, results.length],
+  );
+
+  const placeholderLabel = fallbackString(
+    lang?.search?.placeholder,
+    'Search by product name or SKU',
   );
 
   useEffect(() => {

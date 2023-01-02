@@ -66,9 +66,6 @@ const mockProductResult = (slug: string) => ({
       currency: 'USD',
     },
   ],
-  hrefCta: 'See product details',
-  addLabel: 'Add to Bag',
-  addedLabel: 'Added',
 });
 
 const mockSelectedProduct = (slug: string) => ({
