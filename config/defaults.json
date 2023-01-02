@@ -79,5 +79,85 @@
     "newsletter_title": "Let's keep in touch.",
     "newsletter_placeholder": "E-mail address",
     "horizontal_padding": "large"
+  },
+  "lang": {
+    "account": {
+      "subscriptions": {
+        "billing_message": "Every {n} {interval}",
+        "order_message": "Every {n} {interval}",
+        "details": {
+          "billing_message": "Pay every {n} {interval}",
+          "order_message": "Shipped every {n} {interval}"
+        }
+      }
+    },
+    "products": {
+      "add_to_cart": "Add to bag",
+      "trial_message": "{n} days free trial, then {price}",
+      "subscription": {
+        "options": "Subscription options",
+        "billing_message": "Pay every {n} {interval}",
+        "order_message": "Receive it every {n} {interval}"
+      },
+      "interval": {
+        "singular": {
+          "daily": "day",
+          "weekly": "week",
+          "monthly": "month",
+          "yearly": "year"
+        },
+        "plural": {
+          "daily": "days",
+          "weekly": "weeks",
+          "monthly": "months",
+          "yearly": "years"
+        },
+        "short": {
+          "daily": "day",
+          "weekly": "wk",
+          "monthly": "mo",
+          "yearly": "yr"
+        }
+      },
+      "upsells": {
+        "title": "You may also like"
+      },
+      "preview": {
+        "from": "From"
+      }
+    },
+    "categories": {
+      "filters": {
+        "title": "Filters",
+        "remove_all": "Remove all",
+        "see_results": "See results ({count})"
+      },
+      "product_count": "All products ({count})"
+    },
+    "errors": {
+      "error_code": "Error {code}",
+      "internal": {
+        "title": "Page unavailable",
+        "message": "The page you were looking for is temporarily unavailable. Please try refreshing the page or contact us if the issue persists.",
+        "reload": "Refresh page",
+        "return_home": "or go {link}",
+        "return_home_link": "back to home"
+      },
+      "page_not_found": {
+        "title": "Page not found",
+        "message": "The page you were looking for is not available. Double check your URL or explore Horizon for new findings.",
+        "return_home_link": "Back to home"
+      }
+    },
+    "search": {
+      "placeholder": "Search by product name or SKU"
+    },
+    "quiz": {
+      "step_count": "{currentStep} of {totalSteps}",
+      "results": {
+        "see_product": "See product details",
+        "prices_separator": "or"
+      }
+    }
   }
 }
