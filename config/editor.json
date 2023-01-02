@@ -491,6 +491,87 @@
   ],
   "lang": [
     {
+      "id": "account.orders",
+      "label": "Orders",
+      "url": "/account/orders",
+      "fields": [
+        {
+          "id": "lang.account.orders.date",
+          "label": "Order date label",
+          "default": "Order date",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.orders.items",
+          "label": "Order items label",
+          "default": "Items",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.orders.view_order",
+          "label": "Order view label",
+          "default": "View order",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "label": "Order status",
+          "type": "heading"
+        },
+        {
+          "id": "lang.account.orders.status.canceled",
+          "label": "Order status canceled",
+          "default": "Canceled",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.orders.status.complete",
+          "label": "Order status complete",
+          "default": "Complete",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.orders.status.delivery_pending",
+          "label": "Order status delivery pending",
+          "default": "Delivery pending",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.orders.status.hold",
+          "label": "Order status hold",
+          "default": "Hold",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.orders.status.payment_pending",
+          "label": "Order status payment pending",
+          "default": "Payment pending",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.orders.status.pending",
+          "label": "Order status pending",
+          "default": "Pending",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.orders.status.draft",
+          "label": "Order status draft",
+          "default": "Draft",
+          "type": "short_text",
+          "localized": true
+        }
+      ]
+    },
+    {
       "id": "account.subscriptions",
       "label": "Subscriptions",
       "icon": "users",
@@ -507,6 +588,94 @@
           "id": "lang.account.subscriptions.order_message",
           "label": "Subscription order message",
           "default": "Every {n} {interval}",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.next_billing",
+          "label": "Subscription next billing label",
+          "default": "Next billing",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.manage",
+          "label": "Subscription manage label",
+          "default": "Manage",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "label": "Subscription status",
+          "type": "heading"
+        },
+        {
+          "id": "lang.account.subscriptions.status.active",
+          "label": "Subscription status active",
+          "default": "Active",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.status.canceled",
+          "label": "Subscription status canceled",
+          "default": "Canceled",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.status.paid",
+          "label": "Subscription status paid",
+          "default": "Paid",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.status.trial",
+          "label": "Subscription status trial",
+          "default": "Trial",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.status.paused",
+          "label": "Subscription status paused",
+          "default": "Paused",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.status.pastdue",
+          "label": "Subscription status pastdue",
+          "default": "Past due",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.status.unpaid",
+          "label": "Subscription status unpaid",
+          "default": "Unpaid",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.status.complete",
+          "label": "Subscription status complete",
+          "default": "Complete",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.status.pending",
+          "label": "Subscription status pending",
+          "default": "Pending",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.status.draft",
+          "label": "Subscription status draft",
+          "default": "Draft",
           "type": "short_text",
           "localized": true
         }
@@ -678,6 +847,31 @@
           "id": "lang.products.upsells.title",
           "label": "Upsells title",
           "default": "You may also like",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "label": "Stock status",
+          "type": "heading"
+        },
+        {
+          "id": "lang.products.stock_status.in_stock",
+          "label": "Stock status in stock",
+          "default": "In Stock",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.products.stock_status.low_stock",
+          "label": "Stock status low stock",
+          "default": "Low Stock",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.products.stock_status.out_of_stock",
+          "label": "Stock status out of stock",
+          "default": "Out of Stock",
           "type": "short_text",
           "localized": true
         }

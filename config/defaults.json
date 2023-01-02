@@ -82,12 +82,40 @@
   },
   "lang": {
     "account": {
+      "orders": {
+        "order_date": "Order date",
+        "items": "Items",
+        "view_order": "View Order",
+        "status": {
+          "canceled": "Canceled",
+          "complete": "Complete",
+          "delivery_pending": "Delivery Pending",
+          "hold": "Hold",
+          "payment_pending": "Payment Pending",
+          "pending": "Pending",
+          "draft": "Draft"
+        }
+      },
       "subscriptions": {
         "billing_message": "Every {n} {interval}",
         "order_message": "Every {n} {interval}",
         "details": {
           "billing_message": "Pay every {n} {interval}",
           "order_message": "Shipped every {n} {interval}"
+        },
+        "next_billing": "Next billing",
+        "manage": "Manage",
+        "status": {
+          "active": "Active",
+          "canceled": "Canceled",
+          "paid": "Paid",
+          "trial": "Trial",
+          "paused": "Paused",
+          "pastdue": "Past Due",
+          "unpaid": "Unpaid",
+          "complete": "Complete",
+          "pending": "Pending",
+          "draft": "Draft"
         }
       }
     },

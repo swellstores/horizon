@@ -45,6 +45,15 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({
   const { locale } = useRouter();
   const lang = useSettingsStore((state) => state.settings?.lang);
 
+  const billingMessage = fallbackString(
+    lang?.account?.subscriptions?.details?.billingMessage,
+    'Pay every {n} {interval}',
+  );
+  const orderMessage = fallbackString(
+    lang?.account?.subscriptions?.details?.billingMessage,
+    'Shipped every {n} {interval}',
+  );
+
   return (
     <div
       className={[
@@ -106,10 +115,7 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({
             <div className="flex items-center space-x-4">
               <ScheduleLabel
                 type="billing"
-                base={fallbackString(
-                  lang?.account?.subscriptions?.details?.billingMessage,
-                  'Pay every {n} {interval}',
-                )}
+                base={billingMessage}
                 schedule={subscriptionSchedule.billingSchedule}
                 textClasses="text-sm font-semibold"
                 iconClasses="w-5"
@@ -126,16 +132,12 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({
               <span className="text-2xs">{billingLimitText}</span>
             )}
           </div>
-          {/* TODO: i18n */}
           {subscriptionSchedule?.orderSchedule && (
             <div className="flex flex-col space-y-1">
               <div className="flex items-center space-x-4">
                 <ScheduleLabel
                   type="order"
-                  base={fallbackString(
-                    lang?.account?.subscriptions?.details?.billingMessage,
-                    'Shipped every {n} {interval}',
-                  )}
+                  base={orderMessage}
                   schedule={subscriptionSchedule?.orderSchedule}
                   className="mt-0.5"
                   textClasses="text-sm font-semibold"

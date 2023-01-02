@@ -15,6 +15,9 @@ import { formatDateToLocale } from 'lib/utils/date';
 import type { Maybe } from 'lib/graphql/generated/sdk';
 import ScheduleLabel from 'components/atoms/ScheduleLabel';
 import useCurrencyStore from 'stores/currency';
+import useSettingsStore from 'stores/settings';
+import { fallbackString } from 'utils/text';
+import Price from 'components/atoms/Price';
 
 interface BaseProps {
   title: string;
@@ -41,14 +44,6 @@ export type OrderCardProps = BaseProps & {
 
 export type PurchaseCardProps = SubscriptionCardProps | OrderCardProps;
 
-const LABELS = {
-  next_billing: 'Next billing',
-  order_date: 'Order date',
-  items: 'Items',
-  manage: 'Manage',
-  view_order: 'View Order',
-};
-
 const PurchaseCard: React.FC<PurchaseCardProps> = ({
   status,
   title,
@@ -58,6 +53,35 @@ const PurchaseCard: React.FC<PurchaseCardProps> = ({
   ...props
 }) => {
   const formatPrice = useCurrencyStore((state) => state.formatPrice);
+
+  const lang = useSettingsStore((state) => state.settings?.lang);
+
+  const billingMessage = fallbackString(
+    lang?.account?.subscriptions?.billingMessage,
+    'Every {n} {interval}',
+  );
+  const orderMessage = fallbackString(
+    lang?.account?.subscriptions?.orderMessage,
+    'Every {n} {interval}',
+  );
+  const nextBillingLabel = fallbackString(
+    lang?.account?.subscriptions?.nextBilling,
+    'Next billing',
+  );
+  const orderDateLabel = fallbackString(
+    lang?.account?.orders?.date,
+    'Order date',
+  );
+  const itemsLabel = fallbackString(lang?.account?.orders?.items, 'Items');
+  const viewOrderLabel = fallbackString(
+    lang?.account?.orders?.viewOrder,
+    'View order',
+  );
+  const manageLabel = fallbackString(
+    lang?.account?.subscriptions?.manage,
+    'Manage',
+  );
+
   return (
     <div className="border-outline rounded-xl border bg-background-primary p-6">
       <div className="md:flex md:justify-between">
@@ -70,13 +94,9 @@ const PurchaseCard: React.FC<PurchaseCardProps> = ({
           <div className="mt-4">
             <div className="flex justify-start gap-2 text-sm">
               <span className="text-body">
-                {
-                  LABELS[
-                    props.type === PURCHASE_TYPE.SUBSCRIPTION
-                      ? 'next_billing'
-                      : 'order_date'
-                  ]
-                }
+                {props.type === PURCHASE_TYPE.SUBSCRIPTION
+                  ? nextBillingLabel
+                  : orderDateLabel}
               </span>
               <span className="font-semibold text-primary">
                 {formatDateToLocale(date)}
@@ -85,7 +105,7 @@ const PurchaseCard: React.FC<PurchaseCardProps> = ({
 
             {props.type === PURCHASE_TYPE.ORDER && (
               <div className="mt-1 flex justify-start gap-2 text-sm">
-                <span className="text-body">{LABELS['items']}</span>
+                <span className="text-body">{itemsLabel}</span>
                 <span className="font-semibold text-primary">
                   {props.itemsCount}
                 </span>
@@ -123,7 +143,7 @@ const PurchaseCard: React.FC<PurchaseCardProps> = ({
               <div className="inline-flex items-center justify-start space-x-2 text-sm text-primary">
                 <ScheduleLabel
                   type="billing"
-                  base="Every"
+                  base={billingMessage}
                   schedule={props.billingSchedule}
                   textClasses="text-sm"
                   iconClasses="h-6"
@@ -140,7 +160,7 @@ const PurchaseCard: React.FC<PurchaseCardProps> = ({
               <div className="inline-flex items-center justify-start gap-2 text-sm text-primary">
                 <ScheduleLabel
                   type="order"
-                  base="Every"
+                  base={orderMessage}
                   schedule={props.orderSchedule}
                   textClasses="text-sm"
                   iconClasses="h-6"
@@ -158,8 +178,8 @@ const PurchaseCard: React.FC<PurchaseCardProps> = ({
           <div className="inline-flex items-center justify-start gap-2 text-sm text-primary">
             {/* TODO: Make dyunamic */}
             <span className="text-body">Total</span>
-            {/*formatPrice()*/}
-            <span className="font-semibold">${props.total.toFixed(2)}</span>
+
+            <Price price={props.total} className="font-semibold" />
           </div>
         )}
 
@@ -168,14 +188,14 @@ const PurchaseCard: React.FC<PurchaseCardProps> = ({
           href={link}
           fullWidth
           className="mt-6 md:hidden">
-          {LABELS[props.type === 'subscription' ? 'manage' : 'view_order']}
+          {props.type === 'subscription' ? manageLabel : viewOrderLabel}
         </Button>
         <Button
           elType={BUTTON_TYPE.LINK}
           href={link}
           small
           className="hidden md:block">
-          {LABELS[props.type === 'subscription' ? 'manage' : 'view_order']}
+          {props.type === 'subscription' ? manageLabel : viewOrderLabel}
         </Button>
       </div>
     </div>
