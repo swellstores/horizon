@@ -89,9 +89,9 @@
         "status": {
           "canceled": "Canceled",
           "complete": "Complete",
-          "delivery_pending": "Delivery Pending",
+          "delivery_pending": "Delivery pending",
           "hold": "Hold",
-          "payment_pending": "Payment Pending",
+          "payment_pending": "Payment pending",
           "pending": "Pending",
           "draft": "Draft"
         }

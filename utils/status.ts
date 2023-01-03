@@ -1,4 +1,3 @@
-import type { Status } from 'types/global';
 import { ORDER_STATUS } from 'types/orders';
 import { STOCK_STATUS } from 'types/shared/products';
 import { SUBSCRIPTION_STATUS } from 'types/subscription';
@@ -10,10 +9,30 @@ interface StatusTemplate {
   details?: (payload?: string) => string;
 }
 
+const ORDER_PREFIX = 'order_' as const;
+type ORDER_PREFIX = typeof ORDER_PREFIX;
+const SUBSCRIPTION_PREFIX = 'subscription_' as const;
+type SUBSCRIPTION_PREFIX = typeof SUBSCRIPTION_PREFIX;
+
+const withPrefix =
+  <P extends ORDER_PREFIX | SUBSCRIPTION_PREFIX>(prefix: P) =>
+  (
+    text: P extends ORDER_PREFIX ? ORDER_STATUS : SUBSCRIPTION_STATUS,
+  ): `${P}${P extends ORDER_PREFIX ? ORDER_STATUS : SUBSCRIPTION_STATUS}` =>
+    `${prefix}${text}`;
+
+export const orderStatusKey = withPrefix(ORDER_PREFIX);
+export const subscriptionStatusKey = withPrefix(SUBSCRIPTION_PREFIX);
+
+type StatusKey =
+  | ReturnType<typeof orderStatusKey>
+  | ReturnType<typeof subscriptionStatusKey>
+  | STOCK_STATUS;
+
 export const STATUS_MAP = (lang: any) =>
-  new Map<Status, StatusTemplate>([
+  new Map<StatusKey, StatusTemplate>([
     [
-      ORDER_STATUS.CANCELED,
+      orderStatusKey(ORDER_STATUS.CANCELED),
       {
         color: '#FF766D',
         label: fallbackString(
@@ -23,7 +42,7 @@ export const STATUS_MAP = (lang: any) =>
       },
     ],
     [
-      ORDER_STATUS.COMPLETE,
+      orderStatusKey(ORDER_STATUS.COMPLETE),
       {
         color: '#00BA99',
         label: fallbackString(
@@ -33,34 +52,34 @@ export const STATUS_MAP = (lang: any) =>
       },
     ],
     [
-      ORDER_STATUS.DELIVERY_PENDING,
+      orderStatusKey(ORDER_STATUS.DELIVERY_PENDING),
       {
         color: '#BDB9C6',
         label: fallbackString(
-          lang?.account?.orders?.status?.delivery_pending,
+          lang?.account?.orders?.status?.deliveryPending,
           'Delivery pending',
         ),
       },
     ],
     [
-      ORDER_STATUS.HOLD,
+      orderStatusKey(ORDER_STATUS.HOLD),
       {
         color: '#F4A732',
         label: fallbackString(lang?.account?.orders?.status?.hold, 'Hold'),
       },
     ],
     [
-      ORDER_STATUS.PAYMENT_PENDING,
+      orderStatusKey(ORDER_STATUS.PAYMENT_PENDING),
       {
         color: '#F4A732',
         label: fallbackString(
-          lang?.account?.orders?.status?.payment_pending,
+          lang?.account?.orders?.status?.paymentPending,
           'Payment Pending',
         ),
       },
     ],
     [
-      ORDER_STATUS.PENDING,
+      orderStatusKey(ORDER_STATUS.PENDING),
       {
         color: '#F4A732',
         label: fallbackString(
@@ -70,14 +89,14 @@ export const STATUS_MAP = (lang: any) =>
       },
     ],
     [
-      ORDER_STATUS.DRAFT,
+      orderStatusKey(ORDER_STATUS.DRAFT),
       {
         color: '#F4A732',
         label: fallbackString(lang?.account?.orders?.status?.draft, 'Draft'),
       },
     ],
     [
-      SUBSCRIPTION_STATUS.ACTIVE,
+      subscriptionStatusKey(SUBSCRIPTION_STATUS.ACTIVE),
       {
         color: '#00BA99',
         label: fallbackString(
@@ -87,7 +106,7 @@ export const STATUS_MAP = (lang: any) =>
       },
     ],
     [
-      SUBSCRIPTION_STATUS.CANCELED,
+      subscriptionStatusKey(SUBSCRIPTION_STATUS.CANCELED),
       {
         color: '#FF766D',
         label: fallbackString(
@@ -97,7 +116,7 @@ export const STATUS_MAP = (lang: any) =>
       },
     ],
     [
-      SUBSCRIPTION_STATUS.PAID,
+      subscriptionStatusKey(SUBSCRIPTION_STATUS.PAID),
       {
         color: '#00BA99',
         label: fallbackString(
@@ -107,7 +126,7 @@ export const STATUS_MAP = (lang: any) =>
       },
     ],
     [
-      SUBSCRIPTION_STATUS.TRIAL,
+      subscriptionStatusKey(SUBSCRIPTION_STATUS.TRIAL),
       {
         color: '#00BA99',
         label: fallbackString(
@@ -117,7 +136,7 @@ export const STATUS_MAP = (lang: any) =>
       },
     ],
     [
-      SUBSCRIPTION_STATUS.PAUSED,
+      subscriptionStatusKey(SUBSCRIPTION_STATUS.PAUSED),
       {
         color: '#BDB9C6',
         label: fallbackString(
@@ -127,7 +146,7 @@ export const STATUS_MAP = (lang: any) =>
       },
     ],
     [
-      SUBSCRIPTION_STATUS.PASTDUE,
+      subscriptionStatusKey(SUBSCRIPTION_STATUS.PASTDUE),
       {
         color: '#F4A732',
         label: fallbackString(
@@ -137,7 +156,7 @@ export const STATUS_MAP = (lang: any) =>
       },
     ],
     [
-      SUBSCRIPTION_STATUS.UNPAID,
+      subscriptionStatusKey(SUBSCRIPTION_STATUS.UNPAID),
       {
         color: '#FF766D',
         label: fallbackString(
@@ -147,7 +166,7 @@ export const STATUS_MAP = (lang: any) =>
       },
     ],
     [
-      SUBSCRIPTION_STATUS.COMPLETE,
+      subscriptionStatusKey(SUBSCRIPTION_STATUS.COMPLETE),
       {
         color: '#00BA99',
         label: fallbackString(
@@ -157,7 +176,7 @@ export const STATUS_MAP = (lang: any) =>
       },
     ],
     [
-      SUBSCRIPTION_STATUS.PENDING,
+      subscriptionStatusKey(SUBSCRIPTION_STATUS.PENDING),
       {
         color: '#F4A732',
         label: fallbackString(
@@ -167,7 +186,7 @@ export const STATUS_MAP = (lang: any) =>
       },
     ],
     [
-      SUBSCRIPTION_STATUS.DRAFT,
+      subscriptionStatusKey(SUBSCRIPTION_STATUS.DRAFT),
       {
         color: '#BDB9C6',
         label: fallbackString(
@@ -181,7 +200,7 @@ export const STATUS_MAP = (lang: any) =>
       {
         color: '#00BA99',
         label: fallbackString(
-          lang?.products?.stock_status?.in_stock,
+          lang?.products?.stock_status?.inStock,
           'In Stock',
         ),
       },
@@ -191,7 +210,7 @@ export const STATUS_MAP = (lang: any) =>
       {
         color: '#F4A732',
         label: fallbackString(
-          lang?.products?.stock_status?.low_stock,
+          lang?.products?.stock_status?.lowStock,
           'Low Stock',
         ),
         details: (payload = 'few') => `${payload} remaining`,
@@ -202,7 +221,7 @@ export const STATUS_MAP = (lang: any) =>
       {
         color: '#FF766D',
         label: fallbackString(
-          lang?.products?.stock_status?.out_of_stock,
+          lang?.products?.stock_status?.outOfStock,
           'Out of Stock',
         ),
       },

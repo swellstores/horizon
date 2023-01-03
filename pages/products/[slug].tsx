@@ -313,6 +313,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({
                 <div className="mt-8 self-start">
                   <StatusIndicator
                     status={stockStatus}
+                    type="stock"
                     payload={activeVariation?.stockLevel?.toString()}
                   />
                 </div>

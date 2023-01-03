@@ -86,7 +86,7 @@ const PurchaseCard: React.FC<PurchaseCardProps> = ({
     <div className="border-outline rounded-xl border bg-background-primary p-6">
       <div className="md:flex md:justify-between">
         <div className="md:flex-1">
-          <StatusIndicator status={status} />
+          <StatusIndicator status={status} type={props.type} />
           <h3 className="mt-2 font-headings text-xl font-semibold text-primary">
             {title}
           </h3>
