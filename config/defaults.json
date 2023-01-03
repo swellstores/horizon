@@ -86,6 +86,10 @@
         "order_date": "Order date",
         "items": "Items",
         "view_order": "View Order",
+        "empty": {
+          "label": "You haven't ordered anything yet.",
+          "link": "Start shopping"
+        },
         "status": {
           "canceled": "Canceled",
           "complete": "Complete",
@@ -101,10 +105,51 @@
         "order_message": "Every {n} {interval}",
         "details": {
           "billing_message": "Pay every {n} {interval}",
-          "order_message": "Shipped every {n} {interval}"
+          "order_message": "Shipped every {n} {interval}",
+          "header_billing_message": "Every {n} {interval}",
+          "next_billing_label": "Next billing",
+          "items_label": "Items",
+          "total_label": "Total",
+          "quantity_label": "Qty",
+          "price_label": "Price",
+          "subtotal_label": "Subtotal",
+          "discounts_label": "Discounts & Credits",
+          "shipping_label": "Shipping",
+          "tax_label": "VAT",
+          "refund_label": "Refund",
+          "delivery_info_title": "Delivery information",
+          "details_label": "Details",
+          "phone_number_label": "Phone number",
+          "method_label": "Method",
+          "order_notes_label": "Order notes",
+          "payment_info_title": "Payment information",
+          "payment_method_label": "Payment method",
+          "card_label": "Card",
+          "billing_address_label": "Billing address",
+          "trial_end_message": "Your trial period will end in {n} {interval}",
+          "renewal_limit_label": "Limited to {n} {renewal}",
+          "shipment_limit_label": "Limited to {n} {shipment}",
+          "renewal_singular_label": "renewal",
+          "renewal_plural_label": "renewals",
+          "shipment_singular_label": "shipment",
+          "shipment_plural_label": "shipments",
+          "cancel": {
+            "message": "You can cancel your subscription at anytime.",
+            "label": "Cancel subscription",
+            "dialog_title": "Cancel subscription",
+            "dialog_body": "Cancelling your subscription is permanent. Are you sure you want to proceed?",
+            "cancel_button_label": "Cancel",
+            "cancel_subscription_button_label": "Cancel subscription",
+            "success_message": "Your subscription is canceled",
+            "error_message": "Something went wrong, please try again later"
+          }
         },
         "next_billing": "Next billing",
         "manage": "Manage",
+        "empty": {
+          "label": "You haven't subscribed to any products yet.",
+          "link": "Start shopping"
+        },
         "status": {
           "active": "Active",
           "canceled": "Canceled",
@@ -117,6 +162,10 @@
           "pending": "Pending",
           "draft": "Draft"
         }
+      },
+      "logout": {
+        "label": "Log out",
+        "success": "You're logged out"
       }
     },
     "products": {

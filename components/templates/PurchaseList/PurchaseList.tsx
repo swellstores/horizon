@@ -4,12 +4,8 @@ import PurchaseGroup from 'components/organisms/PurchaseGroup';
 import Plus from 'assets/icons/plus.svg';
 import { PURCHASE_TYPE } from 'types/purchase';
 import type { GrouppedPurchases } from 'utils/purchases';
-
-// TODO: i18n
-const EMPTY_STATE_LABEL_MAP = {
-  [PURCHASE_TYPE.ORDER]: "You haven't ordered anything yet.",
-  [PURCHASE_TYPE.SUBSCRIPTION]: "You haven't subscribed to any products yet.",
-};
+import useSettingsStore from 'stores/settings';
+import { fallbackString } from 'utils/text';
 
 export interface PurchaseListProps {
   title: string;
@@ -22,11 +18,35 @@ const PurchaseList: React.FC<PurchaseListProps> = ({
   groupedPurchases,
   type,
 }) => {
+  const lang = useSettingsStore((state) => state.settings?.lang);
   const hasPurchases = useMemo(
     () => Object.entries(groupedPurchases).length > 0,
     [groupedPurchases],
   );
-  const emptyStateLabel = useMemo(() => EMPTY_STATE_LABEL_MAP[type], [type]);
+
+  const EMPTY_STATE_LABEL_MAP = {
+    [PURCHASE_TYPE.ORDER]: fallbackString(
+      lang?.account?.orders?.empty?.label,
+      "You haven't ordered anything yet.",
+    ),
+    [PURCHASE_TYPE.SUBSCRIPTION]: fallbackString(
+      lang?.account?.subscriptions?.empty?.label,
+      "You haven't subscribed to any products yet.",
+    ),
+  };
+  const EMPTY_STATE_LINK_MAP = {
+    [PURCHASE_TYPE.ORDER]: fallbackString(
+      lang?.account?.orders?.empty?.link,
+      "You haven't ordered anything yet.",
+    ),
+    [PURCHASE_TYPE.SUBSCRIPTION]: fallbackString(
+      lang?.account?.subscriptions?.empty?.link,
+      "You haven't subscribed to any products yet.",
+    ),
+  };
+  const emptyStateLabel = EMPTY_STATE_LABEL_MAP[type];
+  const emptyStateLink = EMPTY_STATE_LINK_MAP[type];
+
   return (
     <article className="">
       <h1 className="hidden font-headings text-2xl font-semibold text-primary lg:block">
@@ -48,8 +68,7 @@ const PurchaseList: React.FC<PurchaseListProps> = ({
           <Link href="/products">
             <a className="mt-4 flex items-center space-x-2 text-primary">
               <Plus className="h-4 w-4" />
-              {/* TODO: i18n */}
-              <span className="text-sm font-semibold">Start shopping</span>
+              <span className="text-sm font-semibold">{emptyStateLink}</span>
             </a>
           </Link>
         </div>

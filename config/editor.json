@@ -517,6 +517,20 @@
           "localized": true
         },
         {
+          "id": "lang.account.orders.empty.label",
+          "label": "Orders list empty state label",
+          "default": "You haven't ordered anything yet.",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.orders.empty.link",
+          "label": "Orders list empty state link label",
+          "default": "Start shopping",
+          "type": "short_text",
+          "localized": true
+        },
+        {
           "label": "Order status",
           "type": "heading"
         },
@@ -606,6 +620,20 @@
           "localized": true
         },
         {
+          "id": "lang.account.subscriptions.empty.label",
+          "label": "Orders list empty state label",
+          "default": "You haven't subscribed to any products yet.",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.empty.link",
+          "label": "Orders list empty state link label",
+          "default": "Start shopping",
+          "type": "short_text",
+          "localized": true
+        },
+        {
           "label": "Subscription status",
           "type": "heading"
         },
@@ -689,7 +717,7 @@
       "fields": [
         {
           "id": "lang.account.subscriptions.details.billing_message",
-          "label": "Subscription order message",
+          "label": "Subscription billing message",
           "default": "Pay every {n} {interval}",
           "type": "short_text",
           "localized": true
@@ -698,6 +726,298 @@
           "id": "lang.account.subscriptions.details.order_message",
           "label": "Subscription order message",
           "default": "Shipped every {n} {interval}",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.header_billing_message",
+          "label": "Subscription header billing message",
+          "default": "Every {n} {interval}",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.back_link",
+          "label": "Back to subscriptions link",
+          "default": "Back to subscriptions",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.created_label",
+          "label": "Created label",
+          "default": "Created",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.next_billing_label",
+          "label": "Next billing label",
+          "default": "Next billing",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.items_label",
+          "label": "Items label",
+          "default": "Items",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.total_label",
+          "label": "Total label",
+          "default": "Total",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.quantity_label",
+          "label": "Quantity label",
+          "default": "Qty",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.price_label",
+          "label": "Price label",
+          "default": "Price",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.subtotal_label",
+          "label": "Subtotal label",
+          "default": "Subtotal",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.discounts_label",
+          "label": "Discounts & Credits label",
+          "default": "Discounts & Credits",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.shipping_label",
+          "label": "Shipping label",
+          "default": "Shipping",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.tax_label",
+          "label": "VAT label",
+          "default": "VAT",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.refund_label",
+          "label": "Refund label",
+          "default": "Refund",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.delivery_info_title",
+          "label": "Delivery information title",
+          "default": "Delivery information",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.details_label",
+          "label": "Details label",
+          "default": "Details",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.phone_number_label",
+          "label": "Phone number label",
+          "default": "Phone number",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.method_label",
+          "label": "Method label",
+          "default": "Method",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.order_notes_label",
+          "label": "Order notes label",
+          "default": "Order notes",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.payment_info_title",
+          "label": "Payment information title",
+          "default": "Payment information",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.payment_method_label",
+          "label": "Payment method label",
+          "default": "Payment method",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.card_label",
+          "label": "Card label",
+          "default": "Card",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.billing_address_label",
+          "label": "Billing address label",
+          "default": "Billing address",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.trial_end_message",
+          "label": "Trial period end message",
+          "default": "Your trial period will end in {n} {interval}",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.billing_message",
+          "label": "Billing message",
+          "default": "Every {n} {interval}",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.renewal_limit_label",
+          "label": "Renewal limit label",
+          "default": "Limited to {n} {renewal}",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.shipment_limit_label",
+          "label": "Shipment limit label",
+          "default": "Limited to {n} {shipment}",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.renewal_singular_label",
+          "label": "Renewal singular label",
+          "default": "renewal",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.renewal_plural_label",
+          "label": "Renewal plural label",
+          "default": "renewals",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.shipment_singular_label",
+          "label": "Shipment singular label",
+          "default": "shipment",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.shipment_plural_label",
+          "label": "Shipment plural label",
+          "default": "shipments",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "label": "Cancel subscription",
+          "type": "heading"
+        },
+        {
+          "id": "lang.account.subscriptions.details.cancel.message",
+          "label": "Cancel subscription message",
+          "default": "You can cancel your subscription at anytime.",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.cancel.label",
+          "label": "Cancel subscription label",
+          "default": "Cancel subscription",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.cancel.dialog_title",
+          "label": "Cancel subscription dialog title",
+          "default": "Cancel subscription",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.cancel.dialog_body",
+          "label": "Cancel subscription dialog body",
+          "default": "Cancelling your subscription is permanent. Are you sure you want to proceed?",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.cancel.cancel_button_label",
+          "label": "Cancel button label",
+          "default": "Cancel",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.cancel.cancel_subscription_button_label",
+          "label": "Cancel subscription button label",
+          "default": "Cancel subscription",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.cancel.success_message",
+          "label": "Cancel subscription success message",
+          "default": "Your subscription is canceled",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.cancel.error_message",
+          "label": "Cancel subscription error message",
+          "default": "Something went wrong, please try again later",
+          "type": "short_text",
+          "localized": true
+        }
+      ]
+    },
+    {
+      "id": "account.logout",
+      "label": "Logout",
+      "url": "/account",
+      "icon": "unlock-alt",
+      "fields": [
+        {
+          "id": "lang.account.logout.label",
+          "label": "Log out",
+          "default": "Log out",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.logout.success",
+          "label": "Log out success message",
+          "default": "You're logged out",
           "type": "short_text",
           "localized": true
         }

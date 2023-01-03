@@ -1,7 +1,7 @@
 import React from 'react';
 import SyncIcon from 'assets/icons/sync.svg';
 import ShippingIcon from 'assets/icons/shipping.svg';
-import { getScheduleLabel } from 'lib/utils/subscription';
+import { formatScheduleLabel } from 'lib/utils/subscription';
 import type { Schedule } from 'types/subscription';
 import { fallbackString } from 'utils/text';
 import useSettingsStore from 'stores/settings';
@@ -42,7 +42,7 @@ export const ScheduleLabel: React.FC<ScheduleLabelProps> = ({
 
   const label = (
     <span className={textClasses ?? ''}>
-      {getScheduleLabel(
+      {formatScheduleLabel(
         fallbackString(
           base,
           type === 'billing' ? billingFallback : orderFallback,

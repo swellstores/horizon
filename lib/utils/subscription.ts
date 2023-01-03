@@ -84,7 +84,7 @@ export function formatSubscriptionPrice(
 *@param {Object} [schedule] - The schedule object containing the interval and interval count.
 *@returns {string} - The label with variables replaced with values from the schedule object.
 */
-export function getScheduleLabel(text: string, schedule?: Schedule) {
+export function formatScheduleLabel(text: string, schedule?: Schedule) {
   if (!schedule?.interval || !schedule?.intervalCount) return '';
   const { interval, intervalCount } = schedule;
 
@@ -102,9 +102,10 @@ export function getScheduleLabel(text: string, schedule?: Schedule) {
 
 export const formatLimitText = (
   schedule: Schedule | undefined,
-  prefix: string,
+  base: string,
   singular: string,
   plural: string,
+  key: string,
 ) => {
   const limit = schedule?.limit;
   const limitCurrent = schedule?.limitCurrent;
@@ -114,16 +115,15 @@ export const formatLimitText = (
     return null;
   }
 
-  return `${prefix} ${remainingCycles} ${
-    remainingCycles > 1 ? plural : singular
-  }`;
+  return parseTextWithVariables(base, {
+    n: remainingCycles.toString(),
+    [key]: remainingCycles > 1 ? plural : singular,
+  });
 };
 
 export const formatTrialText = (
-  subscription: SwellSubscription,
   base: string,
-  singular: string,
-  plural: string,
+  subscription: SwellSubscription,
 ) => {
   const trialLeft =
     new Date(subscription.dateTrialEnd).getTime() - new Date().getTime();
@@ -133,7 +133,11 @@ export const formatTrialText = (
   }
 
   const trialEndDays = Math.round(trialLeft / ONE_DAY + 0.5);
-  return `${base} ${trialEndDays} ${trialEndDays === 1 ? singular : plural}`;
+
+  return parseTextWithVariables(base, {
+    n: trialEndDays.toString(),
+    interval: getPluralizedInterval(INTERVAL.Daily, trialEndDays),
+  });
 };
 
 export const isLastSubscriptionCycle = (

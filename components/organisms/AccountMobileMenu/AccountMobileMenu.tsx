@@ -4,6 +4,8 @@ import { Disclosure, Transition } from '@headlessui/react';
 import ChevronDown from 'assets/icons/chevron-down.svg';
 import type { AccountNavMenuProps } from 'components/molecules/AccountNavMenu';
 import useLogout from 'hooks/useLogout';
+import useSettingsStore from 'stores/settings';
+import { fallbackString } from 'utils/text';
 
 export interface AccountMobileMenuProps extends AccountNavMenuProps {
   label: string;
@@ -13,7 +15,11 @@ const AccountMobileMenu: React.FC<AccountMobileMenuProps> = ({
   label,
   links,
 }) => {
+  const lang = useSettingsStore((state) => state.settings?.lang);
+  const logoutLabel = fallbackString(lang?.account?.logout?.label, 'Log out');
+
   const logout = useLogout();
+
   return (
     <div className="font-body text-md text-primary md:hidden">
       <Disclosure>
@@ -68,8 +74,7 @@ const AccountMobileMenu: React.FC<AccountMobileMenuProps> = ({
                           logout();
                         }}
                         className="mt-8">
-                        {/* TODO: i18n */}
-                        <button type="submit">Log out</button>
+                        <button type="submit">{logoutLabel}</button>
                       </form>
                     </div>
                   </div>

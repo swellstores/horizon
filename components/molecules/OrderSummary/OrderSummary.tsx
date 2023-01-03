@@ -50,7 +50,7 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({
     'Pay every {n} {interval}',
   );
   const orderMessage = fallbackString(
-    lang?.account?.subscriptions?.details?.billingMessage,
+    lang?.account?.subscriptions?.details?.orderMessage,
     'Shipped every {n} {interval}',
   );
 
