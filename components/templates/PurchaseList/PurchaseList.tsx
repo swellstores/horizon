@@ -3,8 +3,7 @@ import Link from 'next/link';
 import PurchaseGroup from 'components/organisms/PurchaseGroup';
 import Plus from 'assets/icons/plus.svg';
 import { PURCHASE_TYPE } from 'types/purchase';
-import type { GroupedOrders } from 'pages/account/orders';
-import type { GroupedSubscriptions } from 'pages/account/subscriptions';
+import type { GrouppedPurchases } from 'utils/purchases';
 
 // TODO: i18n
 const EMPTY_STATE_LABEL_MAP = {
@@ -14,7 +13,7 @@ const EMPTY_STATE_LABEL_MAP = {
 
 export interface PurchaseListProps {
   title: string;
-  groupedPurchases: GroupedSubscriptions | GroupedOrders;
+  groupedPurchases: GrouppedPurchases;
   type: PURCHASE_TYPE;
 }
 
