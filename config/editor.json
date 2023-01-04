@@ -942,6 +942,126 @@
       ]
     },
     {
+      "id": "account.password_recovery",
+      "label": "Password recovery",
+      "url": "/account/password-recovery",
+      "icon": "users",
+      "fields": [
+        {
+          "id": "lang.account.password_recovery.page_title",
+          "label": "Page title",
+          "default": "Forgot your password?",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.password_recovery.title",
+          "label": "Title",
+          "default": "Forgot your password?",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.password_recovery.subtitle",
+          "label": "Subtitle",
+          "default": "Enter your email to reset your password",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.password_recovery.email.label",
+          "label": "Email label",
+          "default": "Email",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.password_recovery.email.empty_error_text",
+          "label": "Email empty error text",
+          "default": "Email is required",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.password_recovery.email.invalid_error_text",
+          "label": "Email invalid error text",
+          "default": "Email format is invalid",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.password_recovery.email.placeholder",
+          "label": "Email placeholder",
+          "default": "Enter your email",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.password_recovery.submit_button_label",
+          "label": "Submit button label",
+          "default": "Send email",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.password_recovery.back_to_login_text",
+          "label": "Back to login text",
+          "default": "Back to {loginLink}",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.password_recovery.back_to_login_link",
+          "label": "Back to login link",
+          "default": "Log in",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.password_recovery.errors.server",
+          "label": "Server error",
+          "default": "Something went wrong",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.password_recovery.check_email.page_title",
+          "label": "Check email page title",
+          "default": "Check your email",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.password_recovery.check_email.title",
+          "label": "Check email title",
+          "default": "Check your email.",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.password_recovery.check_email.message",
+          "label": "Check email message",
+          "default": "If you have an account, you should receive an email shortly with a link to reset your password.",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.password_recovery.check_email.back_to_login_text",
+          "label": "Check email back to login text",
+          "default": "Back to {loginLink}",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.password_recovery.check_email.back_to_login_link",
+          "label": "Check email back to login link",
+          "default": "Log in",
+          "type": "short_text",
+          "localized": true
+        }
+      ]
+    },
+    {
       "id": "account.orders",
       "label": "Orders",
       "url": "/account/orders",

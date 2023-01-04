@@ -515,3 +515,76 @@ export const setNewPasswordText = (lang: any) => ({
     ),
   },
 });
+
+export const passwordRecoveryText = (lang: any) => ({
+  pageTitle: fallbackString(
+    lang?.account?.passwordRecovery?.pageTitle,
+    'Forgot your password?',
+  ),
+  title: fallbackString(
+    lang?.account?.passwordRecovery?.title,
+    'Forgot your password?',
+  ),
+  subtitle: fallbackString(
+    lang?.account?.passwordRecovery?.subtitle,
+    'Enter your email to reset your password',
+  ),
+  email: {
+    label: fallbackString(
+      lang?.account?.passwordRecovery?.email?.label,
+      'Email',
+    ),
+    emptyErrorText: fallbackString(
+      lang?.account?.passwordRecovery?.email?.emptyErrorText,
+      'Email is required',
+    ),
+    invalidErrorText: fallbackString(
+      lang?.account?.passwordRecovery?.email?.invalidErrorText,
+      'Email format is invalid',
+    ),
+    placeholder: fallbackString(
+      lang?.account?.passwordRecovery?.email?.placeholder,
+      'Enter your email',
+    ),
+  },
+  submitButtonLabel: fallbackString(
+    lang?.account?.passwordRecovery?.submitButtonLabel,
+    'Send email',
+  ),
+  backToLoginText: fallbackString(
+    lang?.account?.passwordRecovery?.backToLoginText,
+    'Back to {loginLink}',
+  ),
+  backToLoginLink: fallbackString(
+    lang?.account?.passwordRecovery?.backToLoginLink,
+    'Log in',
+  ),
+  errors: {
+    server: fallbackString(
+      lang?.account?.passwordRecovery?.errors?.server,
+      'Something went wrong',
+    ),
+  },
+  checkEmail: {
+    pageTitle: fallbackString(
+      lang?.account?.passwordRecovery?.checkEmail?.pageTitle,
+      'Check your email',
+    ),
+    title: fallbackString(
+      lang?.account?.passwordRecovery?.checkEmail?.title,
+      'Check your email.',
+    ),
+    message: fallbackString(
+      lang?.account?.passwordRecovery?.checkEmail?.message,
+      'If you have an account, you should receive an email shortly with a link to reset your password.',
+    ),
+    backToLoginText: fallbackString(
+      lang?.account?.passwordRecovery?.checkEmail?.backToLoginText,
+      'Back to {loginLink}',
+    ),
+    backToLoginLink: fallbackString(
+      lang?.account?.passwordRecovery?.checkEmail?.backToLoginLink,
+      'Log in',
+    ),
+  },
+});

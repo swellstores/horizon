@@ -289,6 +289,30 @@
           "message": "You can now log into your account using your new password.",
           "login_link": "Log in"
         }
+      },
+      "password_recovery": {
+        "page_title": "Forgot your password?",
+        "title": "Forgot your password?",
+        "subtitle": "Enter your email to reset your password",
+        "email": {
+          "label": "Email",
+          "empty_error_text": "Email is required",
+          "invalid_error_text": "Email format is invalid",
+          "placeholder": "Enter your email"
+        },
+        "submit_button_label": "Send email",
+        "back_to_login_text": "Back to {loginLink}",
+        "back_to_login_link": "Log in",
+        "errors": {
+          "server": "Something went wrong"
+        },
+        "check_email": {
+          "page_title": "Check your email.",
+          "title": "Check your email.",
+          "message": "If you have an account, you should receive an email shortly with a link to reset your password.",
+          "back_to_login_text": "Back to {loginLink}",
+          "back_to_login_link": "Log in"
+        }
       }
     },
     "products": {
