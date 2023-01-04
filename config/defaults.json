@@ -84,6 +84,7 @@
     "account": {
       "orders": {
         "title": "Orders & Returns",
+        "navigation_title": "Orders & Returns",
         "order_date": "Order date",
         "items": "Items",
         "view_order": "View Order",
@@ -103,6 +104,7 @@
       },
       "subscriptions": {
         "title": "Subscriptions",
+        "navigation_title": "Subscriptions",
         "billing_message": "Every {n} {interval}",
         "order_message": "Every {n} {interval}",
         "details": {

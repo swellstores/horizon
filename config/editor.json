@@ -503,6 +503,13 @@
           "localized": true
         },
         {
+          "id": "lang.account.orders.navigation_title",
+          "label": "Subscriptions navigation menu title",
+          "default": "Subscriptions",
+          "type": "short_text",
+          "localized": true
+        },
+        {
           "id": "lang.account.orders.date",
           "label": "Order date label",
           "default": "Order date",
@@ -601,6 +608,13 @@
         {
           "id": "lang.account.subscriptions.title",
           "label": "Subscriptions page title",
+          "default": "Subscriptions",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.navigation_title",
+          "label": "Subscriptions navigation menu title",
           "default": "Subscriptions",
           "type": "short_text",
           "localized": true

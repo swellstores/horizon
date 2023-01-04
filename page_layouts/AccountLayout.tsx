@@ -3,7 +3,7 @@ import Sidebar from 'components/organisms/Sidebar';
 import AccountHeader, {
   AccountHeaderProps,
 } from 'components/templates/AccountHeader';
-import { links } from 'lib/utils/nav';
+import { accountLinks } from 'utils/lang';
 import type { Settings } from 'stores/settings';
 import useSettingsStore from 'stores/settings';
 import { pageTitleMap } from 'utils/lang';
@@ -22,6 +22,7 @@ const AccountLayout: React.FC<AccountLayoutProps> = ({
 }) => {
   const setSettings = useSettingsStore((state) => state.setSettings);
   const lang = useSettingsStore((state) => state.settings?.lang);
+  const links = accountLinks(lang);
 
   // Stores settings retrieved server-side on the client-side store.
   useEffect(() => {

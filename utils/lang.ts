@@ -1,3 +1,4 @@
+import type { AccountNavLinkProps } from 'components/atoms/AccountNavLink';
 import { fallbackString } from './text';
 
 export const subscriptionDetailsText = (lang: any) => ({
@@ -161,3 +162,20 @@ export const pageTitleMap = (lang: any) => ({
   ),
   orders: fallbackString(lang?.account?.orders?.title, 'Orders & Returns'),
 });
+
+export const accountLinks = (lang: any): AccountNavLinkProps[] => [
+  {
+    label: fallbackString(
+      lang?.account?.subscriptions?.navigationTitle,
+      'Subscriptions',
+    ),
+    link: '/account/subscriptions',
+  },
+  {
+    label: fallbackString(
+      lang?.account?.orders?.navigationTitle,
+      'Orders & Returns',
+    ),
+    link: '/account/orders',
+  },
+];
