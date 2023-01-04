@@ -197,6 +197,30 @@
         "label": "Log out",
         "success": "You're logged out"
       },
+      "login": {
+        "page_title": "Log in",
+        "title": "Log in",
+        "email": {
+          "label": "Email",
+          "emptyErrorText": "Email is required",
+          "invalidErrorText": "Email format is invalid",
+          "placeholder": "Enter your email"
+        },
+        "password": {
+          "label": "Password",
+          "emptyErrorText": "Password is required",
+          "invalidErrorText": "Password is invalid",
+          "placeholder": "Enter your password"
+        },
+        "passwordRecovery": "Forgot your password?",
+        "errors": {
+          "invalidCredentials": "Your email or password is incorrect.",
+          "server": "Internal server error"
+        },
+        "loginButton": "Log in",
+        "noAccount": "Don't have an account?",
+        "signupLink": "Sign up"
+      },
       "signup": {
         "page_title": "Create account",
         "title": "Create account",

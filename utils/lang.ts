@@ -274,10 +274,7 @@ export const orderDetailsText = (lang: any) => ({
 });
 
 export const signupText = (lang: any) => ({
-  pageTitle: fallbackString(
-    lang?.account?.signup?.page_title,
-    'Create account',
-  ),
+  pageTitle: fallbackString(lang?.account?.signup?.pageTitle, 'Create account'),
   signupTitle: fallbackString(lang?.account?.signup?.title, 'Create account'),
   firstName: {
     label: fallbackString(
@@ -361,4 +358,59 @@ export const signupText = (lang: any) => ({
     lang?.account?.signup?.successMessage,
     'Your account was successfully created',
   ),
+});
+
+export const loginText = (lang: any) => ({
+  pageTitle: fallbackString(lang?.account?.login?.pageTitle, 'Log in'),
+  title: fallbackString(lang?.account?.login?.title, 'Log in'),
+  email: {
+    label: fallbackString(lang?.account?.login?.email?.label, 'Email'),
+    emptyErrorText: fallbackString(
+      lang?.account?.login?.email?.emptyErrorText,
+      'Email is required',
+    ),
+    invalidErrorText: fallbackString(
+      lang?.account?.login?.email?.invalidErrorText,
+      'Email format is invalid',
+    ),
+    placeholder: fallbackString(
+      lang?.account?.login?.email?.placeholder,
+      'Enter your email',
+    ),
+  },
+  password: {
+    label: fallbackString(lang?.account?.login?.password?.label, 'Password'),
+    emptyErrorText: fallbackString(
+      lang?.account?.login?.password?.emptyErrorText,
+      'Password is required',
+    ),
+    invalidErrorText: fallbackString(
+      lang?.account?.login?.password?.invalidErrorText,
+      'Password is invalid',
+    ),
+    placeholder: fallbackString(
+      lang?.account?.login?.password?.placeholder,
+      'Enter your password',
+    ),
+  },
+  passwordRecovery: fallbackString(
+    lang?.account?.login?.passwordRecovery,
+    'Forgot your password?',
+  ),
+  errors: {
+    invalidCredentials: fallbackString(
+      lang?.account?.login?.errors?.invalidCredentials,
+      'Your email or password is incorrect.',
+    ),
+    server: fallbackString(
+      lang?.account?.login?.errors?.server,
+      'Internal server error',
+    ),
+  },
+  loginButton: fallbackString(lang?.account?.login?.loginButton, 'Log in'),
+  noAccount: fallbackString(
+    lang?.account?.login?.noAccount,
+    "Don't have an account?",
+  ),
+  signupLink: fallbackString(lang?.account?.login?.signupLink, 'Sign up'),
 });

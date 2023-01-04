@@ -491,20 +491,139 @@
   ],
   "lang": [
     {
+      "id": "account.login",
+      "label": "Log in",
+      "url": "/account/login",
+      "fields": [
+        {
+          "id": "lang.account.login.page_title",
+          "label": "Log in page title",
+          "default": "Log in",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.login.title",
+          "label": "Log in title",
+          "default": "Log in",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.login.email.label",
+          "label": "Email label",
+          "default": "Email",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.login.email.empty_error_text",
+          "label": "Email empty error text",
+          "default": "Email is required",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.login.email.invalid_error_text",
+          "label": "Email invalid error text",
+          "default": "Email format is invalid",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.login.email.placeholder",
+          "label": "Email placeholder",
+          "default": "Enter your email",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.login.password.label",
+          "label": "Password label",
+          "default": "Password",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.login.password.empty_error_text",
+          "label": "Password empty error text",
+          "default": "Password is required",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.login.password.invalid_error_text",
+          "label": "Password invalid error text",
+          "default": "Password is invalid",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.login.password.placeholder",
+          "label": "Password placeholder",
+          "default": "Enter your password",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.login.password_recovery",
+          "label": "Password recovery link",
+          "default": "Forgot your password?",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.login.errors.invalid_credentials",
+          "label": "Invalid credentials error text",
+          "default": "Your email or password is incorrect.",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.login.errors.server",
+          "label": "Server error text",
+          "default": "Internal server error",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.login.login_button",
+          "label": "Login button label",
+          "default": "Log in",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.login.no_account",
+          "label": "No account message",
+          "default": "Don't have an account?",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.login.signup_link",
+          "label": "Signup link label",
+          "default": "Sign up",
+          "type": "short_text",
+          "localized": true
+        }
+      ]
+    },
+    {
       "id": "account.signup",
-      "label": "Signup",
+      "label": "Sign up",
       "url": "/account/signup",
       "fields": [
         {
           "id": "lang.account.signup.page_title",
-          "label": "Signup page title",
+          "label": "Sign up page title",
           "default": "Create account",
           "type": "short_text",
           "localized": true
         },
         {
           "id": "lang.account.signup.title",
-          "label": "Signup title",
+          "label": "Sign up title",
           "default": "Create account",
           "type": "short_text",
           "localized": true
