@@ -179,3 +179,96 @@ export const accountLinks = (lang: any): AccountNavLinkProps[] => [
     link: '/account/orders',
   },
 ];
+
+export const orderDetailsText = (lang: any) => ({
+  backToOrdersLabel: fallbackString(
+    lang?.account?.orders?.details?.backLink,
+    'Back to orders',
+  ),
+  orderLabel: fallbackString(
+    lang?.account?.orders?.details?.orderLabel,
+    'Order',
+  ),
+  createReturnLabel: fallbackString(
+    lang?.account?.orders?.details?.createReturnLabel,
+    'Create return',
+  ),
+  returnDialogTitle: fallbackString(
+    lang?.account?.orders?.details?.returnDialogTitle,
+    'Returning an item',
+  ),
+  returnDialogBody: fallbackString(
+    lang?.account?.orders?.details?.returnDialogBody,
+    'To initiate a partial or complete return of an order, please contact us so we can start the return process. Don’t forget to include the order number and the reason for returning.',
+  ),
+  orderDateLabel: fallbackString(
+    lang?.account?.orders?.details?.orderDateLabel,
+    'Order date',
+  ),
+  itemsLabel: fallbackString(
+    lang?.account?.orders?.details?.itemsLabel,
+    'Items',
+  ),
+  totalLabel: fallbackString(
+    lang?.account?.orders?.details?.totalLabel,
+    'Total',
+  ),
+  quantityLabel: fallbackString(
+    lang?.account?.orders?.details?.quantityLabel,
+    'Qty',
+  ),
+  priceLabel: fallbackString(
+    lang?.account?.orders?.details?.priceLabel,
+    'Price',
+  ),
+  subtotalLabel: fallbackString(
+    lang?.account?.orders?.details?.subtotalLabel,
+    'Subtotal',
+  ),
+  discountsLabel: fallbackString(
+    lang?.account?.orders?.details?.discountsLabel,
+    'Discounts & Credits',
+  ),
+  shippingLabel: fallbackString(
+    lang?.account?.orders?.details?.shippingLabel,
+    'Shipping',
+  ),
+  taxLabel: fallbackString(lang?.account?.orders?.details?.taxLabel, 'VAT'),
+  refundLabel: fallbackString(
+    lang?.account?.orders?.details?.refundLabel,
+    'Refund',
+  ),
+  deliveryInfoTitle: fallbackString(
+    lang?.account?.orders?.details?.deliveryInfoTitle,
+    'Delivery information',
+  ),
+  detailsLabel: fallbackString(
+    lang?.account?.orders?.details?.detailsLabel,
+    'Details',
+  ),
+  phoneNumberLabel: fallbackString(
+    lang?.account?.orders?.details?.phoneNumberLabel,
+    'Phone number',
+  ),
+  methodLabel: fallbackString(
+    lang?.account?.orders?.details?.methodLabel,
+    'Method',
+  ),
+  orderNotesLabel: fallbackString(
+    lang?.account?.orders?.details?.orderNotesLabel,
+    'Order notes',
+  ),
+  paymentInfoTitle: fallbackString(
+    lang?.account?.orders?.details?.paymentInfoTitle,
+    'Payment information',
+  ),
+  paymentMethodLabel: fallbackString(
+    lang?.account?.orders?.details?.paymentMethodLabel,
+    'Payment method',
+  ),
+  cardLabel: fallbackString(lang?.account?.orders?.details?.cardLabel, 'Card'),
+  billingAddressLabel: fallbackString(
+    lang?.account?.orders?.details?.billingAddressLabel,
+    'Billing address',
+  ),
+});

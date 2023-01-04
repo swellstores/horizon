@@ -600,6 +600,182 @@
       ]
     },
     {
+      "id": "account.orders.details",
+      "label": "Order details",
+      "icon": "users",
+      "url": "/account/orders/:id",
+      "fields": [
+        {
+          "id": "lang.account.orders.details.back_link",
+          "label": "Back to orders link",
+          "default": "Back to orders",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.orders.details.order_label",
+          "label": "Order label",
+          "default": "Order",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.orders.details.create_return_label",
+          "label": "Create return label",
+          "default": "Create return",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.orders.details.return_dialog_title",
+          "label": "Return dialog title",
+          "default": "Returning an item",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.orders.details.return_dialog_body",
+          "label": "Return dialog body",
+          "default": "To initiate a partial or complete return of an order, please contact us so we can start the return process. Don’t forget to include the order number and the reason for returning.",
+          "type": "long_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.orders.details.order_date_label",
+          "label": "Order date label",
+          "default": "Order date",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.orders.details.items_label",
+          "label": "Items label",
+          "default": "Items",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.orders.details.total_label",
+          "label": "Total label",
+          "default": "Total",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.orders.details.quantity_label",
+          "label": "Quantity label",
+          "default": "Qty",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.orders.details.price_label",
+          "label": "Price label",
+          "default": "Price",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.orders.details.subtotal_label",
+          "label": "Subtotal label",
+          "default": "Subtotal",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.orders.details.discounts_label",
+          "label": "Discounts & credits label",
+          "default": "Discounts & Credits",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.orders.details.shipping_label",
+          "label": "Shipping label",
+          "default": "Shipping",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.orders.details.tax_label",
+          "label": "VAT label",
+          "default": "VAT",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.orders.details.refund_label",
+          "label": "Refund label",
+          "default": "Refund",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.orders.details.delivery_info_title",
+          "label": "Delivery information title",
+          "default": "Delivery information",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.orders.details.details_label",
+          "label": "Details label",
+          "default": "Details",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.orders.details.phone_number_label",
+          "label": "Phone number label",
+          "default": "Phone number",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.orders.details.method_label",
+          "label": "Method label",
+          "default": "Method",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.orders.details.order_notes_label",
+          "label": "Order notes label",
+          "default": "Order notes",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.orders.details.payment_info_title",
+          "label": "Payment information title",
+          "default": "Payment information",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.orders.details.payment_method_label",
+          "label": "Payment method label",
+          "default": "Payment method",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.orders.details.card_label",
+          "label": "Card label",
+          "default": "Card",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.orders.details.billing_address_label",
+          "label": "Billing address label",
+          "default": "Billing address",
+          "type": "short_text",
+          "localized": true
+        }
+      ]
+    },
+    {
       "id": "account.subscriptions",
       "label": "Subscriptions",
       "icon": "users",

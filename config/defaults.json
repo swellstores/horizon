@@ -100,6 +100,32 @@
           "payment_pending": "Payment pending",
           "pending": "Pending",
           "draft": "Draft"
+        },
+        "details": {
+          "back_link": "Back to orders",
+          "order_label": "Order",
+          "create_return_label": "Create return",
+          "return_dialog_title": "Returning an item",
+          "return_dialog_body": "To initiate a partial or complete return of an order, please contact us so we can start the return process. Don’t forget to include the order number and the reason for returning.",
+          "order_date_label": "Order date",
+          "items_label": "Items",
+          "total_label": "Total",
+          "quantity_label": "Qty",
+          "price_label": "Price",
+          "subtotal_label": "Subtotal",
+          "discounts_label": "Discounts & Credits",
+          "shipping_label": "Shipping",
+          "tax_label": "VAT",
+          "refund_label": "Refund",
+          "delivery_info_title": "Delivery information",
+          "details_label": "Details",
+          "phone_number_label": "Phone number",
+          "method_label": "Method",
+          "order_notes_label": "Order notes",
+          "payment_info_title": "Payment information",
+          "payment_method_label": "Payment method",
+          "card_label": "Card",
+          "billing_address_label": "Billing address"
         }
       },
       "subscriptions": {

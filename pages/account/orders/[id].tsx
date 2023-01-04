@@ -11,10 +11,8 @@ import type {
   PageProps,
 } from 'types/shared/pages';
 import OrderHeader from 'components/molecules/OrderHeader';
-import OrderItemsTable, {
-  OrderItem,
-} from 'components/molecules/OrderItemsTable';
-import OrderSummary, { SummaryRow } from 'components/molecules/OrderSummary';
+import OrderItemsTable from 'components/molecules/OrderItemsTable';
+import OrderSummary from 'components/molecules/OrderSummary';
 import OrderInfo from 'components/molecules/OrderInfo';
 import { CARD_BRAND, PAYMENT_METHOD } from 'types/shared/payment';
 import GhostButton from 'components/atoms/GhostButton';
@@ -23,55 +21,151 @@ import ArrowLeft from 'assets/icons/arrow-left.svg';
 import { formatSubscriptionPrice } from 'lib/utils/subscription';
 import { getMultilineAddress } from 'lib/utils/account';
 import { formatPriceByCurrency } from 'lib/utils/price';
-import type { OrderInfoCardProps } from 'components/molecules/OrderInfoCard';
 import type { ORDER_STATUS } from 'types/orders';
 import { useRouter } from 'next/router';
 import { formatDateToLocale } from 'lib/utils/date';
 import { denullifyArray } from 'lib/utils/denullify';
 import { getClientWithSessionToken } from 'lib/graphql/client';
-
-interface OrderData {
-  name: string;
-  status: ORDER_STATUS;
-  dateCreated: Date;
-  quantity: number;
-  grandTotal: string;
-  orderItems: OrderItem[];
-  summaryRows: SummaryRow[];
-  totalRow: SummaryRow;
-  shippingInfo: OrderInfoCardProps[];
-  billingInfo: OrderInfoCardProps[];
-}
+import type { SwellOrder } from 'lib/graphql/generated/sdk';
+import { orderDetailsText } from 'utils/lang';
+import useSettingsStore from 'stores/settings';
 
 interface OrderDetailPageProps extends PageProps, AccountPageProps {
-  order: OrderData;
-  text: {
-    backToOrdersLabel: string;
-    orderLabel: string;
-    createReturnLabel: string;
-    returnDialogTitle: string;
-    returnDialogBody: string;
-    orderDateLabel: string;
-    itemsLabel: string;
-    totalLabel: string;
-    quantityLabel: string;
-    priceLabel: string;
-    subtotalLabel: string;
-    discountsLabel: string;
-    shippingLabel: string;
-    taxLabel: string;
-    refundLabel: string;
-    deliveryInfoTitle: string;
-    detailsLabel: string;
-    phoneNumberLabel: string;
-    methodLabel: string;
-    orderNotesLabel: string;
-    paymentInfoTitle: string;
-    paymentMethodLabel: string;
-    cardLabel: string;
-    billingAddressLabel: string;
-  };
+  order: SwellOrder;
 }
+
+const formatOrder = (
+  order: SwellOrder,
+  text: ReturnType<typeof orderDetailsText>,
+) => ({
+  // Header
+  name: `${text.orderLabel} #${order.number}`,
+  status: order?.status as ORDER_STATUS,
+  dateCreated: order.dateCreated,
+  quantity: order?.itemQuantity ?? 0,
+  grandTotal: formatPriceByCurrency(order?.currency)(order?.grandTotal ?? 0),
+  // Order items table
+  orderItems:
+    order?.items?.map((item) => ({
+      title: item?.product?.name ?? '',
+      href: `/products/${item?.product?.slug}`,
+      image: {
+        alt: item?.product?.images?.[0]?.caption ?? '',
+        src: item?.product?.images?.[0]?.file?.url ?? '',
+        width: item?.product?.images?.[0]?.file?.width ?? 0,
+        height: item?.product?.images?.[0]?.file?.height ?? 0,
+      },
+      options: item?.options?.map((option) => option?.value ?? '') ?? [],
+      quantity: item?.quantity ?? 0,
+      price: formatSubscriptionPrice(
+        formatPriceByCurrency(order?.currency)(item?.priceTotal ?? 0),
+        {
+          interval: item?.purchaseOption?.billingSchedule?.interval,
+          intervalCount: item?.purchaseOption?.billingSchedule?.intervalCount,
+        },
+      ),
+    })) ?? [],
+  // Order summary table
+  summaryRows: [
+    {
+      label: text.subtotalLabel,
+      value: formatPriceByCurrency(order?.currency)(order?.subTotal ?? 0),
+    },
+    {
+      label: text.discountsLabel,
+      value: formatPriceByCurrency(order?.currency)(order?.discountTotal ?? 0),
+    },
+    {
+      label: text.shippingLabel,
+      value: formatPriceByCurrency(order?.currency)(
+        order?.shipping?.price ?? 0,
+      ),
+    },
+    {
+      label: text.taxLabel,
+      value: formatPriceByCurrency(order?.currency)(order?.taxTotal ?? 0),
+    },
+    ...(order?.refunds?.results?.length
+      ? [
+          {
+            label: text.refundLabel,
+            value: formatPriceByCurrency(order?.currency)(
+              order.refunds?.results?.[0]?.amount ?? 0,
+            ),
+            bold: true,
+          },
+        ]
+      : []),
+  ],
+  totalRow: {
+    label: text.totalLabel,
+    value: formatPriceByCurrency(order?.currency)(order?.grandTotal ?? 0),
+  },
+  // Order info = shipping
+  shippingInfo: [
+    ...(order?.shipping && getMultilineAddress(order.shipping)
+      ? [
+          {
+            title: text.detailsLabel,
+            body: getMultilineAddress(order.shipping) ?? '',
+          },
+        ]
+      : []),
+    ...(order?.shipping?.phone
+      ? [
+          {
+            title: text.phoneNumberLabel,
+            body: order.shipping.phone,
+          },
+        ]
+      : []),
+    ...(order?.shipping?.serviceName
+      ? [
+          {
+            title: text.methodLabel,
+            body: order.shipping.serviceName,
+          },
+        ]
+      : []),
+  ],
+  // Order info = billing
+  billingInfo: [
+    ...(order?.billing?.method
+      ? [
+          {
+            title: text.paymentMethodLabel,
+            payment: {
+              method: order.billing.method as PAYMENT_METHOD,
+              ...(order?.billing?.method === PAYMENT_METHOD.CARD && {
+                card: {
+                  name: order?.billing?.name ?? '',
+                  brand: order.billing.card?.brand as CARD_BRAND,
+                  label: text.cardLabel ?? '',
+                  last4: order.billing.card?.last4 ?? '',
+                  expiredDate:
+                    order.billing.card?.expMonth && order.billing.card?.expYear
+                      ? `${
+                          order.billing.card.expMonth < 10
+                            ? `0${order.billing.card.expMonth}`
+                            : order.billing.card.expMonth
+                        }/${order.billing.card.expYear}`
+                      : '',
+                },
+              }),
+            },
+          },
+        ]
+      : []),
+    ...(order?.billing && getMultilineAddress(order?.billing)
+      ? [
+          {
+            title: text.billingAddressLabel,
+            body: getMultilineAddress(order?.billing) ?? '',
+          },
+        ]
+      : []),
+  ],
+});
 
 export const propsCallback: GetServerSideProps<OrderDetailPageProps> = async (
   context,
@@ -94,174 +188,10 @@ export const propsCallback: GetServerSideProps<OrderDetailPageProps> = async (
     };
   }
 
-  // TODO: Fetch from the editor
-  const text = {
-    backToOrdersLabel: 'Back to orders',
-    orderLabel: 'Order',
-    createReturnLabel: 'Create return',
-    returnDialogTitle: 'Returning an item',
-    returnDialogBody:
-      'To initiate a partial or complete return of an order, please contact us so we can start the return process. Don’t forget to include the order number and the reason for returning.',
-    orderDateLabel: 'Order date',
-    itemsLabel: 'Items',
-    totalLabel: 'Total',
-    quantityLabel: 'Qty',
-    priceLabel: 'Price',
-    subtotalLabel: 'Subtotal',
-    discountsLabel: 'Discounts & Credits',
-    shippingLabel: 'Shipping',
-    taxLabel: 'VAT',
-    refundLabel: 'Refund',
-    deliveryInfoTitle: 'Delivery information',
-    detailsLabel: 'Details',
-    phoneNumberLabel: 'Phone number',
-    methodLabel: 'Method',
-    orderNotesLabel: 'Order notes',
-    paymentInfoTitle: 'Payment information',
-    paymentMethodLabel: 'Payment method',
-    cardLabel: 'Card',
-    billingAddressLabel: 'Billing address',
-  };
-
   return {
     props: {
       pageType: 'orders',
-      order: {
-        // Header
-        name: `${text.orderLabel} #${order.number}`,
-        status: order?.status as ORDER_STATUS,
-        dateCreated: order.dateCreated,
-        quantity: order?.itemQuantity ?? 0,
-        grandTotal: formatPriceByCurrency(order?.currency)(
-          order?.grandTotal ?? 0,
-        ),
-        // Order items table
-        orderItems:
-          order?.items?.map((item) => ({
-            title: item?.product?.name ?? '',
-            href: `/products/${item?.product?.slug}`,
-            image: {
-              alt: item?.product?.images?.[0]?.caption ?? '',
-              src: item?.product?.images?.[0]?.file?.url ?? '',
-              width: item?.product?.images?.[0]?.file?.width ?? 0,
-              height: item?.product?.images?.[0]?.file?.height ?? 0,
-            },
-            options: item?.options?.map((option) => option?.value ?? '') ?? [],
-            quantity: item?.quantity ?? 0,
-            price: formatSubscriptionPrice(
-              formatPriceByCurrency(order?.currency)(item?.priceTotal ?? 0),
-              {
-                interval: item?.purchaseOption?.billingSchedule?.interval,
-                intervalCount:
-                  item?.purchaseOption?.billingSchedule?.intervalCount,
-              },
-            ),
-          })) ?? [],
-        // Order summary table
-        summaryRows: [
-          {
-            label: text.subtotalLabel,
-            value: formatPriceByCurrency(order?.currency)(order?.subTotal ?? 0),
-          },
-          {
-            label: text.discountsLabel,
-            value: formatPriceByCurrency(order?.currency)(
-              order?.discountTotal ?? 0,
-            ),
-          },
-          {
-            label: text.shippingLabel,
-            value: formatPriceByCurrency(order?.currency)(
-              order?.shipping?.price ?? 0,
-            ),
-          },
-          {
-            label: text.taxLabel,
-            value: formatPriceByCurrency(order?.currency)(order?.taxTotal ?? 0),
-          },
-          ...(order?.refunds?.results?.length
-            ? [
-                {
-                  label: text.refundLabel,
-                  value: formatPriceByCurrency(order?.currency)(
-                    order.refunds?.results?.[0]?.amount ?? 0,
-                  ),
-                  bold: true,
-                },
-              ]
-            : []),
-        ],
-        totalRow: {
-          label: text.totalLabel,
-          value: formatPriceByCurrency(order?.currency)(order?.grandTotal ?? 0),
-        },
-        // Order info = shipping
-        shippingInfo: [
-          ...(order?.shipping && getMultilineAddress(order.shipping)
-            ? [
-                {
-                  title: text.detailsLabel,
-                  body: getMultilineAddress(order.shipping) ?? '',
-                },
-              ]
-            : []),
-          ...(order?.shipping?.phone
-            ? [
-                {
-                  title: text.phoneNumberLabel,
-                  body: order.shipping.phone,
-                },
-              ]
-            : []),
-          ...(order?.shipping?.serviceName
-            ? [
-                {
-                  title: text.methodLabel,
-                  body: order.shipping.serviceName,
-                },
-              ]
-            : []),
-        ],
-        // Order info = billing
-        billingInfo: [
-          ...(order?.billing?.method
-            ? [
-                {
-                  title: text.paymentMethodLabel,
-                  payment: {
-                    method: order.billing.method as PAYMENT_METHOD,
-                    ...(order?.billing?.method === PAYMENT_METHOD.CARD && {
-                      card: {
-                        name: order?.billing?.name ?? '',
-                        brand: order.billing.card?.brand as CARD_BRAND,
-                        label: text.cardLabel ?? '',
-                        last4: order.billing.card?.last4 ?? '',
-                        expiredDate:
-                          order.billing.card?.expMonth &&
-                          order.billing.card?.expYear
-                            ? `${
-                                order.billing.card.expMonth < 10
-                                  ? `0${order.billing.card.expMonth}`
-                                  : order.billing.card.expMonth
-                              }/${order.billing.card.expYear}`
-                            : '',
-                      },
-                    }),
-                  },
-                },
-              ]
-            : []),
-          ...(order?.billing && getMultilineAddress(order?.billing)
-            ? [
-                {
-                  title: text.billingAddressLabel,
-                  body: getMultilineAddress(order?.billing) ?? '',
-                },
-              ]
-            : []),
-        ],
-      },
-      text,
+      order,
     },
   };
 };
@@ -270,10 +200,11 @@ export const getServerSideProps = withAccountLayout(
   withAuthentication(propsCallback),
 );
 
-const OrderDetailPage: NextPageWithLayout<OrderDetailPageProps> = ({
-  order,
-  text,
-}) => {
+const OrderDetailPage: NextPageWithLayout<OrderDetailPageProps> = (props) => {
+  const lang = useSettingsStore((state) => state.settings?.lang);
+  const text = orderDetailsText(lang);
+  const order = formatOrder(props.order, text);
+
   const { locale } = useRouter();
 
   const dateCreatedRow = order?.dateCreated
