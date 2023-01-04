@@ -8,6 +8,10 @@ export interface PageProps {
   locale?: string;
 }
 
+export interface AccountPageProps {
+  pageType: 'orders' | 'subscriptions';
+}
+
 export type NextPageWithLayout<T = { children?: ReactElement }> =
   NextPage<T> & {
     getLayout?: (page: ReactElement) => ReactElement;

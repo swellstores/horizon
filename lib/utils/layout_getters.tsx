@@ -12,11 +12,16 @@ export const getMainLayout = (page: ReactElement) => {
 };
 
 export const getAccountLayout = (page: ReactElement) => {
+  const { pageType } = page.props;
   const { header, settings } = page.props._layout ?? {};
 
-  if (!header || !settings) return page;
+  if (!header || !settings || !pageType) return page;
 
-  return <AccountLayout {...page.props._layout}>{page}</AccountLayout>;
+  return (
+    <AccountLayout {...page.props._layout} pageType={pageType}>
+      {page}
+    </AccountLayout>
+  );
 };
 
 export const getAuthLayout = (page: ReactElement) => {

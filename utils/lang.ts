@@ -153,3 +153,11 @@ export const subscriptionDetailsText = (lang: any) => ({
     'shipments',
   ),
 });
+
+export const pageTitleMap = (lang: any) => ({
+  subscriptions: fallbackString(
+    lang?.account?.subscriptions?.title,
+    'Subscriptions',
+  ),
+  orders: fallbackString(lang?.account?.orders?.title, 'Orders & Returns'),
+});

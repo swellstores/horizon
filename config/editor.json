@@ -496,6 +496,13 @@
       "url": "/account/orders",
       "fields": [
         {
+          "id": "lang.account.orders.title",
+          "label": "Subscriptions page title",
+          "default": "Subscriptions",
+          "type": "short_text",
+          "localized": true
+        },
+        {
           "id": "lang.account.orders.date",
           "label": "Order date label",
           "default": "Order date",
@@ -591,6 +598,13 @@
       "icon": "users",
       "url": "/account/subscriptions",
       "fields": [
+        {
+          "id": "lang.account.subscriptions.title",
+          "label": "Subscriptions page title",
+          "default": "Subscriptions",
+          "type": "short_text",
+          "localized": true
+        },
         {
           "id": "lang.account.subscriptions.billing_message",
           "label": "Subscription billing message",

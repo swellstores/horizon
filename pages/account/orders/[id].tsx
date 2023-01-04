@@ -5,7 +5,11 @@ import {
 } from 'lib/utils/fetch_decorators';
 import { getAccountLayout } from 'lib/utils/layout_getters';
 import type { GetServerSideProps } from 'next';
-import type { NextPageWithLayout, PageProps } from 'types/shared/pages';
+import type {
+  AccountPageProps,
+  NextPageWithLayout,
+  PageProps,
+} from 'types/shared/pages';
 import OrderHeader from 'components/molecules/OrderHeader';
 import OrderItemsTable, {
   OrderItem,
@@ -39,7 +43,7 @@ interface OrderData {
   billingInfo: OrderInfoCardProps[];
 }
 
-interface OrderDetailPageProps extends PageProps {
+interface OrderDetailPageProps extends PageProps, AccountPageProps {
   order: OrderData;
   text: {
     backToOrdersLabel: string;
@@ -121,7 +125,7 @@ export const propsCallback: GetServerSideProps<OrderDetailPageProps> = async (
 
   return {
     props: {
-      pageTitle: 'Orders and Returns',
+      pageType: 'orders',
       order: {
         // Header
         name: `${text.orderLabel} #${order.number}`,

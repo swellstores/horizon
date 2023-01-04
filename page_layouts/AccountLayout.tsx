@@ -6,8 +6,10 @@ import AccountHeader, {
 import { links } from 'lib/utils/nav';
 import type { Settings } from 'stores/settings';
 import useSettingsStore from 'stores/settings';
+import { pageTitleMap } from 'utils/lang';
+import type { AccountPageProps } from 'types/shared/pages';
 
-export interface AccountLayoutProps {
+export interface AccountLayoutProps extends Pick<AccountPageProps, 'pageType'> {
   header: AccountHeaderProps;
   settings: Settings;
 }
@@ -16,8 +18,10 @@ const AccountLayout: React.FC<AccountLayoutProps> = ({
   children,
   header,
   settings,
+  pageType,
 }) => {
   const setSettings = useSettingsStore((state) => state.setSettings);
+  const lang = useSettingsStore((state) => state.settings?.lang);
 
   // Stores settings retrieved server-side on the client-side store.
   useEffect(() => {
@@ -27,7 +31,11 @@ const AccountLayout: React.FC<AccountLayoutProps> = ({
   }, [setSettings, settings]);
   return (
     <div>
-      <AccountHeader {...header} mobileMenuLinks={links} />
+      <AccountHeader
+        {...header}
+        pageTitle={pageTitleMap(lang)[pageType]}
+        mobileMenuLinks={links}
+      />
       <div className="p-6 md:flex md:gap-20 md:px-14 md:pt-16 md:pb-12">
         <Sidebar links={links} accountDetails={header.accountDetails} />
         <main className="flex-grow">{children}</main>

@@ -241,7 +241,7 @@ export const propsCallback: GetServerSideProps<
 
   return {
     props: {
-      pageTitle: 'Subscriptions',
+      pageType: 'subscriptions',
       subscription,
     },
   };

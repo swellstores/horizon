@@ -118,8 +118,6 @@ export function withAccountLayout<C extends GetProps<unknown>>(callback: C) {
 
     const editorData = await import('mock/editor.json');
 
-    const { pageTitle } = result.props;
-
     return {
       ...result,
       props: {
@@ -127,7 +125,6 @@ export function withAccountLayout<C extends GetProps<unknown>>(callback: C) {
         _layout: {
           header: {
             ...editorData.account_header,
-            pageTitle,
             accountDetails: account,
           },
           settings,

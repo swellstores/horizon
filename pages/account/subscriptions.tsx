@@ -9,15 +9,19 @@ import { getAccountLayout } from 'lib/utils/layout_getters';
 import { formatProductImages } from 'lib/utils/products';
 import type { SUBSCRIPTION_STATUS } from 'types/subscription';
 import type { GetServerSideProps } from 'next';
-import type { NextPageWithLayout, PageProps } from 'types/shared/pages';
+import type {
+  AccountPageProps,
+  NextPageWithLayout,
+  PageProps,
+} from 'types/shared/pages';
 import type { SubscriptionCardProps } from 'components/molecules/PurchaseCard/PurchaseCard';
 import { PURCHASE_TYPE } from 'types/purchase';
 import { grouppedPurchases } from 'utils/purchases';
 import useSettingsStore from 'stores/settings';
+import { pageTitleMap } from 'utils/lang';
 
-interface SubscriptionsPageProps extends PageProps {
+interface SubscriptionsPageProps extends PageProps, AccountPageProps {
   subscriptions: SubscriptionCardProps[];
-  pageTitle: string;
 }
 
 export const propsCallback: GetServerSideProps<SubscriptionsPageProps> = async (
@@ -51,7 +55,7 @@ export const propsCallback: GetServerSideProps<SubscriptionsPageProps> = async (
   return {
     props: {
       subscriptions: formattedSubscriptions,
-      pageTitle: 'Subscriptions',
+      pageType: 'subscriptions',
     },
   };
 };
@@ -61,14 +65,14 @@ export const getServerSideProps = withAccountLayout(
 );
 
 const SubscriptionsPage: NextPageWithLayout<SubscriptionsPageProps> = ({
-  pageTitle,
   subscriptions,
+  pageType,
 }) => {
   const lang = useSettingsStore((state) => state.settings?.lang);
   const groupedSubscriptions = grouppedPurchases(subscriptions, lang);
   return (
     <PurchaseList
-      title={pageTitle}
+      title={pageTitleMap(lang)[pageType]}
       groupedPurchases={groupedSubscriptions}
       type={PURCHASE_TYPE.SUBSCRIPTION}
     />

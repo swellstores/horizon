@@ -9,15 +9,19 @@ import { getAccountLayout } from 'lib/utils/layout_getters';
 import type { ORDER_STATUS } from 'types/orders';
 import type { GetServerSideProps } from 'next';
 import type { OrderCardProps } from 'components/molecules/PurchaseCard';
-import type { NextPageWithLayout, PageProps } from 'types/shared/pages';
+import type {
+  AccountPageProps,
+  NextPageWithLayout,
+  PageProps,
+} from 'types/shared/pages';
 import { PURCHASE_TYPE } from 'types/purchase';
 import { formatProductImages } from 'lib/utils/products';
 import useSettingsStore from 'stores/settings';
 import { grouppedPurchases } from 'utils/purchases';
+import { pageTitleMap } from 'utils/lang';
 
-interface OrdersPageProps extends PageProps {
+interface OrdersPageProps extends PageProps, AccountPageProps {
   orders: OrderCardProps[];
-  pageTitle: string;
 }
 
 export const propsCallback: GetServerSideProps<OrdersPageProps> = async (
@@ -50,7 +54,7 @@ export const propsCallback: GetServerSideProps<OrdersPageProps> = async (
   return {
     props: {
       orders: formattedOrders,
-      pageTitle: 'Orders and Returns',
+      pageType: 'orders',
     },
   };
 };
@@ -60,14 +64,14 @@ export const getServerSideProps = withAccountLayout(
 );
 
 const OrdersPage: NextPageWithLayout<OrdersPageProps> = ({
-  pageTitle,
   orders,
+  pageType,
 }) => {
   const lang = useSettingsStore((state) => state.settings?.lang);
   const groupedOrders = grouppedPurchases(orders, lang);
   return (
     <PurchaseList
-      title={pageTitle}
+      title={pageTitleMap(lang)[pageType]}
       groupedPurchases={groupedOrders}
       type={PURCHASE_TYPE.ORDER}
     />
