@@ -478,4 +478,40 @@ export const setNewPasswordText = (lang: any) => ({
       'Something went wrong',
     ),
   },
+  expired: {
+    pageTitle: fallbackString(
+      lang?.account?.setNewPassword?.expired?.pageTitle,
+      'Link has expired',
+    ),
+    title: fallbackString(
+      lang?.account?.setNewPassword?.expired?.title,
+      'Link has expired',
+    ),
+    message: fallbackString(
+      lang?.account?.setNewPassword?.expired?.message,
+      'This password reset link has expired or is invalid. Your password was not changed.',
+    ),
+    resendEmail: fallbackString(
+      lang?.account?.setNewPassword?.expired?.resendEmail,
+      'Resend email',
+    ),
+  },
+  success: {
+    pageTitle: fallbackString(
+      lang?.account?.setNewPassword?.success?.pageTitle,
+      'Success',
+    ),
+    title: fallbackString(
+      lang?.account?.setNewPassword?.success?.title,
+      'Success',
+    ),
+    message: fallbackString(
+      lang?.account?.setNewPassword?.success?.message,
+      'You can now log into your account using your new password.',
+    ),
+    loginLink: fallbackString(
+      lang?.account?.setNewPassword?.success?.loginLink,
+      'Log in',
+    ),
+  },
 });

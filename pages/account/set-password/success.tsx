@@ -5,42 +5,27 @@ import { withAuthLayout } from 'lib/utils/fetch_decorators';
 import type { NextPageWithLayout, PageProps } from 'types/shared/pages';
 import Button from 'components/atoms/Button';
 import { BUTTON_TYPE } from 'types/shared/button';
+import useSettingsStore from 'stores/settings';
+import { setNewPasswordText } from 'utils/lang';
 
-interface CheckEmailProps extends PageProps {
-  text: {
-    title: string;
-    message?: string;
-    loginLinkText: string;
-  };
-}
-
-const propsCallback: GetStaticProps<CheckEmailProps> = async () => {
-  const storeName = 'Horizon';
+const propsCallback: GetStaticProps<PageProps> = async () => {
   return {
-    props: {
-      storeName,
-      title: `${storeName} | Success`,
-      text: {
-        title: 'Success',
-        message: 'You can now log into your account using your new password.',
-        loginLinkText: 'Login',
-      },
-    },
+    props: {},
   };
 };
 
 export const getStaticProps = withAuthLayout(propsCallback);
 
-const CheckEmailPage: NextPageWithLayout<CheckEmailProps> = ({
-  text,
-  title,
+const CheckEmailPage: NextPageWithLayout<PageProps> = ({
   metaTitle,
   metaDescription,
 }) => {
+  const lang = useSettingsStore((state) => state.settings?.lang);
+  const text = setNewPasswordText(lang).success;
   return (
     <article className="mx-6 h-full pt-12 pb-10 md:pb-18 md:pt-16">
       <Head>
-        <title>{title}</title>
+        <title>{text.pageTitle}</title>
         <meta name="description" content={metaDescription} />
         <meta name="title" content={metaTitle} />
       </Head>
@@ -55,7 +40,7 @@ const CheckEmailPage: NextPageWithLayout<CheckEmailProps> = ({
           )}
           <p className="mt-16 w-full text-center text-sm text-primary">
             <Button fullWidth href="/account/login" elType={BUTTON_TYPE.LINK}>
-              {text.loginLinkText}
+              {text.loginLink}
             </Button>
           </p>
         </div>

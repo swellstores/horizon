@@ -783,6 +783,7 @@
       "id": "account.set_new_password",
       "label": "Set new password",
       "url": "/account/set-password/:key",
+      "icon": "users",
       "fields": [
         {
           "id": "lang.account.set_new_password.page_title",
@@ -879,6 +880,62 @@
           "id": "lang.account.set_new_password.errors.server",
           "label": "Error server",
           "default": "Something went wrong",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.set_new_password.expired.page_title",
+          "label": "Link expired page title",
+          "default": "Link has expired",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.set_new_password.expired.title",
+          "label": "Link expired title",
+          "default": "Link has expired",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.set_new_password.expired.message",
+          "label": "Link expired message",
+          "default": "This password reset link has expired or is invalid. Your password was not changed.",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.set_new_password.expired.resend_email",
+          "label": "Link expired resend email",
+          "default": "Resend email",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.set_new_password.success.page_title",
+          "label": "Success page title",
+          "default": "Success",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.set_new_password.success.title",
+          "label": "Success title",
+          "default": "Success",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.set_new_password.success.message",
+          "label": "Success message",
+          "default": "You can now log into your account using your new password.",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.set_new_password.success.login_link",
+          "label": "Success login link",
+          "default": "Log in",
           "type": "short_text",
           "localized": true
         }

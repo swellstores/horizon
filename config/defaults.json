@@ -276,6 +276,18 @@
         "errors": {
           "password_mismatch": "Passwords do not match",
           "server": "Something went wrong"
+        },
+        "expired": {
+          "page_title": "Link has expired",
+          "title": "Link has expired",
+          "message": "This password reset link has expired or is invalid. Your password was not changed.",
+          "resend_email": "Resend email"
+        },
+        "success": {
+          "page_title": "Success",
+          "title": "Success",
+          "message": "You can now log into your account using your new password.",
+          "login_link": "Log in"
         }
       }
     },
