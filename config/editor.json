@@ -494,6 +494,7 @@
       "id": "account.login",
       "label": "Log in",
       "url": "/account/login",
+      "icon": "users",
       "fields": [
         {
           "id": "lang.account.login.page_title",
@@ -612,7 +613,8 @@
     {
       "id": "account.signup",
       "label": "Sign up",
-      "url": "/account/signup",
+      "url": "/account/sign-up",
+      "icon": "users",
       "fields": [
         {
           "id": "lang.account.signup.page_title",
@@ -778,9 +780,115 @@
       ]
     },
     {
+      "id": "account.set_new_password",
+      "label": "Set new password",
+      "url": "/account/set-password/:key",
+      "fields": [
+        {
+          "id": "lang.account.set_new_password.page_title",
+          "label": "Page title",
+          "default": "Set new password",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.set_new_password.title",
+          "label": "Title",
+          "default": "Set new password",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.set_new_password.subtitle",
+          "label": "Subtitle",
+          "default": "Please enter your new password.",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.set_new_password.password.empty_error_text",
+          "label": "Password empty error",
+          "default": "Please fill out this field",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.set_new_password.password.invalid_error_text",
+          "label": "Password invalid error",
+          "default": "Your password must be at least 6 characters",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.set_new_password.password.label",
+          "label": "Password label",
+          "default": "Password",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.set_new_password.password.placeholder",
+          "label": "Password placeholder",
+          "default": "Enter your password",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.set_new_password.password.requirements_text",
+          "label": "Password requirements text",
+          "default": "Must include a minimum of 6 characters",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.set_new_password.confirm_password.empty_error_text",
+          "label": "Confirm password empty error",
+          "default": "Please fill out this field",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.set_new_password.confirm_password.label",
+          "label": "Confirm password label",
+          "default": "Confirm password",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.set_new_password.confirm_password.placeholder",
+          "label": "Confirm password placeholder",
+          "default": "Confirm your password",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.set_new_password.submit_button_label",
+          "label": "Submit button label",
+          "default": "Set password",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.set_new_password.errors.password_mismatch",
+          "label": "Error password mismatch",
+          "default": "Passwords do not match",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.set_new_password.errors.server",
+          "label": "Error server",
+          "default": "Something went wrong",
+          "type": "short_text",
+          "localized": true
+        }
+      ]
+    },
+    {
       "id": "account.orders",
       "label": "Orders",
       "url": "/account/orders",
+      "icon": "users",
       "fields": [
         {
           "id": "lang.account.orders.title",

@@ -15,58 +15,23 @@ import { API_ROUTES } from 'types/shared/api';
 import { ACCOUNT_FIELD } from 'types/account';
 import { validateNonEmptyFields } from 'utils/validation';
 import useFetchApi from 'hooks/useFetchApi';
+import { setNewPasswordText } from 'utils/lang';
+import useSettingsStore from 'stores/settings';
 
-interface SetPasswordProps extends PageProps {
-  text: {
-    title: string;
-    subtitle?: string;
-    passwordLabel: string;
-    passwordEmptyErrorText: string;
-    passwordPlaceholder?: string;
-    passwordInvalidErrorText: string;
-    confirmPasswordLabel: string;
-    confirmPasswordEmptyErrorText: string;
-    confirmPasswordPlaceholder?: string;
-    submitButtonLabel: string;
-    passwordRequirementsText: string;
-    passwordMismatchErrorText: string;
-    serverErrorText: string;
-  };
-}
-
-const propsCallback: GetServerSideProps<SetPasswordProps> = async () => {
-  const storeName = 'Horizon';
+const propsCallback: GetServerSideProps<PageProps> = async () => {
   return {
-    props: {
-      storeName,
-      title: `${storeName} | Set new password`,
-      text: {
-        title: 'Set new password',
-        subtitle: 'Please enter your new password.',
-        confirmPasswordEmptyErrorText: 'Please fill out this field',
-        confirmPasswordLabel: 'Confirm password',
-        confirmPasswordPlaceholder: 'Confirm your password',
-        passwordEmptyErrorText: 'Please fill out this field',
-        passwordLabel: 'Password',
-        passwordPlaceholder: 'Enter your password',
-        passwordRequirementsText: 'Must include a minimum of 6 characters',
-        passwordInvalidErrorText: 'Your password must be at least 6 characters',
-        submitButtonLabel: 'Set password',
-        passwordMismatchErrorText: 'Passwords do not match',
-        serverErrorText: 'Something went wrong',
-      },
-    },
+    props: {},
   };
 };
 
 export const getServerSideProps = withAuthLayout(propsCallback);
 
-const LoginPage: NextPageWithLayout<SetPasswordProps> = ({
-  text,
-  title,
+const SetPasswordPage: NextPageWithLayout<PageProps> = ({
   metaTitle,
   metaDescription,
 }) => {
+  const lang = useSettingsStore((state) => state.settings?.lang);
+  const text = setNewPasswordText(lang);
   const router = useRouter();
   const fetchApi = useFetchApi();
   const [password, setPassword] = useState('');
@@ -88,7 +53,7 @@ const LoginPage: NextPageWithLayout<SetPasswordProps> = ({
       } else if (res.status !== 200) {
         setError({
           field: ACCOUNT_FIELD.OTHER,
-          message: text.serverErrorText,
+          message: text.errors.server,
         });
         return false;
       }
@@ -99,7 +64,7 @@ const LoginPage: NextPageWithLayout<SetPasswordProps> = ({
   const errorCallback = useCallback(() => {
     setError({
       field: ACCOUNT_FIELD.OTHER,
-      message: text.serverErrorText,
+      message: text.errors.server,
     });
   }, [text]);
 
@@ -107,11 +72,11 @@ const LoginPage: NextPageWithLayout<SetPasswordProps> = ({
     const requiredErrorPayloads = {
       [ACCOUNT_FIELD.PASSWORD]: {
         field: ACCOUNT_FIELD.PASSWORD,
-        message: text.passwordEmptyErrorText,
+        message: text.password.emptyErrorText,
       },
       [ACCOUNT_FIELD.CONFIRM_PASSWORD]: {
         field: ACCOUNT_FIELD.CONFIRM_PASSWORD,
-        message: text.confirmPasswordEmptyErrorText,
+        message: text.confirmPassword.emptyErrorText,
       },
     };
 
@@ -132,7 +97,7 @@ const LoginPage: NextPageWithLayout<SetPasswordProps> = ({
     if (password.length < 6) {
       setError({
         field: ACCOUNT_FIELD.PASSWORD,
-        message: text.passwordInvalidErrorText,
+        message: text.password.invalidErrorText,
       });
       return false;
     }
@@ -140,7 +105,7 @@ const LoginPage: NextPageWithLayout<SetPasswordProps> = ({
     if (password !== passwordConfirmation) {
       setError({
         field: ACCOUNT_FIELD.CONFIRM_PASSWORD,
-        message: text.passwordMismatchErrorText,
+        message: text.errors.passwordMismatch,
       });
       return false;
     }
@@ -184,7 +149,7 @@ const LoginPage: NextPageWithLayout<SetPasswordProps> = ({
   return (
     <article className="mx-6 h-full pt-12 pb-10 md:pb-18 md:pt-16">
       <Head>
-        <title>{title}</title>
+        <title>{text.pageTitle}</title>
         <meta name="description" content={metaDescription} />
         <meta name="title" content={metaTitle} />
       </Head>
@@ -210,7 +175,7 @@ const LoginPage: NextPageWithLayout<SetPasswordProps> = ({
                 <label
                   className="text-xs font-semibold uppercase text-primary"
                   htmlFor="password">
-                  {text.passwordLabel}
+                  {text.password.label}
                 </label>
                 <PasswordInput
                   id="password"
@@ -219,7 +184,7 @@ const LoginPage: NextPageWithLayout<SetPasswordProps> = ({
                   aria-invalid={passwordError}
                   aria-errormessage={passwordError ? error.message : undefined}
                   error={passwordError}
-                  placeholder={text.passwordPlaceholder}
+                  placeholder={text.password.placeholder}
                   value={password}
                   onChange={(e) => {
                     setError(undefined);
@@ -230,7 +195,7 @@ const LoginPage: NextPageWithLayout<SetPasswordProps> = ({
                   <ValidationErrorText>{error.message}</ValidationErrorText>
                 ) : (
                   <span className="mt-2 text-2xs text-body">
-                    {text.passwordRequirementsText}
+                    {text.password.requirementsText}
                   </span>
                 )}
               </p>
@@ -238,7 +203,7 @@ const LoginPage: NextPageWithLayout<SetPasswordProps> = ({
                 <label
                   className="text-xs font-semibold uppercase text-primary"
                   htmlFor="confirm-password">
-                  {text.confirmPasswordLabel}
+                  {text.confirmPassword.label}
                 </label>
                 <PasswordInput
                   id="confirm-password"
@@ -248,7 +213,7 @@ const LoginPage: NextPageWithLayout<SetPasswordProps> = ({
                     confirmPasswordError ? error.message : undefined
                   }
                   error={confirmPasswordError}
-                  placeholder={text.confirmPasswordPlaceholder}
+                  placeholder={text.confirmPassword.placeholder}
                   value={passwordConfirmation}
                   onChange={(e) => {
                     setError(undefined);
@@ -282,6 +247,6 @@ const LoginPage: NextPageWithLayout<SetPasswordProps> = ({
   );
 };
 
-LoginPage.getLayout = getAuthLayout;
+SetPasswordPage.getLayout = getAuthLayout;
 
-export default LoginPage;
+export default SetPasswordPage;

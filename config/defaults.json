@@ -255,6 +255,28 @@
         "registered_user_label": "Already have an account?",
         "login_link": "Log in",
         "success_message": "Your account was successfully created"
+      },
+      "set_new_password": {
+        "page_title": "Set new password",
+        "title": "Set new password",
+        "subtitle": "Please enter your new password.",
+        "confirm_password": {
+          "empty_error_text": "Please fill out this field",
+          "label": "Confirm password",
+          "placeholder": "Confirm your password"
+        },
+        "password": {
+          "empty_error_text": "Please fill out this field",
+          "label": "Password",
+          "placeholder": "Enter your password",
+          "requirements_text": "Must include a minimum of 6 characters",
+          "invalid_error_text": "Your password needs to be at least 6 characters."
+        },
+        "submit_button_label": "Set password",
+        "errors": {
+          "password_mismatch": "Passwords do not match",
+          "server": "Something went wrong"
+        }
       }
     },
     "products": {

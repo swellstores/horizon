@@ -414,3 +414,68 @@ export const loginText = (lang: any) => ({
   ),
   signupLink: fallbackString(lang?.account?.login?.signupLink, 'Sign up'),
 });
+
+export const setNewPasswordText = (lang: any) => ({
+  pageTitle: fallbackString(
+    lang?.account?.setNewPassword?.pageTitle,
+    'Set new password',
+  ),
+  title: fallbackString(
+    lang?.account?.setNewPassword?.title,
+    'Set new password',
+  ),
+  subtitle: fallbackString(
+    lang?.account?.setNewPassword?.subtitle,
+    'Please enter your new password.',
+  ),
+  confirmPassword: {
+    emptyErrorText: fallbackString(
+      lang?.account?.setNewPassword?.confirmPassword?.emptyErrorText,
+      'Please fill out this field',
+    ),
+    label: fallbackString(
+      lang?.account?.setNewPassword?.confirmPassword?.label,
+      'Confirm password',
+    ),
+    placeholder: fallbackString(
+      lang?.account?.setNewPassword?.confirmPassword?.placeholder,
+      'Confirm your password',
+    ),
+  },
+  password: {
+    emptyErrorText: fallbackString(
+      lang?.account?.setNewPassword?.password?.emptyErrorText,
+      'Please fill out this field',
+    ),
+    label: fallbackString(
+      lang?.account?.setNewPassword?.password?.label,
+      'Password',
+    ),
+    placeholder: fallbackString(
+      lang?.account?.setNewPassword?.password?.placeholder,
+      'Enter your password',
+    ),
+    requirementsText: fallbackString(
+      lang?.account?.setNewPassword?.password?.requirementsText,
+      'Must include a minimum of 6 characters',
+    ),
+    invalidErrorText: fallbackString(
+      lang?.account?.setNewPassword?.password?.invalidErrorText,
+      'Your password must be at least 6 characters',
+    ),
+  },
+  submitButtonLabel: fallbackString(
+    lang?.account?.setNewPassword?.submitButtonLabel,
+    'Set password',
+  ),
+  errors: {
+    passwordMismatch: fallbackString(
+      lang?.account?.setNewPassword?.errors?.passwordMismatch,
+      'Passwords do not match',
+    ),
+    server: fallbackString(
+      lang?.account?.setNewPassword?.errors?.server,
+      'Something went wrong',
+    ),
+  },
+});
