@@ -272,3 +272,93 @@ export const orderDetailsText = (lang: any) => ({
     'Billing address',
   ),
 });
+
+export const signupText = (lang: any) => ({
+  pageTitle: fallbackString(
+    lang?.account?.signup?.page_title,
+    'Create account',
+  ),
+  signupTitle: fallbackString(lang?.account?.signup?.title, 'Create account'),
+  firstName: {
+    label: fallbackString(
+      lang?.account?.signup?.firstName?.label,
+      'First name',
+    ),
+    emptyErrorText: fallbackString(
+      lang?.account?.signup?.firstName?.emptyErrorText,
+      'First name is required',
+    ),
+    placeholder: fallbackString(
+      lang?.account?.signup?.firstName?.placeholder,
+      'Enter your first name',
+    ),
+  },
+  lastName: {
+    label: fallbackString(lang?.account?.signup?.lastName?.label, 'Last name'),
+    emptyErrorText: fallbackString(
+      lang?.account?.signup?.lastName?.emptyErrorText,
+      'Last name is required',
+    ),
+    placeholder: fallbackString(
+      lang?.account?.signup?.lastName?.placeholder,
+      'Enter your last name',
+    ),
+  },
+  email: {
+    label: fallbackString(lang?.account?.signup?.email?.label, 'Email'),
+    emptyErrorText: fallbackString(
+      lang?.account?.signup?.email?.emptyErrorText,
+      'Email is required',
+    ),
+    invalidErrorText: fallbackString(
+      lang?.account?.signup?.email?.invalidErrorText,
+      'Email format is invalid',
+    ),
+    placeholder: fallbackString(
+      lang?.account?.signup?.email?.placeholder,
+      'Enter your email',
+    ),
+  },
+  password: {
+    label: fallbackString(lang?.account?.signup?.password?.label, 'Password'),
+    emptyErrorText: fallbackString(
+      lang?.account?.signup?.password?.emptyErrorText,
+      'Password is required',
+    ),
+    invalidErrorText: fallbackString(
+      lang?.account?.signup?.password?.invalidErrorText,
+      'Your password needs to be at least 6 characters.',
+    ),
+    placeholder: fallbackString(
+      lang?.account?.signup?.password?.placeholder,
+      'Enter your password',
+    ),
+    requirementsText: fallbackString(
+      lang?.account?.signup?.password?.requirementsText,
+      'Must include a minimum of 6 characters.',
+    ),
+  },
+  errors: {
+    server: fallbackString(
+      lang?.account?.signup?.errors?.serverErrorText,
+      'Internal server error',
+    ),
+    emailTaken: fallbackString(
+      lang?.account?.signup?.errors?.emailTaken,
+      'There is already an account with this email',
+    ),
+  },
+  signupButton: fallbackString(
+    lang?.account?.signup?.signupButton,
+    'Create account',
+  ),
+  registeredUser: fallbackString(
+    lang?.account?.signup?.registeredUserLabel,
+    'Already have an account?',
+  ),
+  loginLink: fallbackString(lang?.account?.signup?.loginLink, 'Log in'),
+  successMessage: fallbackString(
+    lang?.account?.signup?.successMessage,
+    'Your account was successfully created',
+  ),
+});

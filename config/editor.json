@@ -491,20 +491,188 @@
   ],
   "lang": [
     {
+      "id": "account.signup",
+      "label": "Signup",
+      "url": "/account/signup",
+      "fields": [
+        {
+          "id": "lang.account.signup.page_title",
+          "label": "Signup page title",
+          "default": "Create account",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.signup.title",
+          "label": "Signup title",
+          "default": "Create account",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.signup.first_name.label",
+          "label": "First name label",
+          "default": "First name",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.signup.first_name.empty_error_text",
+          "label": "First name empty error text",
+          "default": "First name is required",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.signup.first_name.placeholder",
+          "label": "First name placeholder",
+          "default": "Enter your first name",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.signup.last_name.label",
+          "label": "Last name label",
+          "default": "Last name",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.signup.last_name.empty_error_text",
+          "label": "Last name empty error text",
+          "default": "Last name is required",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.signup.last_name.placeholder",
+          "label": "Last name placeholder",
+          "default": "Enter your last name",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.signup.email.label",
+          "label": "Email label",
+          "default": "Email",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.signup.email.empty_error_text",
+          "label": "Email empty error text",
+          "default": "Email is required",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.signup.email.invalid_error_text",
+          "label": "Email invalid error text",
+          "default": "Email format is invalid",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.signup.email.placeholder",
+          "label": "Email placeholder",
+          "default": "Enter your email",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.signup.password.label",
+          "label": "Password label",
+          "default": "Password",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.signup.password.empty_error_text",
+          "label": "Password empty error text",
+          "default": "Password is required",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.signup.password.invalid_error_text",
+          "label": "Password invalid error text",
+          "default": "Your password needs to be at least 6 characters.",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.signup.password.placeholder",
+          "label": "Password placeholder",
+          "default": "Enter your password",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.signup.password.requirements_text",
+          "label": "Password requirements text",
+          "default": "Must include a minimum of 6 characters.",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.signup.errors.server_error_text",
+          "label": "Server error text",
+          "default": "Internal server error",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.signup.errors.email_taken",
+          "label": "Email taken error text",
+          "default": "There is already an account with this email",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.signup.signup_button",
+          "label": "Sign up button label",
+          "default": "Create account",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.signup.registered_user_label",
+          "label": "Registered user label",
+          "default": "Already have an account?",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.signup.login_link",
+          "label": "Login label",
+          "default": "Log in",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.signup.success_message",
+          "label": "Success message",
+          "default": "Your account was successfully created",
+          "type": "short_text",
+          "localized": true
+        }
+      ]
+    },
+    {
       "id": "account.orders",
       "label": "Orders",
       "url": "/account/orders",
       "fields": [
         {
           "id": "lang.account.orders.title",
-          "label": "Subscriptions page title",
+          "label": "Orders page title",
           "default": "Subscriptions",
           "type": "short_text",
           "localized": true
         },
         {
           "id": "lang.account.orders.navigation_title",
-          "label": "Subscriptions navigation menu title",
+          "label": "Orders navigation menu title",
           "default": "Subscriptions",
           "type": "short_text",
           "localized": true

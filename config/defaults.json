@@ -196,6 +196,41 @@
       "logout": {
         "label": "Log out",
         "success": "You're logged out"
+      },
+      "signup": {
+        "page_title": "Create account",
+        "title": "Create account",
+        "first_name": {
+          "label": "First name",
+          "empty_error_text": "First name is required",
+          "placeholder": "Enter your first name"
+        },
+        "last_name": {
+          "label": "Last name",
+          "empty_error_text": "Last name is required",
+          "placeholder": "Enter your last name"
+        },
+        "email": {
+          "label": "Email",
+          "empty_error_text": "Email is required",
+          "invalid_error_text": "Email format is invalid",
+          "placeholder": "Enter your email"
+        },
+        "password": {
+          "label": "Password",
+          "empty_error_text": "Password is required",
+          "invalid_error_text": "Your password needs to be at least 6 characters.",
+          "placeholder": "Enter your password",
+          "requirements_text": "Must include a minimum of 6 characters."
+        },
+        "errors": {
+          "server_error_text": "Internal server error",
+          "email_taken": "There is already an account with this email"
+        },
+        "signup_button": "Create account",
+        "registered_user_label": "Already have an account?",
+        "login_link": "Log in",
+        "success_message": "Your account was successfully created"
       }
     },
     "products": {
