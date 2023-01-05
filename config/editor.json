@@ -2097,6 +2097,20 @@
       ]
     },
     {
+      "id": "navigation",
+      "label": "Navigation",
+      "icon": "bars",
+      "fields": [
+        {
+          "id": "lang.navigation.account",
+          "label": "Account link label",
+          "default": "Account",
+          "type": "short_text",
+          "localized": true
+        }
+      ]
+    },
+    {
       "id": "search",
       "label": "Search",
       "icon": "search",

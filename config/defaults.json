@@ -374,6 +374,9 @@
         "return_home_link": "Back to home"
       }
     },
+    "navigation": {
+      "account": "Account"
+    },
     "search": {
       "placeholder": "Search by product name or SKU"
     },
