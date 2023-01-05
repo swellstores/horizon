@@ -2007,9 +2007,30 @@
           "localized": true
         },
         {
+          "id": "lang.categories.filters.price",
+          "label": "Filters price label",
+          "default": "Price label",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.categories.filters.all_products",
+          "label": "All products label",
+          "default": "All products",
+          "type": "short_text",
+          "localized": true
+        },
+        {
           "id": "lang.categories.product_count",
           "label": "Products count label",
           "default": "All products ({count})",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.categories.mobile_button",
+          "label": "Filters mobile button label",
+          "default": "Filter",
           "type": "short_text",
           "localized": true
         },

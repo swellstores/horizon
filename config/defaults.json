@@ -355,7 +355,10 @@
       "filters": {
         "title": "Filters",
         "remove_all": "Remove all",
-        "see_results": "See results ({count})"
+        "price": "Price",
+        "see_results": "See results ({count})",
+        "all_products": "All products",
+        "mobile_button": "Filter"
       },
       "product_count": "All products ({count})"
     },

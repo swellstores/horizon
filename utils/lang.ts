@@ -611,3 +611,21 @@ export const purchaseCardText = (lang: any) => ({
   manageLabel: fallbackString(lang?.account?.subscriptions?.manage, 'Manage'),
   totalLabel: fallbackString(lang?.account?.orders?.total, 'Total'),
 });
+
+export const categoryPageText = (lang: any) => ({
+  filtersLabel: fallbackString(lang?.categories?.filters?.title, 'Filters'),
+  removeAllLabel: fallbackString(
+    lang?.categories?.filters?.removeAll,
+    'Remove all',
+  ),
+  priceLabel: fallbackString(lang?.categories?.filters?.price, 'Price'),
+  seeResultsLabel: fallbackString(
+    lang?.categories?.filters?.seeResults,
+    'See results ({count})',
+  ),
+  allProductsLabel: fallbackString(
+    lang?.categories?.filters?.allProducts,
+    'All products',
+  ),
+  mobileButton: fallbackString(lang?.categories?.mobileButton, 'Filter'),
+});
