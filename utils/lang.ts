@@ -588,3 +588,26 @@ export const passwordRecoveryText = (lang: any) => ({
     ),
   },
 });
+
+export const purchaseCardText = (lang: any) => ({
+  billingMessage: fallbackString(
+    lang?.account?.subscriptions?.billingMessage,
+    'Every {n} {interval}',
+  ),
+  orderMessage: fallbackString(
+    lang?.account?.subscriptions?.orderMessage,
+    'Every {n} {interval}',
+  ),
+  nextBillingLabel: fallbackString(
+    lang?.account?.subscriptions?.nextBilling,
+    'Next billing',
+  ),
+  orderDateLabel: fallbackString(lang?.account?.orders?.date, 'Order date'),
+  itemsLabel: fallbackString(lang?.account?.orders?.items, 'Items'),
+  viewOrderLabel: fallbackString(
+    lang?.account?.orders?.viewOrder,
+    'View order',
+  ),
+  manageLabel: fallbackString(lang?.account?.subscriptions?.manage, 'Manage'),
+  totalLabel: fallbackString(lang?.account?.orders?.total, 'Total'),
+});

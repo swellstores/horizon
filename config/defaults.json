@@ -88,6 +88,7 @@
         "order_date": "Order date",
         "items": "Items",
         "view_order": "View Order",
+        "total": "Total",
         "empty": {
           "label": "You haven't ordered anything yet.",
           "link": "Start shopping"

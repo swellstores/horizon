@@ -16,8 +16,8 @@ import type { Maybe } from 'lib/graphql/generated/sdk';
 import ScheduleLabel from 'components/atoms/ScheduleLabel';
 import useCurrencyStore from 'stores/currency';
 import useSettingsStore from 'stores/settings';
-import { fallbackString } from 'utils/text';
 import Price from 'components/atoms/Price';
+import { purchaseCardText } from 'utils/lang';
 
 interface BaseProps {
   title: string;
@@ -55,32 +55,7 @@ const PurchaseCard: React.FC<PurchaseCardProps> = ({
   const formatPrice = useCurrencyStore((state) => state.formatPrice);
 
   const lang = useSettingsStore((state) => state.settings?.lang);
-
-  const billingMessage = fallbackString(
-    lang?.account?.subscriptions?.billingMessage,
-    'Every {n} {interval}',
-  );
-  const orderMessage = fallbackString(
-    lang?.account?.subscriptions?.orderMessage,
-    'Every {n} {interval}',
-  );
-  const nextBillingLabel = fallbackString(
-    lang?.account?.subscriptions?.nextBilling,
-    'Next billing',
-  );
-  const orderDateLabel = fallbackString(
-    lang?.account?.orders?.date,
-    'Order date',
-  );
-  const itemsLabel = fallbackString(lang?.account?.orders?.items, 'Items');
-  const viewOrderLabel = fallbackString(
-    lang?.account?.orders?.viewOrder,
-    'View order',
-  );
-  const manageLabel = fallbackString(
-    lang?.account?.subscriptions?.manage,
-    'Manage',
-  );
+  const text = purchaseCardText(lang);
 
   return (
     <div className="border-outline rounded-xl border bg-background-primary p-6">
@@ -95,8 +70,8 @@ const PurchaseCard: React.FC<PurchaseCardProps> = ({
             <div className="flex justify-start gap-2 text-sm">
               <span className="text-body">
                 {props.type === PURCHASE_TYPE.SUBSCRIPTION
-                  ? nextBillingLabel
-                  : orderDateLabel}
+                  ? text.nextBillingLabel
+                  : text.orderDateLabel}
               </span>
               <span className="font-semibold text-primary">
                 {formatDateToLocale(date)}
@@ -105,7 +80,7 @@ const PurchaseCard: React.FC<PurchaseCardProps> = ({
 
             {props.type === PURCHASE_TYPE.ORDER && (
               <div className="mt-1 flex justify-start gap-2 text-sm">
-                <span className="text-body">{itemsLabel}</span>
+                <span className="text-body">{text.itemsLabel}</span>
                 <span className="font-semibold text-primary">
                   {props.itemsCount}
                 </span>
@@ -143,7 +118,7 @@ const PurchaseCard: React.FC<PurchaseCardProps> = ({
               <div className="inline-flex items-center justify-start space-x-2 text-sm text-primary">
                 <ScheduleLabel
                   type="billing"
-                  base={billingMessage}
+                  base={text.billingMessage}
                   schedule={props.billingSchedule}
                   textClasses="text-sm"
                   iconClasses="h-6"
@@ -160,7 +135,7 @@ const PurchaseCard: React.FC<PurchaseCardProps> = ({
               <div className="inline-flex items-center justify-start gap-2 text-sm text-primary">
                 <ScheduleLabel
                   type="order"
-                  base={orderMessage}
+                  base={text.orderMessage}
                   schedule={props.orderSchedule}
                   textClasses="text-sm"
                   iconClasses="h-6"
@@ -176,8 +151,7 @@ const PurchaseCard: React.FC<PurchaseCardProps> = ({
           </div>
         ) : (
           <div className="inline-flex items-center justify-start gap-2 text-sm text-primary">
-            {/* TODO: Make dyunamic */}
-            <span className="text-body">Total</span>
+            <span className="text-body">{text.totalLabel}</span>
 
             <Price price={props.total} className="font-semibold" />
           </div>
@@ -188,14 +162,18 @@ const PurchaseCard: React.FC<PurchaseCardProps> = ({
           href={link}
           fullWidth
           className="mt-6 md:hidden">
-          {props.type === 'subscription' ? manageLabel : viewOrderLabel}
+          {props.type === 'subscription'
+            ? text.manageLabel
+            : text.viewOrderLabel}
         </Button>
         <Button
           elType={BUTTON_TYPE.LINK}
           href={link}
           small
           className="hidden md:block">
-          {props.type === 'subscription' ? manageLabel : viewOrderLabel}
+          {props.type === 'subscription'
+            ? text.manageLabel
+            : text.viewOrderLabel}
         </Button>
       </div>
     </div>

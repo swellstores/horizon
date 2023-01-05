@@ -1103,6 +1103,13 @@
           "localized": true
         },
         {
+          "id": "lang.account.orders.total",
+          "label": "Order total label",
+          "default": "Total",
+          "type": "short_text",
+          "localized": true
+        },
+        {
           "id": "lang.account.orders.empty.label",
           "label": "Orders list empty state label",
           "default": "You haven't ordered anything yet.",
