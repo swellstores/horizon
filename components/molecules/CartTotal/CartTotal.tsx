@@ -2,6 +2,8 @@ import React from 'react';
 import useCurrencyStore from 'stores/currency';
 import Button from 'components/atoms/Button';
 import { BUTTON_TYPE } from 'types/shared/button';
+import useSettingsStore from 'stores/settings';
+import { fallbackString } from 'utils/text';
 
 export interface CartTotalProps {
   total: number;
@@ -17,6 +19,10 @@ const CartTotal: React.FC<CartTotalProps> = ({
   checkoutUrl,
 }) => {
   const formatPrice = useCurrencyStore((state) => state.formatPrice);
+  const lang = useSettingsStore((state) => state.settings?.lang);
+
+  const totalLabel = fallbackString(lang?.cart?.total, 'Total');
+  const checkoutLabel = fallbackString(lang?.cart?.checkoutButton, 'Checkout');
 
   return (
     <div
@@ -25,7 +31,7 @@ const CartTotal: React.FC<CartTotalProps> = ({
         className,
       ].join(' ')}>
       <div className="flex justify-between text-sm font-semibold uppercase text-primary">
-        <span>Total</span>
+        <span>{totalLabel}</span>
         <span>{formatPrice(total)}</span>
       </div>
       <Button
@@ -34,7 +40,7 @@ const CartTotal: React.FC<CartTotalProps> = ({
         href={checkoutUrl}
         disabled={disabled}
         fullWidth>
-        Checkout
+        {checkoutLabel}
       </Button>
     </div>
   );

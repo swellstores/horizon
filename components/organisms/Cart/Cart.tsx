@@ -3,36 +3,43 @@ import { Dialog, Transition } from '@headlessui/react';
 import CartItem from 'components/molecules/CartItem';
 import CartHeader from 'components/atoms/CartHeader';
 import CartTotal from 'components/molecules/CartTotal';
-import AddMoreProductsCard, {
-  AddMoreProductsCardProps,
-} from 'components/molecules/AddMoreProductsCard';
+import AddMoreProductsCard from 'components/molecules/AddMoreProductsCard';
 import SadFaceIcon from 'assets/icons/sad-face.svg';
 import type { CartItemProps } from 'components/molecules/CartItem';
+import useSettingsStore from 'stores/settings';
+import { fallbackString, parseTextWithVariables } from 'utils/text';
 
 export interface CartProps {
   visible: boolean;
   setVisible?: (visible: boolean) => void;
-  headerLabel: string;
-  cartEmptyMessage: string;
   total: number;
   items: CartItemProps[];
-  addMoreProducts: AddMoreProductsCardProps;
+  empty: boolean;
   checkoutUrl: string;
 }
 
 const Cart: React.FC<CartProps> = ({
   visible,
   setVisible,
-  headerLabel,
-  cartEmptyMessage,
   items,
   total,
   checkoutUrl,
-  addMoreProducts,
+  empty,
 }) => {
   const closeCart = useCallback(() => {
     setVisible?.(false);
   }, [setVisible]);
+  const totalQuantity = items.reduce((acc, item) => acc + item.quantity, 0);
+  const lang = useSettingsStore((state) => state.settings?.lang);
+
+  const headerLabel = fallbackString(lang?.cart?.header, 'Your bag ({count})');
+  const parsedHeaderLabel = parseTextWithVariables(headerLabel, {
+    count: totalQuantity.toString(),
+  });
+  const emptyMessage = fallbackString(
+    lang?.cart?.emptyMessage,
+    'Your bag is empty.',
+  );
 
   return (
     <Transition show={visible} as={Fragment}>
@@ -54,12 +61,8 @@ const Cart: React.FC<CartProps> = ({
           className="fixed left-0 top-0 flex h-screen w-screen flex-col bg-background-primary transition-transform duration-400 lg:left-auto lg:right-0 lg:w-112">
           <div className="flex-1 overflow-auto px-6 pb-4">
             <CartHeader
-              label={headerLabel}
+              label={parsedHeaderLabel}
               className="my-6"
-              itemsQuantity={items.reduce(
-                (acc, item) => acc + item.quantity,
-                0,
-              )}
               onClose={closeCart}
             />
             <ul>
@@ -67,14 +70,14 @@ const Cart: React.FC<CartProps> = ({
                 <CartItem key={item.id} {...item} />
               ))}
             </ul>
-            {addMoreProducts && <AddMoreProductsCard {...addMoreProducts} />}
+            <AddMoreProductsCard empty={empty} />
           </div>
           {items.length === 0 && (
             <div className="flex flex-1 flex-col items-center justify-start">
               <SadFaceIcon className="text-accent" width={40} height={40} />
 
               <p className="mt-5 text-center text-sm text-body">
-                {cartEmptyMessage}
+                {emptyMessage}
               </p>
             </div>
           )}

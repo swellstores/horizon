@@ -7,9 +7,7 @@ export default {
   title: 'molecules/AddMoreProductsCard',
   component: AddMoreProductsCard,
   argTypes: {
-    title: { control: { type: 'text' } },
-    subtitle: { control: { type: 'text' } },
-    href: { control: { type: 'text' } },
+    empty: { control: 'boolean' },
   },
 } as ComponentMeta<typeof AddMoreProductsCard>;
 
@@ -19,7 +17,5 @@ const Template: ComponentStory<typeof AddMoreProductsCard> = (args) => (
 
 export const Default = Template.bind({});
 Default.args = {
-  title: 'Add more products',
-  subtitle: 'You’re $6.00 away from free shipping',
-  href: '/products',
+  empty: true,
 };

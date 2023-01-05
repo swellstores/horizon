@@ -8,7 +8,6 @@ export default {
   component: CartHeader,
   argTypes: {
     label: { control: { type: 'text' } },
-    itemsQuantity: { control: { type: 'number' } },
   },
 } as ComponentMeta<typeof CartHeader>;
 
@@ -18,11 +17,5 @@ const Template: ComponentStory<typeof CartHeader> = (args) => (
 
 export const Default = Template.bind({});
 Default.args = {
-  label: 'Your bag',
-  itemsQuantity: 5,
-};
-export const NoItems = Template.bind({});
-NoItems.args = {
-  label: 'Your bag',
-  itemsQuantity: 0,
+  label: 'Your bag (5)',
 };

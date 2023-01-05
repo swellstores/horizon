@@ -1,5 +1,4 @@
 import create from 'zustand';
-import editor from 'mock/editor.json';
 import useNotificationStore from 'stores/notification';
 import { isStockLimited } from 'lib/utils/products';
 import { NOTIFICATION_TYPE } from 'types/shared/notification';
@@ -30,17 +29,10 @@ interface CartState {
 
 const useCartStore = create<CartState>((set, get) => ({
   cart: {
-    headerLabel: editor.cart.headerLabel,
-    cartEmptyMessage: editor.cart.cartEmptyMessage,
     total: 0,
     items: [],
     visible: false,
-    addMoreProducts: {
-      href: '/products',
-      title: 'Add more products',
-      emptyTitle: 'Add your first product',
-      empty: true,
-    },
+    empty: true,
     setVisible: (visible: boolean) =>
       set((state) => ({ cart: { ...state.cart, visible } })),
     checkoutUrl: '#',
@@ -59,10 +51,7 @@ const useCartStore = create<CartState>((set, get) => ({
           total: cart.data.total,
           items: cart.data.items,
           checkoutUrl: cart.data.checkoutUrl,
-          addMoreProducts: {
-            ...state.cart.addMoreProducts,
-            empty: !cart.data.items.length,
-          },
+          empty: !cart.data.items.length,
         },
       }));
     } catch (error) {
@@ -107,10 +96,7 @@ const useCartStore = create<CartState>((set, get) => ({
           total: cart.data.total,
           items: cart.data.items,
           checkoutUrl: cart.data.checkoutUrl,
-          addMoreProducts: {
-            ...state.cart.addMoreProducts,
-            empty: !cart.data.items.length,
-          },
+          empty: !cart.data.items.length,
         },
       }));
 
@@ -139,10 +125,7 @@ const useCartStore = create<CartState>((set, get) => ({
           total: cart.data.total,
           items: cart.data.items,
           checkoutUrl: cart.data.checkoutUrl,
-          addMoreProducts: {
-            ...state.cart.addMoreProducts,
-            empty: !cart.data.items.length,
-          },
+          empty: !cart.data.items.length,
         },
       }));
     } catch (error) {
@@ -167,10 +150,7 @@ const useCartStore = create<CartState>((set, get) => ({
           total: cart.data.total,
           items: cart.data.items,
           checkoutUrl: cart.data.checkoutUrl,
-          addMoreProducts: {
-            ...state.cart.addMoreProducts,
-            empty: !cart.data.items.length,
-          },
+          empty: !cart.data.items.length,
         },
       }));
     } catch (error) {

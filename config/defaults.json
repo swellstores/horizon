@@ -380,6 +380,16 @@
     "search": {
       "placeholder": "Search by product name or SKU"
     },
+    "cart": {
+      "header": "Your bag ({count})",
+      "add_more_products": "Add more products",
+      "add_first_product": "Add your first product",
+      "empty_message": "Your bag is empty.",
+      "total": "Total",
+      "checkout_button": "Checkout",
+      "billing_message": "Pay every {n} {interval}",
+      "order_message": "Receive it every {n} {interval}"
+    },
     "quiz": {
       "step_count": "{currentStep} of {totalSteps}",
       "results": {

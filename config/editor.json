@@ -2125,6 +2125,68 @@
       ]
     },
     {
+      "id": "cart",
+      "label": "Cart",
+      "fields": [
+        {
+          "id": "lang.cart.header",
+          "label": "Header label",
+          "default": "Your bag ({count})",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.cart.add_more_products",
+          "label": "Header label",
+          "default": "Add more products",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.cart.add_first_product",
+          "label": "Header label",
+          "default": "Add your first product",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.cart.empty_message",
+          "label": "Cart empty message",
+          "default": "Your bag is empty.",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.cart.checkout_button",
+          "label": "Checkout button label",
+          "default": "Checkout",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.cart.total",
+          "label": "Total label",
+          "default": "Total",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.cart.billing_message",
+          "label": "Cart item subscription billing message",
+          "default": "Pay every {n} {interval}",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.cart.order_message",
+          "label": "Cart item subscription order message",
+          "default": "Receive it every {n} {interval}",
+          "type": "short_text",
+          "localized": true
+        }
+      ]
+    },
+    {
       "id": "quiz",
       "label": "Quiz",
       "icon": "question-square",
