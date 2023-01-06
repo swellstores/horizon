@@ -7,6 +7,8 @@ import type { CartProps } from 'components/organisms/Cart';
 import type { CartItemProps } from 'components/molecules/CartItem';
 import type { SwellCartItemInput } from 'lib/graphql/generated/sdk';
 import type { CartData, CartItemInput } from 'types/shared/cart';
+import useSettingsStore from './settings';
+import { fallbackString, parseTextWithVariables } from 'utils/text';
 
 export interface AddToCartConfig {
   showCartAfter?: boolean;
@@ -73,8 +75,17 @@ const useCartStore = create<CartState>((set, get) => ({
         )
       ) {
         const send = useNotificationStore.getState().send;
+        const lang = useSettingsStore.getState().settings?.lang;
+
+        const stockMessage = fallbackString(
+          lang?.products?.stock?.notEnough,
+          'Not enough stock remaining to increase quantity in cart by {quantity}.',
+        );
+        const parsedStockMessage = parseTextWithVariables(stockMessage, {
+          quantity: quantity.toString(),
+        });
         send({
-          message: `Not enough stock remaining to increase quantity in cart by ${quantity}.`,
+          message: parsedStockMessage,
           type: NOTIFICATION_TYPE.ERROR,
         });
         throw new Error('Not enough stock');

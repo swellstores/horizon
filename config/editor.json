@@ -1837,6 +1837,13 @@
           "localized": true
         },
         {
+          "id": "lang.products.stock.not_enough",
+          "label": "Stock not enough message",
+          "default": "Not enough stock remaining to increase quantity in cart by {quantity}.",
+          "type": "short_text",
+          "localized": true
+        },
+        {
           "label": "Subscription",
           "type": "heading"
         },
