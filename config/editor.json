@@ -898,6 +898,10 @@
           "localized": true
         },
         {
+          "label": "Expired page",
+          "type": "heading"
+        },
+        {
           "id": "lang.account.set_new_password.expired.message",
           "label": "Link expired message",
           "default": "This password reset link has expired or is invalid. Your password was not changed.",
@@ -910,6 +914,10 @@
           "default": "Resend email",
           "type": "short_text",
           "localized": true
+        },
+        {
+          "label": "Success page",
+          "type": "heading"
         },
         {
           "id": "lang.account.set_new_password.success.page_title",
@@ -1023,6 +1031,10 @@
           "default": "Something went wrong",
           "type": "short_text",
           "localized": true
+        },
+        {
+          "label": "Check email page",
+          "type": "heading"
         },
         {
           "id": "lang.account.password_recovery.check_email.page_title",
@@ -1787,7 +1799,6 @@
     {
       "id": "account.logout",
       "label": "Logout",
-      "url": "/account",
       "icon": "unlock-alt",
       "fields": [
         {
