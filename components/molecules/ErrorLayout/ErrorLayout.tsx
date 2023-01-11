@@ -5,9 +5,8 @@ import { SECTION_MARGIN_MAP, SPACING } from 'lib/globals/sizings';
 import Image from 'components/atoms/SafeImage';
 import React from 'react';
 import type { MandatoryImageProps } from 'types/global';
-import useSettingsStore from 'stores/settings';
-import { fallbackString, parseTextWithVariables } from 'utils/text';
 import { useRouter } from 'next/router';
+import useI18n from 'hooks/useI18n';
 
 export interface ErrorLayoutProps {
   code: number;
@@ -27,25 +26,11 @@ const ErrorLayout: React.FC<ErrorLayoutProps> = ({
   image,
 }) => {
   const { locale, defaultLocale } = useRouter();
-  const lang = useSettingsStore((state) => state.settings?.lang);
+  const i18n = useI18n();
 
-  const errorCodeTitle = fallbackString(
-    lang?.errors?.errorCode,
-    'Error {code}',
-  );
-  const parsedErrorCodeTitle = parseTextWithVariables(errorCodeTitle, {
-    code: code.toString(),
-  });
-
-  const returnHomeMessage = fallbackString(
-    lang?.errors?.internal?.returnHome,
-    'or go {link}',
-  );
-  const returnHomeLink = fallbackString(
-    lang?.errors?.internal?.returnHomeLink,
-    'back to home',
-  );
-  const parsedReturnHomeMessage = parseTextWithVariables(returnHomeMessage, {
+  const errorCodeTitle = i18n('errors.error_code', { code: code.toString() });
+  const returnHomeLink = i18n('errors.internal.return_home_link');
+  const returnHomeMessage = i18n('errors.internal.return_home', {
     link: `<a class='underline' href='/${
       locale !== defaultLocale ? locale : ''
     }'>${returnHomeLink}</a>`,
@@ -58,7 +43,7 @@ const ErrorLayout: React.FC<ErrorLayoutProps> = ({
       }`}>
       <div className="flex-1 text-primary">
         <span className="text-xs font-semibold uppercase">
-          {parsedErrorCodeTitle}
+          {errorCodeTitle}
         </span>
         <h1 className="mt-1 font-headings text-5xl font-semibold">{title}</h1>
 
@@ -70,7 +55,7 @@ const ErrorLayout: React.FC<ErrorLayoutProps> = ({
             <div
               className="mt-4 text-center text-sm"
               dangerouslySetInnerHTML={{
-                __html: parsedReturnHomeMessage,
+                __html: returnHomeMessage,
               }}
             />
           )}

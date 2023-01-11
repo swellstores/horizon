@@ -1094,7 +1094,7 @@
           "localized": true
         },
         {
-          "id": "lang.account.orders.date",
+          "id": "lang.account.orders.order_date",
           "label": "Order date label",
           "default": "Order date",
           "type": "short_text",

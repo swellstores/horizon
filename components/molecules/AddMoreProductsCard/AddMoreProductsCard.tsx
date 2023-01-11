@@ -1,23 +1,16 @@
 import AddCircle from 'components/atoms/AddCircle';
+import useI18n from 'hooks/useI18n';
 import Link from 'next/link';
 import React from 'react';
-import useSettingsStore from 'stores/settings';
-import { fallbackString } from 'utils/text';
 
 export interface AddMoreProductsCardProps {
   empty?: boolean;
 }
 
 const AddMoreProductsCard: React.FC<AddMoreProductsCardProps> = ({ empty }) => {
-  const lang = useSettingsStore((state) => state.settings?.lang);
-  const addFirstProductLabel = fallbackString(
-    lang?.cart?.addFirstProduct,
-    'Add your first product',
-  );
-  const addMoreProductsLabel = fallbackString(
-    lang?.cart?.addMoreProducts,
-    'Add more products',
-  );
+  const i18n = useI18n();
+  const addFirstProductLabel = i18n('cart.add_first_product');
+  const addMoreProductsLabel = i18n('cart.add_more_products');
 
   return (
     <Link href="/products">

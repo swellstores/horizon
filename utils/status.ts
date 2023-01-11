@@ -1,7 +1,7 @@
+import type { I18n } from 'hooks/useI18n';
 import { ORDER_STATUS } from 'types/orders';
 import { STOCK_STATUS } from 'types/shared/products';
 import { SUBSCRIPTION_STATUS } from 'types/subscription';
-import { fallbackString } from './text';
 
 interface StatusTemplate {
   color: string;
@@ -29,190 +29,139 @@ type StatusKey =
   | ReturnType<typeof subscriptionStatusKey>
   | STOCK_STATUS;
 
-export const STATUS_MAP = (lang: any) =>
+export const STATUS_MAP = (i18n: I18n) =>
   new Map<StatusKey, StatusTemplate>([
     [
       orderStatusKey(ORDER_STATUS.CANCELED),
       {
         color: '#FF766D',
-        label: fallbackString(
-          lang?.account?.orders?.status?.canceled,
-          'Canceled',
-        ),
+        label: i18n('account.orders.status.canceled'),
       },
     ],
     [
       orderStatusKey(ORDER_STATUS.COMPLETE),
       {
         color: '#00BA99',
-        label: fallbackString(
-          lang?.account?.orders?.status?.complete,
-          'Complete',
-        ),
+        label: i18n('account.orders.status.complete'),
       },
     ],
     [
       orderStatusKey(ORDER_STATUS.DELIVERY_PENDING),
       {
         color: '#BDB9C6',
-        label: fallbackString(
-          lang?.account?.orders?.status?.deliveryPending,
-          'Delivery pending',
-        ),
+        label: i18n('account.orders.status.delivery_pending'),
       },
     ],
     [
       orderStatusKey(ORDER_STATUS.HOLD),
       {
         color: '#F4A732',
-        label: fallbackString(lang?.account?.orders?.status?.hold, 'Hold'),
+        label: i18n('account.orders.status.hold'),
       },
     ],
     [
       orderStatusKey(ORDER_STATUS.PAYMENT_PENDING),
       {
         color: '#F4A732',
-        label: fallbackString(
-          lang?.account?.orders?.status?.paymentPending,
-          'Payment Pending',
-        ),
+        label: i18n('account.orders.status.payment_pending'),
       },
     ],
     [
       orderStatusKey(ORDER_STATUS.PENDING),
       {
         color: '#F4A732',
-        label: fallbackString(
-          lang?.account?.orders?.status?.pending,
-          'Pending',
-        ),
+        label: i18n('account.orders.status.pending'),
       },
     ],
     [
       orderStatusKey(ORDER_STATUS.DRAFT),
       {
         color: '#F4A732',
-        label: fallbackString(lang?.account?.orders?.status?.draft, 'Draft'),
+        label: i18n('account.orders.status.draft'),
       },
     ],
     [
       subscriptionStatusKey(SUBSCRIPTION_STATUS.ACTIVE),
       {
         color: '#00BA99',
-        label: fallbackString(
-          lang?.account?.subscriptions?.status?.active,
-          'Active',
-        ),
+        label: i18n('account.subscriptions.status.active'),
       },
     ],
     [
       subscriptionStatusKey(SUBSCRIPTION_STATUS.CANCELED),
       {
         color: '#FF766D',
-        label: fallbackString(
-          lang?.account?.subscriptions?.status?.canceled,
-          'Canceled',
-        ),
+        label: i18n('account.subscriptions.status.canceled'),
       },
     ],
     [
       subscriptionStatusKey(SUBSCRIPTION_STATUS.PAID),
       {
         color: '#00BA99',
-        label: fallbackString(
-          lang?.account?.subscriptions?.status?.paid,
-          'Paid',
-        ),
+        label: i18n('account.subscriptions.status.paid'),
       },
     ],
     [
       subscriptionStatusKey(SUBSCRIPTION_STATUS.TRIAL),
       {
         color: '#00BA99',
-        label: fallbackString(
-          lang?.account?.subscriptions?.status?.trial,
-          'Trial',
-        ),
+        label: i18n('account.subscriptions.status.trial'),
       },
     ],
     [
       subscriptionStatusKey(SUBSCRIPTION_STATUS.PAUSED),
       {
         color: '#BDB9C6',
-        label: fallbackString(
-          lang?.account?.subscriptions?.status?.paused,
-          'Paused',
-        ),
+        label: i18n('account.subscriptions.status.paused'),
       },
     ],
     [
       subscriptionStatusKey(SUBSCRIPTION_STATUS.PASTDUE),
       {
         color: '#F4A732',
-        label: fallbackString(
-          lang?.account?.subscriptions?.status?.pastdue,
-          'Past Due',
-        ),
+        label: i18n('account.subscriptions.status.pastdue'),
       },
     ],
     [
       subscriptionStatusKey(SUBSCRIPTION_STATUS.UNPAID),
       {
         color: '#FF766D',
-        label: fallbackString(
-          lang?.account?.subscriptions?.status?.unpaid,
-          'Unpaid',
-        ),
+        label: i18n('account.subscriptions.status.unpaid'),
       },
     ],
     [
       subscriptionStatusKey(SUBSCRIPTION_STATUS.COMPLETE),
       {
         color: '#00BA99',
-        label: fallbackString(
-          lang?.account?.subscriptions?.status?.complete,
-          'Complete',
-        ),
+        label: i18n('account.subscriptions.status.complete'),
       },
     ],
     [
       subscriptionStatusKey(SUBSCRIPTION_STATUS.PENDING),
       {
         color: '#F4A732',
-        label: fallbackString(
-          lang?.account?.subscriptions?.status?.pending,
-          'Pending',
-        ),
+        label: i18n('account.subscriptions.status.pending'),
       },
     ],
     [
       subscriptionStatusKey(SUBSCRIPTION_STATUS.DRAFT),
       {
         color: '#BDB9C6',
-        label: fallbackString(
-          lang?.account?.subscriptions?.status?.draft,
-          'Draft',
-        ),
+        label: i18n('account.subscriptions.status.draft'),
       },
     ],
     [
       STOCK_STATUS.IN_STOCK,
       {
         color: '#00BA99',
-        label: fallbackString(
-          lang?.products?.stock_status?.inStock,
-          'In Stock',
-        ),
+        label: i18n('products.stock_status.in_stock'),
       },
     ],
     [
       STOCK_STATUS.LOW_STOCK,
       {
         color: '#F4A732',
-        label: fallbackString(
-          lang?.products?.stock_status?.lowStock,
-          'Low Stock',
-        ),
+        label: i18n('products.stock_status.low_stock'),
         details: (payload = 'few') => `${payload} remaining`,
       },
     ],
@@ -220,10 +169,7 @@ export const STATUS_MAP = (lang: any) =>
       STOCK_STATUS.OUT_OF_STOCK,
       {
         color: '#FF766D',
-        label: fallbackString(
-          lang?.products?.stock_status?.outOfStock,
-          'Out of Stock',
-        ),
+        label: i18n('products.stock_status.out_of_stock'),
       },
     ],
   ]);

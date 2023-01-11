@@ -1,631 +1,258 @@
 import type { AccountNavLinkProps } from 'components/atoms/AccountNavLink';
-import { fallbackString } from './text';
+import type { I18n } from 'hooks/useI18n';
 
-export const subscriptionDetailsText = (lang: any) => ({
-  backToSubscriptionsLabel: fallbackString(
-    lang?.account?.subscriptions?.details?.backLink,
-    'Back to subscriptions',
+export const subscriptionDetailsText = (i18n: I18n) => ({
+  backToSubscriptionsLabel: i18n('account.subscriptions.details.back_link'),
+  createdLabel: i18n('account.subscriptions.details.created_label'),
+  nextBillingLabel: i18n('account.subscriptions.details.next_billing_label'),
+  itemsLabel: i18n('account.subscriptions.details.items_label'),
+  totalLabel: i18n('account.subscriptions.details.total_label'),
+  quantityLabel: i18n('account.subscriptions.details.quantity_label'),
+  priceLabel: i18n('account.subscriptions.details.price_label'),
+  subtotalLabel: i18n('account.subscriptions.details.subtotal_label'),
+  discountsLabel: i18n('account.subscriptions.details.discounts_label'),
+  shippingLabel: i18n('account.subscriptions.details.shipping_label'),
+  taxLabel: i18n('account.subscriptions.details.tax_label'),
+  refundLabel: i18n('account.subscriptions.details.refund_label'),
+  deliveryInfoTitle: i18n('account.subscriptions.details.delivery_info_title'),
+  detailsLabel: i18n('account.subscriptions.details.details_label'),
+  phoneNumberLabel: i18n('account.subscriptions.details.phone_number_label'),
+  methodLabel: i18n('account.subscriptions.details.method_label'),
+  orderNotesLabel: i18n('account.subscriptions.details.order_notes_label'),
+  paymentInfoTitle: i18n('account.subscriptions.details.payment_info_title'),
+  paymentMethodLabel: i18n(
+    'account.subscriptions.details.payment_method_label',
   ),
-  createdLabel: fallbackString(
-    lang?.account?.subscriptions?.details?.createdLabel,
-    'Created',
-  ),
-  nextBillingLabel: fallbackString(
-    lang?.account?.subscriptions?.details?.nextBillingLabel,
-    'Next billing',
-  ),
-  itemsLabel: fallbackString(
-    lang?.account?.subscriptions?.details?.itemsLabel,
-    'Items',
-  ),
-  totalLabel: fallbackString(
-    lang?.account?.subscriptions?.details?.totalLabel,
-    'Total',
-  ),
-  quantityLabel: fallbackString(
-    lang?.account?.subscriptions?.details?.quantityLabel,
-    'Qty',
-  ),
-  priceLabel: fallbackString(
-    lang?.account?.subscriptions?.details?.priceLabel,
-    'Price',
-  ),
-  subtotalLabel: fallbackString(
-    lang?.account?.subscriptions?.details?.subtotalLabel,
-    'Subtotal',
-  ),
-  discountsLabel: fallbackString(
-    lang?.account?.subscriptions?.details?.discountsLabel,
-    'Discounts & Credits',
-  ),
-  shippingLabel: fallbackString(
-    lang?.account?.subscriptions?.details?.shippingLabel,
-    'Shipping',
-  ),
-  taxLabel: fallbackString(
-    lang?.account?.subscriptions?.details?.taxLabel,
-    'VAT',
-  ),
-  refundLabel: fallbackString(
-    lang?.account?.subscriptions?.details?.refundLabel,
-    'Refund',
-  ),
-  deliveryInfoTitle: fallbackString(
-    lang?.account?.subscriptions?.details?.deliveryInfoTitle,
-    'Delivery information',
-  ),
-  detailsLabel: fallbackString(
-    lang?.account?.subscriptions?.details?.detailsLabel,
-    'Details',
-  ),
-  phoneNumberLabel: fallbackString(
-    lang?.account?.subscriptions?.details?.phoneNumberLabel,
-    'Phone number',
-  ),
-  methodLabel: fallbackString(
-    lang?.account?.subscriptions?.details?.methodLabel,
-    'Method',
-  ),
-  orderNotesLabel: fallbackString(
-    lang?.account?.subscriptions?.details?.orderNotesLabel,
-    'Order notes',
-  ),
-  paymentInfoTitle: fallbackString(
-    lang?.account?.subscriptions?.details?.paymentInfoTitle,
-    'Payment information',
-  ),
-  paymentMethodLabel: fallbackString(
-    lang?.account?.subscriptions?.details?.paymentMethodLabel,
-    'Payment method',
-  ),
-  cardLabel: fallbackString(
-    lang?.account?.subscriptions?.details?.cardLabel,
-    'Card',
-  ),
-  billingAddressLabel: fallbackString(
-    lang?.account?.subscriptions?.details?.billingAddressLabel,
-    'Billing address',
+  cardLabel: i18n('account.subscriptions.details.card_label'),
+  billingAddressLabel: i18n(
+    'account.subscriptions.details.billing_address_label',
   ),
   cancel: {
-    message: fallbackString(
-      lang?.account?.subscriptions?.details?.cancel?.message,
-      'You can cancel your subscription at anytime.',
+    message: i18n('account.subscriptions.details.cancel.message'),
+    label: i18n('account.subscriptions.details.cancel.label'),
+    dialogTitle: i18n('account.subscriptions.details.cancel.dialog_title'),
+    dialogBody: i18n('account.subscriptions.details.cancel.dialog_body'),
+    buttonLabel: i18n(
+      'account.subscriptions.details.cancel.cancel_button_label',
     ),
-    label: fallbackString(
-      lang?.account?.subscriptions?.details?.cancel?.label,
-      'Cancel subscription',
+    subscriptionButtonLabel: i18n(
+      'account.subscriptions.details.cancel.cancel_subscription_button_label',
     ),
-    dialogTitle: fallbackString(
-      lang?.account?.subscriptions?.details?.cancel?.dialogTitle,
-      'Cancel subscription',
+    successMessage: i18n(
+      'account.subscriptions.details.cancel.success_message',
     ),
-    dialogBody: fallbackString(
-      lang?.account?.subscriptions?.details?.cancel?.dialogBody,
-      'Cancelling your subscription is permanent. Are you sure you want to proceed?',
-    ),
-    buttonLabel: fallbackString(
-      lang?.account?.subscriptions?.details?.cancel?.cancelButtonLabel,
-      'Cancel',
-    ),
-    subscriptionButtonLabel: fallbackString(
-      lang?.account?.subscriptions?.details?.cancel
-        ?.cancelSubscriptionButtonLabel,
-      'Cancel subscription',
-    ),
-    successMessage: fallbackString(
-      lang?.account?.subscriptions?.details?.cancel?.successMessage,
-      'Your subscription is canceled',
-    ),
-    errorMessage: fallbackString(
-      lang?.account?.subscriptions?.details?.cancel?.errorMessage,
-      'Something went wrong, please try again later',
-    ),
+    errorMessage: i18n('account.subscriptions.details.cancel.error_message'),
   },
-  trialEndMessage: fallbackString(
-    lang?.account?.subscriptions?.details?.trialEndMessage,
-    'Your trial period will end in {n} {interval}',
+  trialEndMessage: i18n('account.subscriptions.details.trial_end_message'),
+  headerBillingMessage: i18n(
+    'account.subscriptions.details.header_billing_message',
   ),
-  headerBillingMessage: fallbackString(
-    lang?.account?.subscriptions?.details?.headerBillingMessage,
-    'Every {n} {interval}',
+  renewalLimitLabel: i18n('account.subscriptions.details.renewal_limit_label'),
+  shipmentLimitLabel: i18n(
+    'account.subscriptions.details.shipment_limit_label',
   ),
-  renewalLimitLabel: fallbackString(
-    lang?.account?.subscriptions?.details?.renewalLimitLabel,
-    'Limited to {n} {renewal}',
+  renewalSingularLabel: i18n(
+    'account.subscriptions.details.renewal_singular_label',
   ),
-  shipmentLimitLabel: fallbackString(
-    lang?.account?.subscriptions?.details?.shipmentLimitLabel,
-    'Limited to {n} {shipment}',
+  renewalPluralLabel: i18n(
+    'account.subscriptions.details.renewal_plural_label',
   ),
-  renewalSingularLabel: fallbackString(
-    lang?.account?.subscriptions?.details?.renewalSingularLabel,
-    'renewal',
+  shipmentSingularLabel: i18n(
+    'account.subscriptions.details.shipment_singular_label',
   ),
-  renewalPluralLabel: fallbackString(
-    lang?.account?.subscriptions?.details?.renewalPluralLabel,
-    'renewals',
-  ),
-  shipmentSingularLabel: fallbackString(
-    lang?.account?.subscriptions?.details?.shipmentSingularLabel,
-    'shipment',
-  ),
-  shipmentPluralLabel: fallbackString(
-    lang?.account?.subscriptions?.details?.shipmentPluralLabel,
-    'shipments',
+  shipmentPluralLabel: i18n(
+    'account.subscriptions.details.shipment_plural_label',
   ),
 });
 
-export const pageTitleMap = (lang: any) => ({
-  subscriptions: fallbackString(
-    lang?.account?.subscriptions?.title,
-    'Subscriptions',
-  ),
-  orders: fallbackString(lang?.account?.orders?.title, 'Orders & Returns'),
+export const pageTitleMap = (i18n: I18n) => ({
+  subscriptions: i18n('account.subscriptions.title'),
+  orders: i18n('account.orders.title'),
 });
 
-export const accountLinks = (lang: any): AccountNavLinkProps[] => [
+export const accountLinks = (i18n: I18n): AccountNavLinkProps[] => [
   {
-    label: fallbackString(
-      lang?.account?.subscriptions?.navigationTitle,
-      'Subscriptions',
-    ),
+    label: i18n('account.subscriptions.navigation_title'),
     link: '/account/subscriptions',
   },
   {
-    label: fallbackString(
-      lang?.account?.orders?.navigationTitle,
-      'Orders & Returns',
-    ),
+    label: i18n('account.orders.navigation_title'),
     link: '/account/orders',
   },
 ];
 
-export const orderDetailsText = (lang: any) => ({
-  backToOrdersLabel: fallbackString(
-    lang?.account?.orders?.details?.backLink,
-    'Back to orders',
-  ),
-  orderLabel: fallbackString(
-    lang?.account?.orders?.details?.orderLabel,
-    'Order',
-  ),
-  createReturnLabel: fallbackString(
-    lang?.account?.orders?.details?.createReturnLabel,
-    'Create return',
-  ),
-  returnDialogTitle: fallbackString(
-    lang?.account?.orders?.details?.returnDialogTitle,
-    'Returning an item',
-  ),
-  returnDialogBody: fallbackString(
-    lang?.account?.orders?.details?.returnDialogBody,
-    'To initiate a partial or complete return of an order, please contact us so we can start the return process. Don’t forget to include the order number and the reason for returning.',
-  ),
-  orderDateLabel: fallbackString(
-    lang?.account?.orders?.details?.orderDateLabel,
-    'Order date',
-  ),
-  itemsLabel: fallbackString(
-    lang?.account?.orders?.details?.itemsLabel,
-    'Items',
-  ),
-  totalLabel: fallbackString(
-    lang?.account?.orders?.details?.totalLabel,
-    'Total',
-  ),
-  quantityLabel: fallbackString(
-    lang?.account?.orders?.details?.quantityLabel,
-    'Qty',
-  ),
-  priceLabel: fallbackString(
-    lang?.account?.orders?.details?.priceLabel,
-    'Price',
-  ),
-  subtotalLabel: fallbackString(
-    lang?.account?.orders?.details?.subtotalLabel,
-    'Subtotal',
-  ),
-  discountsLabel: fallbackString(
-    lang?.account?.orders?.details?.discountsLabel,
-    'Discounts & Credits',
-  ),
-  shippingLabel: fallbackString(
-    lang?.account?.orders?.details?.shippingLabel,
-    'Shipping',
-  ),
-  taxLabel: fallbackString(lang?.account?.orders?.details?.taxLabel, 'VAT'),
-  refundLabel: fallbackString(
-    lang?.account?.orders?.details?.refundLabel,
-    'Refund',
-  ),
-  deliveryInfoTitle: fallbackString(
-    lang?.account?.orders?.details?.deliveryInfoTitle,
-    'Delivery information',
-  ),
-  detailsLabel: fallbackString(
-    lang?.account?.orders?.details?.detailsLabel,
-    'Details',
-  ),
-  phoneNumberLabel: fallbackString(
-    lang?.account?.orders?.details?.phoneNumberLabel,
-    'Phone number',
-  ),
-  methodLabel: fallbackString(
-    lang?.account?.orders?.details?.methodLabel,
-    'Method',
-  ),
-  orderNotesLabel: fallbackString(
-    lang?.account?.orders?.details?.orderNotesLabel,
-    'Order notes',
-  ),
-  paymentInfoTitle: fallbackString(
-    lang?.account?.orders?.details?.paymentInfoTitle,
-    'Payment information',
-  ),
-  paymentMethodLabel: fallbackString(
-    lang?.account?.orders?.details?.paymentMethodLabel,
-    'Payment method',
-  ),
-  cardLabel: fallbackString(lang?.account?.orders?.details?.cardLabel, 'Card'),
-  billingAddressLabel: fallbackString(
-    lang?.account?.orders?.details?.billingAddressLabel,
-    'Billing address',
-  ),
+export const orderDetailsText = (i18n: I18n) => ({
+  backToOrdersLabel: i18n('account.orders.details.back_link'),
+  orderLabel: i18n('account.orders.details.order_label'),
+  createReturnLabel: i18n('account.orders.details.create_return_label'),
+  returnDialogTitle: i18n('account.orders.details.return_dialog_title'),
+  returnDialogBody: i18n('account.orders.details.return_dialog_body'),
+  orderDateLabel: i18n('account.orders.details.order_date_label'),
+  itemsLabel: i18n('account.orders.details.items_label'),
+  totalLabel: i18n('account.orders.details.total_label'),
+  quantityLabel: i18n('account.orders.details.quantity_label'),
+  priceLabel: i18n('account.orders.details.price_label'),
+  subtotalLabel: i18n('account.orders.details.subtotal_label'),
+  discountsLabel: i18n('account.orders.details.discounts_label'),
+  shippingLabel: i18n('account.orders.details.shipping_label'),
+  taxLabel: i18n('account.orders.details.tax_label'),
+  refundLabel: i18n('account.orders.details.refund_label'),
+  deliveryInfoTitle: i18n('account.orders.details.delivery_info_title'),
+  detailsLabel: i18n('account.orders.details.details_label'),
+  phoneNumberLabel: i18n('account.orders.details.phone_number_label'),
+  methodLabel: i18n('account.orders.details.method_label'),
+  orderNotesLabel: i18n('account.orders.details.order_notes_label'),
+  paymentInfoTitle: i18n('account.orders.details.payment_info_title'),
+  paymentMethodLabel: i18n('account.orders.details.payment_method_label'),
+  cardLabel: i18n('account.orders.details.card_label'),
+  billingAddressLabel: i18n('account.orders.details.billing_address_label'),
 });
 
-export const signupText = (lang: any) => ({
-  pageTitle: fallbackString(lang?.account?.signup?.pageTitle, 'Create account'),
-  signupTitle: fallbackString(lang?.account?.signup?.title, 'Create account'),
+export const signupText = (i18n: I18n) => ({
+  pageTitle: i18n('account.signup.page_title'),
+  signupTitle: i18n('account.signup.title'),
   firstName: {
-    label: fallbackString(
-      lang?.account?.signup?.firstName?.label,
-      'First name',
-    ),
-    emptyErrorText: fallbackString(
-      lang?.account?.signup?.firstName?.emptyErrorText,
-      'First name is required',
-    ),
-    placeholder: fallbackString(
-      lang?.account?.signup?.firstName?.placeholder,
-      'Enter your first name',
-    ),
+    label: i18n('account.signup.first_name.label'),
+    emptyErrorText: i18n('account.signup.first_name.empty_error_text'),
+    placeholder: i18n('account.signup.first_name.placeholder'),
   },
   lastName: {
-    label: fallbackString(lang?.account?.signup?.lastName?.label, 'Last name'),
-    emptyErrorText: fallbackString(
-      lang?.account?.signup?.lastName?.emptyErrorText,
-      'Last name is required',
-    ),
-    placeholder: fallbackString(
-      lang?.account?.signup?.lastName?.placeholder,
-      'Enter your last name',
-    ),
+    label: i18n('account.signup.last_name.label'),
+    emptyErrorText: i18n('account.signup.last_name.empty_error_text'),
+    placeholder: i18n('account.signup.last_name.placeholder'),
   },
   email: {
-    label: fallbackString(lang?.account?.signup?.email?.label, 'Email'),
-    emptyErrorText: fallbackString(
-      lang?.account?.signup?.email?.emptyErrorText,
-      'Email is required',
-    ),
-    invalidErrorText: fallbackString(
-      lang?.account?.signup?.email?.invalidErrorText,
-      'Email format is invalid',
-    ),
-    placeholder: fallbackString(
-      lang?.account?.signup?.email?.placeholder,
-      'Enter your email',
-    ),
+    label: i18n('account.signup.email.label'),
+    emptyErrorText: i18n('account.signup.email.empty_error_text'),
+    invalidErrorText: i18n('account.signup.email.invalid_error_text'),
+    placeholder: i18n('account.signup.email.placeholder'),
   },
   password: {
-    label: fallbackString(lang?.account?.signup?.password?.label, 'Password'),
-    emptyErrorText: fallbackString(
-      lang?.account?.signup?.password?.emptyErrorText,
-      'Password is required',
-    ),
-    invalidErrorText: fallbackString(
-      lang?.account?.signup?.password?.invalidErrorText,
-      'Your password needs to be at least 6 characters.',
-    ),
-    placeholder: fallbackString(
-      lang?.account?.signup?.password?.placeholder,
-      'Enter your password',
-    ),
-    requirementsText: fallbackString(
-      lang?.account?.signup?.password?.requirementsText,
-      'Must include a minimum of 6 characters.',
-    ),
+    label: i18n('account.signup.password.label'),
+    emptyErrorText: i18n('account.signup.password.empty_error_text'),
+    invalidErrorText: i18n('account.signup.password.invalid_error_text'),
+    placeholder: i18n('account.signup.password.placeholder'),
+    requirementsText: i18n('account.signup.password.requirements_text'),
   },
   errors: {
-    server: fallbackString(
-      lang?.account?.signup?.errors?.serverErrorText,
-      'Internal server error',
-    ),
-    emailTaken: fallbackString(
-      lang?.account?.signup?.errors?.emailTaken,
-      'There is already an account with this email',
-    ),
+    server: i18n('account.signup.errors.server_error_text'),
+    emailTaken: i18n('account.signup.errors.email_taken'),
   },
-  signupButton: fallbackString(
-    lang?.account?.signup?.signupButton,
-    'Create account',
-  ),
-  registeredUser: fallbackString(
-    lang?.account?.signup?.registeredUserLabel,
-    'Already have an account?',
-  ),
-  loginLink: fallbackString(lang?.account?.signup?.loginLink, 'Log in'),
-  successMessage: fallbackString(
-    lang?.account?.signup?.successMessage,
-    'Your account was successfully created',
-  ),
+  signupButton: i18n('account.signup.signup_button'),
+  registeredUser: i18n('account.signup.registered_user_label'),
+  loginLink: i18n('account.signup.login_link'),
+  successMessage: i18n('account.signup.success_message'),
 });
 
-export const loginText = (lang: any) => ({
-  pageTitle: fallbackString(lang?.account?.login?.pageTitle, 'Log in'),
-  title: fallbackString(lang?.account?.login?.title, 'Log in'),
+export const loginText = (i18n: I18n) => ({
+  pageTitle: i18n('account.login.page_title'),
+  title: i18n('account.login.title'),
   email: {
-    label: fallbackString(lang?.account?.login?.email?.label, 'Email'),
-    emptyErrorText: fallbackString(
-      lang?.account?.login?.email?.emptyErrorText,
-      'Email is required',
-    ),
-    invalidErrorText: fallbackString(
-      lang?.account?.login?.email?.invalidErrorText,
-      'Email format is invalid',
-    ),
-    placeholder: fallbackString(
-      lang?.account?.login?.email?.placeholder,
-      'Enter your email',
-    ),
+    label: i18n('account.login.email.label'),
+    emptyErrorText: i18n('account.login.email.empty_error_text'),
+    invalidErrorText: i18n('account.login.email.invalid_error_text'),
+    placeholder: i18n('account.login.email.placeholder'),
   },
   password: {
-    label: fallbackString(lang?.account?.login?.password?.label, 'Password'),
-    emptyErrorText: fallbackString(
-      lang?.account?.login?.password?.emptyErrorText,
-      'Password is required',
-    ),
-    invalidErrorText: fallbackString(
-      lang?.account?.login?.password?.invalidErrorText,
-      'Password is invalid',
-    ),
-    placeholder: fallbackString(
-      lang?.account?.login?.password?.placeholder,
-      'Enter your password',
-    ),
+    label: i18n('account.login.password.label'),
+    emptyErrorText: i18n('account.login.password.empty_error_text'),
+    invalidErrorText: i18n('account.login.password.invalid_error_text'),
+    placeholder: i18n('account.login.password.placeholder'),
   },
-  passwordRecovery: fallbackString(
-    lang?.account?.login?.passwordRecovery,
-    'Forgot your password?',
-  ),
+  passwordRecovery: i18n('account.login.password_recovery'),
   errors: {
-    invalidCredentials: fallbackString(
-      lang?.account?.login?.errors?.invalidCredentials,
-      'Your email or password is incorrect.',
-    ),
-    server: fallbackString(
-      lang?.account?.login?.errors?.server,
-      'Internal server error',
-    ),
+    invalidCredentials: i18n('account.login.errors.invalid_credentials'),
+    server: i18n('account.login.errors.server'),
   },
-  loginButton: fallbackString(lang?.account?.login?.loginButton, 'Log in'),
-  noAccount: fallbackString(
-    lang?.account?.login?.noAccount,
-    "Don't have an account?",
-  ),
-  signupLink: fallbackString(lang?.account?.login?.signupLink, 'Sign up'),
+  loginButton: i18n('account.login.login_button'),
+  noAccount: i18n('account.login.no_account'),
+  signupLink: i18n('account.login.signup_link'),
 });
 
-export const setNewPasswordText = (lang: any) => ({
-  pageTitle: fallbackString(
-    lang?.account?.setNewPassword?.pageTitle,
-    'Set new password',
-  ),
-  title: fallbackString(
-    lang?.account?.setNewPassword?.title,
-    'Set new password',
-  ),
-  subtitle: fallbackString(
-    lang?.account?.setNewPassword?.subtitle,
-    'Please enter your new password.',
-  ),
+export const setNewPasswordText = (i18n: I18n) => ({
+  pageTitle: i18n('account.set_new_password.page_title'),
+  title: i18n('account.set_new_password.title'),
+  subtitle: i18n('account.set_new_password.subtitle'),
   confirmPassword: {
-    emptyErrorText: fallbackString(
-      lang?.account?.setNewPassword?.confirmPassword?.emptyErrorText,
-      'Please fill out this field',
+    emptyErrorText: i18n(
+      'account.set_new_password.confirm_password.empty_error_text',
     ),
-    label: fallbackString(
-      lang?.account?.setNewPassword?.confirmPassword?.label,
-      'Confirm password',
-    ),
-    placeholder: fallbackString(
-      lang?.account?.setNewPassword?.confirmPassword?.placeholder,
-      'Confirm your password',
-    ),
+    label: i18n('account.set_new_password.confirm_password.label'),
+    placeholder: i18n('account.set_new_password.confirm_password.placeholder'),
   },
   password: {
-    emptyErrorText: fallbackString(
-      lang?.account?.setNewPassword?.password?.emptyErrorText,
-      'Please fill out this field',
+    emptyErrorText: i18n('account.set_new_password.password.empty_error_text'),
+    label: i18n('account.set_new_password.password.label'),
+    placeholder: i18n('account.set_new_password.password.placeholder'),
+    requirementsText: i18n(
+      'account.set_new_password.password.requirements_text',
     ),
-    label: fallbackString(
-      lang?.account?.setNewPassword?.password?.label,
-      'Password',
-    ),
-    placeholder: fallbackString(
-      lang?.account?.setNewPassword?.password?.placeholder,
-      'Enter your password',
-    ),
-    requirementsText: fallbackString(
-      lang?.account?.setNewPassword?.password?.requirementsText,
-      'Must include a minimum of 6 characters',
-    ),
-    invalidErrorText: fallbackString(
-      lang?.account?.setNewPassword?.password?.invalidErrorText,
-      'Your password must be at least 6 characters',
+    invalidErrorText: i18n(
+      'account.set_new_password.password.invalid_error_text',
     ),
   },
-  submitButtonLabel: fallbackString(
-    lang?.account?.setNewPassword?.submitButtonLabel,
-    'Set password',
-  ),
+  submitButtonLabel: i18n('account.set_new_password.submit_button_label'),
   errors: {
-    passwordMismatch: fallbackString(
-      lang?.account?.setNewPassword?.errors?.passwordMismatch,
-      'Passwords do not match',
-    ),
-    server: fallbackString(
-      lang?.account?.setNewPassword?.errors?.server,
-      'Something went wrong',
-    ),
+    passwordMismatch: i18n('account.set_new_password.errors.password_mismatch'),
+    server: i18n('account.set_new_password.errors.server'),
   },
   expired: {
-    pageTitle: fallbackString(
-      lang?.account?.setNewPassword?.expired?.pageTitle,
-      'Link has expired',
-    ),
-    title: fallbackString(
-      lang?.account?.setNewPassword?.expired?.title,
-      'Link has expired',
-    ),
-    message: fallbackString(
-      lang?.account?.setNewPassword?.expired?.message,
-      'This password reset link has expired or is invalid. Your password was not changed.',
-    ),
-    resendEmail: fallbackString(
-      lang?.account?.setNewPassword?.expired?.resendEmail,
-      'Resend email',
-    ),
+    pageTitle: i18n('account.set_new_password.expired.page_title'),
+    title: i18n('account.set_new_password.expired.title'),
+    message: i18n('account.set_new_password.expired.message'),
+    resendEmail: i18n('account.set_new_password.expired.resend_email'),
   },
   success: {
-    pageTitle: fallbackString(
-      lang?.account?.setNewPassword?.success?.pageTitle,
-      'Success',
-    ),
-    title: fallbackString(
-      lang?.account?.setNewPassword?.success?.title,
-      'Success',
-    ),
-    message: fallbackString(
-      lang?.account?.setNewPassword?.success?.message,
-      'You can now log into your account using your new password.',
-    ),
-    loginLink: fallbackString(
-      lang?.account?.setNewPassword?.success?.loginLink,
-      'Log in',
-    ),
+    pageTitle: i18n('account.set_new_password.success.page_title'),
+    title: i18n('account.set_new_password.success.title'),
+    message: i18n('account.set_new_password.success.message'),
+    loginLink: i18n('account.set_new_password.success.login_link'),
   },
 });
 
-export const passwordRecoveryText = (lang: any) => ({
-  pageTitle: fallbackString(
-    lang?.account?.passwordRecovery?.pageTitle,
-    'Forgot your password?',
-  ),
-  title: fallbackString(
-    lang?.account?.passwordRecovery?.title,
-    'Forgot your password?',
-  ),
-  subtitle: fallbackString(
-    lang?.account?.passwordRecovery?.subtitle,
-    'Enter your email to reset your password',
-  ),
+export const passwordRecoveryText = (i18n: I18n) => ({
+  pageTitle: i18n('account.password_recovery.page_title'),
+  title: i18n('account.password_recovery.title'),
+  subtitle: i18n('account.password_recovery.subtitle'),
   email: {
-    label: fallbackString(
-      lang?.account?.passwordRecovery?.email?.label,
-      'Email',
+    label: i18n('account.password_recovery.email.label'),
+    emptyErrorText: i18n('account.password_recovery.email.empty_error_text'),
+    invalidErrorText: i18n(
+      'account.password_recovery.email.invalid_error_text',
     ),
-    emptyErrorText: fallbackString(
-      lang?.account?.passwordRecovery?.email?.emptyErrorText,
-      'Email is required',
-    ),
-    invalidErrorText: fallbackString(
-      lang?.account?.passwordRecovery?.email?.invalidErrorText,
-      'Email format is invalid',
-    ),
-    placeholder: fallbackString(
-      lang?.account?.passwordRecovery?.email?.placeholder,
-      'Enter your email',
-    ),
+    placeholder: i18n('account.password_recovery.email.placeholder'),
   },
-  submitButtonLabel: fallbackString(
-    lang?.account?.passwordRecovery?.submitButtonLabel,
-    'Send email',
-  ),
-  backToLoginText: fallbackString(
-    lang?.account?.passwordRecovery?.backToLoginText,
-    'Back to {loginLink}',
-  ),
-  backToLoginLink: fallbackString(
-    lang?.account?.passwordRecovery?.backToLoginLink,
-    'Log in',
-  ),
+  submitButtonLabel: i18n('account.password_recovery.submit_button_label'),
+  backToLoginLink: i18n('account.password_recovery.back_to_login_link'),
   errors: {
-    server: fallbackString(
-      lang?.account?.passwordRecovery?.errors?.server,
-      'Something went wrong',
-    ),
+    server: i18n('account.password_recovery.errors.server'),
   },
   checkEmail: {
-    pageTitle: fallbackString(
-      lang?.account?.passwordRecovery?.checkEmail?.pageTitle,
-      'Check your email',
-    ),
-    title: fallbackString(
-      lang?.account?.passwordRecovery?.checkEmail?.title,
-      'Check your email.',
-    ),
-    message: fallbackString(
-      lang?.account?.passwordRecovery?.checkEmail?.message,
-      'If you have an account, you should receive an email shortly with a link to reset your password.',
-    ),
-    backToLoginText: fallbackString(
-      lang?.account?.passwordRecovery?.checkEmail?.backToLoginText,
-      'Back to {loginLink}',
-    ),
-    backToLoginLink: fallbackString(
-      lang?.account?.passwordRecovery?.checkEmail?.backToLoginLink,
-      'Log in',
+    pageTitle: i18n('account.password_recovery.check_email.page_title'),
+    title: i18n('account.password_recovery.check_email.title'),
+    message: i18n('account.password_recovery.check_email.message'),
+    backToLoginLink: i18n(
+      'account.password_recovery.check_email.back_to_login_link',
     ),
   },
 });
 
-export const purchaseCardText = (lang: any) => ({
-  billingMessage: fallbackString(
-    lang?.account?.subscriptions?.billingMessage,
-    'Every {n} {interval}',
-  ),
-  orderMessage: fallbackString(
-    lang?.account?.subscriptions?.orderMessage,
-    'Every {n} {interval}',
-  ),
-  nextBillingLabel: fallbackString(
-    lang?.account?.subscriptions?.nextBilling,
-    'Next billing',
-  ),
-  orderDateLabel: fallbackString(lang?.account?.orders?.date, 'Order date'),
-  itemsLabel: fallbackString(lang?.account?.orders?.items, 'Items'),
-  viewOrderLabel: fallbackString(
-    lang?.account?.orders?.viewOrder,
-    'View order',
-  ),
-  manageLabel: fallbackString(lang?.account?.subscriptions?.manage, 'Manage'),
-  totalLabel: fallbackString(lang?.account?.orders?.total, 'Total'),
+export const purchaseCardText = (i18n: I18n) => ({
+  billingMessage: i18n('account.subscriptions.billing_message'),
+  orderMessage: i18n('account.subscriptions.order_message'),
+  nextBillingLabel: i18n('account.subscriptions.next_billing'),
+  orderDateLabel: i18n('account.orders.order_date'),
+  itemsLabel: i18n('account.orders.items'),
+  viewOrderLabel: i18n('account.orders.view_order'),
+  manageLabel: i18n('account.subscriptions.manage'),
+  totalLabel: i18n('account.orders.total'),
 });
 
-export const categoryPageText = (lang: any) => ({
-  filtersLabel: fallbackString(lang?.categories?.filters?.title, 'Filters'),
-  removeAllLabel: fallbackString(
-    lang?.categories?.filters?.removeAll,
-    'Remove all',
-  ),
-  priceLabel: fallbackString(lang?.categories?.filters?.price, 'Price'),
-  seeResultsLabel: fallbackString(
-    lang?.categories?.filters?.seeResults,
-    'See results ({count})',
-  ),
-  allProductsLabel: fallbackString(
-    lang?.categories?.filters?.allProducts,
-    'All products',
-  ),
-  mobileButton: fallbackString(lang?.categories?.mobileButton, 'Filter'),
+export const categoryPageText = (i18n: I18n) => ({
+  filtersLabel: i18n('categories.filters.title'),
+  removeAllLabel: i18n('categories.filters.remove_all'),
+  priceLabel: i18n('categories.filters.price'),
+  seeResultsLabel: i18n('categories.filters.see_results'),
+  allProductsLabel: i18n('categories.filters.all_products'),
+  mobileButton: i18n('categories.filters.mobile_button'),
 });

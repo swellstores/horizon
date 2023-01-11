@@ -138,6 +138,8 @@
           "billing_message": "Pay every {n} {interval}",
           "order_message": "Shipped every {n} {interval}",
           "header_billing_message": "Every {n} {interval}",
+          "back_link": "Back to subscriptions",
+          "created_label": "Created",
           "next_billing_label": "Next billing",
           "items_label": "Items",
           "total_label": "Total",
@@ -203,24 +205,24 @@
         "title": "Log in",
         "email": {
           "label": "Email",
-          "emptyErrorText": "Email is required",
-          "invalidErrorText": "Email format is invalid",
+          "empty_error_text": "Email is required",
+          "invalid_error_text": "Email format is invalid",
           "placeholder": "Enter your email"
         },
         "password": {
           "label": "Password",
-          "emptyErrorText": "Password is required",
-          "invalidErrorText": "Password is invalid",
+          "empty_error_text": "Password is required",
+          "invalid_error_text": "Password is invalid",
           "placeholder": "Enter your password"
         },
-        "passwordRecovery": "Forgot your password?",
+        "password_recovery": "Forgot your password?",
         "errors": {
-          "invalidCredentials": "Your email or password is incorrect.",
+          "invalid_credentials": "Your email or password is incorrect.",
           "server": "Internal server error"
         },
-        "loginButton": "Log in",
-        "noAccount": "Don't have an account?",
-        "signupLink": "Sign up"
+        "login_button": "Log in",
+        "no_account": "Don't have an account?",
+        "signup_link": "Sign up"
       },
       "signup": {
         "page_title": "Create account",
@@ -321,6 +323,11 @@
       "trial_message": "{n} days free trial, then {price}",
       "stock": {
         "not_enough": "Not enough stock remaining to increase quantity in cart by {quantity}."
+      },
+      "stock_status": {
+        "in_stock": "In Stock",
+        "low_stock": "Low Stock",
+        "out_of_stock": "Out of Stock"
       },
       "subscription": {
         "options": "Subscription options",

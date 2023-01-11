@@ -4,18 +4,14 @@ import { API_ROUTES } from 'types/shared/api';
 import useFetchApi from 'hooks/useFetchApi';
 import useNotificationStore from 'stores/notification';
 import { NOTIFICATION_TYPE } from 'types/shared/notification';
-import useSettingsStore from 'stores/settings';
-import { fallbackString } from 'utils/text';
+import useI18n from './useI18n';
 
 const useLogout = () => {
   const fetchApi = useFetchApi();
   const router = useRouter();
   const send = useNotificationStore((store) => store.send);
-  const lang = useSettingsStore((state) => state.settings?.lang);
-  const logoutSuccess = fallbackString(
-    lang?.account?.logout?.success,
-    "You're logged out",
-  );
+  const i18n = useI18n();
+  const logoutSuccess = i18n('account.logout.success');
 
   const responseCallback = useCallback(
     (res: Response) => {

@@ -19,8 +19,7 @@ import {
   QUIZ_QUESTION_SELECT_TYPE,
   QUIZ_QUESTION_TYPE,
 } from 'types/shared/quiz';
-import useSettingsStore from 'stores/settings';
-import { fallbackString, parseTextWithVariables } from 'utils/text';
+import useI18n from 'hooks/useI18n';
 
 const TextField = dynamic(() => import('components/molecules/TextField'));
 const TextareaField = dynamic(
@@ -156,12 +155,8 @@ const QuizQuestion: React.FC<QuizQuestionProps> = ({
   const [error, setError] = useState<string | undefined>(undefined);
   const errorLabel = getErrorLabel(questionType);
 
-  const lang = useSettingsStore((state) => state.settings?.lang);
-  const stepsCountLabel = fallbackString(
-    lang?.quiz?.stepCount,
-    '{currentStep} of {totalSteps}',
-  );
-  const parsedStepsCountLabel = parseTextWithVariables(stepsCountLabel, {
+  const i18n = useI18n();
+  const stepsCountLabel = i18n('quiz.step_count', {
     currentStep: currentQuestion.toString(),
     totalSteps: totalQuestions.toString(),
   });
@@ -349,7 +344,7 @@ const QuizQuestion: React.FC<QuizQuestionProps> = ({
           role="status"
           title={`Question ${currentQuestion} out of ${totalQuestions}`}
           className="mb-6 text-xs font-semibold text-primary lg:mb-10 lg:text-sm">
-          {parsedStepsCountLabel}
+          {stepsCountLabel}
         </p>
         {question && (
           <legend

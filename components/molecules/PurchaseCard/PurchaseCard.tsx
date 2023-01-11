@@ -15,9 +15,9 @@ import { formatDateToLocale } from 'lib/utils/date';
 import type { Maybe } from 'lib/graphql/generated/sdk';
 import ScheduleLabel from 'components/atoms/ScheduleLabel';
 import useCurrencyStore from 'stores/currency';
-import useSettingsStore from 'stores/settings';
 import Price from 'components/atoms/Price';
 import { purchaseCardText } from 'utils/lang';
+import useI18n from 'hooks/useI18n';
 
 interface BaseProps {
   title: string;
@@ -54,8 +54,8 @@ const PurchaseCard: React.FC<PurchaseCardProps> = ({
 }) => {
   const formatPrice = useCurrencyStore((state) => state.formatPrice);
 
-  const lang = useSettingsStore((state) => state.settings?.lang);
-  const text = purchaseCardText(lang);
+  const i18n = useI18n();
+  const text = purchaseCardText(i18n);
 
   return (
     <div className="border-outline rounded-xl border bg-background-primary p-6">

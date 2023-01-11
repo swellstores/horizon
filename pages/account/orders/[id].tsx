@@ -28,7 +28,7 @@ import { denullifyArray } from 'lib/utils/denullify';
 import { getClientWithSessionToken } from 'lib/graphql/client';
 import type { SwellOrder } from 'lib/graphql/generated/sdk';
 import { orderDetailsText } from 'utils/lang';
-import useSettingsStore from 'stores/settings';
+import useI18n from 'hooks/useI18n';
 
 interface OrderDetailPageProps extends PageProps, AccountPageProps {
   order: SwellOrder;
@@ -201,8 +201,8 @@ export const getServerSideProps = withAccountLayout(
 );
 
 const OrderDetailPage: NextPageWithLayout<OrderDetailPageProps> = (props) => {
-  const lang = useSettingsStore((state) => state.settings?.lang);
-  const text = orderDetailsText(lang);
+  const i18n = useI18n();
+  const text = orderDetailsText(i18n);
   const order = formatOrder(props.order, text);
 
   const { locale } = useRouter();

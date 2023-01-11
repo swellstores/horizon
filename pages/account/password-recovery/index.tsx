@@ -15,9 +15,8 @@ import { API_ROUTES } from 'types/shared/api';
 import { ACCOUNT_FIELD } from 'types/account';
 import { validateNonEmptyFields } from 'utils/validation';
 import useFetchApi from 'hooks/useFetchApi';
-import useSettingsStore from 'stores/settings';
 import { passwordRecoveryText } from 'utils/lang';
-import { parseTextWithVariables } from 'utils/text';
+import useI18n from 'hooks/useI18n';
 
 const propsCallback: GetStaticProps<PageProps> = async () => {
   return {
@@ -31,8 +30,8 @@ const PasswordRecoveryPage: NextPageWithLayout<PageProps> = ({
   metaTitle,
   metaDescription,
 }) => {
-  const lang = useSettingsStore((state) => state.settings?.lang);
-  const text = passwordRecoveryText(lang);
+  const i18n = useI18n();
+  const text = passwordRecoveryText(i18n);
   const router = useRouter();
   const fetchApi = useFetchApi();
   const [email, setEmail] = useState('');
@@ -43,12 +42,11 @@ const PasswordRecoveryPage: NextPageWithLayout<PageProps> = ({
   const otherError = error?.field === ACCOUNT_FIELD.OTHER;
   const emailError = error?.field === ACCOUNT_FIELD.EMAIL || otherError;
   const emailInputRef = useRef<HTMLInputElement>(null);
-  const backToLoginText = parseTextWithVariables(text.backToLoginText, {
+  const backToLoginText = i18n('account.password_recovery.back_to_login_text', {
     loginLink: `<a class="font-bold hover:underline" href='/${
       router.locale !== router.defaultLocale ? `${router.locale}/` : ''
     }/account/login'>${text.backToLoginLink}</a>`,
   });
-
   const responseCallback = useCallback(
     (res: Response) => {
       if (res.status !== 200) {

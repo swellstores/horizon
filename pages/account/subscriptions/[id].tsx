@@ -38,7 +38,7 @@ import { denullifyArray } from 'lib/utils/denullify';
 import useFetchApi from 'hooks/useFetchApi';
 import { API_ROUTES } from 'types/shared/api';
 import { subscriptionDetailsText } from 'utils/lang';
-import useSettingsStore from 'stores/settings';
+import useI18n from 'hooks/useI18n';
 
 interface SubscriptionDetailPageProps extends PageProps {
   subscription: SwellSubscription;
@@ -254,8 +254,8 @@ export const getServerSideProps = withAccountLayout(
 const SubscriptionDetailPage: NextPageWithLayout<
   SubscriptionDetailPageProps
 > = (props) => {
-  const lang = useSettingsStore((state) => state.settings?.lang);
-  const text = subscriptionDetailsText(lang);
+  const i18n = useI18n();
+  const text = subscriptionDetailsText(i18n);
   const subscription = formatSubscription(props.subscription, text);
 
   const { locale } = useRouter();

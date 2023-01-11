@@ -23,8 +23,7 @@ import type {
 } from 'lib/graphql/generated/sdk';
 import useClassNames from 'hooks/useClassNames';
 import useProductStock from 'hooks/useProductStock';
-import useSettingsStore from 'stores/settings';
-import { fallbackString } from 'utils/text';
+import useI18n from 'hooks/useI18n';
 
 export interface CartItemProps {
   id: string;
@@ -61,15 +60,9 @@ const CartItem: React.FC<CartItemProps> = ({
   stockPurchasable,
   stockLevel,
 }) => {
-  const lang = useSettingsStore((state) => state.settings?.lang);
-  const billingMessage = fallbackString(
-    lang?.cart?.billingMessage,
-    'Pay every {n} {interval}',
-  );
-  const orderMessage = fallbackString(
-    lang?.cart?.orderMessage,
-    'Receive it every {n} {interval}',
-  );
+  const i18n = useI18n();
+  const billingMessage = i18n('cart.billing_message');
+  const orderMessage = i18n('cart.order_message');
 
   const [removeItem, updateItem] = useCartStore((store) => [
     store.removeItem,

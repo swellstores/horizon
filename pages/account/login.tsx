@@ -17,8 +17,8 @@ import { API_ROUTES } from 'types/shared/api';
 import { validateNonEmptyFields } from 'utils/validation';
 import { ACCOUNT_FIELD } from 'types/account';
 import useFetchApi from 'hooks/useFetchApi';
-import useSettingsStore from 'stores/settings';
 import { loginText } from 'utils/lang';
+import useI18n from 'hooks/useI18n';
 
 const propsCallback: GetStaticProps<PageProps> = async () => {
   const storeName = 'Horizon';
@@ -36,8 +36,8 @@ const LoginPage: NextPageWithLayout<PageProps> = ({
   metaTitle,
   metaDescription,
 }) => {
-  const lang = useSettingsStore((state) => state.settings?.lang);
-  const text = loginText(lang);
+  const i18n = useI18n();
+  const text = loginText(i18n);
   const router = useRouter();
   const fetchApi = useFetchApi();
   const [email, setEmail] = useState('');

@@ -3,12 +3,10 @@ import SyncIcon from 'assets/icons/sync.svg';
 import ShippingIcon from 'assets/icons/shipping.svg';
 import { formatScheduleLabel } from 'lib/utils/subscription';
 import type { Schedule } from 'types/subscription';
-import { fallbackString } from 'utils/text';
-import useSettingsStore from 'stores/settings';
 
 interface ScheduleLabelProps {
   type: 'billing' | 'order';
-  base?: string;
+  base: string;
   schedule?: Schedule;
   icon?: boolean;
   textClasses?: string;
@@ -25,32 +23,13 @@ export const ScheduleLabel: React.FC<ScheduleLabelProps> = ({
   iconClasses,
   className,
 }) => {
-  const lang = useSettingsStore((state) => state.settings?.lang);
-
   if (!schedule) return null;
 
-  const billingFallback = fallbackString(
-    lang?.products?.subscription?.billingMessage,
-    'Pay every {n} {interval}',
-  );
-  const orderFallback = fallbackString(
-    lang?.products?.subscription?.orderMessage,
-    'Receive it every {n} {interval}',
-  );
+  const scheduleLabel = formatScheduleLabel(base, schedule);
 
   const IconSvg = type === 'order' ? ShippingIcon : SyncIcon;
 
-  const label = (
-    <span className={textClasses ?? ''}>
-      {formatScheduleLabel(
-        fallbackString(
-          base,
-          type === 'billing' ? billingFallback : orderFallback,
-        ),
-        schedule,
-      )}
-    </span>
-  );
+  const label = <span className={textClasses ?? ''}>{scheduleLabel}</span>;
 
   if (icon) {
     return (

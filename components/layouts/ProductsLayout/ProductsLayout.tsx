@@ -43,9 +43,9 @@ import useClassNames from 'hooks/useClassNames';
 import getGQLClient from 'lib/graphql/client';
 import { generateId } from 'lib/utils/shared_functions';
 import type { Replace } from 'types/utils';
-import useSettingsStore from 'stores/settings';
 import { parseTextWithVariables } from 'utils/text';
 import { categoryPageText } from 'utils/lang';
+import useI18n from 'hooks/useI18n';
 
 export type ProductsPerRow = 2 | 3 | 4 | 5;
 
@@ -90,8 +90,8 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
   ]);
   const [liveSettings, setLiveSettings] = useState(settings);
 
-  const lang = useSettingsStore((state) => state.settings?.lang);
-  const text = categoryPageText(lang);
+  const i18n = useI18n();
+  const text = categoryPageText(i18n);
   const parsedSeeResultsLabel = parseTextWithVariables(text.seeResultsLabel, {
     count: (products?.length || 0).toString(),
   });

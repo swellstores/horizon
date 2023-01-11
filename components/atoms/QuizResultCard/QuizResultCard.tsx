@@ -21,8 +21,7 @@ import type {
   SwellProductVariant,
 } from 'lib/graphql/generated/sdk';
 import ProductOptions from 'components/organisms/ProductOptions';
-import { fallbackString } from 'utils/text';
-import useSettingsStore from 'stores/settings';
+import useI18n from 'hooks/useI18n';
 
 export type QuizResultCardProps = Omit<
   ProductData,
@@ -62,17 +61,11 @@ const QuizResultCard: React.FC<QuizResultCardProps> = ({
     purchaseOptions,
     productVariants,
   });
-  const lang = useSettingsStore((state) => state.settings?.lang);
+  const i18n = useI18n();
 
-  const addLabel = fallbackString(lang?.products?.addToCart, 'Add to bag');
-  const hrefCta = fallbackString(
-    lang?.quiz?.results?.seeProduct,
-    'See product details',
-  );
-  const pricesSeparator = fallbackString(
-    lang?.quiz?.results?.pricesSeparator,
-    'or',
-  );
+  const addLabel = i18n('products.add_to_cart');
+  const hrefCta = i18n('quiz.results.see_product');
+  const pricesSeparator = i18n('quiz.results.prices_separator');
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();

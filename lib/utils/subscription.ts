@@ -1,3 +1,4 @@
+import { getI18n } from 'hooks/useI18n';
 import type {
   Maybe,
   SwellProductPurchaseOptionsSubscriptionPlanBillingSchedule,
@@ -5,7 +6,7 @@ import type {
   SwellSubscriptionBillingSchedule,
   SwellSubscriptionOrderSchedule,
 } from 'lib/graphql/generated/sdk';
-import { lang } from 'stores/settings';
+import useSettingsStore from 'stores/settings';
 import { INTERVAL } from 'types/shared/products';
 import type { Schedule } from 'types/subscription';
 import { parseTextWithVariables } from 'utils/text';
@@ -38,9 +39,11 @@ export function filterSingular(number: number) {
 }
 
 export function getPluralizedInterval(interval: INTERVAL, number: number) {
-  const SINGULAR_MAP =
-    lang()?.products?.interval?.singular || SINGULAR_MAP_FALLBACK;
-  const PLURAL_MAP = lang()?.products?.interval?.plural || PLURAL_MAP_FALLBACK;
+  const i18n = getI18n(useSettingsStore.getState().settings?.lang);
+  const SINGULAR_MAP = (i18n('products.interval.singular') ||
+    SINGULAR_MAP_FALLBACK) as typeof SINGULAR_MAP_FALLBACK;
+  const PLURAL_MAP = (i18n('products.interval.plural') ||
+    PLURAL_MAP_FALLBACK) as typeof PLURAL_MAP_FALLBACK;
 
   return number > 1 ? PLURAL_MAP[interval] : SINGULAR_MAP[interval];
 }
@@ -50,8 +53,10 @@ export function formatSubscriptionInterval(
   intervalCount: number,
   longForm = false,
 ) {
-  const SHORTENED_MAP =
-    lang()?.products?.interval?.short || SHORTENED_MAP_FALLBACK;
+  const i18n = getI18n(useSettingsStore.getState().settings?.lang);
+
+  const SHORTENED_MAP = (i18n('products.interval.short') ||
+    SHORTENED_MAP_FALLBACK) as typeof SHORTENED_MAP_FALLBACK;
 
   return `${filterSingular(intervalCount)}${
     longForm

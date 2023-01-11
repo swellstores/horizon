@@ -3,6 +3,7 @@ import type { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import AccountHeader from './AccountHeader';
 import { accountLinks } from 'utils/lang';
+import { getI18n } from 'hooks/useI18n';
 
 export default {
   title: 'templates/AccountHeader',
@@ -24,7 +25,7 @@ Default.args = {
     height: 20,
     alt: 'Horizon logo',
   },
-  mobileMenuLinks: accountLinks({}),
+  mobileMenuLinks: accountLinks(getI18n(null)),
   pageTitle: 'Orders and Returns',
 };
 

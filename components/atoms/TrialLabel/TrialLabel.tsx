@@ -1,8 +1,7 @@
 import React from 'react';
 import type { Maybe } from 'lib/graphql/generated/sdk';
-import useSettingsStore from 'stores/settings';
 import useCurrencyStore from 'stores/currency';
-import { fallbackString, parseTextWithVariables } from 'utils/text';
+import useI18n from 'hooks/useI18n';
 
 interface TrialLabelProps {
   trialDays?: Maybe<number>;
@@ -10,20 +9,16 @@ interface TrialLabelProps {
 }
 
 const TrialLabel: React.FC<TrialLabelProps> = ({ trialDays, price }) => {
-  const lang = useSettingsStore((state) => state.settings?.lang);
+  const i18n = useI18n();
   const formatPrice = useCurrencyStore((state) => state.formatPrice);
   if (!trialDays || trialDays === 0) return null;
 
-  const trialMessage = fallbackString(
-    lang?.products?.trialMessage,
-    '{n} days free trial, then {price}',
-  );
-  const parsedMessage = parseTextWithVariables(trialMessage, {
+  const trialMessage = i18n('products.trial_message', {
     n: trialDays.toString(),
     price: formatPrice(price ?? 0),
   });
 
-  return <span className="text-2xs text-body">{parsedMessage}</span>;
+  return <span className="text-2xs text-body">{trialMessage}</span>;
 };
 
 export default TrialLabel;

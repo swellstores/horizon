@@ -4,8 +4,7 @@ import PurchaseGroup from 'components/organisms/PurchaseGroup';
 import Plus from 'assets/icons/plus.svg';
 import { PURCHASE_TYPE } from 'types/purchase';
 import type { GrouppedPurchases } from 'utils/purchases';
-import useSettingsStore from 'stores/settings';
-import { fallbackString } from 'utils/text';
+import useI18n from 'hooks/useI18n';
 
 export interface PurchaseListProps {
   title: string;
@@ -18,31 +17,19 @@ const PurchaseList: React.FC<PurchaseListProps> = ({
   groupedPurchases,
   type,
 }) => {
-  const lang = useSettingsStore((state) => state.settings?.lang);
+  const i18n = useI18n();
   const hasPurchases = useMemo(
     () => Object.entries(groupedPurchases).length > 0,
     [groupedPurchases],
   );
 
   const EMPTY_STATE_LABEL_MAP = {
-    [PURCHASE_TYPE.ORDER]: fallbackString(
-      lang?.account?.orders?.empty?.label,
-      "You haven't ordered anything yet.",
-    ),
-    [PURCHASE_TYPE.SUBSCRIPTION]: fallbackString(
-      lang?.account?.subscriptions?.empty?.label,
-      "You haven't subscribed to any products yet.",
-    ),
+    [PURCHASE_TYPE.ORDER]: i18n('account.orders.empty.label'),
+    [PURCHASE_TYPE.SUBSCRIPTION]: i18n('account.subscriptions.empty.label'),
   };
   const EMPTY_STATE_LINK_MAP = {
-    [PURCHASE_TYPE.ORDER]: fallbackString(
-      lang?.account?.orders?.empty?.link,
-      "You haven't ordered anything yet.",
-    ),
-    [PURCHASE_TYPE.SUBSCRIPTION]: fallbackString(
-      lang?.account?.subscriptions?.empty?.link,
-      "You haven't subscribed to any products yet.",
-    ),
+    [PURCHASE_TYPE.ORDER]: i18n('account.orders.empty.link'),
+    [PURCHASE_TYPE.SUBSCRIPTION]: i18n('account.subscriptions.empty.link'),
   };
   const emptyStateLabel = EMPTY_STATE_LABEL_MAP[type];
   const emptyStateLink = EMPTY_STATE_LINK_MAP[type];

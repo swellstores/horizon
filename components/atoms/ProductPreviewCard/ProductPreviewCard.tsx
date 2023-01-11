@@ -1,7 +1,6 @@
+import useI18n from 'hooks/useI18n';
 import React from 'react';
-import useSettingsStore from 'stores/settings';
 import type { PurchasableProductData } from 'types/shared/products';
-import { fallbackString } from 'utils/text';
 import ProductPreviewCardPurchasable from './ProductPreviewCardPurchasable';
 import ProductPreviewCardSimple from './ProductPreviewCardSimple';
 import ProductPreviewCardSkeleton from './ProductPreviewCardSkeleton';
@@ -21,11 +20,9 @@ const ProductPreviewCard: React.FC<ProductPreviewCardProps> = ({
   show_product_description = true,
   ...props
 }) => {
-  const lang = useSettingsStore((state) => state.settings?.lang);
+  const i18n = useI18n();
   const hasStandardPrice = !!product?.purchaseOptions?.standard?.price;
-  const fromPriceLabel = !hasStandardPrice
-    ? fallbackString(lang?.products?.preview?.from, 'From')
-    : '';
+  const fromPriceLabel = !hasStandardPrice ? i18n('products.preview.from') : '';
 
   if (loading) return <ProductPreviewCardSkeleton />;
 

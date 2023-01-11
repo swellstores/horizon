@@ -6,8 +6,7 @@ import type { RootNavItem } from 'types/nav';
 import { getHref } from 'lib/utils/nav';
 import { denullifyArray } from 'lib/utils/denullify';
 import NavLink from 'components/atoms/NavLink';
-import useSettingsStore from 'stores/settings';
-import { fallbackString } from 'utils/text';
+import useI18n from 'hooks/useI18n';
 
 export interface MobileMenuProps extends React.HTMLAttributes<HTMLDivElement> {
   items: RootNavItem[] | null;
@@ -20,8 +19,8 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
   show,
   openDelay,
 }) => {
-  const lang = useSettingsStore((state) => state.settings?.lang);
-  const accountLinkLabel = fallbackString(lang?.navigation?.account, 'Account');
+  const i18n = useI18n();
+  const accountLinkLabel = i18n('navigation.account');
 
   return (
     <Transition

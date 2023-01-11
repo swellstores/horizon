@@ -6,8 +6,7 @@ import CartTotal from 'components/molecules/CartTotal';
 import AddMoreProductsCard from 'components/molecules/AddMoreProductsCard';
 import SadFaceIcon from 'assets/icons/sad-face.svg';
 import type { CartItemProps } from 'components/molecules/CartItem';
-import useSettingsStore from 'stores/settings';
-import { fallbackString, parseTextWithVariables } from 'utils/text';
+import useI18n from 'hooks/useI18n';
 
 export interface CartProps {
   visible: boolean;
@@ -30,16 +29,12 @@ const Cart: React.FC<CartProps> = ({
     setVisible?.(false);
   }, [setVisible]);
   const totalQuantity = items.reduce((acc, item) => acc + item.quantity, 0);
-  const lang = useSettingsStore((state) => state.settings?.lang);
+  const i18n = useI18n();
 
-  const headerLabel = fallbackString(lang?.cart?.header, 'Your bag ({count})');
-  const parsedHeaderLabel = parseTextWithVariables(headerLabel, {
+  const headerLabel = i18n('cart.header', {
     count: totalQuantity.toString(),
   });
-  const emptyMessage = fallbackString(
-    lang?.cart?.emptyMessage,
-    'Your bag is empty.',
-  );
+  const emptyMessage = i18n('cart.empty_message');
 
   return (
     <Transition show={visible} as={Fragment}>
@@ -61,7 +56,7 @@ const Cart: React.FC<CartProps> = ({
           className="fixed left-0 top-0 flex h-screen w-screen flex-col bg-background-primary transition-transform duration-400 lg:left-auto lg:right-0 lg:w-112">
           <div className="flex-1 overflow-auto px-6 pb-4">
             <CartHeader
-              label={parsedHeaderLabel}
+              label={headerLabel}
               className="my-6"
               onClose={closeCart}
             />

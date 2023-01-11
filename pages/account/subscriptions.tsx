@@ -17,8 +17,8 @@ import type {
 import type { SubscriptionCardProps } from 'components/molecules/PurchaseCard/PurchaseCard';
 import { PURCHASE_TYPE } from 'types/purchase';
 import { grouppedPurchases } from 'utils/purchases';
-import useSettingsStore from 'stores/settings';
 import { pageTitleMap } from 'utils/lang';
+import useI18n from 'hooks/useI18n';
 
 interface SubscriptionsPageProps extends PageProps, AccountPageProps {
   subscriptions: SubscriptionCardProps[];
@@ -68,11 +68,11 @@ const SubscriptionsPage: NextPageWithLayout<SubscriptionsPageProps> = ({
   subscriptions,
   pageType,
 }) => {
-  const lang = useSettingsStore((state) => state.settings?.lang);
-  const groupedSubscriptions = grouppedPurchases(subscriptions, lang);
+  const i18n = useI18n();
+  const groupedSubscriptions = grouppedPurchases(subscriptions, i18n);
   return (
     <PurchaseList
-      title={pageTitleMap(lang)[pageType]}
+      title={pageTitleMap(i18n)[pageType]}
       groupedPurchases={groupedSubscriptions}
       type={PURCHASE_TYPE.SUBSCRIPTION}
     />

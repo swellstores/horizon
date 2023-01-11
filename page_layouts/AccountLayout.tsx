@@ -8,6 +8,7 @@ import type { Settings } from 'stores/settings';
 import useSettingsStore from 'stores/settings';
 import { pageTitleMap } from 'utils/lang';
 import type { AccountPageProps } from 'types/shared/pages';
+import useI18n from 'hooks/useI18n';
 
 export interface AccountLayoutProps extends Pick<AccountPageProps, 'pageType'> {
   header: AccountHeaderProps;
@@ -21,8 +22,8 @@ const AccountLayout: React.FC<AccountLayoutProps> = ({
   pageType,
 }) => {
   const setSettings = useSettingsStore((state) => state.setSettings);
-  const lang = useSettingsStore((state) => state.settings?.lang);
-  const links = accountLinks(lang);
+  const i18n = useI18n();
+  const links = accountLinks(i18n);
 
   // Stores settings retrieved server-side on the client-side store.
   useEffect(() => {
@@ -34,7 +35,7 @@ const AccountLayout: React.FC<AccountLayoutProps> = ({
     <div>
       <AccountHeader
         {...header}
-        pageTitle={pageTitleMap(lang)[pageType]}
+        pageTitle={pageTitleMap(i18n)[pageType]}
         mobileMenuLinks={links}
       />
       <div className="p-6 md:flex md:gap-20 md:px-14 md:pt-16 md:pb-12">

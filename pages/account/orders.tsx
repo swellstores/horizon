@@ -16,9 +16,9 @@ import type {
 } from 'types/shared/pages';
 import { PURCHASE_TYPE } from 'types/purchase';
 import { formatProductImages } from 'lib/utils/products';
-import useSettingsStore from 'stores/settings';
 import { grouppedPurchases } from 'utils/purchases';
 import { pageTitleMap } from 'utils/lang';
+import useI18n from 'hooks/useI18n';
 
 interface OrdersPageProps extends PageProps, AccountPageProps {
   orders: OrderCardProps[];
@@ -67,11 +67,11 @@ const OrdersPage: NextPageWithLayout<OrdersPageProps> = ({
   orders,
   pageType,
 }) => {
-  const lang = useSettingsStore((state) => state.settings?.lang);
-  const groupedOrders = grouppedPurchases(orders, lang);
+  const i18n = useI18n();
+  const groupedOrders = grouppedPurchases(orders, i18n);
   return (
     <PurchaseList
-      title={pageTitleMap(lang)[pageType]}
+      title={pageTitleMap(i18n)[pageType]}
       groupedPurchases={groupedOrders}
       type={PURCHASE_TYPE.ORDER}
     />

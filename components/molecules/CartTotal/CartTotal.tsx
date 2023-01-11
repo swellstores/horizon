@@ -2,8 +2,7 @@ import React from 'react';
 import useCurrencyStore from 'stores/currency';
 import Button from 'components/atoms/Button';
 import { BUTTON_TYPE } from 'types/shared/button';
-import useSettingsStore from 'stores/settings';
-import { fallbackString } from 'utils/text';
+import useI18n from 'hooks/useI18n';
 
 export interface CartTotalProps {
   total: number;
@@ -19,10 +18,10 @@ const CartTotal: React.FC<CartTotalProps> = ({
   checkoutUrl,
 }) => {
   const formatPrice = useCurrencyStore((state) => state.formatPrice);
-  const lang = useSettingsStore((state) => state.settings?.lang);
+  const i18n = useI18n();
 
-  const totalLabel = fallbackString(lang?.cart?.total, 'Total');
-  const checkoutLabel = fallbackString(lang?.cart?.checkoutButton, 'Checkout');
+  const totalLabel = i18n('cart.total');
+  const checkoutLabel = i18n('cart.checkout_button');
 
   return (
     <div

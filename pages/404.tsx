@@ -1,28 +1,18 @@
 import ErrorLayout from 'components/molecules/ErrorLayout';
+import useI18n from 'hooks/useI18n';
 import { withMainLayout } from 'lib/utils/fetch_decorators';
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import useSettingsStore from 'stores/settings';
 import { BUTTON_TYPE } from 'types/shared/button';
-import { fallbackString } from 'utils/text';
 
 export const getStaticProps = withMainLayout(() => ({ props: {} }));
 
 const FourOhFourPage: NextPage = () => {
-  const lang = useSettingsStore((state) => state.settings?.lang);
+  const i18n = useI18n();
 
-  const title = fallbackString(
-    lang?.errors?.pageNotFound?.title,
-    'Page not found',
-  );
-  const message = fallbackString(
-    lang?.errors?.pageNotFound?.message,
-    'The page you were looking for is not available. Double check your URL or explore Horizon for new findings.',
-  );
-  const returnHome = fallbackString(
-    lang?.errors?.pageNotFound?.returnHomeLink,
-    'Back to home',
-  );
+  const title = i18n('errors.page_not_found.title');
+  const message = i18n('errors.page_not_found.message');
+  const returnHome = i18n('errors.page_not_found.return_home_link');
 
   return (
     <article className="min-h-screen">

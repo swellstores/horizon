@@ -7,8 +7,7 @@ import useLogout from 'hooks/useLogout';
 import AccountDetails, {
   AccountDetailsProps,
 } from 'components/atoms/AccountDetails';
-import { fallbackString } from 'utils/text';
-import useSettingsStore from 'stores/settings';
+import useI18n from 'hooks/useI18n';
 
 export interface SidebarProps {
   links: AccountNavLinkProps[];
@@ -16,8 +15,8 @@ export interface SidebarProps {
 }
 
 const TheSidebar: React.FC<SidebarProps> = ({ links, accountDetails }) => {
-  const lang = useSettingsStore((state) => state.settings?.lang);
-  const logoutLabel = fallbackString(lang?.account?.logout?.label, 'Log out');
+  const i18n = useI18n();
+  const logoutLabel = i18n('account.logout.label');
 
   const logout = useLogout();
 

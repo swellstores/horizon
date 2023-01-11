@@ -3,10 +3,9 @@ import type { GetStaticProps } from 'next';
 import { getAuthLayout } from 'lib/utils/layout_getters';
 import { withAuthLayout } from 'lib/utils/fetch_decorators';
 import type { NextPageWithLayout, PageProps } from 'types/shared/pages';
-import useSettingsStore from 'stores/settings';
 import { passwordRecoveryText } from 'utils/lang';
 import { useRouter } from 'next/router';
-import { parseTextWithVariables } from 'utils/text';
+import useI18n from 'hooks/useI18n';
 
 const propsCallback: GetStaticProps<PageProps> = async () => {
   return {
@@ -21,13 +20,16 @@ const CheckEmailPage: NextPageWithLayout<PageProps> = ({
   metaDescription,
 }) => {
   const router = useRouter();
-  const lang = useSettingsStore((state) => state.settings?.lang);
-  const text = passwordRecoveryText(lang).checkEmail;
-  const backToLoginText = parseTextWithVariables(text.backToLoginText, {
-    loginLink: `<a class="font-bold hover:underline" href='/${
-      router.locale !== router.defaultLocale ? `${router.locale}/` : ''
-    }/account/login'>${text.backToLoginLink}</a>`,
-  });
+  const i18n = useI18n();
+  const text = passwordRecoveryText(i18n).checkEmail;
+  const backToLoginText = i18n(
+    'account.password_recovery.check_email.back_to_login_text',
+    {
+      loginLink: `<a class="font-bold hover:underline" href='/${
+        router.locale !== router.defaultLocale ? `${router.locale}/` : ''
+      }/account/login'>${text.backToLoginLink}</a>`,
+    },
+  );
 
   return (
     <article className="mx-6 h-full pt-12 pb-10 md:pb-18 md:pt-16">

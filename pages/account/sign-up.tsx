@@ -23,8 +23,8 @@ import { ACCOUNT_FIELD } from 'types/account';
 import useFetchApi from 'hooks/useFetchApi';
 import useNotificationStore from 'stores/notification';
 import { NOTIFICATION_TYPE } from 'types/shared/notification';
-import useSettingsStore from 'stores/settings';
 import { signupText } from 'utils/lang';
+import useI18n from 'hooks/useI18n';
 
 const propsCallback: GetServerSideProps<PageProps> = async () => {
   return {
@@ -37,8 +37,8 @@ export const getServerSideProps = withAuthLayout(propsCallback);
 const SignUpPage: NextPageWithLayout<
   ServerSideProps<typeof getServerSideProps>
 > = ({ metaTitle, metaDescription }) => {
-  const lang = useSettingsStore((state) => state.settings?.lang);
-  const text = signupText(lang);
+  const i18n = useI18n();
+  const text = signupText(i18n);
   const router = useRouter();
   const fetchApi = useFetchApi();
   const send = useNotificationStore((store) => store.send);

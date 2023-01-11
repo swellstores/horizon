@@ -1,5 +1,4 @@
-import useSettingsStore from 'stores/settings';
-import { fallbackString, parseTextWithVariables } from 'utils/text';
+import useI18n from 'hooks/useI18n';
 
 export interface ProductCountProps
   extends React.HTMLAttributes<HTMLDivElement> {
@@ -11,13 +10,8 @@ const ProductCount: React.FC<ProductCountProps> = ({
   className,
   ...props
 }) => {
-  const lang = useSettingsStore((state) => state.settings?.lang);
-
-  const productCountLabel = fallbackString(
-    lang?.categories?.productCount,
-    'All products ({count})',
-  );
-  const parsedProductCountLabel = parseTextWithVariables(productCountLabel, {
+  const i18n = useI18n();
+  const productCountLabel = i18n('categories.product_count', {
     count: count.toString(),
   });
 
@@ -28,7 +22,7 @@ const ProductCount: React.FC<ProductCountProps> = ({
         'w-full text-2xs uppercase text-primary',
         className ?? '',
       ].join(' ')}>
-      {parsedProductCountLabel}
+      {productCountLabel}
     </div>
   );
 };

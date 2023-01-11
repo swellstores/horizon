@@ -1,30 +1,20 @@
 import ErrorLayout from 'components/molecules/ErrorLayout';
+import useI18n from 'hooks/useI18n';
 import { withMainLayout } from 'lib/utils/fetch_decorators';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import useSettingsStore from 'stores/settings';
 import { BUTTON_TYPE } from 'types/shared/button';
-import { fallbackString } from 'utils/text';
 
 export const getStaticProps = withMainLayout(() => ({ props: {} }));
 
 const FiveOhFivePage: NextPage = () => {
   const router = useRouter();
-  const lang = useSettingsStore((state) => state?.settings?.lang);
+  const i18n = useI18n();
 
-  const title = fallbackString(
-    lang?.errors?.internal?.title,
-    'Page unavailable',
-  );
-  const message = fallbackString(
-    lang?.errors?.internal?.message,
-    'The page you were looking for is temporarily unavailable. Please try refreshing the page or contact us if the issue persists',
-  );
-  const reloadPage = fallbackString(
-    lang?.errors?.internal?.reload,
-    'Refresh page',
-  );
+  const title = i18n('errors.internal.title');
+  const message = i18n('errors.internal.message');
+  const reloadPage = i18n('errors.internal.reload');
 
   return (
     <article className="min-h-screen">

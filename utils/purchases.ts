@@ -2,6 +2,7 @@ import type {
   OrderCardProps,
   SubscriptionCardProps,
 } from 'components/molecules/PurchaseCard';
+import type { I18n } from 'hooks/useI18n';
 import type { ORDER_STATUS } from 'types/orders';
 import { PURCHASE_TYPE } from 'types/purchase';
 import type { SUBSCRIPTION_STATUS } from 'types/subscription';
@@ -19,14 +20,14 @@ export const grouppedPurchases = <
   Acc extends GrouppedPurchases,
 >(
   purchases: P,
-  lang: any,
+  i18n: I18n,
 ) =>
   purchases.reduce<Acc>((accumulator, currentValue) => {
     const { status } = currentValue;
 
     if (status && !accumulator[status]) {
       const title =
-        STATUS_MAP(lang).get(
+        STATUS_MAP(i18n).get(
           currentValue.type === PURCHASE_TYPE.ORDER
             ? orderStatusKey(status as ORDER_STATUS)
             : subscriptionStatusKey(status as SUBSCRIPTION_STATUS),

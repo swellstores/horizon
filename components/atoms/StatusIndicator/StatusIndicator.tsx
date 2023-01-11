@@ -1,5 +1,5 @@
+import useI18n from 'hooks/useI18n';
 import React, { useMemo } from 'react';
-import useSettingsStore from 'stores/settings';
 import type { Status } from 'types/global';
 import type { ORDER_STATUS } from 'types/orders';
 import type { STOCK_STATUS } from 'types/shared/products';
@@ -21,7 +21,7 @@ const StatusIndicator: React.FC<StatusIndicatorProps> = ({
   type,
   payload,
 }) => {
-  const lang = useSettingsStore((state) => state.settings?.lang);
+  const i18n = useI18n();
   const statusKey =
     type === 'order'
       ? orderStatusKey(status as ORDER_STATUS)
@@ -29,8 +29,8 @@ const StatusIndicator: React.FC<StatusIndicatorProps> = ({
       ? subscriptionStatusKey(status as SUBSCRIPTION_STATUS)
       : (status as STOCK_STATUS);
   const template = useMemo(
-    () => STATUS_MAP(lang).get(statusKey),
-    [statusKey, lang],
+    () => STATUS_MAP(i18n).get(statusKey),
+    [statusKey, i18n],
   );
 
   return (

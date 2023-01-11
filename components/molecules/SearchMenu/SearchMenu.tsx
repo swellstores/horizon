@@ -7,8 +7,7 @@ import CloseIcon from 'assets/icons/close.svg';
 import useProductSearch from 'hooks/useProductSearch';
 import useClassNames from 'hooks/useClassNames';
 import ProductPreviewCardSimple from 'components/atoms/ProductPreviewCard/ProductPreviewCardSimple';
-import useSettingsStore from 'stores/settings';
-import { fallbackString } from 'utils/text';
+import useI18n from 'hooks/useI18n';
 
 interface SearchMenuProps {
   closeMenu: () => void;
@@ -21,7 +20,7 @@ const SearchMenu: React.FC<SearchMenuProps> = ({
   show,
   openDelay,
 }) => {
-  const lang = useSettingsStore((state) => state.settings?.lang);
+  const i18n = useI18n();
   const { searchTerm, onSearchTermChange, isSearching, results, clear } =
     useProductSearch();
   const hideProducts = useMemo(
@@ -29,10 +28,7 @@ const SearchMenu: React.FC<SearchMenuProps> = ({
     [isSearching, results.length],
   );
 
-  const placeholderLabel = fallbackString(
-    lang?.search?.placeholder,
-    'Search by product name or SKU',
-  );
+  const placeholderLabel = i18n('search.placeholder');
 
   useEffect(() => {
     let timeout: NodeJS.Timeout | undefined;

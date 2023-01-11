@@ -41,8 +41,7 @@ import { withMainLayout } from 'lib/utils/fetch_decorators';
 import type { ParsedUrlQuery } from 'querystring';
 import StatusIndicator from 'components/atoms/StatusIndicator';
 import { useEffect } from 'react';
-import useSettingsStore from 'stores/settings';
-import { fallbackString } from 'utils/text';
+import useI18n from 'hooks/useI18n';
 
 export enum LAYOUT_ALIGNMENT {
   STANDARD = 'standard',
@@ -156,13 +155,10 @@ const ProductsPage: React.FC<ProductsPageProps> = ({
   meta,
 }) => {
   const { locale } = useRouter();
-  const lang = useSettingsStore((state) => state.settings?.lang);
+  const i18n = useI18n();
 
-  const addLabel = fallbackString(lang?.products?.addToCart, 'Add to bag');
-  const upsellsTitle = fallbackString(
-    lang?.products?.upsells?.title,
-    'You may also like',
-  );
+  const addLabel = i18n('products.add_to_cart');
+  const upsellsTitle = i18n('products.upsells.title');
 
   const [liveSettings, setLiveSettings] = useState(settings);
 

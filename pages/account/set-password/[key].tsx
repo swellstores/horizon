@@ -16,7 +16,7 @@ import { ACCOUNT_FIELD } from 'types/account';
 import { validateNonEmptyFields } from 'utils/validation';
 import useFetchApi from 'hooks/useFetchApi';
 import { setNewPasswordText } from 'utils/lang';
-import useSettingsStore from 'stores/settings';
+import useI18n from 'hooks/useI18n';
 
 const propsCallback: GetServerSideProps<PageProps> = async () => {
   return {
@@ -30,8 +30,8 @@ const SetPasswordPage: NextPageWithLayout<PageProps> = ({
   metaTitle,
   metaDescription,
 }) => {
-  const lang = useSettingsStore((state) => state.settings?.lang);
-  const text = setNewPasswordText(lang);
+  const i18n = useI18n();
+  const text = setNewPasswordText(i18n);
   const router = useRouter();
   const fetchApi = useFetchApi();
   const [password, setPassword] = useState('');
