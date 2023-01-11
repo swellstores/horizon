@@ -12,6 +12,7 @@ Since Horizon is a standard Next.js app, deploying it on Vercel only takes a few
 - Subscriptions
 - Content personalization through customizable Quizzes
 - Multi-currency
+- i18n
 - Product sales
 - Automatic discounts
 - One-click add-to-cart for products
@@ -151,6 +152,56 @@ To modify any of the theme settings, first make the change in the Editor and the
 
 In regards to customizing the editor's schema itself, please see [here](https://developers.swell.is/storefronts/origin#content) for more information.
 
+## Customize language settings
+
+The language settings represent a set of variables that can be translated into multiple languages in the editor and used throughout Horizon.
+
+The `config/editor.json` file has a `lang` key which holds all the text variables used throughout the app. If you want to add a new setting follow these steps:
+
+Add the object containing the configuration of the language setting inside `lang` under the namespace you want (ex: products)
+
+```json
+{
+  "lang": {
+    //...
+    {
+      "id": "lang.products.premium_member_label",
+      "label": "Premium member label",
+      "default": "Premium",
+      "type": "short_text",
+      "localized": true
+    }
+  }
+}
+```
+
+Add a default value in the `config/defaults.json` for the new setting (under the same path as the id)
+
+```json
+{
+  "lang": {
+    //...
+    "products": {
+      "premium_member_label": "Premium"
+    }
+  }
+}
+```
+
+Push the new settings to the store by running the `sync` npm script. This will add the new language setting to the editor's schema.
+
+```bash
+npm run sync
+```
+
+Use the new language setting in the code with the i18n hook
+
+```js
+const i18n = useI18n();
+
+const premiumLabel = i18n('products.premium_member_label');
+```
+
 # Preview mode
 
 Horizon automatically enters [Next.js' preview mode](https://nextjs.org/docs/advanced-features/preview-mode) when the `NEXT_PUBLIC_SWELL_EDITOR` environment variable is set to true. This is done through the `preview.ts` API route, which sets the cookies necessary to alert Next.js that pages should be rendered on-demand instead of statically. This is important when running alongside the editor so that the changes made within it are immediately reflected in the storefront without requiring a new build.
@@ -168,3 +219,7 @@ Before every commit, the following checks are made:
 This process will automatically attempt to fix the formatting and some of the eslint errors and warnings.
 
 ESLint and TypeScript errors will prevent commits from being completed. See `lint-staged.config.js` and `eslintrc.json` for more information on the checks that are made.
+
+```
+
+```
