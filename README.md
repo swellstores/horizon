@@ -219,7 +219,3 @@ Before every commit, the following checks are made:
 This process will automatically attempt to fix the formatting and some of the eslint errors and warnings.
 
 ESLint and TypeScript errors will prevent commits from being completed. See `lint-staged.config.js` and `eslintrc.json` for more information on the checks that are made.
-
-```
-
-```
