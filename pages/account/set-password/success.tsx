@@ -5,8 +5,14 @@ import { withAuthLayout } from 'lib/utils/fetch_decorators';
 import type { NextPageWithLayout, PageProps } from 'types/shared/pages';
 import Button from 'components/atoms/Button';
 import { BUTTON_TYPE } from 'types/shared/button';
-import { setNewPasswordText } from 'utils/lang';
-import useI18n from 'hooks/useI18n';
+import useI18n, { I18n } from 'hooks/useI18n';
+
+const successText = (i18n: I18n) => ({
+  pageTitle: i18n('account.set_new_password.success.page_title'),
+  title: i18n('account.set_new_password.success.title'),
+  message: i18n('account.set_new_password.success.message'),
+  loginLink: i18n('account.set_new_password.success.login_link'),
+});
 
 const propsCallback: GetStaticProps<PageProps> = async () => {
   return {
@@ -21,7 +27,7 @@ const CheckEmailPage: NextPageWithLayout<PageProps> = ({
   metaDescription,
 }) => {
   const i18n = useI18n();
-  const text = setNewPasswordText(i18n).success;
+  const text = successText(i18n);
   return (
     <article className="mx-6 h-full pt-12 pb-10 md:pb-18 md:pt-16">
       <Head>

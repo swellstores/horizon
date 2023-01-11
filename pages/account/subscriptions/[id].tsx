@@ -37,12 +37,75 @@ import { useRouter } from 'next/router';
 import { denullifyArray } from 'lib/utils/denullify';
 import useFetchApi from 'hooks/useFetchApi';
 import { API_ROUTES } from 'types/shared/api';
-import { subscriptionDetailsText } from 'utils/lang';
-import useI18n from 'hooks/useI18n';
+import useI18n, { I18n } from 'hooks/useI18n';
 
 interface SubscriptionDetailPageProps extends PageProps {
   subscription: SwellSubscription;
 }
+
+const subscriptionDetailsText = (i18n: I18n) => ({
+  backToSubscriptionsLabel: i18n('account.subscriptions.details.back_link'),
+  createdLabel: i18n('account.subscriptions.details.created_label'),
+  nextBillingLabel: i18n('account.subscriptions.details.next_billing_label'),
+  itemsLabel: i18n('account.subscriptions.details.items_label'),
+  totalLabel: i18n('account.subscriptions.details.total_label'),
+  quantityLabel: i18n('account.subscriptions.details.quantity_label'),
+  priceLabel: i18n('account.subscriptions.details.price_label'),
+  subtotalLabel: i18n('account.subscriptions.details.subtotal_label'),
+  discountsLabel: i18n('account.subscriptions.details.discounts_label'),
+  shippingLabel: i18n('account.subscriptions.details.shipping_label'),
+  taxLabel: i18n('account.subscriptions.details.tax_label'),
+  refundLabel: i18n('account.subscriptions.details.refund_label'),
+  deliveryInfoTitle: i18n('account.subscriptions.details.delivery_info_title'),
+  detailsLabel: i18n('account.subscriptions.details.details_label'),
+  phoneNumberLabel: i18n('account.subscriptions.details.phone_number_label'),
+  methodLabel: i18n('account.subscriptions.details.method_label'),
+  orderNotesLabel: i18n('account.subscriptions.details.order_notes_label'),
+  paymentInfoTitle: i18n('account.subscriptions.details.payment_info_title'),
+  paymentMethodLabel: i18n(
+    'account.subscriptions.details.payment_method_label',
+  ),
+  cardLabel: i18n('account.subscriptions.details.card_label'),
+  billingAddressLabel: i18n(
+    'account.subscriptions.details.billing_address_label',
+  ),
+  cancel: {
+    message: i18n('account.subscriptions.details.cancel.message'),
+    label: i18n('account.subscriptions.details.cancel.label'),
+    dialogTitle: i18n('account.subscriptions.details.cancel.dialog_title'),
+    dialogBody: i18n('account.subscriptions.details.cancel.dialog_body'),
+    buttonLabel: i18n(
+      'account.subscriptions.details.cancel.cancel_button_label',
+    ),
+    subscriptionButtonLabel: i18n(
+      'account.subscriptions.details.cancel.cancel_subscription_button_label',
+    ),
+    successMessage: i18n(
+      'account.subscriptions.details.cancel.success_message',
+    ),
+    errorMessage: i18n('account.subscriptions.details.cancel.error_message'),
+  },
+  trialEndMessage: i18n('account.subscriptions.details.trial_end_message'),
+  headerBillingMessage: i18n(
+    'account.subscriptions.details.header_billing_message',
+  ),
+  renewalLimitLabel: i18n('account.subscriptions.details.renewal_limit_label'),
+  shipmentLimitLabel: i18n(
+    'account.subscriptions.details.shipment_limit_label',
+  ),
+  renewalSingularLabel: i18n(
+    'account.subscriptions.details.renewal_singular_label',
+  ),
+  renewalPluralLabel: i18n(
+    'account.subscriptions.details.renewal_plural_label',
+  ),
+  shipmentSingularLabel: i18n(
+    'account.subscriptions.details.shipment_singular_label',
+  ),
+  shipmentPluralLabel: i18n(
+    'account.subscriptions.details.shipment_plural_label',
+  ),
+});
 
 const formatSubscription = (
   subscription: SwellSubscription,

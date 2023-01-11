@@ -3,9 +3,17 @@ import type { GetStaticProps } from 'next';
 import { getAuthLayout } from 'lib/utils/layout_getters';
 import { withAuthLayout } from 'lib/utils/fetch_decorators';
 import type { NextPageWithLayout, PageProps } from 'types/shared/pages';
-import { passwordRecoveryText } from 'utils/lang';
 import { useRouter } from 'next/router';
-import useI18n from 'hooks/useI18n';
+import useI18n, { I18n } from 'hooks/useI18n';
+
+const checkEmailText = (i18n: I18n) => ({
+  pageTitle: i18n('account.password_recovery.check_email.page_title'),
+  title: i18n('account.password_recovery.check_email.title'),
+  message: i18n('account.password_recovery.check_email.message'),
+  backToLoginLink: i18n(
+    'account.password_recovery.check_email.back_to_login_link',
+  ),
+});
 
 const propsCallback: GetStaticProps<PageProps> = async () => {
   return {
@@ -21,7 +29,7 @@ const CheckEmailPage: NextPageWithLayout<PageProps> = ({
 }) => {
   const router = useRouter();
   const i18n = useI18n();
-  const text = passwordRecoveryText(i18n).checkEmail;
+  const text = checkEmailText(i18n);
   const backToLoginText = i18n(
     'account.password_recovery.check_email.back_to_login_text',
     {

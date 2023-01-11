@@ -27,12 +27,38 @@ import { formatDateToLocale } from 'lib/utils/date';
 import { denullifyArray } from 'lib/utils/denullify';
 import { getClientWithSessionToken } from 'lib/graphql/client';
 import type { SwellOrder } from 'lib/graphql/generated/sdk';
-import { orderDetailsText } from 'utils/lang';
-import useI18n from 'hooks/useI18n';
+import useI18n, { I18n } from 'hooks/useI18n';
 
 interface OrderDetailPageProps extends PageProps, AccountPageProps {
   order: SwellOrder;
 }
+
+const orderDetailsText = (i18n: I18n) => ({
+  backToOrdersLabel: i18n('account.orders.details.back_link'),
+  orderLabel: i18n('account.orders.details.order_label'),
+  createReturnLabel: i18n('account.orders.details.create_return_label'),
+  returnDialogTitle: i18n('account.orders.details.return_dialog_title'),
+  returnDialogBody: i18n('account.orders.details.return_dialog_body'),
+  orderDateLabel: i18n('account.orders.details.order_date_label'),
+  itemsLabel: i18n('account.orders.details.items_label'),
+  totalLabel: i18n('account.orders.details.total_label'),
+  quantityLabel: i18n('account.orders.details.quantity_label'),
+  priceLabel: i18n('account.orders.details.price_label'),
+  subtotalLabel: i18n('account.orders.details.subtotal_label'),
+  discountsLabel: i18n('account.orders.details.discounts_label'),
+  shippingLabel: i18n('account.orders.details.shipping_label'),
+  taxLabel: i18n('account.orders.details.tax_label'),
+  refundLabel: i18n('account.orders.details.refund_label'),
+  deliveryInfoTitle: i18n('account.orders.details.delivery_info_title'),
+  detailsLabel: i18n('account.orders.details.details_label'),
+  phoneNumberLabel: i18n('account.orders.details.phone_number_label'),
+  methodLabel: i18n('account.orders.details.method_label'),
+  orderNotesLabel: i18n('account.orders.details.order_notes_label'),
+  paymentInfoTitle: i18n('account.orders.details.payment_info_title'),
+  paymentMethodLabel: i18n('account.orders.details.payment_method_label'),
+  cardLabel: i18n('account.orders.details.card_label'),
+  billingAddressLabel: i18n('account.orders.details.billing_address_label'),
+});
 
 const formatOrder = (
   order: SwellOrder,

@@ -23,8 +23,43 @@ import { ACCOUNT_FIELD } from 'types/account';
 import useFetchApi from 'hooks/useFetchApi';
 import useNotificationStore from 'stores/notification';
 import { NOTIFICATION_TYPE } from 'types/shared/notification';
-import { signupText } from 'utils/lang';
-import useI18n from 'hooks/useI18n';
+import useI18n, { I18n } from 'hooks/useI18n';
+
+const signupText = (i18n: I18n) => ({
+  pageTitle: i18n('account.signup.page_title'),
+  signupTitle: i18n('account.signup.title'),
+  firstName: {
+    label: i18n('account.signup.first_name.label'),
+    emptyErrorText: i18n('account.signup.first_name.empty_error_text'),
+    placeholder: i18n('account.signup.first_name.placeholder'),
+  },
+  lastName: {
+    label: i18n('account.signup.last_name.label'),
+    emptyErrorText: i18n('account.signup.last_name.empty_error_text'),
+    placeholder: i18n('account.signup.last_name.placeholder'),
+  },
+  email: {
+    label: i18n('account.signup.email.label'),
+    emptyErrorText: i18n('account.signup.email.empty_error_text'),
+    invalidErrorText: i18n('account.signup.email.invalid_error_text'),
+    placeholder: i18n('account.signup.email.placeholder'),
+  },
+  password: {
+    label: i18n('account.signup.password.label'),
+    emptyErrorText: i18n('account.signup.password.empty_error_text'),
+    invalidErrorText: i18n('account.signup.password.invalid_error_text'),
+    placeholder: i18n('account.signup.password.placeholder'),
+    requirementsText: i18n('account.signup.password.requirements_text'),
+  },
+  errors: {
+    server: i18n('account.signup.errors.server_error_text'),
+    emailTaken: i18n('account.signup.errors.email_taken'),
+  },
+  signupButton: i18n('account.signup.signup_button'),
+  registeredUser: i18n('account.signup.registered_user_label'),
+  loginLink: i18n('account.signup.login_link'),
+  successMessage: i18n('account.signup.success_message'),
+});
 
 const propsCallback: GetServerSideProps<PageProps> = async () => {
   return {

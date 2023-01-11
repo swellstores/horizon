@@ -15,8 +15,36 @@ import { API_ROUTES } from 'types/shared/api';
 import { ACCOUNT_FIELD } from 'types/account';
 import { validateNonEmptyFields } from 'utils/validation';
 import useFetchApi from 'hooks/useFetchApi';
-import { setNewPasswordText } from 'utils/lang';
-import useI18n from 'hooks/useI18n';
+import useI18n, { I18n } from 'hooks/useI18n';
+
+const setNewPasswordText = (i18n: I18n) => ({
+  pageTitle: i18n('account.set_new_password.page_title'),
+  title: i18n('account.set_new_password.title'),
+  subtitle: i18n('account.set_new_password.subtitle'),
+  confirmPassword: {
+    emptyErrorText: i18n(
+      'account.set_new_password.confirm_password.empty_error_text',
+    ),
+    label: i18n('account.set_new_password.confirm_password.label'),
+    placeholder: i18n('account.set_new_password.confirm_password.placeholder'),
+  },
+  password: {
+    emptyErrorText: i18n('account.set_new_password.password.empty_error_text'),
+    label: i18n('account.set_new_password.password.label'),
+    placeholder: i18n('account.set_new_password.password.placeholder'),
+    requirementsText: i18n(
+      'account.set_new_password.password.requirements_text',
+    ),
+    invalidErrorText: i18n(
+      'account.set_new_password.password.invalid_error_text',
+    ),
+  },
+  submitButtonLabel: i18n('account.set_new_password.submit_button_label'),
+  errors: {
+    passwordMismatch: i18n('account.set_new_password.errors.password_mismatch'),
+    server: i18n('account.set_new_password.errors.server'),
+  },
+});
 
 const propsCallback: GetServerSideProps<PageProps> = async () => {
   return {

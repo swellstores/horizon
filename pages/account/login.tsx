@@ -17,8 +17,32 @@ import { API_ROUTES } from 'types/shared/api';
 import { validateNonEmptyFields } from 'utils/validation';
 import { ACCOUNT_FIELD } from 'types/account';
 import useFetchApi from 'hooks/useFetchApi';
-import { loginText } from 'utils/lang';
-import useI18n from 'hooks/useI18n';
+import useI18n, { I18n } from 'hooks/useI18n';
+
+const loginText = (i18n: I18n) => ({
+  pageTitle: i18n('account.login.page_title'),
+  title: i18n('account.login.title'),
+  email: {
+    label: i18n('account.login.email.label'),
+    emptyErrorText: i18n('account.login.email.empty_error_text'),
+    invalidErrorText: i18n('account.login.email.invalid_error_text'),
+    placeholder: i18n('account.login.email.placeholder'),
+  },
+  password: {
+    label: i18n('account.login.password.label'),
+    emptyErrorText: i18n('account.login.password.empty_error_text'),
+    invalidErrorText: i18n('account.login.password.invalid_error_text'),
+    placeholder: i18n('account.login.password.placeholder'),
+  },
+  passwordRecovery: i18n('account.login.password_recovery'),
+  errors: {
+    invalidCredentials: i18n('account.login.errors.invalid_credentials'),
+    server: i18n('account.login.errors.server'),
+  },
+  loginButton: i18n('account.login.login_button'),
+  noAccount: i18n('account.login.no_account'),
+  signupLink: i18n('account.login.signup_link'),
+});
 
 const propsCallback: GetStaticProps<PageProps> = async () => {
   const storeName = 'Horizon';

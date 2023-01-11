@@ -44,8 +44,7 @@ import getGQLClient from 'lib/graphql/client';
 import { generateId } from 'lib/utils/shared_functions';
 import type { Replace } from 'types/utils';
 import { parseTextWithVariables } from 'utils/text';
-import { categoryPageText } from 'utils/lang';
-import useI18n from 'hooks/useI18n';
+import useI18n, { I18n } from 'hooks/useI18n';
 
 export type ProductsPerRow = 2 | 3 | 4 | 5;
 
@@ -65,6 +64,15 @@ export interface ProductsLayoutProps {
   currency?: string;
   settings: ProductsLayoutSettings;
 }
+
+const productsLayoutText = (i18n: I18n) => ({
+  filtersLabel: i18n('categories.filters.title'),
+  removeAllLabel: i18n('categories.filters.remove_all'),
+  priceLabel: i18n('categories.filters.price'),
+  seeResultsLabel: i18n('categories.filters.see_results'),
+  allProductsLabel: i18n('categories.filters.all_products'),
+  mobileButton: i18n('categories.filters.mobile_button'),
+});
 
 const ProductsLayout: React.FC<ProductsLayoutProps> = ({
   categories,
@@ -91,7 +99,7 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
   const [liveSettings, setLiveSettings] = useState(settings);
 
   const i18n = useI18n();
-  const text = categoryPageText(i18n);
+  const text = productsLayoutText(i18n);
   const parsedSeeResultsLabel = parseTextWithVariables(text.seeResultsLabel, {
     count: (products?.length || 0).toString(),
   });

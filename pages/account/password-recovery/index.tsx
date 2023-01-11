@@ -15,8 +15,26 @@ import { API_ROUTES } from 'types/shared/api';
 import { ACCOUNT_FIELD } from 'types/account';
 import { validateNonEmptyFields } from 'utils/validation';
 import useFetchApi from 'hooks/useFetchApi';
-import { passwordRecoveryText } from 'utils/lang';
-import useI18n from 'hooks/useI18n';
+import useI18n, { I18n } from 'hooks/useI18n';
+
+const passwordRecoveryText = (i18n: I18n) => ({
+  pageTitle: i18n('account.password_recovery.page_title'),
+  title: i18n('account.password_recovery.title'),
+  subtitle: i18n('account.password_recovery.subtitle'),
+  email: {
+    label: i18n('account.password_recovery.email.label'),
+    emptyErrorText: i18n('account.password_recovery.email.empty_error_text'),
+    invalidErrorText: i18n(
+      'account.password_recovery.email.invalid_error_text',
+    ),
+    placeholder: i18n('account.password_recovery.email.placeholder'),
+  },
+  submitButtonLabel: i18n('account.password_recovery.submit_button_label'),
+  backToLoginLink: i18n('account.password_recovery.back_to_login_link'),
+  errors: {
+    server: i18n('account.password_recovery.errors.server'),
+  },
+});
 
 const propsCallback: GetStaticProps<PageProps> = async () => {
   return {

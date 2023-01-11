@@ -16,8 +16,7 @@ import type { Maybe } from 'lib/graphql/generated/sdk';
 import ScheduleLabel from 'components/atoms/ScheduleLabel';
 import useCurrencyStore from 'stores/currency';
 import Price from 'components/atoms/Price';
-import { purchaseCardText } from 'utils/lang';
-import useI18n from 'hooks/useI18n';
+import useI18n, { I18n } from 'hooks/useI18n';
 
 interface BaseProps {
   title: string;
@@ -43,6 +42,17 @@ export type OrderCardProps = BaseProps & {
 };
 
 export type PurchaseCardProps = SubscriptionCardProps | OrderCardProps;
+
+const purchaseCardText = (i18n: I18n) => ({
+  billingMessage: i18n('account.subscriptions.billing_message'),
+  orderMessage: i18n('account.subscriptions.order_message'),
+  nextBillingLabel: i18n('account.subscriptions.next_billing'),
+  orderDateLabel: i18n('account.orders.order_date'),
+  itemsLabel: i18n('account.orders.items'),
+  viewOrderLabel: i18n('account.orders.view_order'),
+  manageLabel: i18n('account.subscriptions.manage'),
+  totalLabel: i18n('account.orders.total'),
+});
 
 const PurchaseCard: React.FC<PurchaseCardProps> = ({
   status,
