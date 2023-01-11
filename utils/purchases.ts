@@ -15,6 +15,30 @@ export type GrouppedPurchases = {
   };
 };
 
+/**
+ * Groups the purchases by the status in an object.
+ *
+ * @param purchases - array of purchases (orders or subscriptions)
+ * @param i18n - internationalization function
+ *@example
+ * const purchases = [
+ * { type: 'order', status: 'complete', title: 'Order #1' },
+ * { type: 'order', status: 'complete', title: 'Order #2' },
+ * { type: 'order', status: 'canceled', title: 'Order #3' },
+ * ]
+ * const i18n = ...
+ * const groupped = grouppedPurchases(purchases, i18n)
+ * console.log(groupped)
+ * // {
+ * //   complete: [
+ * //     { type: 'order', status: 'complete', title: 'Order #1' },
+ * //     { type: 'order', status: 'complete', title: 'Order #2' },
+ * //   ],
+ * //   canceled: [
+ * //     { type: 'order', status: 'canceled', title: 'Order #3' },
+ * //   ]
+ * // }
+ */
 export const grouppedPurchases = <
   P extends (OrderCardProps | SubscriptionCardProps)[],
   Acc extends GrouppedPurchases,
