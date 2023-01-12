@@ -1,5 +1,4 @@
 import create from 'zustand';
-import editor from 'mock/editor.json';
 import useNotificationStore from 'stores/notification';
 import { isStockLimited } from 'lib/utils/products';
 import { NOTIFICATION_TYPE } from 'types/shared/notification';
@@ -8,6 +7,8 @@ import type { CartProps } from 'components/organisms/Cart';
 import type { CartItemProps } from 'components/molecules/CartItem';
 import type { SwellCartItemInput } from 'lib/graphql/generated/sdk';
 import type { CartData, CartItemInput } from 'types/shared/cart';
+import useSettingsStore from './settings';
+import { getI18n } from 'hooks/useI18n';
 
 export interface AddToCartConfig {
   showCartAfter?: boolean;
@@ -30,17 +31,10 @@ interface CartState {
 
 const useCartStore = create<CartState>((set, get) => ({
   cart: {
-    headerLabel: editor.cart.headerLabel,
-    cartEmptyMessage: editor.cart.cartEmptyMessage,
     total: 0,
     items: [],
     visible: false,
-    addMoreProducts: {
-      href: '/products',
-      title: 'Add more products',
-      emptyTitle: 'Add your first product',
-      empty: true,
-    },
+    empty: true,
     setVisible: (visible: boolean) =>
       set((state) => ({ cart: { ...state.cart, visible } })),
     checkoutUrl: '#',
@@ -59,10 +53,7 @@ const useCartStore = create<CartState>((set, get) => ({
           total: cart.data.total,
           items: cart.data.items,
           checkoutUrl: cart.data.checkoutUrl,
-          addMoreProducts: {
-            ...state.cart.addMoreProducts,
-            empty: !cart.data.items.length,
-          },
+          empty: !cart.data.items.length,
         },
       }));
     } catch (error) {
@@ -84,8 +75,13 @@ const useCartStore = create<CartState>((set, get) => ({
         )
       ) {
         const send = useNotificationStore.getState().send;
+        const i18n = getI18n(useSettingsStore.getState().settings?.lang);
+
+        const stockMessage = i18n('products.stock.not_enough', {
+          quantity: quantity.toString(),
+        });
         send({
-          message: `Not enough stock remaining to increase quantity in cart by ${quantity}.`,
+          message: stockMessage,
           type: NOTIFICATION_TYPE.ERROR,
         });
         throw new Error('Not enough stock');
@@ -107,10 +103,7 @@ const useCartStore = create<CartState>((set, get) => ({
           total: cart.data.total,
           items: cart.data.items,
           checkoutUrl: cart.data.checkoutUrl,
-          addMoreProducts: {
-            ...state.cart.addMoreProducts,
-            empty: !cart.data.items.length,
-          },
+          empty: !cart.data.items.length,
         },
       }));
 
@@ -139,10 +132,7 @@ const useCartStore = create<CartState>((set, get) => ({
           total: cart.data.total,
           items: cart.data.items,
           checkoutUrl: cart.data.checkoutUrl,
-          addMoreProducts: {
-            ...state.cart.addMoreProducts,
-            empty: !cart.data.items.length,
-          },
+          empty: !cart.data.items.length,
         },
       }));
     } catch (error) {
@@ -167,10 +157,7 @@ const useCartStore = create<CartState>((set, get) => ({
           total: cart.data.total,
           items: cart.data.items,
           checkoutUrl: cart.data.checkoutUrl,
-          addMoreProducts: {
-            ...state.cart.addMoreProducts,
-            empty: !cart.data.items.length,
-          },
+          empty: !cart.data.items.length,
         },
       }));
     } catch (error) {

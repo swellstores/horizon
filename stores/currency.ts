@@ -7,10 +7,6 @@ export const initialCurrencies: Currency[] = [
     code: 'USD',
     symbol: '$',
   },
-  {
-    code: 'EUR',
-    symbol: '€',
-  },
 ];
 
 const useCurrency = create(

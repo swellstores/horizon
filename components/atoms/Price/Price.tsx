@@ -6,13 +6,18 @@ import type {
   SwellProductPurchaseOptionsSubscriptionPlanBillingSchedule,
 } from 'lib/graphql/generated/sdk';
 
-export interface PriceProps {
+export interface PriceProps extends React.HTMLAttributes<HTMLSpanElement> {
   price: number;
   origPrice?: number;
   billingSchedule?: Maybe<SwellProductPurchaseOptionsSubscriptionPlanBillingSchedule>;
 }
 
-const Price: React.FC<PriceProps> = ({ price, origPrice, billingSchedule }) => {
+const Price: React.FC<PriceProps> = ({
+  price,
+  origPrice,
+  billingSchedule,
+  className,
+}) => {
   const formatPrice = useCurrencyStore((state) => state.formatPrice);
 
   const formatSchedule = useCallback(
@@ -34,7 +39,7 @@ const Price: React.FC<PriceProps> = ({ price, origPrice, billingSchedule }) => {
   }, [formatSchedule, origPrice]);
 
   return (
-    <span>
+    <span className={className ?? ''}>
       <span>{formattedPrice}</span>{' '}
       {formattedOrigPrice && (
         <span className="line-through">{formattedOrigPrice}</span>

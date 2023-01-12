@@ -41,6 +41,7 @@ import { withMainLayout } from 'lib/utils/fetch_decorators';
 import type { ParsedUrlQuery } from 'querystring';
 import StatusIndicator from 'components/atoms/StatusIndicator';
 import { useEffect } from 'react';
+import useI18n from 'hooks/useI18n';
 
 export enum LAYOUT_ALIGNMENT {
   STANDARD = 'standard',
@@ -111,30 +112,13 @@ const propsCallback: GetStaticProps<ProductsPageProps> = async (context) => {
     };
   }
 
-  /* TODO: When locale is implemented
-     1. Get locale from context (i.e. en-US)
-     2. Get default currency for that locale
-     3. Get product data in the locale and its default currency
-     4. If no locale or currency, pass null to get the default data
-     5. If the user switches locale, redirect to the same page but in
-     the new locale
-     6. On load, and if the currency changes, the active page needs
-     to fetch the page data on the new currency and overwrite the 
-     previous data. Check that product.currency !== activeCurrency
-     so we don't fetch in vain.
-     7. If a currency was manually setup, use that in the future
-     for every page. If not, just use the locale's default
-     currency and change the activeCurrency but with userSelected: false.
-     if activeCurrency has userSelected: true then it overrides.
-  */
-
-  // TODO: Mocked default currency, replace with actual one when implemented.
-  const defaultCurrencyMap = new Map<string | undefined, string>();
-  defaultCurrencyMap.set('en', 'USD');
-  defaultCurrencyMap.set('es-ES', 'EUR');
+  const client = getGQLClient();
+  const {
+    data: { storeSettings },
+  } = await client.getStoreSettings();
 
   const { locale } = context;
-  const currency = defaultCurrencyMap.get(locale) || 'USD';
+  const currency = storeSettings?.store?.currency || undefined;
 
   const productData = await getProductBySlug(context.params.slug, {
     currency,
@@ -142,7 +126,10 @@ const propsCallback: GetStaticProps<ProductsPageProps> = async (context) => {
   });
 
   return {
-    props: productData,
+    props: {
+      ...productData,
+      locale,
+    },
   };
 };
 
@@ -168,6 +155,10 @@ const ProductsPage: React.FC<ProductsPageProps> = ({
   meta,
 }) => {
   const { locale } = useRouter();
+  const i18n = useI18n();
+
+  const addLabel = i18n('products.add_to_cart');
+  const upsellsTitle = i18n('products.upsells.title');
 
   const [liveSettings, setLiveSettings] = useState(settings);
 
@@ -318,6 +309,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({
                 <div className="mt-8 self-start">
                   <StatusIndicator
                     status={stockStatus}
+                    type="stock"
                     payload={activeVariation?.stockLevel?.toString()}
                   />
                 </div>
@@ -372,8 +364,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({
                   fullWidth
                   type="submit"
                   disabled={stockStatus === STOCK_STATUS.OUT_OF_STOCK}>
-                  {/* TODO: i18n */}
-                  ADD TO BAG -{' '}
+                  {addLabel} -{' '}
                   {state.selectedPurchaseOption ===
                   PURCHASE_OPTION_TYPE.SUBSCRIPTION ? (
                     <Price
@@ -408,7 +399,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({
       {!!upSells?.length && (
         <div className="py-10 lg:pl-14">
           <h4 className="py-6 pl-6 font-headings text-2xl font-semibold text-primary lg:pl-0">
-            You may also like
+            {upsellsTitle}
           </h4>
 
           <UpSell items={upSells} />

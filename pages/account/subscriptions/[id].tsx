@@ -6,25 +6,23 @@ import {
 import { getAccountLayout } from 'lib/utils/layout_getters';
 import type { GetServerSideProps } from 'next';
 import type { NextPageWithLayout, PageProps } from 'types/shared/pages';
-import type { Maybe } from 'lib/graphql/generated/sdk';
+import type { SwellSubscription } from 'lib/graphql/generated/sdk';
 import OrderHeader from 'components/molecules/OrderHeader';
-import OrderItemsTable, {
-  OrderItem,
-} from 'components/molecules/OrderItemsTable';
-import OrderSummary, { SummaryRow } from 'components/molecules/OrderSummary';
+import OrderItemsTable from 'components/molecules/OrderItemsTable';
+import OrderSummary from 'components/molecules/OrderSummary';
 import OrderInfo from 'components/molecules/OrderInfo';
 import { CARD_BRAND, PAYMENT_METHOD } from 'types/shared/payment';
 import GhostButton from 'components/atoms/GhostButton';
 import { BUTTON_STYLE, BUTTON_TYPE } from 'types/shared/button';
 import ArrowLeft from 'assets/icons/arrow-left.svg';
-import { SubscriptionSchedule, SUBSCRIPTION_STATUS } from 'types/subscription';
+import { SUBSCRIPTION_STATUS } from 'types/subscription';
 import Button from 'components/atoms/Button';
 import ActionModal from 'components/molecules/ActionModal';
 import BannerInfo from 'components/atoms/BannerInfo';
 import { TEXT_ALIGNMENT } from 'types/shared/alignment';
 import {
   formatLimitText,
-  formatSubscriptionInterval,
+  formatScheduleLabel,
   formatSubscriptionPrice,
   formatTrialText,
   isLastSubscriptionCycle,
@@ -32,80 +30,250 @@ import {
 import { getClientWithSessionToken } from 'lib/graphql/client';
 import { getMultilineAddress } from 'lib/utils/account';
 import { formatPriceByCurrency } from 'lib/utils/price';
-import type { OrderInfoCardProps } from 'components/molecules/OrderInfoCard';
 import useNotificationStore from 'stores/notification';
 import { NOTIFICATION_TYPE } from 'types/shared/notification';
-import type { INTERVAL } from 'types/shared/products';
 import { formatDateToLocale } from 'lib/utils/date';
 import { useRouter } from 'next/router';
 import { denullifyArray } from 'lib/utils/denullify';
 import useFetchApi from 'hooks/useFetchApi';
 import { API_ROUTES } from 'types/shared/api';
-
-interface SubscriptionData {
-  id: string;
-  name: string;
-  status: SUBSCRIPTION_STATUS;
-  dateCreated: Date | null;
-  datePeriodEnd: Date | null;
-  dateOrderPeriodEnd: Date | null;
-  quantity: number;
-  grandTotal: string;
-  billingScheduleText: string;
-  billingLimitText: string | null;
-  orderLimitText: string | null;
-  notificationText: Maybe<string>;
-  orderItems: OrderItem[];
-  summaryRows: SummaryRow[];
-  totalRow: SummaryRow;
-  subscriptionSchedule: SubscriptionSchedule;
-  shippingInfo: OrderInfoCardProps[];
-  billingInfo: OrderInfoCardProps[];
-}
+import useI18n, { I18n } from 'hooks/useI18n';
 
 interface SubscriptionDetailPageProps extends PageProps {
-  subscription: SubscriptionData;
-  text: {
-    backToSubscriptionsLabel: string;
-    createdLabel: string;
-    nextBillingLabel: string;
-    itemsLabel: string;
-    totalLabel: string;
-    quantityLabel: string;
-    priceLabel: string;
-    subtotalLabel: string;
-    discountsLabel: string;
-    shippingLabel: string;
-    taxLabel: string;
-    refundLabel: string;
-    deliveryInfoTitle: string;
-    detailsLabel: string;
-    phoneNumberLabel: string;
-    methodLabel: string;
-    orderNotesLabel: string;
-    paymentInfoTitle: string;
-    paymentMethodLabel: string;
-    cardLabel: string;
-    billingAddressLabel: string;
-    cancelSubscriptionBody: string;
-    cancelSubscriptionLabel: string;
-    cancelDialogTitle: string;
-    cancelDialogBody: string;
-    cancelButtonLabel: string;
-    cancelSubscriptionButtonLabel: string;
-    trialPeriodEndBody: string;
-    dayLabel: string;
-    daysLabel: string;
-    billingSchedulePrefix: string;
-    limitPrefix: string;
-    renewalLabel: string;
-    renewalsLabel: string;
-    shipmentLabel: string;
-    shipmentsLabel: string;
-    cancelSubscriptionSuccessMessage: string;
-    cancelSubscriptionErrorMessage: string;
-  };
+  subscription: SwellSubscription;
 }
+
+const subscriptionDetailsText = (i18n: I18n) => ({
+  backToSubscriptionsLabel: i18n('account.subscriptions.details.back_link'),
+  createdLabel: i18n('account.subscriptions.details.created_label'),
+  nextBillingLabel: i18n('account.subscriptions.details.next_billing_label'),
+  itemsLabel: i18n('account.subscriptions.details.items_label'),
+  totalLabel: i18n('account.subscriptions.details.total_label'),
+  quantityLabel: i18n('account.subscriptions.details.quantity_label'),
+  priceLabel: i18n('account.subscriptions.details.price_label'),
+  subtotalLabel: i18n('account.subscriptions.details.subtotal_label'),
+  discountsLabel: i18n('account.subscriptions.details.discounts_label'),
+  shippingLabel: i18n('account.subscriptions.details.shipping_label'),
+  taxLabel: i18n('account.subscriptions.details.tax_label'),
+  refundLabel: i18n('account.subscriptions.details.refund_label'),
+  deliveryInfoTitle: i18n('account.subscriptions.details.delivery_info_title'),
+  detailsLabel: i18n('account.subscriptions.details.details_label'),
+  phoneNumberLabel: i18n('account.subscriptions.details.phone_number_label'),
+  methodLabel: i18n('account.subscriptions.details.method_label'),
+  orderNotesLabel: i18n('account.subscriptions.details.order_notes_label'),
+  paymentInfoTitle: i18n('account.subscriptions.details.payment_info_title'),
+  paymentMethodLabel: i18n(
+    'account.subscriptions.details.payment_method_label',
+  ),
+  cardLabel: i18n('account.subscriptions.details.card_label'),
+  billingAddressLabel: i18n(
+    'account.subscriptions.details.billing_address_label',
+  ),
+  cancel: {
+    message: i18n('account.subscriptions.details.cancel.message'),
+    label: i18n('account.subscriptions.details.cancel.label'),
+    dialogTitle: i18n('account.subscriptions.details.cancel.dialog_title'),
+    dialogBody: i18n('account.subscriptions.details.cancel.dialog_body'),
+    buttonLabel: i18n(
+      'account.subscriptions.details.cancel.cancel_button_label',
+    ),
+    subscriptionButtonLabel: i18n(
+      'account.subscriptions.details.cancel.cancel_subscription_button_label',
+    ),
+    successMessage: i18n(
+      'account.subscriptions.details.cancel.success_message',
+    ),
+    errorMessage: i18n('account.subscriptions.details.cancel.error_message'),
+  },
+  trialEndMessage: i18n('account.subscriptions.details.trial_end_message'),
+  headerBillingMessage: i18n(
+    'account.subscriptions.details.header_billing_message',
+  ),
+  renewalLimitLabel: i18n('account.subscriptions.details.renewal_limit_label'),
+  shipmentLimitLabel: i18n(
+    'account.subscriptions.details.shipment_limit_label',
+  ),
+  renewalSingularLabel: i18n(
+    'account.subscriptions.details.renewal_singular_label',
+  ),
+  renewalPluralLabel: i18n(
+    'account.subscriptions.details.renewal_plural_label',
+  ),
+  shipmentSingularLabel: i18n(
+    'account.subscriptions.details.shipment_singular_label',
+  ),
+  shipmentPluralLabel: i18n(
+    'account.subscriptions.details.shipment_plural_label',
+  ),
+});
+
+const formatSubscription = (
+  subscription: SwellSubscription,
+  text: ReturnType<typeof subscriptionDetailsText>,
+) => ({
+  id: subscription.id,
+  // Header
+  name: subscription?.product?.name ?? '',
+  status: subscription?.status as SUBSCRIPTION_STATUS,
+  dateCreated: subscription?.dateCreated ?? null,
+  quantity: subscription?.quantity ?? 0,
+  grandTotal: formatPriceByCurrency(subscription?.currency)(
+    subscription?.grandTotal ?? 0,
+  ),
+  billingScheduleText: formatScheduleLabel(
+    text.headerBillingMessage,
+    subscription.billingSchedule,
+  ),
+  // Info banner
+  notificationText: formatTrialText(text.trialEndMessage, subscription),
+  // Order items table
+  orderItems: [
+    {
+      title: subscription?.product?.name ?? '',
+      href: `/products/${subscription?.product?.slug}`,
+      image: {
+        alt: subscription?.product?.images?.[0]?.caption ?? '',
+        src: subscription?.product?.images?.[0]?.file?.url ?? '',
+        width: subscription?.product?.images?.[0]?.file?.width ?? 0,
+        height: subscription?.product?.images?.[0]?.file?.height ?? 0,
+      },
+      options:
+        subscription?.options?.map((option) => option?.value ?? '') ?? [],
+      quantity: subscription?.quantity ?? 0,
+      price: formatSubscriptionPrice(
+        formatPriceByCurrency(subscription?.currency)(
+          subscription.grandTotal ?? 0,
+        ),
+        {
+          interval: subscription.billingSchedule?.interval,
+          intervalCount: subscription.billingSchedule?.intervalCount,
+        },
+      ),
+    },
+  ],
+  // Order summary table
+  summaryRows: [
+    {
+      label: text.subtotalLabel,
+      value: formatPriceByCurrency(subscription?.currency)(
+        subscription?.subTotal ?? 0,
+      ),
+    },
+    {
+      label: text.discountsLabel,
+      value: formatPriceByCurrency(subscription?.currency)(
+        subscription?.discountTotal ?? 0,
+      ),
+    },
+    {
+      label: text.shippingLabel,
+      value: formatPriceByCurrency(subscription?.currency)(
+        subscription?.shipping?.price ?? 0,
+      ),
+    },
+    {
+      label: text.taxLabel,
+      value: formatPriceByCurrency(subscription?.currency)(
+        subscription?.taxTotal ?? 0,
+      ),
+    },
+  ],
+  totalRow: {
+    label: text.totalLabel,
+    value: formatPriceByCurrency(subscription?.currency)(
+      subscription?.grandTotal ?? 0,
+    ),
+  },
+  subscriptionSchedule: {
+    billingSchedule: subscription?.billingSchedule ?? null,
+    orderSchedule: subscription?.orderSchedule ?? null,
+  },
+  datePeriodEnd: !isLastSubscriptionCycle(subscription.billingSchedule)
+    ? subscription.datePeriodEnd
+    : null,
+  dateOrderPeriodEnd: !isLastSubscriptionCycle(subscription.orderSchedule)
+    ? subscription.dateOrderPeriodEnd
+    : null,
+  billingLimitText: formatLimitText(
+    subscription?.billingSchedule,
+    text.renewalLimitLabel,
+    text.renewalSingularLabel,
+    text.renewalPluralLabel,
+    'renewal',
+  ),
+  orderLimitText: formatLimitText(
+    subscription?.orderSchedule,
+    text.shipmentLimitLabel,
+    text.shipmentSingularLabel,
+    text.shipmentPluralLabel,
+    'shipment',
+  ),
+  // Order info = shipping
+  shippingInfo: [
+    ...(subscription?.shipping && getMultilineAddress(subscription.shipping)
+      ? [
+          {
+            title: text.detailsLabel,
+            body: getMultilineAddress(subscription.shipping) ?? '',
+          },
+        ]
+      : []),
+    ...(subscription?.shipping?.phone
+      ? [
+          {
+            title: text.phoneNumberLabel,
+            body: subscription.shipping.phone,
+          },
+        ]
+      : []),
+    ...(subscription?.shipping?.serviceName
+      ? [
+          {
+            title: text.methodLabel,
+            body: subscription.shipping.serviceName,
+          },
+        ]
+      : []),
+  ],
+  // Order info = billing
+  billingInfo: [
+    ...(subscription?.billing?.method
+      ? [
+          {
+            title: text.paymentMethodLabel,
+            payment: {
+              method: subscription.billing.method as PAYMENT_METHOD,
+              ...(subscription?.billing?.method === PAYMENT_METHOD.CARD && {
+                card: {
+                  name: subscription?.billing?.name ?? '',
+                  brand: subscription.billing.card?.brand as CARD_BRAND,
+                  label: text.cardLabel ?? '',
+                  last4: subscription.billing.card?.last4 ?? '',
+                  expiredDate:
+                    subscription.billing.card?.expMonth &&
+                    subscription.billing.card?.expYear
+                      ? `${
+                          subscription.billing.card.expMonth < 10
+                            ? `0${subscription.billing.card.expMonth}`
+                            : subscription.billing.card.expMonth
+                        }/${subscription.billing.card.expYear}`
+                      : '',
+                },
+              }),
+            },
+          },
+        ]
+      : []),
+    ...(subscription?.billing && getMultilineAddress(subscription?.billing)
+      ? [
+          {
+            title: text.billingAddressLabel,
+            body: getMultilineAddress(subscription?.billing) ?? '',
+          },
+        ]
+      : []),
+  ],
+});
 
 export const propsCallback: GetServerSideProps<
   SubscriptionDetailPageProps
@@ -134,231 +302,10 @@ export const propsCallback: GetServerSideProps<
     };
   }
 
-  // TODO: i18n
-  const text = {
-    backToSubscriptionsLabel: 'Back to subscriptions',
-    createdLabel: 'Created',
-    nextBillingLabel: 'Next billing',
-    itemsLabel: 'Items',
-    totalLabel: 'Total',
-    quantityLabel: 'Qty',
-    priceLabel: 'Price',
-    subtotalLabel: 'Subtotal',
-    discountsLabel: 'Discounts & Credits',
-    shippingLabel: 'Shipping',
-    taxLabel: 'VAT',
-    refundLabel: 'Refund',
-    deliveryInfoTitle: 'Delivery information',
-    detailsLabel: 'Details',
-    phoneNumberLabel: 'Phone number',
-    methodLabel: 'Method',
-    orderNotesLabel: 'Order notes',
-    paymentInfoTitle: 'Payment information',
-    paymentMethodLabel: 'Payment method',
-    cardLabel: 'Card',
-    billingAddressLabel: 'Billing address',
-    cancelSubscriptionBody: 'You can cancel your subscription at anytime.',
-    cancelSubscriptionLabel: 'Cancel subscription',
-    cancelDialogTitle: 'Cancel subscription',
-    cancelDialogBody:
-      'Cancelling your subscription is permanent. Are you sure you want to proceed?',
-    cancelButtonLabel: 'Cancel',
-    cancelSubscriptionButtonLabel: 'Cancel subscription',
-    trialPeriodEndBody: 'Your trial period will end in',
-    dayLabel: 'day',
-    daysLabel: 'days',
-    billingSchedulePrefix: 'Every',
-    limitPrefix: 'Limited to',
-    renewalLabel: 'renewal',
-    renewalsLabel: 'renewals',
-    shipmentLabel: 'shipment',
-    shipmentsLabel: 'shipments',
-    cancelSubscriptionSuccessMessage: 'Your subscription is canceled',
-    cancelSubscriptionErrorMessage:
-      'Something went wrong, please try again later',
-  };
-
-  const billingScheduleText =
-    subscription?.billingSchedule?.interval &&
-    subscription?.billingSchedule?.intervalCount
-      ? `${text.billingSchedulePrefix} ${formatSubscriptionInterval(
-          subscription.billingSchedule.interval as INTERVAL,
-          subscription.billingSchedule.intervalCount,
-          true,
-        )}`
-      : '';
-
   return {
     props: {
-      pageTitle: 'Subscriptions',
-      subscription: {
-        id: subscriptionId,
-        // Header
-        name: subscription?.product?.name ?? '',
-        status: subscription?.status as SUBSCRIPTION_STATUS,
-        dateCreated: subscription?.dateCreated ?? null,
-        quantity: subscription?.quantity ?? 0,
-        grandTotal: formatPriceByCurrency(subscription?.currency)(
-          subscription?.grandTotal ?? 0,
-        ),
-        billingScheduleText,
-        // Info banner
-        notificationText: formatTrialText(
-          subscription,
-          text.trialPeriodEndBody,
-          text.dayLabel,
-          text.daysLabel,
-        ),
-        // Order items table
-        orderItems: [
-          {
-            title: subscription?.product?.name ?? '',
-            href: `/products/${subscription?.product?.slug}`,
-            image: {
-              alt: subscription?.product?.images?.[0]?.caption ?? '',
-              src: subscription?.product?.images?.[0]?.file?.url ?? '',
-              width: subscription?.product?.images?.[0]?.file?.width ?? 0,
-              height: subscription?.product?.images?.[0]?.file?.height ?? 0,
-            },
-            options:
-              subscription?.options?.map((option) => option?.value ?? '') ?? [],
-            quantity: subscription?.quantity ?? 0,
-            price: formatSubscriptionPrice(
-              formatPriceByCurrency(subscription?.currency)(
-                subscription.grandTotal ?? 0,
-              ),
-              {
-                interval: subscription.billingSchedule?.interval,
-                intervalCount: subscription.billingSchedule?.intervalCount,
-              },
-            ),
-          },
-        ],
-        // Order summary table
-        summaryRows: [
-          {
-            label: text.subtotalLabel,
-            value: formatPriceByCurrency(subscription?.currency)(
-              subscription?.subTotal ?? 0,
-            ),
-          },
-          {
-            label: text.discountsLabel,
-            value: formatPriceByCurrency(subscription?.currency)(
-              subscription?.discountTotal ?? 0,
-            ),
-          },
-          {
-            label: text.shippingLabel,
-            value: formatPriceByCurrency(subscription?.currency)(
-              subscription?.shipping?.price ?? 0,
-            ),
-          },
-          {
-            label: text.taxLabel,
-            value: formatPriceByCurrency(subscription?.currency)(
-              subscription?.taxTotal ?? 0,
-            ),
-          },
-        ],
-        totalRow: {
-          label: text.totalLabel,
-          value: formatPriceByCurrency(subscription?.currency)(
-            subscription?.grandTotal ?? 0,
-          ),
-        },
-        subscriptionSchedule: {
-          billingSchedule: subscription?.billingSchedule ?? null,
-          orderSchedule: subscription?.orderSchedule ?? null,
-        },
-        datePeriodEnd: !isLastSubscriptionCycle(subscription.billingSchedule)
-          ? subscription.datePeriodEnd
-          : null,
-        dateOrderPeriodEnd: !isLastSubscriptionCycle(subscription.orderSchedule)
-          ? subscription.dateOrderPeriodEnd
-          : null,
-        billingLimitText: formatLimitText(
-          subscription?.billingSchedule,
-          text.limitPrefix,
-          text.renewalLabel,
-          text.renewalsLabel,
-        ),
-        orderLimitText: formatLimitText(
-          subscription?.orderSchedule,
-          text.limitPrefix,
-          text.shipmentLabel,
-          text.shipmentsLabel,
-        ),
-        // Order info = shipping
-        shippingInfo: [
-          ...(subscription?.shipping &&
-          getMultilineAddress(subscription.shipping)
-            ? [
-                {
-                  title: text.detailsLabel,
-                  body: getMultilineAddress(subscription.shipping) ?? '',
-                },
-              ]
-            : []),
-          ...(subscription?.shipping?.phone
-            ? [
-                {
-                  title: text.phoneNumberLabel,
-                  body: subscription.shipping.phone,
-                },
-              ]
-            : []),
-          ...(subscription?.shipping?.serviceName
-            ? [
-                {
-                  title: text.methodLabel,
-                  body: subscription.shipping.serviceName,
-                },
-              ]
-            : []),
-        ],
-        // Order info = billing
-        billingInfo: [
-          ...(subscription?.billing?.method
-            ? [
-                {
-                  title: text.paymentMethodLabel,
-                  payment: {
-                    method: subscription.billing.method as PAYMENT_METHOD,
-                    ...(subscription?.billing?.method ===
-                      PAYMENT_METHOD.CARD && {
-                      card: {
-                        name: subscription?.billing?.name ?? '',
-                        brand: subscription.billing.card?.brand as CARD_BRAND,
-                        label: text.cardLabel ?? '',
-                        last4: subscription.billing.card?.last4 ?? '',
-                        expiredDate:
-                          subscription.billing.card?.expMonth &&
-                          subscription.billing.card?.expYear
-                            ? `${
-                                subscription.billing.card.expMonth < 10
-                                  ? `0${subscription.billing.card.expMonth}`
-                                  : subscription.billing.card.expMonth
-                              }/${subscription.billing.card.expYear}`
-                            : '',
-                      },
-                    }),
-                  },
-                },
-              ]
-            : []),
-          ...(subscription?.billing &&
-          getMultilineAddress(subscription?.billing)
-            ? [
-                {
-                  title: text.billingAddressLabel,
-                  body: getMultilineAddress(subscription?.billing) ?? '',
-                },
-              ]
-            : []),
-        ],
-      },
-      text,
+      pageType: 'subscriptions',
+      subscription,
     },
   };
 };
@@ -369,7 +316,11 @@ export const getServerSideProps = withAccountLayout(
 
 const SubscriptionDetailPage: NextPageWithLayout<
   SubscriptionDetailPageProps
-> = ({ subscription, text }) => {
+> = (props) => {
+  const i18n = useI18n();
+  const text = subscriptionDetailsText(i18n);
+  const subscription = formatSubscription(props.subscription, text);
+
   const { locale } = useRouter();
   const [status, setStatus] = useState(subscription.status);
   const [cancelSubscriptionOpen, setCancelSubscriptionOpen] = useState(false);
@@ -400,14 +351,14 @@ const SubscriptionDetailPage: NextPageWithLayout<
 
       if (res.status === 200 && !!data?.canceled) {
         send({
-          message: text.cancelSubscriptionSuccessMessage,
+          message: text.cancel.successMessage,
           type: NOTIFICATION_TYPE.INFO,
         });
 
         setStatus(SUBSCRIPTION_STATUS.CANCELED);
       } else {
         send({
-          message: text.cancelSubscriptionErrorMessage,
+          message: text.cancel.errorMessage,
           type: NOTIFICATION_TYPE.ERROR,
         });
       }
@@ -417,7 +368,7 @@ const SubscriptionDetailPage: NextPageWithLayout<
 
   const errorCallback = useCallback(() => {
     send({
-      message: text.cancelSubscriptionErrorMessage,
+      message: text.cancel.errorMessage,
       type: NOTIFICATION_TYPE.ERROR,
     });
   }, [send, text]);
@@ -490,28 +441,28 @@ const SubscriptionDetailPage: NextPageWithLayout<
       />
       {status !== SUBSCRIPTION_STATUS.CANCELED && (
         <div className="mt-10 flex flex-col space-y-6">
-          <p className="text-md text-body">{text.cancelSubscriptionBody}</p>
+          <p className="text-md text-body">{text.cancel.message}</p>
           <Button
             elType={BUTTON_TYPE.BUTTON}
             small
             className="w-full md:w-fit"
             onClick={() => setCancelSubscriptionOpen(true)}
             buttonStyle={BUTTON_STYLE.SECONDARY}>
-            {text.cancelSubscriptionLabel}
+            {text.cancel.label}
           </Button>
           <ActionModal
-            title={text.cancelDialogTitle}
-            body={text.cancelDialogBody}
+            title={text.cancel.dialogTitle}
+            body={text.cancel.dialogBody}
             open={cancelSubscriptionOpen}
             onClose={() => setCancelSubscriptionOpen(false)}
             actionButtons={[
               {
-                label: text.cancelSubscriptionButtonLabel,
+                label: text.cancel.subscriptionButtonLabel,
                 onClick: cancelSubscription,
                 style: BUTTON_STYLE.DANGER,
               },
               {
-                label: text.cancelButtonLabel,
+                label: text.cancel.buttonLabel,
                 onClick: () => setCancelSubscriptionOpen(false),
                 style: BUTTON_STYLE.SECONDARY,
               },

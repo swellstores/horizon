@@ -7,38 +7,22 @@ import {
 } from 'lib/utils/fetch_decorators';
 import { getAccountLayout } from 'lib/utils/layout_getters';
 import { formatProductImages } from 'lib/utils/products';
-import { SUBSCRIPTION_STATUS } from 'types/subscription';
+import type { SUBSCRIPTION_STATUS } from 'types/subscription';
 import type { GetServerSideProps } from 'next';
-import type { NextPageWithLayout, PageProps } from 'types/shared/pages';
+import type {
+  AccountPageProps,
+  NextPageWithLayout,
+  PageProps,
+} from 'types/shared/pages';
 import type { SubscriptionCardProps } from 'components/molecules/PurchaseCard/PurchaseCard';
 import { PURCHASE_TYPE } from 'types/purchase';
+import { grouppedPurchases } from 'utils/purchases';
+import { pageTitleMap } from 'utils/lang';
+import useI18n from 'hooks/useI18n';
 
-interface SubscriptionGroup {
-  title: string;
-  purchases: SubscriptionCardProps[];
+interface SubscriptionsPageProps extends PageProps, AccountPageProps {
+  subscriptions: SubscriptionCardProps[];
 }
-
-export type GroupedSubscriptions = {
-  [key in SUBSCRIPTION_STATUS]?: SubscriptionGroup;
-};
-
-interface SubscriptionsPageProps extends PageProps {
-  groupedSubscriptions: GroupedSubscriptions;
-  pageTitle: string;
-}
-
-const GROUP_TITLES = {
-  [SUBSCRIPTION_STATUS.ACTIVE]: 'Active',
-  [SUBSCRIPTION_STATUS.CANCELED]: 'Canceled',
-  [SUBSCRIPTION_STATUS.COMPLETE]: 'Complete',
-  [SUBSCRIPTION_STATUS.DRAFT]: 'Draft',
-  [SUBSCRIPTION_STATUS.PAID]: 'Paid',
-  [SUBSCRIPTION_STATUS.PASTDUE]: 'Past Due',
-  [SUBSCRIPTION_STATUS.PAUSED]: 'Paused',
-  [SUBSCRIPTION_STATUS.PENDING]: 'Pending',
-  [SUBSCRIPTION_STATUS.TRIAL]: 'Trial',
-  [SUBSCRIPTION_STATUS.UNPAID]: 'Unpaid',
-};
 
 export const propsCallback: GetServerSideProps<SubscriptionsPageProps> = async (
   ctx,
@@ -68,25 +52,10 @@ export const propsCallback: GetServerSideProps<SubscriptionsPageProps> = async (
     };
   });
 
-  const groupedSubscriptions: GroupedSubscriptions =
-    formattedSubscriptions.reduce((accumulator, currentValue) => {
-      const { status } = currentValue;
-      if (status && !accumulator[status]) {
-        const firstEntry: SubscriptionGroup = {
-          title: GROUP_TITLES[status],
-          purchases: [currentValue],
-        };
-        accumulator[status] = firstEntry;
-      } else if (accumulator[status]) {
-        accumulator[status]?.purchases.push(currentValue);
-      }
-      return accumulator;
-    }, {} as GroupedSubscriptions);
-
   return {
     props: {
-      groupedSubscriptions,
-      pageTitle: 'Subscriptions',
+      subscriptions: formattedSubscriptions,
+      pageType: 'subscriptions',
     },
   };
 };
@@ -96,12 +65,14 @@ export const getServerSideProps = withAccountLayout(
 );
 
 const SubscriptionsPage: NextPageWithLayout<SubscriptionsPageProps> = ({
-  pageTitle,
-  groupedSubscriptions,
+  subscriptions,
+  pageType,
 }) => {
+  const i18n = useI18n();
+  const groupedSubscriptions = grouppedPurchases(subscriptions, i18n);
   return (
     <PurchaseList
-      title={pageTitle}
+      title={pageTitleMap(i18n)[pageType]}
       groupedPurchases={groupedSubscriptions}
       type={PURCHASE_TYPE.SUBSCRIPTION}
     />

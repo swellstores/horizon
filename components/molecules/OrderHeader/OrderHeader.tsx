@@ -43,7 +43,10 @@ const OrderHeader: React.FC<OrderHeaderProps> = ({
           <h1 className="font-headings text-2xl font-semibold text-primary md:mr-4">
             {title}
           </h1>
-          <StatusIndicator status={status} />
+          <StatusIndicator
+            status={status}
+            type={isSubscription ? 'subscription' : 'order'}
+          />
         </div>
         {hasReturn && (
           <>

@@ -1,6 +1,7 @@
 import cookie from 'cookie';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { getClientWithSessionToken } from 'lib/graphql/client';
+import { sameSiteSettings } from 'utils/editor';
 
 export default async function handler(
   req: NextApiRequest,
@@ -26,7 +27,7 @@ export default async function handler(
           maxAge: 60 * 60 * 24 * 7,
           httpOnly: true,
           path: '/',
-          sameSite: 'strict',
+          ...sameSiteSettings,
         }),
       );
     }

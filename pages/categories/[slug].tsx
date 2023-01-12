@@ -62,6 +62,8 @@ const propsCallback: GetStaticProps<CategoryPageProps> = async (context) => {
     return { notFound: true };
   }
 
+  const { locale } = context;
+
   return {
     props: {
       ...data,
@@ -71,6 +73,7 @@ const propsCallback: GetStaticProps<CategoryPageProps> = async (context) => {
         currentCategory.categoryBySlug.description ??
         '',
       keywords: currentCategory.categoryBySlug.metaKeywords ?? '',
+      locale,
     },
   };
 };

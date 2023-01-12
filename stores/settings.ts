@@ -18,6 +18,7 @@ export interface Settings {
   header: HeaderProps;
   footer: FooterProps;
   socialLinks: SocialLinks;
+  lang: any;
 }
 
 interface SettingsState {

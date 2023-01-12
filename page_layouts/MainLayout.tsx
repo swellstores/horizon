@@ -4,12 +4,23 @@ import Footer from 'components/organisms/Footer';
 import Header from 'components/organisms/Header';
 import useCartStore from 'stores/cart';
 import useSettingsStore, { Settings } from 'stores/settings';
+import useLocaleStore from 'stores/locale';
+import useCurrencyStore from 'stores/currency';
+import type { Locale } from 'types/shared/locale';
+import type { Currency } from 'types/shared/currency';
 
 export interface MainLayoutProps {
   settings: Settings;
+  locales: Locale[];
+  currencies: Currency[];
 }
 
-const MainLayout: React.FC<MainLayoutProps> = ({ children, settings }) => {
+const MainLayout: React.FC<MainLayoutProps> = ({
+  children,
+  settings,
+  currencies,
+  locales,
+}) => {
   const cart = useCartStore((store) => store.cart);
 
   const [setSettings, headerSettings, footerSettings, socialLinks] =
@@ -19,13 +30,17 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children, settings }) => {
       state.settings?.footer,
       state.settings?.socialLinks,
     ]);
+  const setCurrencies = useCurrencyStore((state) => state.setCurrencies);
+  const setLocales = useLocaleStore((state) => state.setLocales);
 
   // Stores settings retrieved server-side on the client-side store.
   useEffect(() => {
-    if (settings) {
+    if (settings && currencies && locales) {
       setSettings(settings);
+      setCurrencies(currencies);
+      setLocales(locales);
     }
-  }, [setSettings, settings]);
+  }, [setSettings, setCurrencies, setLocales, settings, currencies, locales]);
 
   return (
     <div>

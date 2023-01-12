@@ -2,6 +2,7 @@ import cookie from 'cookie';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { isSessionTokenValid } from 'lib/utils/authentication';
 import getGQLClient, { getRawClient } from 'lib/graphql/client';
+import { sameSiteSettings } from 'utils/editor';
 
 type ErrorObject = {
   response: {
@@ -47,7 +48,7 @@ export default async function handler(
         maxAge: 60 * 60 * 24 * 7,
         httpOnly: true,
         path: '/',
-        sameSite: 'strict',
+        ...sameSiteSettings,
       }),
     );
 

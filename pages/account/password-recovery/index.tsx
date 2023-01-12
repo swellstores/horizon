@@ -1,7 +1,6 @@
 import { useCallback, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import Link from 'next/link';
 import type { GetStaticProps } from 'next';
 import Input from 'components/atoms/Input';
 import Button from 'components/atoms/Button';
@@ -16,52 +15,41 @@ import { API_ROUTES } from 'types/shared/api';
 import { ACCOUNT_FIELD } from 'types/account';
 import { validateNonEmptyFields } from 'utils/validation';
 import useFetchApi from 'hooks/useFetchApi';
+import useI18n, { I18n } from 'hooks/useI18n';
 
-interface PasswordRecoveryProps extends PageProps {
-  text: {
-    title: string;
-    subtitle?: string;
-    emailLabel: string;
-    emailEmptyErrorText: string;
-    emailInvalidErrorText: string;
-    emailPlaceholder?: string;
-    submitButtonLabel: string;
-    backToLoginText?: string;
-    backToLoginLink: string;
-    serverErrorText: string;
-  };
-}
+const passwordRecoveryText = (i18n: I18n) => ({
+  pageTitle: i18n('account.password_recovery.page_title'),
+  title: i18n('account.password_recovery.title'),
+  subtitle: i18n('account.password_recovery.subtitle'),
+  email: {
+    label: i18n('account.password_recovery.email.label'),
+    emptyErrorText: i18n('account.password_recovery.email.empty_error_text'),
+    invalidErrorText: i18n(
+      'account.password_recovery.email.invalid_error_text',
+    ),
+    placeholder: i18n('account.password_recovery.email.placeholder'),
+  },
+  submitButtonLabel: i18n('account.password_recovery.submit_button_label'),
+  backToLoginLink: i18n('account.password_recovery.back_to_login_link'),
+  errors: {
+    server: i18n('account.password_recovery.errors.server'),
+  },
+});
 
-const propsCallback: GetStaticProps<PasswordRecoveryProps> = async () => {
-  const storeName = 'Horizon';
+const propsCallback: GetStaticProps<PageProps> = async () => {
   return {
-    props: {
-      storeName,
-      title: `${storeName} | Password recovery`,
-      text: {
-        title: 'Forgot your password?',
-        subtitle: 'Enter your email to reset your password',
-        emailLabel: 'Email',
-        emailEmptyErrorText: 'Email is required',
-        emailInvalidErrorText: 'Email format is invalid',
-        emailPlaceholder: 'Enter your email',
-        submitButtonLabel: 'SEND EMAIL',
-        backToLoginText: 'Back to',
-        backToLoginLink: 'Log in',
-        serverErrorText: 'Something went wrong',
-      },
-    },
+    props: {},
   };
 };
 
 export const getStaticProps = withAuthLayout(propsCallback);
 
-const PasswordRecoveryPage: NextPageWithLayout<PasswordRecoveryProps> = ({
-  text,
-  title,
+const PasswordRecoveryPage: NextPageWithLayout<PageProps> = ({
   metaTitle,
   metaDescription,
 }) => {
+  const i18n = useI18n();
+  const text = passwordRecoveryText(i18n);
   const router = useRouter();
   const fetchApi = useFetchApi();
   const [email, setEmail] = useState('');
@@ -72,13 +60,17 @@ const PasswordRecoveryPage: NextPageWithLayout<PasswordRecoveryProps> = ({
   const otherError = error?.field === ACCOUNT_FIELD.OTHER;
   const emailError = error?.field === ACCOUNT_FIELD.EMAIL || otherError;
   const emailInputRef = useRef<HTMLInputElement>(null);
-
+  const backToLoginText = i18n('account.password_recovery.back_to_login_text', {
+    loginLink: `<a class="font-bold hover:underline" href='/${
+      router.locale !== router.defaultLocale ? `${router.locale}/` : ''
+    }/account/login'>${text.backToLoginLink}</a>`,
+  });
   const responseCallback = useCallback(
     (res: Response) => {
       if (res.status !== 200) {
         setError({
           field: ACCOUNT_FIELD.OTHER,
-          message: text.serverErrorText,
+          message: text.errors.server,
         });
         return false;
       }
@@ -89,7 +81,7 @@ const PasswordRecoveryPage: NextPageWithLayout<PasswordRecoveryProps> = ({
   const errorCallback = useCallback(() => {
     setError({
       field: ACCOUNT_FIELD.OTHER,
-      message: text.serverErrorText,
+      message: text.errors.server,
     });
   }, [text]);
 
@@ -97,7 +89,7 @@ const PasswordRecoveryPage: NextPageWithLayout<PasswordRecoveryProps> = ({
     const requiredErrorPayloads = {
       [ACCOUNT_FIELD.EMAIL]: {
         field: ACCOUNT_FIELD.EMAIL,
-        message: text.emailEmptyErrorText,
+        message: text.email.emptyErrorText,
       },
     };
 
@@ -119,7 +111,7 @@ const PasswordRecoveryPage: NextPageWithLayout<PasswordRecoveryProps> = ({
     if (!emailValid) {
       setError({
         field: ACCOUNT_FIELD.EMAIL,
-        message: text.emailInvalidErrorText,
+        message: text.email.invalidErrorText,
       });
       return false;
     }
@@ -160,7 +152,7 @@ const PasswordRecoveryPage: NextPageWithLayout<PasswordRecoveryProps> = ({
   return (
     <article className="mx-6 h-full pt-12 pb-10 md:pb-18 md:pt-16">
       <Head>
-        <title>{title}</title>
+        <title>{text.pageTitle}</title>
         <meta name="description" content={metaDescription} />
         <meta name="title" content={metaTitle} />
       </Head>
@@ -186,7 +178,7 @@ const PasswordRecoveryPage: NextPageWithLayout<PasswordRecoveryProps> = ({
                 <label
                   className="text-xs font-semibold uppercase text-primary"
                   htmlFor="email">
-                  {text.emailLabel}
+                  {text.email.label}
                 </label>
                 <Input
                   id="email"
@@ -196,7 +188,7 @@ const PasswordRecoveryPage: NextPageWithLayout<PasswordRecoveryProps> = ({
                   aria-invalid={emailError}
                   aria-errormessage={emailError ? error.message : undefined}
                   error={emailError}
-                  placeholder={text.emailPlaceholder}
+                  placeholder={text.email.placeholder}
                   value={email}
                   onChange={(e) => {
                     setError(undefined);
@@ -225,14 +217,10 @@ const PasswordRecoveryPage: NextPageWithLayout<PasswordRecoveryProps> = ({
                 {text.submitButtonLabel}
               </Button>
 
-              <p className="mt-4 text-center text-sm text-primary md:mt-6">
-                {text.backToLoginText && <>{text.backToLoginText}&nbsp;</>}
-                <Link href="/account/login">
-                  <a className="font-bold hover:underline">
-                    {text.backToLoginLink}
-                  </a>
-                </Link>
-              </p>
+              <p
+                className="mt-4 text-center text-sm text-primary md:mt-6"
+                dangerouslySetInnerHTML={{ __html: backToLoginText }}
+              />
             </div>
           </div>
         </fieldset>

@@ -1,48 +1,48 @@
 import Head from 'next/head';
-import Link from 'next/link';
 import type { GetStaticProps } from 'next';
 import { getAuthLayout } from 'lib/utils/layout_getters';
 import { withAuthLayout } from 'lib/utils/fetch_decorators';
 import type { NextPageWithLayout, PageProps } from 'types/shared/pages';
+import { useRouter } from 'next/router';
+import useI18n, { I18n } from 'hooks/useI18n';
 
-interface CheckEmailProps extends PageProps {
-  text: {
-    title: string;
-    message?: string;
-    backToLoginText?: string;
-    backToLoginLink: string;
-  };
-}
+const checkEmailText = (i18n: I18n) => ({
+  pageTitle: i18n('account.password_recovery.check_email.page_title'),
+  title: i18n('account.password_recovery.check_email.title'),
+  message: i18n('account.password_recovery.check_email.message'),
+  backToLoginLink: i18n(
+    'account.password_recovery.check_email.back_to_login_link',
+  ),
+});
 
-const propsCallback: GetStaticProps<CheckEmailProps> = async () => {
-  const storeName = 'Horizon';
+const propsCallback: GetStaticProps<PageProps> = async () => {
   return {
-    props: {
-      storeName,
-      title: `${storeName} | Email sent`,
-      text: {
-        title: 'Check your email.',
-        message:
-          'If you have an account, you should receive an email shortly with a link to reset your password.',
-        backToLoginText: 'Back to',
-        backToLoginLink: 'Log in',
-      },
-    },
+    props: {},
   };
 };
 
 export const getStaticProps = withAuthLayout(propsCallback);
 
-const CheckEmailPage: NextPageWithLayout<CheckEmailProps> = ({
-  text,
-  title,
+const CheckEmailPage: NextPageWithLayout<PageProps> = ({
   metaTitle,
   metaDescription,
 }) => {
+  const router = useRouter();
+  const i18n = useI18n();
+  const text = checkEmailText(i18n);
+  const backToLoginText = i18n(
+    'account.password_recovery.check_email.back_to_login_text',
+    {
+      loginLink: `<a class="font-bold hover:underline" href='/${
+        router.locale !== router.defaultLocale ? `${router.locale}/` : ''
+      }/account/login'>${text.backToLoginLink}</a>`,
+    },
+  );
+
   return (
     <article className="mx-6 h-full pt-12 pb-10 md:pb-18 md:pt-16">
       <Head>
-        <title>{title}</title>
+        <title>{text.pageTitle}</title>
         <meta name="description" content={metaDescription} />
         <meta name="title" content={metaTitle} />
       </Head>
@@ -55,14 +55,10 @@ const CheckEmailPage: NextPageWithLayout<CheckEmailProps> = ({
           {text.message && (
             <p className="mt-6 text-center text-sm text-body">{text.message}</p>
           )}
-          <p className="mt-6 text-center text-sm text-primary md:mt-6">
-            {text.backToLoginText && <>{text.backToLoginText}&nbsp;</>}
-            <Link href="/account/login">
-              <a className="font-bold hover:underline">
-                {text.backToLoginLink}
-              </a>
-            </Link>
-          </p>
+          <p
+            className="mt-6 text-center text-sm text-primary md:mt-6"
+            dangerouslySetInnerHTML={{ __html: backToLoginText }}
+          />
         </div>
       </div>
     </article>

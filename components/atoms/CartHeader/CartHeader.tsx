@@ -4,12 +4,11 @@ import Close from 'assets/icons/close.svg';
 
 export interface CartHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
   label: string;
-  itemsQuantity?: number;
   onClose?: () => void;
 }
 
 const CartHeader = React.forwardRef<HTMLDivElement, CartHeaderProps>(
-  ({ label, itemsQuantity, onClose, ...props }, ref) => (
+  ({ label, onClose, ...props }, ref) => (
     <div
       {...props}
       ref={ref}
@@ -19,9 +18,7 @@ const CartHeader = React.forwardRef<HTMLDivElement, CartHeaderProps>(
       ].join(' ')}>
       <div className="flex gap-4">
         <BagEmpty width={20} height={20} />
-        <span className="text-md font-semibold uppercase">
-          {label} {`(${itemsQuantity ?? 0})`}
-        </span>
+        <span className="text-md font-semibold uppercase">{label}</span>
       </div>
       <button onClick={onClose}>
         <Close width={20} height={20} />

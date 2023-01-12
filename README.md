@@ -12,6 +12,7 @@ Since Horizon is a standard Next.js app, deploying it on Vercel only takes a few
 - Subscriptions
 - Content personalization through customizable Quizzes
 - Multi-currency
+- i18n
 - Product sales
 - Automatic discounts
 - One-click add-to-cart for products
@@ -150,6 +151,56 @@ Using this theme data, the script will create a `theme.css` file that exposes th
 To modify any of the theme settings, first make the change in the Editor and then re-trigger the script to pull them into the store. Alternatively, you can also modify the `theme.css` file directly to preview how the changes would look before committing to them in the Editor.
 
 In regards to customizing the editor's schema itself, please see [here](https://developers.swell.is/storefronts/origin#content) for more information.
+
+## Customize language settings
+
+The language settings represent a set of variables that can be translated into multiple languages in the editor and used throughout Horizon.
+
+The `config/editor.json` file has a `lang` key which holds all the text variables used throughout the app. If you want to add a new setting follow these steps:
+
+Add the object containing the configuration of the language setting inside `lang` under the namespace you want (ex: products)
+
+```json
+{
+  "lang": {
+    //...
+    {
+      "id": "lang.products.premium_member_label",
+      "label": "Premium member label",
+      "default": "Premium",
+      "type": "short_text",
+      "localized": true
+    }
+  }
+}
+```
+
+Add a default value in the `config/defaults.json` for the new setting (under the same path as the id)
+
+```json
+{
+  "lang": {
+    //...
+    "products": {
+      "premium_member_label": "Premium"
+    }
+  }
+}
+```
+
+Push the new settings to the store by running the `sync` npm script. This will add the new language setting to the editor's schema.
+
+```bash
+npm run sync
+```
+
+Use the new language setting in the code with the i18n hook
+
+```js
+const i18n = useI18n();
+
+const premiumLabel = i18n('products.premium_member_label');
+```
 
 # Preview mode
 

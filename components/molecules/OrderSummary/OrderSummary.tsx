@@ -5,6 +5,7 @@ import type { SubscriptionSchedule } from 'types/subscription';
 import CalendarIcon from 'assets/icons/calendar.svg';
 import { useRouter } from 'next/router';
 import { formatDateToLocale } from 'lib/utils/date';
+import useI18n from 'hooks/useI18n';
 
 export interface SummaryRow {
   label: string;
@@ -41,6 +42,10 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({
   className,
 }) => {
   const { locale } = useRouter();
+  const i18n = useI18n();
+
+  const billingMessage = i18n('account.subscriptions.details.billing_message');
+  const orderMessage = i18n('account.subscriptions.details.order_message');
 
   return (
     <div
@@ -103,6 +108,7 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({
             <div className="flex items-center space-x-4">
               <ScheduleLabel
                 type="billing"
+                base={billingMessage}
                 schedule={subscriptionSchedule.billingSchedule}
                 textClasses="text-sm font-semibold"
                 iconClasses="w-5"
@@ -119,13 +125,12 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({
               <span className="text-2xs">{billingLimitText}</span>
             )}
           </div>
-          {/* TODO: i18n */}
           {subscriptionSchedule?.orderSchedule && (
             <div className="flex flex-col space-y-1">
               <div className="flex items-center space-x-4">
                 <ScheduleLabel
                   type="order"
-                  base="Shipped every"
+                  base={orderMessage}
                   schedule={subscriptionSchedule?.orderSchedule}
                   className="mt-0.5"
                   textClasses="text-sm font-semibold"

@@ -1,12 +1,12 @@
 import React from 'react';
 import SyncIcon from 'assets/icons/sync.svg';
 import ShippingIcon from 'assets/icons/shipping.svg';
-import { getScheduleLabel } from 'lib/utils/subscription';
+import { formatScheduleLabel } from 'lib/utils/subscription';
 import type { Schedule } from 'types/subscription';
 
 interface ScheduleLabelProps {
   type: 'billing' | 'order';
-  base?: string;
+  base: string;
   schedule?: Schedule;
   icon?: boolean;
   textClasses?: string;
@@ -16,8 +16,7 @@ interface ScheduleLabelProps {
 
 export const ScheduleLabel: React.FC<ScheduleLabelProps> = ({
   type,
-  // TODO: i18n
-  base = type === 'billing' ? 'Pay every' : 'Receive it every',
+  base,
   schedule,
   icon = false,
   textClasses,
@@ -25,13 +24,12 @@ export const ScheduleLabel: React.FC<ScheduleLabelProps> = ({
   className,
 }) => {
   if (!schedule) return null;
+
+  const scheduleLabel = formatScheduleLabel(base, schedule);
+
   const IconSvg = type === 'order' ? ShippingIcon : SyncIcon;
 
-  const label = (
-    <span className={textClasses ?? ''}>
-      {getScheduleLabel(base, schedule)}
-    </span>
-  );
+  const label = <span className={textClasses ?? ''}>{scheduleLabel}</span>;
 
   if (icon) {
     return (

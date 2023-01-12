@@ -4,6 +4,7 @@ import { Disclosure, Transition } from '@headlessui/react';
 import ChevronDown from 'assets/icons/chevron-down.svg';
 import type { AccountNavMenuProps } from 'components/molecules/AccountNavMenu';
 import useLogout from 'hooks/useLogout';
+import useI18n from 'hooks/useI18n';
 
 export interface AccountMobileMenuProps extends AccountNavMenuProps {
   label: string;
@@ -13,7 +14,11 @@ const AccountMobileMenu: React.FC<AccountMobileMenuProps> = ({
   label,
   links,
 }) => {
+  const i18n = useI18n();
+  const logoutLabel = i18n('account.logout.label');
+
   const logout = useLogout();
+
   return (
     <div className="font-body text-md text-primary md:hidden">
       <Disclosure>
@@ -68,8 +73,7 @@ const AccountMobileMenu: React.FC<AccountMobileMenuProps> = ({
                           logout();
                         }}
                         className="mt-8">
-                        {/* TODO: i18n */}
-                        <button type="submit">Log out</button>
+                        <button type="submit">{logoutLabel}</button>
                       </form>
                     </div>
                   </div>

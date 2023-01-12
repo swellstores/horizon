@@ -2,6 +2,7 @@ import React from 'react';
 import useCurrencyStore from 'stores/currency';
 import Button from 'components/atoms/Button';
 import { BUTTON_TYPE } from 'types/shared/button';
+import useI18n from 'hooks/useI18n';
 
 export interface CartTotalProps {
   total: number;
@@ -17,6 +18,10 @@ const CartTotal: React.FC<CartTotalProps> = ({
   checkoutUrl,
 }) => {
   const formatPrice = useCurrencyStore((state) => state.formatPrice);
+  const i18n = useI18n();
+
+  const totalLabel = i18n('cart.total');
+  const checkoutLabel = i18n('cart.checkout_button');
 
   return (
     <div
@@ -25,7 +30,7 @@ const CartTotal: React.FC<CartTotalProps> = ({
         className,
       ].join(' ')}>
       <div className="flex justify-between text-sm font-semibold uppercase text-primary">
-        <span>Total</span>
+        <span>{totalLabel}</span>
         <span>{formatPrice(total)}</span>
       </div>
       <Button
@@ -34,7 +39,7 @@ const CartTotal: React.FC<CartTotalProps> = ({
         href={checkoutUrl}
         disabled={disabled}
         fullWidth>
-        Checkout
+        {checkoutLabel}
       </Button>
     </div>
   );

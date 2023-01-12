@@ -7,11 +7,15 @@ import { withMainLayout } from 'lib/utils/fetch_decorators';
 
 const propsCallback: GetStaticProps<
   Omit<ProductsLayoutProps, 'products' | 'productCount'>
-> = async () => {
+> = async (context) => {
+  const { locale } = context;
   const data = await getProductListingData();
 
   return {
-    props: data,
+    props: {
+      ...data,
+      locale,
+    },
   };
 };
 

@@ -488,5 +488,1770 @@
       "description": "Small links displayed at the bottom of the site footer for store and legal policies",
       "max_items": 5
     }
+  ],
+  "lang": [
+    {
+      "id": "account.login",
+      "label": "Log in",
+      "url": "/account/login",
+      "icon": "users",
+      "fields": [
+        {
+          "id": "lang.account.login.page_title",
+          "label": "Log in page title",
+          "default": "Log in",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.login.title",
+          "label": "Log in title",
+          "default": "Log in",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.login.email.label",
+          "label": "Email label",
+          "default": "Email",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.login.email.empty_error_text",
+          "label": "Email empty error text",
+          "default": "Email is required",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.login.email.invalid_error_text",
+          "label": "Email invalid error text",
+          "default": "Email format is invalid",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.login.email.placeholder",
+          "label": "Email placeholder",
+          "default": "Enter your email",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.login.password.label",
+          "label": "Password label",
+          "default": "Password",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.login.password.empty_error_text",
+          "label": "Password empty error text",
+          "default": "Password is required",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.login.password.invalid_error_text",
+          "label": "Password invalid error text",
+          "default": "Password is invalid",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.login.password.placeholder",
+          "label": "Password placeholder",
+          "default": "Enter your password",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.login.password_recovery",
+          "label": "Password recovery link",
+          "default": "Forgot your password?",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.login.errors.invalid_credentials",
+          "label": "Invalid credentials error text",
+          "default": "Your email or password is incorrect.",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.login.errors.server",
+          "label": "Server error text",
+          "default": "Internal server error",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.login.login_button",
+          "label": "Login button label",
+          "default": "Log in",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.login.no_account",
+          "label": "No account message",
+          "default": "Don't have an account?",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.login.signup_link",
+          "label": "Signup link label",
+          "default": "Sign up",
+          "type": "short_text",
+          "localized": true
+        }
+      ]
+    },
+    {
+      "id": "account.signup",
+      "label": "Sign up",
+      "url": "/account/sign-up",
+      "icon": "users",
+      "fields": [
+        {
+          "id": "lang.account.signup.page_title",
+          "label": "Sign up page title",
+          "default": "Create account",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.signup.title",
+          "label": "Sign up title",
+          "default": "Create account",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.signup.first_name.label",
+          "label": "First name label",
+          "default": "First name",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.signup.first_name.empty_error_text",
+          "label": "First name empty error text",
+          "default": "First name is required",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.signup.first_name.placeholder",
+          "label": "First name placeholder",
+          "default": "Enter your first name",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.signup.last_name.label",
+          "label": "Last name label",
+          "default": "Last name",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.signup.last_name.empty_error_text",
+          "label": "Last name empty error text",
+          "default": "Last name is required",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.signup.last_name.placeholder",
+          "label": "Last name placeholder",
+          "default": "Enter your last name",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.signup.email.label",
+          "label": "Email label",
+          "default": "Email",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.signup.email.empty_error_text",
+          "label": "Email empty error text",
+          "default": "Email is required",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.signup.email.invalid_error_text",
+          "label": "Email invalid error text",
+          "default": "Email format is invalid",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.signup.email.placeholder",
+          "label": "Email placeholder",
+          "default": "Enter your email",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.signup.password.label",
+          "label": "Password label",
+          "default": "Password",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.signup.password.empty_error_text",
+          "label": "Password empty error text",
+          "default": "Password is required",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.signup.password.invalid_error_text",
+          "label": "Password invalid error text",
+          "default": "Your password needs to be at least 6 characters.",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.signup.password.placeholder",
+          "label": "Password placeholder",
+          "default": "Enter your password",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.signup.password.requirements_text",
+          "label": "Password requirements text",
+          "default": "Must include a minimum of 6 characters.",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.signup.errors.server_error_text",
+          "label": "Server error text",
+          "default": "Internal server error",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.signup.errors.email_taken",
+          "label": "Email taken error text",
+          "default": "There is already an account with this email",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.signup.signup_button",
+          "label": "Sign up button label",
+          "default": "Create account",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.signup.registered_user_label",
+          "label": "Registered user label",
+          "default": "Already have an account?",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.signup.login_link",
+          "label": "Login label",
+          "default": "Log in",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.signup.success_message",
+          "label": "Success message",
+          "default": "Your account was successfully created",
+          "type": "short_text",
+          "localized": true
+        }
+      ]
+    },
+    {
+      "id": "account.set_new_password",
+      "label": "Set new password",
+      "url": "/account/set-password/:key",
+      "icon": "users",
+      "fields": [
+        {
+          "id": "lang.account.set_new_password.page_title",
+          "label": "Page title",
+          "default": "Set new password",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.set_new_password.title",
+          "label": "Title",
+          "default": "Set new password",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.set_new_password.subtitle",
+          "label": "Subtitle",
+          "default": "Please enter your new password.",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.set_new_password.password.empty_error_text",
+          "label": "Password empty error",
+          "default": "Please fill out this field",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.set_new_password.password.invalid_error_text",
+          "label": "Password invalid error",
+          "default": "Your password must be at least 6 characters",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.set_new_password.password.label",
+          "label": "Password label",
+          "default": "Password",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.set_new_password.password.placeholder",
+          "label": "Password placeholder",
+          "default": "Enter your password",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.set_new_password.password.requirements_text",
+          "label": "Password requirements text",
+          "default": "Must include a minimum of 6 characters",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.set_new_password.confirm_password.empty_error_text",
+          "label": "Confirm password empty error",
+          "default": "Please fill out this field",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.set_new_password.confirm_password.label",
+          "label": "Confirm password label",
+          "default": "Confirm password",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.set_new_password.confirm_password.placeholder",
+          "label": "Confirm password placeholder",
+          "default": "Confirm your password",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.set_new_password.submit_button_label",
+          "label": "Submit button label",
+          "default": "Set password",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.set_new_password.errors.password_mismatch",
+          "label": "Error password mismatch",
+          "default": "Passwords do not match",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.set_new_password.errors.server",
+          "label": "Error server",
+          "default": "Something went wrong",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.set_new_password.expired.page_title",
+          "label": "Link expired page title",
+          "default": "Link has expired",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.set_new_password.expired.title",
+          "label": "Link expired title",
+          "default": "Link has expired",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "label": "Expired page",
+          "type": "heading"
+        },
+        {
+          "id": "lang.account.set_new_password.expired.message",
+          "label": "Link expired message",
+          "default": "This password reset link has expired or is invalid. Your password was not changed.",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.set_new_password.expired.resend_email",
+          "label": "Link expired resend email",
+          "default": "Resend email",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "label": "Success page",
+          "type": "heading"
+        },
+        {
+          "id": "lang.account.set_new_password.success.page_title",
+          "label": "Success page title",
+          "default": "Success",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.set_new_password.success.title",
+          "label": "Success title",
+          "default": "Success",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.set_new_password.success.message",
+          "label": "Success message",
+          "default": "You can now log into your account using your new password.",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.set_new_password.success.login_link",
+          "label": "Success login link",
+          "default": "Log in",
+          "type": "short_text",
+          "localized": true
+        }
+      ]
+    },
+    {
+      "id": "account.password_recovery",
+      "label": "Password recovery",
+      "url": "/account/password-recovery",
+      "icon": "users",
+      "fields": [
+        {
+          "id": "lang.account.password_recovery.page_title",
+          "label": "Page title",
+          "default": "Forgot your password?",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.password_recovery.title",
+          "label": "Title",
+          "default": "Forgot your password?",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.password_recovery.subtitle",
+          "label": "Subtitle",
+          "default": "Enter your email to reset your password",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.password_recovery.email.label",
+          "label": "Email label",
+          "default": "Email",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.password_recovery.email.empty_error_text",
+          "label": "Email empty error text",
+          "default": "Email is required",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.password_recovery.email.invalid_error_text",
+          "label": "Email invalid error text",
+          "default": "Email format is invalid",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.password_recovery.email.placeholder",
+          "label": "Email placeholder",
+          "default": "Enter your email",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.password_recovery.submit_button_label",
+          "label": "Submit button label",
+          "default": "Send email",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.password_recovery.back_to_login_text",
+          "label": "Back to login text",
+          "default": "Back to {loginLink}",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.password_recovery.back_to_login_link",
+          "label": "Back to login link",
+          "default": "Log in",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.password_recovery.errors.server",
+          "label": "Server error",
+          "default": "Something went wrong",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "label": "Check email page",
+          "type": "heading"
+        },
+        {
+          "id": "lang.account.password_recovery.check_email.page_title",
+          "label": "Check email page title",
+          "default": "Check your email",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.password_recovery.check_email.title",
+          "label": "Check email title",
+          "default": "Check your email.",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.password_recovery.check_email.message",
+          "label": "Check email message",
+          "default": "If you have an account, you should receive an email shortly with a link to reset your password.",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.password_recovery.check_email.back_to_login_text",
+          "label": "Check email back to login text",
+          "default": "Back to {loginLink}",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.password_recovery.check_email.back_to_login_link",
+          "label": "Check email back to login link",
+          "default": "Log in",
+          "type": "short_text",
+          "localized": true
+        }
+      ]
+    },
+    {
+      "id": "account.orders",
+      "label": "Orders",
+      "url": "/account/orders",
+      "icon": "users",
+      "fields": [
+        {
+          "id": "lang.account.orders.title",
+          "label": "Orders page title",
+          "default": "Subscriptions",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.orders.navigation_title",
+          "label": "Orders navigation menu title",
+          "default": "Subscriptions",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.orders.order_date",
+          "label": "Order date label",
+          "default": "Order date",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.orders.items",
+          "label": "Order items label",
+          "default": "Items",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.orders.view_order",
+          "label": "Order view label",
+          "default": "View order",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.orders.total",
+          "label": "Order total label",
+          "default": "Total",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.orders.empty.label",
+          "label": "Orders list empty state label",
+          "default": "You haven't ordered anything yet.",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.orders.empty.link",
+          "label": "Orders list empty state link label",
+          "default": "Start shopping",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "label": "Order status",
+          "type": "heading"
+        },
+        {
+          "id": "lang.account.orders.status.canceled",
+          "label": "Order status canceled",
+          "default": "Canceled",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.orders.status.complete",
+          "label": "Order status complete",
+          "default": "Complete",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.orders.status.delivery_pending",
+          "label": "Order status delivery pending",
+          "default": "Delivery pending",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.orders.status.hold",
+          "label": "Order status hold",
+          "default": "Hold",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.orders.status.payment_pending",
+          "label": "Order status payment pending",
+          "default": "Payment pending",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.orders.status.pending",
+          "label": "Order status pending",
+          "default": "Pending",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.orders.status.draft",
+          "label": "Order status draft",
+          "default": "Draft",
+          "type": "short_text",
+          "localized": true
+        }
+      ]
+    },
+    {
+      "id": "account.orders.details",
+      "label": "Order details",
+      "icon": "users",
+      "url": "/account/orders/:id",
+      "fields": [
+        {
+          "id": "lang.account.orders.details.back_link",
+          "label": "Back to orders link",
+          "default": "Back to orders",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.orders.details.order_label",
+          "label": "Order label",
+          "default": "Order",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.orders.details.create_return_label",
+          "label": "Create return label",
+          "default": "Create return",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.orders.details.return_dialog_title",
+          "label": "Return dialog title",
+          "default": "Returning an item",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.orders.details.return_dialog_body",
+          "label": "Return dialog body",
+          "default": "To initiate a partial or complete return of an order, please contact us so we can start the return process. Don’t forget to include the order number and the reason for returning.",
+          "type": "long_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.orders.details.order_date_label",
+          "label": "Order date label",
+          "default": "Order date",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.orders.details.items_label",
+          "label": "Items label",
+          "default": "Items",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.orders.details.total_label",
+          "label": "Total label",
+          "default": "Total",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.orders.details.quantity_label",
+          "label": "Quantity label",
+          "default": "Qty",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.orders.details.price_label",
+          "label": "Price label",
+          "default": "Price",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.orders.details.subtotal_label",
+          "label": "Subtotal label",
+          "default": "Subtotal",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.orders.details.discounts_label",
+          "label": "Discounts & credits label",
+          "default": "Discounts & Credits",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.orders.details.shipping_label",
+          "label": "Shipping label",
+          "default": "Shipping",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.orders.details.tax_label",
+          "label": "VAT label",
+          "default": "VAT",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.orders.details.refund_label",
+          "label": "Refund label",
+          "default": "Refund",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.orders.details.delivery_info_title",
+          "label": "Delivery information title",
+          "default": "Delivery information",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.orders.details.details_label",
+          "label": "Details label",
+          "default": "Details",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.orders.details.phone_number_label",
+          "label": "Phone number label",
+          "default": "Phone number",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.orders.details.method_label",
+          "label": "Method label",
+          "default": "Method",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.orders.details.order_notes_label",
+          "label": "Order notes label",
+          "default": "Order notes",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.orders.details.payment_info_title",
+          "label": "Payment information title",
+          "default": "Payment information",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.orders.details.payment_method_label",
+          "label": "Payment method label",
+          "default": "Payment method",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.orders.details.card_label",
+          "label": "Card label",
+          "default": "Card",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.orders.details.billing_address_label",
+          "label": "Billing address label",
+          "default": "Billing address",
+          "type": "short_text",
+          "localized": true
+        }
+      ]
+    },
+    {
+      "id": "account.subscriptions",
+      "label": "Subscriptions",
+      "icon": "users",
+      "url": "/account/subscriptions",
+      "fields": [
+        {
+          "id": "lang.account.subscriptions.title",
+          "label": "Subscriptions page title",
+          "default": "Subscriptions",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.navigation_title",
+          "label": "Subscriptions navigation menu title",
+          "default": "Subscriptions",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.billing_message",
+          "label": "Subscription billing message",
+          "default": "Every {n} {interval}",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.order_message",
+          "label": "Subscription order message",
+          "default": "Every {n} {interval}",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.next_billing",
+          "label": "Subscription next billing label",
+          "default": "Next billing",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.manage",
+          "label": "Subscription manage label",
+          "default": "Manage",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.empty.label",
+          "label": "Orders list empty state label",
+          "default": "You haven't subscribed to any products yet.",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.empty.link",
+          "label": "Orders list empty state link label",
+          "default": "Start shopping",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "label": "Subscription status",
+          "type": "heading"
+        },
+        {
+          "id": "lang.account.subscriptions.status.active",
+          "label": "Subscription status active",
+          "default": "Active",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.status.canceled",
+          "label": "Subscription status canceled",
+          "default": "Canceled",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.status.paid",
+          "label": "Subscription status paid",
+          "default": "Paid",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.status.trial",
+          "label": "Subscription status trial",
+          "default": "Trial",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.status.paused",
+          "label": "Subscription status paused",
+          "default": "Paused",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.status.pastdue",
+          "label": "Subscription status pastdue",
+          "default": "Past due",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.status.unpaid",
+          "label": "Subscription status unpaid",
+          "default": "Unpaid",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.status.complete",
+          "label": "Subscription status complete",
+          "default": "Complete",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.status.pending",
+          "label": "Subscription status pending",
+          "default": "Pending",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.status.draft",
+          "label": "Subscription status draft",
+          "default": "Draft",
+          "type": "short_text",
+          "localized": true
+        }
+      ]
+    },
+    {
+      "id": "account.subscriptions.details",
+      "label": "Subscription details",
+      "icon": "users",
+      "url": "/account/subscriptions/:id",
+      "fields": [
+        {
+          "id": "lang.account.subscriptions.details.billing_message",
+          "label": "Subscription billing message",
+          "default": "Pay every {n} {interval}",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.order_message",
+          "label": "Subscription order message",
+          "default": "Shipped every {n} {interval}",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.header_billing_message",
+          "label": "Subscription header billing message",
+          "default": "Every {n} {interval}",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.back_link",
+          "label": "Back to subscriptions link",
+          "default": "Back to subscriptions",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.created_label",
+          "label": "Created label",
+          "default": "Created",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.next_billing_label",
+          "label": "Next billing label",
+          "default": "Next billing",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.items_label",
+          "label": "Items label",
+          "default": "Items",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.total_label",
+          "label": "Total label",
+          "default": "Total",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.quantity_label",
+          "label": "Quantity label",
+          "default": "Qty",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.price_label",
+          "label": "Price label",
+          "default": "Price",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.subtotal_label",
+          "label": "Subtotal label",
+          "default": "Subtotal",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.discounts_label",
+          "label": "Discounts & Credits label",
+          "default": "Discounts & Credits",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.shipping_label",
+          "label": "Shipping label",
+          "default": "Shipping",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.tax_label",
+          "label": "VAT label",
+          "default": "VAT",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.refund_label",
+          "label": "Refund label",
+          "default": "Refund",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.delivery_info_title",
+          "label": "Delivery information title",
+          "default": "Delivery information",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.details_label",
+          "label": "Details label",
+          "default": "Details",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.phone_number_label",
+          "label": "Phone number label",
+          "default": "Phone number",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.method_label",
+          "label": "Method label",
+          "default": "Method",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.order_notes_label",
+          "label": "Order notes label",
+          "default": "Order notes",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.payment_info_title",
+          "label": "Payment information title",
+          "default": "Payment information",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.payment_method_label",
+          "label": "Payment method label",
+          "default": "Payment method",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.card_label",
+          "label": "Card label",
+          "default": "Card",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.billing_address_label",
+          "label": "Billing address label",
+          "default": "Billing address",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.trial_end_message",
+          "label": "Trial period end message",
+          "default": "Your trial period will end in {n} {interval}",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.billing_message",
+          "label": "Billing message",
+          "default": "Every {n} {interval}",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.renewal_limit_label",
+          "label": "Renewal limit label",
+          "default": "Limited to {n} {renewal}",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.shipment_limit_label",
+          "label": "Shipment limit label",
+          "default": "Limited to {n} {shipment}",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.renewal_singular_label",
+          "label": "Renewal singular label",
+          "default": "renewal",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.renewal_plural_label",
+          "label": "Renewal plural label",
+          "default": "renewals",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.shipment_singular_label",
+          "label": "Shipment singular label",
+          "default": "shipment",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.shipment_plural_label",
+          "label": "Shipment plural label",
+          "default": "shipments",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "label": "Cancel subscription",
+          "type": "heading"
+        },
+        {
+          "id": "lang.account.subscriptions.details.cancel.message",
+          "label": "Cancel subscription message",
+          "default": "You can cancel your subscription at anytime.",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.cancel.label",
+          "label": "Cancel subscription label",
+          "default": "Cancel subscription",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.cancel.dialog_title",
+          "label": "Cancel subscription dialog title",
+          "default": "Cancel subscription",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.cancel.dialog_body",
+          "label": "Cancel subscription dialog body",
+          "default": "Cancelling your subscription is permanent. Are you sure you want to proceed?",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.cancel.cancel_button_label",
+          "label": "Cancel button label",
+          "default": "Cancel",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.cancel.cancel_subscription_button_label",
+          "label": "Cancel subscription button label",
+          "default": "Cancel subscription",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.cancel.success_message",
+          "label": "Cancel subscription success message",
+          "default": "Your subscription is canceled",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.subscriptions.details.cancel.error_message",
+          "label": "Cancel subscription error message",
+          "default": "Something went wrong, please try again later",
+          "type": "short_text",
+          "localized": true
+        }
+      ]
+    },
+    {
+      "id": "account.logout",
+      "label": "Logout",
+      "icon": "unlock-alt",
+      "fields": [
+        {
+          "id": "lang.account.logout.label",
+          "label": "Log out",
+          "default": "Log out",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.account.logout.success",
+          "label": "Log out success message",
+          "default": "You're logged out",
+          "type": "short_text",
+          "localized": true
+        }
+      ]
+    },
+    {
+      "id": "products.page",
+      "label": "Product page",
+      "url": "/products",
+      "fields": [
+        {
+          "id": "lang.products.add_to_cart",
+          "label": "Add to cart",
+          "default": "Add to bag",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.products.trial_message",
+          "label": "Trial message",
+          "default": "{n} days free trial, then {price}",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.products.stock.not_enough",
+          "label": "Stock not enough message",
+          "default": "Not enough stock remaining to increase quantity in cart by {quantity}.",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "label": "Subscription",
+          "type": "heading"
+        },
+        {
+          "id": "lang.products.subscription.options",
+          "label": "Subscription options label",
+          "default": "Subscription options",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.products.subscription.billing_message",
+          "label": "Subscription billing message",
+          "default": "Pay every {n} {interval}",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.products.subscription.order_message",
+          "label": "Subscription order message",
+          "default": "Receive it every {n} {interval}",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "label": "Subscription intervals singular",
+          "type": "heading"
+        },
+        {
+          "id": "lang.products.interval.singular.daily",
+          "label": "Interval singular day",
+          "default": "day",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.products.interval.singular.weekly",
+          "label": "Interval singular week",
+          "default": "week",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.products.interval.singular.monthly",
+          "label": "Interval singular month",
+          "default": "month",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.products.interval.singular.yearly",
+          "label": "Interval singular year",
+          "default": "year",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "label": "Subscription intervals plural",
+          "type": "heading"
+        },
+        {
+          "id": "lang.products.interval.plural.daily",
+          "label": "Interval plural days",
+          "default": "days",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.products.interval.plural.weekly",
+          "label": "Interval plural weeks",
+          "default": "weeks",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.products.interval.plural.monthly",
+          "label": "Interval plural months",
+          "default": "months",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.products.interval.plural.yearly",
+          "label": "Interval plural years",
+          "default": "years",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "label": "Subscription intervals shorthand",
+          "type": "heading"
+        },
+        {
+          "id": "lang.products.interval.short.daily",
+          "label": "Interval shorthand day",
+          "default": "day",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.products.interval.short.weekly",
+          "label": "Interval shorthand week",
+          "default": "wk",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.products.interval.short.monthly",
+          "label": "Interval shorthand month",
+          "default": "mo",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.products.interval.short.yearly",
+          "label": "Interval shorthand year",
+          "default": "yr",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.products.upsells.title",
+          "label": "Upsells title",
+          "default": "You may also like",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "label": "Stock status",
+          "type": "heading"
+        },
+        {
+          "id": "lang.products.stock_status.in_stock",
+          "label": "Stock status in stock",
+          "default": "In Stock",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.products.stock_status.low_stock",
+          "label": "Stock status low stock",
+          "default": "Low Stock",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.products.stock_status.out_of_stock",
+          "label": "Stock status out of stock",
+          "default": "Out of Stock",
+          "type": "short_text",
+          "localized": true
+        }
+      ]
+    },
+    {
+      "id": "categories.page",
+      "label": "Category page",
+      "url": "/categories",
+      "fields": [
+        {
+          "id": "lang.categories.filters.title",
+          "label": "Filters",
+          "default": "Filters",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.categories.filters.remove_all",
+          "label": "Filters remove all label",
+          "default": "Remove all",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.categories.filters.see_results",
+          "label": "Filters see results label",
+          "default": "See results ({count})",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.categories.filters.price",
+          "label": "Filters price label",
+          "default": "Price label",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.categories.filters.all_products",
+          "label": "All products label",
+          "default": "All products",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.categories.product_count",
+          "label": "Products count label",
+          "default": "All products ({count})",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.categories.mobile_button",
+          "label": "Filters mobile button label",
+          "default": "Filter",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "label": "Product Preview",
+          "type": "heading"
+        },
+        {
+          "id": "lang.products.preview.from",
+          "label": "From label",
+          "default": "From",
+          "type": "short_text",
+          "localized": true
+        }
+      ]
+    },
+    {
+      "id": "errors",
+      "label": "Error messages",
+      "icon": "exclamation-circle",
+      "fields": [
+        {
+          "id": "lang.errors.error_code",
+          "label": "Error code title",
+          "default": "Error {code}",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.errors.internal.title",
+          "label": "Internal server error title",
+          "default": "Page unavailable",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.errors.internal.message",
+          "label": "Internal server error message",
+          "default": "The page you were looking for is temporarily unavailable. Please try refreshing the page or contact us if the issue persists.",
+          "type": "long_text",
+          "localized": true
+        },
+        {
+          "id": "lang.errors.internal.reload",
+          "label": "Internal server error reload page button",
+          "default": "Refresh page",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.errors.internal.return_home",
+          "label": "Internal server error return home message",
+          "default": "or go {link}",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.errors.internal.return_home_link",
+          "label": "Internal server error return home link",
+          "default": "back to home",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.errors.page_not_found.title",
+          "label": "Page not found title",
+          "default": "Page not found",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.errors.page_not_found.message",
+          "label": "Page not found message",
+          "default": "The page you were looking for is not available. Double check your URL or explore Horizon for new findings.",
+          "type": "long_text",
+          "localized": true
+        },
+        {
+          "id": "lang.errors.page_not_found.return_home_link",
+          "label": "Page not found return home link",
+          "default": "Back to home",
+          "type": "short_text",
+          "localized": true
+        }
+      ]
+    },
+    {
+      "id": "navigation",
+      "label": "Navigation",
+      "icon": "bars",
+      "fields": [
+        {
+          "id": "lang.navigation.account",
+          "label": "Account link label",
+          "default": "Account",
+          "type": "short_text",
+          "localized": true
+        }
+      ]
+    },
+    {
+      "id": "search",
+      "label": "Search",
+      "icon": "search",
+      "fields": [
+        {
+          "id": "lang.search.placeholder",
+          "label": "Search placeholder",
+          "default": "Search by product name or SKU",
+          "type": "short_text",
+          "localized": true
+        }
+      ]
+    },
+    {
+      "id": "cart",
+      "label": "Cart",
+      "fields": [
+        {
+          "id": "lang.cart.header",
+          "label": "Header label",
+          "default": "Your bag ({count})",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.cart.add_more_products",
+          "label": "Header label",
+          "default": "Add more products",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.cart.add_first_product",
+          "label": "Header label",
+          "default": "Add your first product",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.cart.empty_message",
+          "label": "Cart empty message",
+          "default": "Your bag is empty.",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.cart.checkout_button",
+          "label": "Checkout button label",
+          "default": "Checkout",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.cart.total",
+          "label": "Total label",
+          "default": "Total",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.cart.billing_message",
+          "label": "Cart item subscription billing message",
+          "default": "Pay every {n} {interval}",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.cart.order_message",
+          "label": "Cart item subscription order message",
+          "default": "Receive it every {n} {interval}",
+          "type": "short_text",
+          "localized": true
+        }
+      ]
+    },
+    {
+      "id": "quiz",
+      "label": "Quiz",
+      "icon": "question-square",
+      "fields": [
+        {
+          "id": "lang.quiz.step_count",
+          "label": "Step count label",
+          "default": "{currentStep} of {totalSteps}",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.quiz.results.see_product",
+          "label": "See product details label",
+          "default": "See product details",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.quiz.results.prices_separator",
+          "label": "Prices separator label",
+          "default": "or",
+          "type": "short_text",
+          "localized": true
+        }
+      ]
+    }
   ]
 }

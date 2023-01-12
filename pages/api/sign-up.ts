@@ -3,6 +3,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { isSessionTokenValid } from 'lib/utils/authentication';
 import getGQLClient, { getRawClient } from 'lib/graphql/client';
 import type { ClientError } from 'graphql-request';
+import { sameSiteSettings } from 'utils/editor';
 
 export default async function handler(
   req: NextApiRequest,
@@ -49,7 +50,7 @@ export default async function handler(
         maxAge: ONE_WEEK,
         httpOnly: true,
         path: '/',
-        sameSite: 'strict',
+        ...sameSiteSettings,
       }),
     );
 

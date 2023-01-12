@@ -6,6 +6,7 @@ import type { RootNavItem } from 'types/nav';
 import { getHref } from 'lib/utils/nav';
 import { denullifyArray } from 'lib/utils/denullify';
 import NavLink from 'components/atoms/NavLink';
+import useI18n from 'hooks/useI18n';
 
 export interface MobileMenuProps extends React.HTMLAttributes<HTMLDivElement> {
   items: RootNavItem[] | null;
@@ -18,6 +19,9 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
   show,
   openDelay,
 }) => {
+  const i18n = useI18n();
+  const accountLinkLabel = i18n('navigation.account');
+
   return (
     <Transition
       show={show}
@@ -54,8 +58,8 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
                 <NavLink key={index} label={item.name} link={getHref(item)} />
               ),
             )}
-          {/* TODO: Make user editable */}
-          <NavLink label="account" link="/account/orders" />
+
+          <NavLink label={accountLinkLabel} link="/account/orders" />
         </ul>
       </nav>
       <CurrencySelect className="mt-5" />

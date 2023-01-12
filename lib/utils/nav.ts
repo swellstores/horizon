@@ -1,21 +1,9 @@
-import type { AccountNavLinkProps } from 'components/atoms/AccountNavLink';
 import {
   NavItem,
   NAV_CONTENT_MODEL,
   NAV_ITEM_TYPE,
   URL_TARGET,
 } from 'types/nav';
-
-export const links: AccountNavLinkProps[] = [
-  {
-    label: 'Orders & Returns',
-    link: '/account/orders',
-  },
-  {
-    label: 'Subscriptions',
-    link: '/account/subscriptions',
-  },
-];
 
 export function getHref(item: NavItem) {
   switch (item.type) {

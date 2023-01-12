@@ -23,7 +23,7 @@ const Template: ComponentStory<typeof ScheduleLabel> = (args) => (
 export const Default = Template.bind({});
 Default.args = {
   type: 'billing',
-  base: 'Pay',
+  base: 'Pay every {n} {interval}',
   schedule: {
     interval: 'weekly',
     intervalCount: 1,
@@ -37,7 +37,7 @@ Default.args = {
 export const Order = Template.bind({});
 Order.args = {
   type: 'order',
-  base: 'Receive it',
+  base: 'Receive it every {n} {interval}',
   schedule: {
     interval: 'weekly',
     intervalCount: 1,

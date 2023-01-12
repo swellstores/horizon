@@ -1,4 +1,5 @@
-import React, { useMemo } from 'react';
+import useI18n from 'hooks/useI18n';
+import React from 'react';
 import type { PurchasableProductData } from 'types/shared/products';
 import ProductPreviewCardPurchasable from './ProductPreviewCardPurchasable';
 import ProductPreviewCardSimple from './ProductPreviewCardSimple';
@@ -19,11 +20,9 @@ const ProductPreviewCard: React.FC<ProductPreviewCardProps> = ({
   show_product_description = true,
   ...props
 }) => {
-  const fromPriceLabel = useMemo(() => {
-    const hasStandardPrice = !!product?.purchaseOptions?.standard?.price;
-    // TODO: i18n
-    return !hasStandardPrice ? 'From ' : '';
-  }, [product?.purchaseOptions?.standard?.price]);
+  const i18n = useI18n();
+  const hasStandardPrice = !!product?.purchaseOptions?.standard?.price;
+  const fromPriceLabel = !hasStandardPrice ? i18n('products.preview.from') : '';
 
   if (loading) return <ProductPreviewCardSkeleton />;
 

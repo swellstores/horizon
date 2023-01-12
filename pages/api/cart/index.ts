@@ -4,6 +4,7 @@ import { getClientWithSessionToken } from 'lib/graphql/client';
 import { denullifyArray } from 'lib/utils/denullify';
 import { getCartItems } from 'lib/utils/cart';
 import type { CartData, CartItemInput } from 'types/shared/cart';
+import { sameSiteSettings } from 'utils/editor';
 
 export default async function handler(
   req: NextApiRequest,
@@ -37,7 +38,7 @@ export default async function handler(
           maxAge: 60 * 60 * 24 * 7,
           httpOnly: true,
           path: '/',
-          sameSite: 'strict',
+          ...sameSiteSettings,
         }),
       );
     }
@@ -67,7 +68,7 @@ export default async function handler(
           maxAge: 60 * 60 * 24 * 7,
           httpOnly: true,
           path: '/',
-          sameSite: 'strict',
+          ...sameSiteSettings,
         }),
       );
     }
