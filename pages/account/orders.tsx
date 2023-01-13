@@ -27,6 +27,7 @@ interface OrdersPageProps extends PageProps, AccountPageProps {
 export const propsCallback: GetServerSideProps<OrdersPageProps> = async (
   ctx,
 ) => {
+  const { locale } = ctx;
   const client = getClientWithSessionToken(ctx.req.cookies);
 
   const {
@@ -55,6 +56,7 @@ export const propsCallback: GetServerSideProps<OrdersPageProps> = async (
     props: {
       orders: formattedOrders,
       pageType: 'orders',
+      ...(locale ? { locale } : {}),
     },
   };
 };

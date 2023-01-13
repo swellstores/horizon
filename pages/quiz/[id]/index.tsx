@@ -75,7 +75,10 @@ const propsCallback: GetStaticProps<QuizPageProps> = async (
   const quizProps = mapQuizProps(quizData);
 
   return {
-    props: quizProps,
+    props: {
+      ...quizProps,
+      ...(locale ? { locale } : {}),
+    },
   };
 };
 

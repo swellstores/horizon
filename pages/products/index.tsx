@@ -14,7 +14,7 @@ const propsCallback: GetStaticProps<
   return {
     props: {
       ...data,
-      locale,
+      ...(locale ? { locale } : {}),
     },
   };
 };

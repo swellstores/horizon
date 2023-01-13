@@ -196,6 +196,7 @@ const formatOrder = (
 export const propsCallback: GetServerSideProps<OrderDetailPageProps> = async (
   context,
 ) => {
+  const { locale } = context;
   const orderId = context.params?.id;
   const sessionTokenCookie = context.req.cookies.sessionToken;
   if (!orderId || typeof orderId !== 'string' || !sessionTokenCookie) {
@@ -218,6 +219,7 @@ export const propsCallback: GetServerSideProps<OrderDetailPageProps> = async (
     props: {
       pageType: 'orders',
       order,
+      ...(locale ? { locale } : {}),
     },
   };
 };

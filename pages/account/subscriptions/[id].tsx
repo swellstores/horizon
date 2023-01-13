@@ -278,6 +278,7 @@ const formatSubscription = (
 export const propsCallback: GetServerSideProps<
   SubscriptionDetailPageProps
 > = async (context) => {
+  const { locale } = context;
   const subscriptionId = context.params?.id;
   const sessionTokenCookie = context.req.cookies.sessionToken;
   if (
@@ -306,6 +307,7 @@ export const propsCallback: GetServerSideProps<
     props: {
       pageType: 'subscriptions',
       subscription,
+      ...(locale ? { locale } : {}),
     },
   };
 };

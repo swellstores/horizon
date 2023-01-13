@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import type { GetStaticProps } from 'next';
+import type { GetServerSideProps } from 'next';
 import { getAuthLayout } from 'lib/utils/layout_getters';
 import { withAuthLayout } from 'lib/utils/fetch_decorators';
 import type { NextPageWithLayout, PageProps } from 'types/shared/pages';
@@ -14,9 +14,12 @@ export const expiredText = (i18n: I18n) => ({
   resendEmail: i18n('account.set_new_password.expired.resend_email'),
 });
 
-const propsCallback: GetStaticProps<PageProps> = async () => {
+const propsCallback: GetServerSideProps<PageProps> = async (context) => {
+  const { locale } = context;
   return {
-    props: {},
+    props: {
+      ...(locale ? { locale } : {}),
+    },
   };
 };
 

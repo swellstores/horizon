@@ -27,6 +27,7 @@ interface SubscriptionsPageProps extends PageProps, AccountPageProps {
 export const propsCallback: GetServerSideProps<SubscriptionsPageProps> = async (
   ctx,
 ) => {
+  const { locale } = ctx;
   const client = getClientWithSessionToken(ctx.req.cookies);
 
   const {
@@ -56,6 +57,7 @@ export const propsCallback: GetServerSideProps<SubscriptionsPageProps> = async (
     props: {
       subscriptions: formattedSubscriptions,
       pageType: 'subscriptions',
+      ...(locale ? { locale } : {}),
     },
   };
 };

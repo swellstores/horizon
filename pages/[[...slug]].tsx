@@ -107,7 +107,7 @@ const propsCallback: GetStaticProps<StaticPageProps> = async (context) => {
   return {
     props: {
       ...props,
-      locale,
+      ...(locale ? { locale } : {}),
     },
   };
 };
