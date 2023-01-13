@@ -62,9 +62,6 @@ Default.args = {
             },
           },
           href: '',
-          hrefCta: 'See product details',
-          addLabel: 'Add to bag',
-          addedLabel: 'Added',
           subscriptionOnlyText: 'This is a subscription product',
           productId: '123455678',
           productOptions: [
@@ -238,9 +235,6 @@ Default.args = {
             },
           },
           href: '',
-          hrefCta: 'See product details',
-          addLabel: 'Add to bag',
-          addedLabel: 'Added',
           subscriptionOnlyText: 'This is a subscription product',
           productId: '123455678',
           productOptions: [
@@ -405,9 +399,6 @@ Default.args = {
             },
           },
           href: '',
-          hrefCta: 'See product details',
-          addLabel: 'Add to bag',
-          addedLabel: 'Added',
           subscriptionOnlyText: 'This is a subscription product',
           productId: '123455678',
           productOptions: [

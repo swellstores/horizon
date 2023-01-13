@@ -6,37 +6,23 @@ import {
   withAuthentication,
 } from 'lib/utils/fetch_decorators';
 import { getAccountLayout } from 'lib/utils/layout_getters';
-import { ORDER_STATUS } from 'types/orders';
+import type { ORDER_STATUS } from 'types/orders';
 import type { GetServerSideProps } from 'next';
 import type { OrderCardProps } from 'components/molecules/PurchaseCard';
-import type { NextPageWithLayout, PageProps } from 'types/shared/pages';
+import type {
+  AccountPageProps,
+  NextPageWithLayout,
+  PageProps,
+} from 'types/shared/pages';
 import { PURCHASE_TYPE } from 'types/purchase';
 import { formatProductImages } from 'lib/utils/products';
+import { grouppedPurchases } from 'utils/purchases';
+import { pageTitleMap } from 'utils/lang';
+import useI18n from 'hooks/useI18n';
 
-interface GroupedOrder {
-  title: string;
-  purchases: OrderCardProps[];
+interface OrdersPageProps extends PageProps, AccountPageProps {
+  orders: OrderCardProps[];
 }
-
-// TODO: Move to purchase group? Reuse with subscriptions page.
-export type GroupedOrders = {
-  [key in ORDER_STATUS]?: GroupedOrder;
-};
-
-interface OrdersPageProps extends PageProps {
-  groupedOrders: GroupedOrders;
-  pageTitle: string;
-}
-
-const GROUP_TITLES = {
-  [ORDER_STATUS.PENDING]: 'Pending',
-  [ORDER_STATUS.CANCELED]: 'Canceled',
-  [ORDER_STATUS.DRAFT]: 'Draft',
-  [ORDER_STATUS.PAYMENT_PENDING]: 'Payment pending',
-  [ORDER_STATUS.DELIVERY_PENDING]: 'Delivery pending',
-  [ORDER_STATUS.HOLD]: 'Hold',
-  [ORDER_STATUS.COMPLETE]: 'Complete',
-};
 
 export const propsCallback: GetServerSideProps<OrdersPageProps> = async (
   ctx,
@@ -65,28 +51,10 @@ export const propsCallback: GetServerSideProps<OrdersPageProps> = async (
     },
   );
 
-  // TODO: Remove repetition with subscriptions
-  const groupedOrders: GroupedOrders = formattedOrders.reduce(
-    (accumulator, currentValue) => {
-      const { status } = currentValue;
-      if (status && !accumulator[status]) {
-        const firstEntry: GroupedOrder = {
-          title: GROUP_TITLES[status],
-          purchases: [currentValue],
-        };
-        accumulator[status] = firstEntry;
-      } else if (accumulator[status]) {
-        accumulator[status]?.purchases.push(currentValue);
-      }
-      return accumulator;
-    },
-    {} as GroupedOrders,
-  );
-
   return {
     props: {
-      groupedOrders: groupedOrders ?? null,
-      pageTitle: 'Orders and Returns',
+      orders: formattedOrders,
+      pageType: 'orders',
     },
   };
 };
@@ -96,12 +64,14 @@ export const getServerSideProps = withAccountLayout(
 );
 
 const OrdersPage: NextPageWithLayout<OrdersPageProps> = ({
-  pageTitle,
-  groupedOrders,
+  orders,
+  pageType,
 }) => {
+  const i18n = useI18n();
+  const groupedOrders = grouppedPurchases(orders, i18n);
   return (
     <PurchaseList
-      title={pageTitle}
+      title={pageTitleMap(i18n)[pageType]}
       groupedPurchases={groupedOrders}
       type={PURCHASE_TYPE.ORDER}
     />

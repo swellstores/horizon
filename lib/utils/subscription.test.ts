@@ -3,7 +3,7 @@ import {
   formatLimitText,
   formatSubscriptionPrice,
   formatTrialText,
-  getScheduleLabel,
+  formatScheduleLabel,
   isLastSubscriptionCycle,
   ONE_DAY,
 } from './subscription';
@@ -62,17 +62,17 @@ describe('subscription utils', () => {
     });
   });
 
-  describe('#getScheduleLabel', () => {
+  describe('#formatScheduleLabel', () => {
     it('formats schedules correctly', () => {
       expect(
-        getScheduleLabel('Pay every', {
+        formatScheduleLabel('Pay every {n} {interval}', {
           interval: INTERVAL.Daily,
           intervalCount: 1,
         }),
       ).toBe('Pay every day');
 
       expect(
-        getScheduleLabel('Receive it every', {
+        formatScheduleLabel('Receive it every {n} {interval}', {
           interval: INTERVAL.Weekly,
           intervalCount: 3,
         }),
@@ -80,9 +80,15 @@ describe('subscription utils', () => {
     });
 
     it('returns empty string when no schedule, interval or intervalCount', () => {
-      expect(getScheduleLabel('Pay every', null)).toBe('');
-      expect(getScheduleLabel('Pay every', { interval: null })).toBe('');
-      expect(getScheduleLabel('Pay every', { intervalCount: null })).toBe('');
+      expect(formatScheduleLabel('Pay every {n} {interval}', null)).toBe('');
+      expect(
+        formatScheduleLabel('Pay every {n} {interval}', { interval: null }),
+      ).toBe('');
+      expect(
+        formatScheduleLabel('Pay every {n} {interval}', {
+          intervalCount: null,
+        }),
+      ).toBe('');
     });
   });
 
@@ -91,39 +97,49 @@ describe('subscription utils', () => {
       expect(
         formatLimitText(
           { limit: 10, limitCurrent: 6 },
-          'Limited to',
+          'Limited to {n} {shipment}',
           'shipment',
           'shipments',
+          'shipment',
         ),
       ).toBe('Limited to 4 shipments');
       expect(
         formatLimitText(
           { limit: 10, limitCurrent: 9 },
-          'Limited to',
+          'Limited to {n} {shipment}',
           'shipment',
           'shipments',
+          'shipment',
         ),
       ).toBe('Limited to 1 shipment');
     });
 
     it('returns null when no limit, limitCurrent or limit - limitCurrent = 0', () => {
-      expect(formatLimitText({}, 'Limited to', 'shipment', 'shipments')).toBe(
-        null,
-      );
+      expect(
+        formatLimitText(
+          {},
+          'Limited to {n} {shipment}',
+          'shipment',
+          'shipments',
+          'shipment',
+        ),
+      ).toBe(null);
       expect(
         formatLimitText(
           { limit: null, limitCurrent: null },
-          'Limited to',
+          'Limited to {n} {shipment}',
           'shipment',
           'shipments',
+          'shipment',
         ),
       ).toBe(null);
       expect(
         formatLimitText(
           { limit: 5, limitCurrent: 5 },
-          'Limited to',
+          'Limited to {n} {shipment}',
           'shipment',
           'shipments',
+          'shipment',
         ),
       ).toBe(null);
     });
@@ -132,40 +148,25 @@ describe('subscription utils', () => {
   describe('#formatTrialText', () => {
     it('formats trial text correctly', () => {
       expect(
-        formatTrialText(
-          {
-            trial: true,
-            dateTrialEnd: new Date(new Date().getTime() + 5 * ONE_DAY),
-          },
-          'Your trial period will end in',
-          'day',
-          'days',
-        ),
+        formatTrialText('Your trial period will end in {n} {interval}', {
+          trial: true,
+          dateTrialEnd: new Date(new Date().getTime() + 5 * ONE_DAY),
+        }),
       ).toBe('Your trial period will end in 6 days');
 
       expect(
-        formatTrialText(
-          {
-            trial: true,
-            dateTrialEnd: new Date(new Date().getTime() + 0.5 * ONE_DAY),
-          },
-          'Your trial period will end in',
-          'day',
-          'days',
-        ),
+        formatTrialText('Your trial period will end in {n} {interval}', {
+          trial: true,
+          dateTrialEnd: new Date(new Date().getTime() + 0.5 * ONE_DAY),
+        }),
       ).toBe('Your trial period will end in 1 day');
     });
 
     it('returns null when there is no trial', () => {
       expect(
-        formatTrialText(
-          {
-            trial: false,
-          },
-          'Your trial period will end in',
-          'day',
-          'days',
-        ),
+        formatTrialText('Your trial period will end in {n} {interval}', {
+          trial: false,
+        }),
       ).toBe(null);
     });
   });

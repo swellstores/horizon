@@ -17,62 +17,51 @@ import { API_ROUTES } from 'types/shared/api';
 import { validateNonEmptyFields } from 'utils/validation';
 import { ACCOUNT_FIELD } from 'types/account';
 import useFetchApi from 'hooks/useFetchApi';
+import useI18n, { I18n } from 'hooks/useI18n';
 
-interface LoginProps extends PageProps {
-  text: {
-    logInTitle: string;
-    emailLabel: string;
-    emailEmptyErrorText: string;
-    emailInvalidErrorText: string;
-    emailPlaceholder?: string;
-    passwordLabel: string;
-    passwordEmptyErrorText: string;
-    passwordInvalidErrorText: string;
-    passwordPlaceholder?: string;
-    passwordRecovery: string;
-    invalidCredentialsErrorText: string;
-    serverErrorText: string;
-    logInButton: string;
-    noAccount: string;
-    signUp: string;
-  };
-}
+const loginText = (i18n: I18n) => ({
+  pageTitle: i18n('account.login.page_title'),
+  title: i18n('account.login.title'),
+  email: {
+    label: i18n('account.login.email.label'),
+    emptyErrorText: i18n('account.login.email.empty_error_text'),
+    invalidErrorText: i18n('account.login.email.invalid_error_text'),
+    placeholder: i18n('account.login.email.placeholder'),
+  },
+  password: {
+    label: i18n('account.login.password.label'),
+    emptyErrorText: i18n('account.login.password.empty_error_text'),
+    invalidErrorText: i18n('account.login.password.invalid_error_text'),
+    placeholder: i18n('account.login.password.placeholder'),
+  },
+  passwordRecovery: i18n('account.login.password_recovery'),
+  errors: {
+    invalidCredentials: i18n('account.login.errors.invalid_credentials'),
+    server: i18n('account.login.errors.server'),
+  },
+  loginButton: i18n('account.login.login_button'),
+  noAccount: i18n('account.login.no_account'),
+  signupLink: i18n('account.login.signup_link'),
+});
 
-const propsCallback: GetStaticProps<LoginProps> = async () => {
+const propsCallback: GetStaticProps<PageProps> = async () => {
   const storeName = 'Horizon';
   return {
     props: {
       storeName,
       title: `${storeName} | Log in`,
-      text: {
-        logInTitle: 'Log in',
-        emailLabel: 'Email',
-        emailEmptyErrorText: 'Email is required',
-        emailInvalidErrorText: 'Email format is invalid',
-        emailPlaceholder: 'Enter your email',
-        passwordLabel: 'Password',
-        passwordEmptyErrorText: 'Password is required',
-        passwordInvalidErrorText: 'Password is invalid',
-        passwordPlaceholder: 'Enter your password',
-        passwordRecovery: 'Forgot your password?',
-        invalidCredentialsErrorText: 'Your email or password is incorrect.',
-        serverErrorText: 'Internal server error',
-        logInButton: 'Log in',
-        noAccount: "Don't have an account?",
-        signUp: 'Sign up',
-      },
     },
   };
 };
 
 export const getStaticProps = withAuthLayout(propsCallback);
 
-const LoginPage: NextPageWithLayout<LoginProps> = ({
-  text,
-  title,
+const LoginPage: NextPageWithLayout<PageProps> = ({
   metaTitle,
   metaDescription,
 }) => {
+  const i18n = useI18n();
+  const text = loginText(i18n);
   const router = useRouter();
   const fetchApi = useFetchApi();
   const [email, setEmail] = useState('');
@@ -91,13 +80,13 @@ const LoginPage: NextPageWithLayout<LoginProps> = ({
       if (res.status === 401 || res.status === 403) {
         setError({
           field: ACCOUNT_FIELD.OTHER,
-          message: text.invalidCredentialsErrorText,
+          message: text.errors.invalidCredentials,
         });
         return false;
       } else if (res.status === 500) {
         setError({
           field: ACCOUNT_FIELD.OTHER,
-          message: text.serverErrorText,
+          message: text.errors.server,
         });
         return false;
       }
@@ -108,7 +97,7 @@ const LoginPage: NextPageWithLayout<LoginProps> = ({
   const errorCallback = useCallback(() => {
     setError({
       field: ACCOUNT_FIELD.OTHER,
-      message: text.serverErrorText,
+      message: text.errors.server,
     });
   }, [text]);
 
@@ -116,11 +105,11 @@ const LoginPage: NextPageWithLayout<LoginProps> = ({
     const requiredErrorPayloads = {
       [ACCOUNT_FIELD.EMAIL]: {
         field: ACCOUNT_FIELD.EMAIL,
-        message: text.emailEmptyErrorText,
+        message: text.email.emptyErrorText,
       },
       [ACCOUNT_FIELD.PASSWORD]: {
         field: ACCOUNT_FIELD.PASSWORD,
-        message: text.passwordEmptyErrorText,
+        message: text.password.emptyErrorText,
       },
     };
 
@@ -143,7 +132,7 @@ const LoginPage: NextPageWithLayout<LoginProps> = ({
     if (!emailValid) {
       setError({
         field: ACCOUNT_FIELD.EMAIL,
-        message: text.emailInvalidErrorText,
+        message: text.email.invalidErrorText,
       });
       return false;
     }
@@ -185,7 +174,7 @@ const LoginPage: NextPageWithLayout<LoginProps> = ({
   return (
     <article className="mx-6 h-full pt-12 pb-10 md:pb-18 md:pt-16">
       <Head>
-        <title>{title}</title>
+        <title>{text.pageTitle}</title>
         <meta name="description" content={metaDescription} />
         <meta name="title" content={metaTitle} />
       </Head>
@@ -198,7 +187,7 @@ const LoginPage: NextPageWithLayout<LoginProps> = ({
           <div>
             <legend className="w-full text-center">
               <h1 className="font-headings text-2xl font-semibold text-primary md:text-5xl">
-                {text.logInTitle}
+                {text.title}
               </h1>
             </legend>
             <div className="mt-8">
@@ -206,7 +195,7 @@ const LoginPage: NextPageWithLayout<LoginProps> = ({
                 <label
                   className="text-xs font-semibold uppercase text-primary"
                   htmlFor="email">
-                  {text.emailLabel}
+                  {text.email.label}
                 </label>
                 <Input
                   id="email"
@@ -216,7 +205,7 @@ const LoginPage: NextPageWithLayout<LoginProps> = ({
                   aria-invalid={emailError}
                   aria-errormessage={emailError ? error.message : undefined}
                   error={emailError}
-                  placeholder={text.emailPlaceholder}
+                  placeholder={text.email.placeholder}
                   value={email}
                   onChange={(e) => {
                     setError(undefined);
@@ -233,7 +222,7 @@ const LoginPage: NextPageWithLayout<LoginProps> = ({
                 <label
                   className="text-xs font-semibold uppercase text-primary"
                   htmlFor="password">
-                  {text.passwordLabel}
+                  {text.password.label}
                 </label>
                 <PasswordInput
                   id="password"
@@ -241,7 +230,7 @@ const LoginPage: NextPageWithLayout<LoginProps> = ({
                   aria-invalid={passwordError}
                   aria-errormessage={passwordError ? error.message : undefined}
                   error={passwordError}
-                  placeholder={text.passwordPlaceholder}
+                  placeholder={text.password.placeholder}
                   value={password}
                   onChange={(e) => {
                     setError(undefined);
@@ -272,13 +261,13 @@ const LoginPage: NextPageWithLayout<LoginProps> = ({
             ) : null}
             <div>
               <Button elType={BUTTON_TYPE.BUTTON} fullWidth type="submit">
-                {text.logInButton}
+                {text.loginButton}
               </Button>
 
               <p className="mt-4 text-center text-sm text-primary md:mt-6">
                 {text.noAccount}&nbsp;
                 <Link href="/account/sign-up">
-                  <a className="font-bold hover:underline">{text.signUp}</a>
+                  <a className="font-bold hover:underline">{text.signupLink}</a>
                 </Link>
               </p>
             </div>

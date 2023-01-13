@@ -7,7 +7,7 @@ export default {
   title: 'organisms/Cart',
   component: Cart,
   argTypes: {
-    headerLabel: { control: { type: 'text' } },
+    empty: { control: 'boolean' },
     items: { control: { type: 'array' } },
   },
 } as ComponentMeta<typeof Cart>;
@@ -17,13 +17,7 @@ const Template: ComponentStory<typeof Cart> = (args) => <Cart {...args} />;
 export const Default = Template.bind({});
 Default.args = {
   visible: true,
-  headerLabel: 'Your bag',
-  cartEmptyMessage: 'Your bag is empty.',
-  addMoreProducts: {
-    title: 'Add more products',
-    subtitle: 'You’re $6.00 away from free shipping',
-    href: '/products',
-  },
+  empty: false,
   total: 80,
   items: [
     {

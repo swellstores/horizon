@@ -43,6 +43,8 @@ import useClassNames from 'hooks/useClassNames';
 import getGQLClient from 'lib/graphql/client';
 import { generateId } from 'lib/utils/shared_functions';
 import type { Replace } from 'types/utils';
+import { parseTextWithVariables } from 'utils/text';
+import useI18n, { I18n } from 'hooks/useI18n';
 
 export type ProductsPerRow = 2 | 3 | 4 | 5;
 
@@ -62,6 +64,15 @@ export interface ProductsLayoutProps {
   currency?: string;
   settings: ProductsLayoutSettings;
 }
+
+const productsLayoutText = (i18n: I18n) => ({
+  filtersLabel: i18n('categories.filters.title'),
+  removeAllLabel: i18n('categories.filters.remove_all'),
+  priceLabel: i18n('categories.filters.price'),
+  seeResultsLabel: i18n('categories.filters.see_results'),
+  allProductsLabel: i18n('categories.filters.all_products'),
+  mobileButton: i18n('categories.filters.mobile_button'),
+});
 
 const ProductsLayout: React.FC<ProductsLayoutProps> = ({
   categories,
@@ -86,6 +97,12 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
     0, 0,
   ]);
   const [liveSettings, setLiveSettings] = useState(settings);
+
+  const i18n = useI18n();
+  const text = productsLayoutText(i18n);
+  const parsedSeeResultsLabel = parseTextWithVariables(text.seeResultsLabel, {
+    count: (products?.length || 0).toString(),
+  });
 
   const debounceTimeout = useRef<NodeJS.Timeout | undefined>();
 
@@ -416,7 +433,7 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
         className="fixed bottom-5 left-1/2 z-10 -translate-x-1/2 rounded-full px-4 lg:hidden">
         <span className="flex gap-2 text-md normal-case">
           <InlineIcon height={24} width={24} icon="system-uicons:filtering" />
-          Filter
+          {text.mobileButton}
         </span>
       </Button>
 
@@ -462,7 +479,7 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
                 <div className="flex items-center justify-between py-4 text-primary">
                   <div className="flex gap-4">
                     <span className="text-md font-semibold uppercase">
-                      Filters
+                      {text.filtersLabel}
                     </span>
                   </div>
                   <button onClick={closeFilters}>
@@ -513,7 +530,7 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
                           ? window.location.search
                           : '',
                       ).has('price')}
-                      name="Price">
+                      name={text.priceLabel}>
                       <div>
                         <div className="flex w-full justify-between text-primary">
                           <span>
@@ -574,8 +591,7 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
                       <button
                         className="text-xs font-semibold text-primary"
                         onClick={() => onFiltersChange([])}>
-                        {/* TODO: i8n */}
-                        Remove all
+                        {text.removeAllLabel}
                       </button>
                     )}
                   </li>
@@ -586,8 +602,7 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
                   className="text-center uppercase"
                   onClick={closeFilters}
                   fullWidth>
-                  {/* TODO: i8n */}
-                  See results ({products?.length || 0})
+                  {parsedSeeResultsLabel}
                 </Button>
               </div>
             </Transition.Child>
@@ -604,7 +619,7 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
                   className={`text-primary ${
                     router.pathname === '/products' ? 'font-semibold' : ''
                   }`}>
-                  All products
+                  {text.allProductsLabel}
                 </a>
               </Link>
             </li>
@@ -669,7 +684,7 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
                 defaultOpen={new URLSearchParams(
                   typeof window !== 'undefined' ? window.location.search : '',
                 ).has('price')}
-                name="Price">
+                name={text.priceLabel}>
                 <div>
                   <div className="flex w-full justify-between text-primary">
                     <span>

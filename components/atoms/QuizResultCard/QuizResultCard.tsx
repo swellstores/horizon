@@ -21,6 +21,7 @@ import type {
   SwellProductVariant,
 } from 'lib/graphql/generated/sdk';
 import ProductOptions from 'components/organisms/ProductOptions';
+import useI18n from 'hooks/useI18n';
 
 export type QuizResultCardProps = Omit<
   ProductData,
@@ -34,37 +35,20 @@ export type QuizResultCardProps = Omit<
    */
   purchaseOptions: SwellProductPurchaseOptions;
   /**
-   * Text for cta link to product's page
-   */
-  hrefCta: string;
-  /**
    * Text to display in case the product is subscription only
    */
   subscriptionOnlyText?: string;
-  /**
-   * Text for cta button to add to bundle
-   */
-  addLabel: string;
-  /**
-   * Text for cta button when product is already added to bundle
-   */
-  addedLabel: string;
   /**
    * All the currently selected products
    */
   selectedProducts: Map<string, number>;
 };
 
-const PRICE_SEPARATOR = 'or';
-
 const QuizResultCard: React.FC<QuizResultCardProps> = ({
   image,
   title,
   description,
   href,
-  hrefCta,
-  addLabel,
-  // addedLabel,
   subscriptionOnlyText,
   purchaseOptions,
   productId,
@@ -77,6 +61,11 @@ const QuizResultCard: React.FC<QuizResultCardProps> = ({
     purchaseOptions,
     productVariants,
   });
+  const i18n = useI18n();
+
+  const addLabel = i18n('products.add_to_cart');
+  const hrefCta = i18n('quiz.results.see_product');
+  const pricesSeparator = i18n('quiz.results.prices_separator');
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -125,7 +114,7 @@ const QuizResultCard: React.FC<QuizResultCardProps> = ({
                     origPrice={activeVariation?.standardPrice?.origPrice}
                   />
                 )}
-                {hasMultiplePurchaseOptions ? ` ${PRICE_SEPARATOR} ` : ''}
+                {hasMultiplePurchaseOptions ? ` ${pricesSeparator} ` : ''}
                 {activeVariation?.subscriptionPrice?.price && (
                   <Price
                     price={activeVariation?.subscriptionPrice?.price}

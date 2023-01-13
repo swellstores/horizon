@@ -5,6 +5,11 @@ export interface PageProps {
   title?: string;
   metaTitle?: string;
   metaDescription?: string;
+  locale?: string;
+}
+
+export interface AccountPageProps {
+  pageType: 'orders' | 'subscriptions';
 }
 
 export type NextPageWithLayout<T = { children?: ReactElement }> =

@@ -79,5 +79,336 @@
     "newsletter_title": "Let's keep in touch.",
     "newsletter_placeholder": "E-mail address",
     "horizontal_padding": "large"
+  },
+  "lang": {
+    "account": {
+      "orders": {
+        "title": "Orders & Returns",
+        "navigation_title": "Orders & Returns",
+        "order_date": "Order date",
+        "items": "Items",
+        "view_order": "View Order",
+        "total": "Total",
+        "empty": {
+          "label": "You haven't ordered anything yet.",
+          "link": "Start shopping"
+        },
+        "status": {
+          "canceled": "Canceled",
+          "complete": "Complete",
+          "delivery_pending": "Delivery pending",
+          "hold": "Hold",
+          "payment_pending": "Payment pending",
+          "pending": "Pending",
+          "draft": "Draft"
+        },
+        "details": {
+          "back_link": "Back to orders",
+          "order_label": "Order",
+          "create_return_label": "Create return",
+          "return_dialog_title": "Returning an item",
+          "return_dialog_body": "To initiate a partial or complete return of an order, please contact us so we can start the return process. Don’t forget to include the order number and the reason for returning.",
+          "order_date_label": "Order date",
+          "items_label": "Items",
+          "total_label": "Total",
+          "quantity_label": "Qty",
+          "price_label": "Price",
+          "subtotal_label": "Subtotal",
+          "discounts_label": "Discounts & Credits",
+          "shipping_label": "Shipping",
+          "tax_label": "VAT",
+          "refund_label": "Refund",
+          "delivery_info_title": "Delivery information",
+          "details_label": "Details",
+          "phone_number_label": "Phone number",
+          "method_label": "Method",
+          "order_notes_label": "Order notes",
+          "payment_info_title": "Payment information",
+          "payment_method_label": "Payment method",
+          "card_label": "Card",
+          "billing_address_label": "Billing address"
+        }
+      },
+      "subscriptions": {
+        "title": "Subscriptions",
+        "navigation_title": "Subscriptions",
+        "billing_message": "Every {n} {interval}",
+        "order_message": "Every {n} {interval}",
+        "details": {
+          "billing_message": "Pay every {n} {interval}",
+          "order_message": "Shipped every {n} {interval}",
+          "header_billing_message": "Every {n} {interval}",
+          "back_link": "Back to subscriptions",
+          "created_label": "Created",
+          "next_billing_label": "Next billing",
+          "items_label": "Items",
+          "total_label": "Total",
+          "quantity_label": "Qty",
+          "price_label": "Price",
+          "subtotal_label": "Subtotal",
+          "discounts_label": "Discounts & Credits",
+          "shipping_label": "Shipping",
+          "tax_label": "VAT",
+          "refund_label": "Refund",
+          "delivery_info_title": "Delivery information",
+          "details_label": "Details",
+          "phone_number_label": "Phone number",
+          "method_label": "Method",
+          "order_notes_label": "Order notes",
+          "payment_info_title": "Payment information",
+          "payment_method_label": "Payment method",
+          "card_label": "Card",
+          "billing_address_label": "Billing address",
+          "trial_end_message": "Your trial period will end in {n} {interval}",
+          "renewal_limit_label": "Limited to {n} {renewal}",
+          "shipment_limit_label": "Limited to {n} {shipment}",
+          "renewal_singular_label": "renewal",
+          "renewal_plural_label": "renewals",
+          "shipment_singular_label": "shipment",
+          "shipment_plural_label": "shipments",
+          "cancel": {
+            "message": "You can cancel your subscription at anytime.",
+            "label": "Cancel subscription",
+            "dialog_title": "Cancel subscription",
+            "dialog_body": "Cancelling your subscription is permanent. Are you sure you want to proceed?",
+            "cancel_button_label": "Cancel",
+            "cancel_subscription_button_label": "Cancel subscription",
+            "success_message": "Your subscription is canceled",
+            "error_message": "Something went wrong, please try again later"
+          }
+        },
+        "next_billing": "Next billing",
+        "manage": "Manage",
+        "empty": {
+          "label": "You haven't subscribed to any products yet.",
+          "link": "Start shopping"
+        },
+        "status": {
+          "active": "Active",
+          "canceled": "Canceled",
+          "paid": "Paid",
+          "trial": "Trial",
+          "paused": "Paused",
+          "pastdue": "Past Due",
+          "unpaid": "Unpaid",
+          "complete": "Complete",
+          "pending": "Pending",
+          "draft": "Draft"
+        }
+      },
+      "logout": {
+        "label": "Log out",
+        "success": "You're logged out"
+      },
+      "login": {
+        "page_title": "Log in",
+        "title": "Log in",
+        "email": {
+          "label": "Email",
+          "empty_error_text": "Email is required",
+          "invalid_error_text": "Email format is invalid",
+          "placeholder": "Enter your email"
+        },
+        "password": {
+          "label": "Password",
+          "empty_error_text": "Password is required",
+          "invalid_error_text": "Password is invalid",
+          "placeholder": "Enter your password"
+        },
+        "password_recovery": "Forgot your password?",
+        "errors": {
+          "invalid_credentials": "Your email or password is incorrect.",
+          "server": "Internal server error"
+        },
+        "login_button": "Log in",
+        "no_account": "Don't have an account?",
+        "signup_link": "Sign up"
+      },
+      "signup": {
+        "page_title": "Create account",
+        "title": "Create account",
+        "first_name": {
+          "label": "First name",
+          "empty_error_text": "First name is required",
+          "placeholder": "Enter your first name"
+        },
+        "last_name": {
+          "label": "Last name",
+          "empty_error_text": "Last name is required",
+          "placeholder": "Enter your last name"
+        },
+        "email": {
+          "label": "Email",
+          "empty_error_text": "Email is required",
+          "invalid_error_text": "Email format is invalid",
+          "placeholder": "Enter your email"
+        },
+        "password": {
+          "label": "Password",
+          "empty_error_text": "Password is required",
+          "invalid_error_text": "Your password needs to be at least 6 characters.",
+          "placeholder": "Enter your password",
+          "requirements_text": "Must include a minimum of 6 characters."
+        },
+        "errors": {
+          "server_error_text": "Internal server error",
+          "email_taken": "There is already an account with this email"
+        },
+        "signup_button": "Create account",
+        "registered_user_label": "Already have an account?",
+        "login_link": "Log in",
+        "success_message": "Your account was successfully created"
+      },
+      "set_new_password": {
+        "page_title": "Set new password",
+        "title": "Set new password",
+        "subtitle": "Please enter your new password.",
+        "confirm_password": {
+          "empty_error_text": "Please fill out this field",
+          "label": "Confirm password",
+          "placeholder": "Confirm your password"
+        },
+        "password": {
+          "empty_error_text": "Please fill out this field",
+          "label": "Password",
+          "placeholder": "Enter your password",
+          "requirements_text": "Must include a minimum of 6 characters",
+          "invalid_error_text": "Your password needs to be at least 6 characters."
+        },
+        "submit_button_label": "Set password",
+        "errors": {
+          "password_mismatch": "Passwords do not match",
+          "server": "Something went wrong"
+        },
+        "expired": {
+          "page_title": "Link has expired",
+          "title": "Link has expired",
+          "message": "This password reset link has expired or is invalid. Your password was not changed.",
+          "resend_email": "Resend email"
+        },
+        "success": {
+          "page_title": "Success",
+          "title": "Success",
+          "message": "You can now log into your account using your new password.",
+          "login_link": "Log in"
+        }
+      },
+      "password_recovery": {
+        "page_title": "Forgot your password?",
+        "title": "Forgot your password?",
+        "subtitle": "Enter your email to reset your password",
+        "email": {
+          "label": "Email",
+          "empty_error_text": "Email is required",
+          "invalid_error_text": "Email format is invalid",
+          "placeholder": "Enter your email"
+        },
+        "submit_button_label": "Send email",
+        "back_to_login_text": "Back to {loginLink}",
+        "back_to_login_link": "Log in",
+        "errors": {
+          "server": "Something went wrong"
+        },
+        "check_email": {
+          "page_title": "Check your email.",
+          "title": "Check your email.",
+          "message": "If you have an account, you should receive an email shortly with a link to reset your password.",
+          "back_to_login_text": "Back to {loginLink}",
+          "back_to_login_link": "Log in"
+        }
+      }
+    },
+    "products": {
+      "add_to_cart": "Add to bag",
+      "trial_message": "{n} days free trial, then {price}",
+      "stock": {
+        "not_enough": "Not enough stock remaining to increase quantity in cart by {quantity}."
+      },
+      "stock_status": {
+        "in_stock": "In Stock",
+        "low_stock": "Low Stock",
+        "out_of_stock": "Out of Stock"
+      },
+      "subscription": {
+        "options": "Subscription options",
+        "billing_message": "Pay every {n} {interval}",
+        "order_message": "Receive it every {n} {interval}"
+      },
+      "interval": {
+        "singular": {
+          "daily": "day",
+          "weekly": "week",
+          "monthly": "month",
+          "yearly": "year"
+        },
+        "plural": {
+          "daily": "days",
+          "weekly": "weeks",
+          "monthly": "months",
+          "yearly": "years"
+        },
+        "short": {
+          "daily": "day",
+          "weekly": "wk",
+          "monthly": "mo",
+          "yearly": "yr"
+        }
+      },
+      "upsells": {
+        "title": "You may also like"
+      },
+      "preview": {
+        "from": "From"
+      }
+    },
+    "categories": {
+      "filters": {
+        "title": "Filters",
+        "remove_all": "Remove all",
+        "price": "Price",
+        "see_results": "See results ({count})",
+        "all_products": "All products",
+        "mobile_button": "Filter"
+      },
+      "product_count": "All products ({count})"
+    },
+    "errors": {
+      "error_code": "Error {code}",
+      "internal": {
+        "title": "Page unavailable",
+        "message": "The page you were looking for is temporarily unavailable. Please try refreshing the page or contact us if the issue persists.",
+        "reload": "Refresh page",
+        "return_home": "or go {link}",
+        "return_home_link": "back to home"
+      },
+      "page_not_found": {
+        "title": "Page not found",
+        "message": "The page you were looking for is not available. Double check your URL or explore Horizon for new findings.",
+        "return_home_link": "Back to home"
+      }
+    },
+    "navigation": {
+      "account": "Account"
+    },
+    "search": {
+      "placeholder": "Search by product name or SKU"
+    },
+    "cart": {
+      "header": "Your bag ({count})",
+      "add_more_products": "Add more products",
+      "add_first_product": "Add your first product",
+      "empty_message": "Your bag is empty.",
+      "total": "Total",
+      "checkout_button": "Checkout",
+      "billing_message": "Pay every {n} {interval}",
+      "order_message": "Receive it every {n} {interval}"
+    },
+    "quiz": {
+      "step_count": "{currentStep} of {totalSteps}",
+      "results": {
+        "see_product": "See product details",
+        "prices_separator": "or"
+      }
+    }
   }
 }

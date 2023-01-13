@@ -7,6 +7,7 @@ import type {
   Maybe,
   SwellProductPurchaseOptionsSubscriptionPlan,
 } from 'lib/graphql/generated/sdk';
+import useI18n from 'hooks/useI18n';
 
 export interface SubscriptionOptionsProps {
   value: Maybe<SwellProductPurchaseOptionsSubscriptionPlan>;
@@ -21,14 +22,16 @@ const SubscriptionOptions: React.FC<SubscriptionOptionsProps> = ({
   plans,
   className,
 }) => {
+  const i18n = useI18n();
   if (!plans?.length) return null;
+
+  const title = i18n('products.subscription.options');
+  const billingMessage = i18n('products.subscription.billing_message');
+  const orderMessage = i18n('products.subscription.order_message');
 
   return (
     <div className={className ?? ''}>
-      {/* TODO: i18n */}
-      <h3 className="font-headings text-sm text-primary">
-        Subscription options
-      </h3>
+      <h3 className="font-headings text-sm text-primary">{title}</h3>
       <Listbox value={value} onChange={onChange}>
         {({ open }) => (
           <div className="relative mt-2 text-primary">
@@ -41,11 +44,13 @@ const SubscriptionOptions: React.FC<SubscriptionOptionsProps> = ({
                 <span className="flex flex-col items-start justify-center">
                   <ScheduleLabel
                     type="billing"
+                    base={billingMessage}
                     schedule={value?.billingSchedule}
                     textClasses="text-primary text-sm"
                   />
                   <ScheduleLabel
                     type="order"
+                    base={orderMessage}
                     schedule={value?.orderSchedule}
                     textClasses="text-body text-xs"
                   />
@@ -69,11 +74,13 @@ const SubscriptionOptions: React.FC<SubscriptionOptionsProps> = ({
                       <span className="flex flex-col items-start justify-center">
                         <ScheduleLabel
                           type="billing"
+                          base={billingMessage}
                           schedule={plan?.billingSchedule}
                           textClasses="text-sm"
                         />
                         <ScheduleLabel
                           type="order"
+                          base={orderMessage}
                           schedule={plan?.orderSchedule}
                           textClasses="text-xs"
                         />

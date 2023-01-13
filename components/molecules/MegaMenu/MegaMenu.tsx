@@ -4,6 +4,7 @@ import CategoryDisplay from 'components/atoms/CategoryDisplay';
 import ProductDisplay from 'components/molecules/ProductDisplay';
 import { getHref, getTarget } from 'lib/utils/nav';
 import { NavItem, NAV_ITEM_TYPE, RootNavItem } from 'types/nav';
+import Link from 'next/link';
 
 const defaultLinkClasses = 'font-medium uppercase text-primary';
 
@@ -144,12 +145,9 @@ const MenuLink: React.FC<{ item: RootNavItem; className?: string }> = ({
   item,
   className,
 }) => (
-  <NavigationMenu.Link
-    className={className ? className : defaultLinkClasses}
-    href={getHref(item)}
-    target={getTarget(item)}>
-    {item.name}
-  </NavigationMenu.Link>
+  <Link href={getHref(item)} target={getTarget(item)}>
+    <a className={className ? className : defaultLinkClasses}>{item.name}</a>
+  </Link>
 );
 
 /* Popup wrapper, exported to be placed in the intended

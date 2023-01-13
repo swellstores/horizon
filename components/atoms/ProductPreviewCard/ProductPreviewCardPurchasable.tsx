@@ -100,7 +100,7 @@ const ProductPreviewCardPurchasable: React.FC<
       </div>
       {show_product_price && (
         <div className="text-lg font-semibold lg:text-sm">
-          {fromPriceLabel}
+          {fromPriceLabel ? `${fromPriceLabel} ` : ''}
           <Price price={activePrice} origPrice={activeOrigPrice} />
         </div>
       )}

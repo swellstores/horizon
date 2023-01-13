@@ -1,3 +1,4 @@
+import { getI18n } from 'hooks/useI18n';
 import type {
   Maybe,
   SwellProductPurchaseOptionsSubscriptionPlanBillingSchedule,
@@ -5,24 +6,26 @@ import type {
   SwellSubscriptionBillingSchedule,
   SwellSubscriptionOrderSchedule,
 } from 'lib/graphql/generated/sdk';
+import useSettingsStore from 'stores/settings';
 import { INTERVAL } from 'types/shared/products';
 import type { Schedule } from 'types/subscription';
+import { parseTextWithVariables } from 'utils/text';
 
-export const SHORTENED_MAP = {
+export const SHORTENED_MAP_FALLBACK = {
   [INTERVAL.Daily]: 'day',
   [INTERVAL.Weekly]: 'wk',
   [INTERVAL.Monthly]: 'mo',
   [INTERVAL.Yearly]: 'yr',
 };
 
-export const SINGULAR_MAP = {
+export const SINGULAR_MAP_FALLBACK = {
   [INTERVAL.Daily]: 'day',
   [INTERVAL.Weekly]: 'week',
   [INTERVAL.Monthly]: 'month',
   [INTERVAL.Yearly]: 'year',
 };
 
-export const PLURAL_MAP = {
+export const PLURAL_MAP_FALLBACK = {
   [INTERVAL.Daily]: 'days',
   [INTERVAL.Weekly]: 'weeks',
   [INTERVAL.Monthly]: 'months',
@@ -36,6 +39,12 @@ export function filterSingular(number: number) {
 }
 
 export function getPluralizedInterval(interval: INTERVAL, number: number) {
+  const i18n = getI18n(useSettingsStore.getState().settings?.lang);
+  const SINGULAR_MAP = (i18n('products.interval.singular') ||
+    SINGULAR_MAP_FALLBACK) as typeof SINGULAR_MAP_FALLBACK;
+  const PLURAL_MAP = (i18n('products.interval.plural') ||
+    PLURAL_MAP_FALLBACK) as typeof PLURAL_MAP_FALLBACK;
+
   return number > 1 ? PLURAL_MAP[interval] : SINGULAR_MAP[interval];
 }
 
@@ -44,6 +53,11 @@ export function formatSubscriptionInterval(
   intervalCount: number,
   longForm = false,
 ) {
+  const i18n = getI18n(useSettingsStore.getState().settings?.lang);
+
+  const SHORTENED_MAP = (i18n('products.interval.short') ||
+    SHORTENED_MAP_FALLBACK) as typeof SHORTENED_MAP_FALLBACK;
+
   return `${filterSingular(intervalCount)}${
     longForm
       ? `${intervalCount > 1 ? ' ' : ''}${getPluralizedInterval(
@@ -68,22 +82,35 @@ export function formatSubscriptionPrice(
   )}`;
 }
 
-export function getScheduleLabel(base: string, schedule?: Schedule) {
-  if (!schedule?.interval || !schedule?.intervalCount) return '';
+/**
 
+*Generates a label for a given schedule.
+*@param {string} text - The text to be displayed as the label. Can contain "{n}"(interval count) and "{interval}" variables.
+*@param {Object} [schedule] - The schedule object containing the interval and interval count.
+*@returns {string} - The label with variables replaced with values from the schedule object.
+*/
+export function formatScheduleLabel(text: string, schedule?: Schedule) {
+  if (!schedule?.interval || !schedule?.intervalCount) return '';
   const { interval, intervalCount } = schedule;
-  return `${base} ${formatSubscriptionInterval(
-    interval as INTERVAL,
-    intervalCount,
-    true,
-  )}`;
+
+  // We need to cleanup the string of {n} variables if the count is not higher than 1
+  const cleanString =
+    intervalCount > 1
+      ? text
+      : text.replaceAll(' {n}', '').replaceAll('{n} ', '');
+
+  return parseTextWithVariables(cleanString, {
+    n: intervalCount.toString(),
+    interval: getPluralizedInterval(interval as INTERVAL, intervalCount),
+  });
 }
 
 export const formatLimitText = (
   schedule: Schedule | undefined,
-  prefix: string,
+  base: string,
   singular: string,
   plural: string,
+  key: string,
 ) => {
   const limit = schedule?.limit;
   const limitCurrent = schedule?.limitCurrent;
@@ -93,16 +120,15 @@ export const formatLimitText = (
     return null;
   }
 
-  return `${prefix} ${remainingCycles} ${
-    remainingCycles > 1 ? plural : singular
-  }`;
+  return parseTextWithVariables(base, {
+    n: remainingCycles.toString(),
+    [key]: remainingCycles > 1 ? plural : singular,
+  });
 };
 
 export const formatTrialText = (
-  subscription: SwellSubscription,
   base: string,
-  singular: string,
-  plural: string,
+  subscription: SwellSubscription,
 ) => {
   const trialLeft =
     new Date(subscription.dateTrialEnd).getTime() - new Date().getTime();
@@ -112,7 +138,11 @@ export const formatTrialText = (
   }
 
   const trialEndDays = Math.round(trialLeft / ONE_DAY + 0.5);
-  return `${base} ${trialEndDays} ${trialEndDays === 1 ? singular : plural}`;
+
+  return parseTextWithVariables(base, {
+    n: trialEndDays.toString(),
+    interval: getPluralizedInterval(INTERVAL.Daily, trialEndDays),
+  });
 };
 
 export const isLastSubscriptionCycle = (

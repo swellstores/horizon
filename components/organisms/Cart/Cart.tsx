@@ -3,36 +3,38 @@ import { Dialog, Transition } from '@headlessui/react';
 import CartItem from 'components/molecules/CartItem';
 import CartHeader from 'components/atoms/CartHeader';
 import CartTotal from 'components/molecules/CartTotal';
-import AddMoreProductsCard, {
-  AddMoreProductsCardProps,
-} from 'components/molecules/AddMoreProductsCard';
+import AddMoreProductsCard from 'components/molecules/AddMoreProductsCard';
 import SadFaceIcon from 'assets/icons/sad-face.svg';
 import type { CartItemProps } from 'components/molecules/CartItem';
+import useI18n from 'hooks/useI18n';
 
 export interface CartProps {
   visible: boolean;
   setVisible?: (visible: boolean) => void;
-  headerLabel: string;
-  cartEmptyMessage: string;
   total: number;
   items: CartItemProps[];
-  addMoreProducts: AddMoreProductsCardProps;
+  empty: boolean;
   checkoutUrl: string;
 }
 
 const Cart: React.FC<CartProps> = ({
   visible,
   setVisible,
-  headerLabel,
-  cartEmptyMessage,
   items,
   total,
   checkoutUrl,
-  addMoreProducts,
+  empty,
 }) => {
   const closeCart = useCallback(() => {
     setVisible?.(false);
   }, [setVisible]);
+  const totalQuantity = items.reduce((acc, item) => acc + item.quantity, 0);
+  const i18n = useI18n();
+
+  const headerLabel = i18n('cart.header', {
+    count: totalQuantity.toString(),
+  });
+  const emptyMessage = i18n('cart.empty_message');
 
   return (
     <Transition show={visible} as={Fragment}>
@@ -56,10 +58,6 @@ const Cart: React.FC<CartProps> = ({
             <CartHeader
               label={headerLabel}
               className="my-6"
-              itemsQuantity={items.reduce(
-                (acc, item) => acc + item.quantity,
-                0,
-              )}
               onClose={closeCart}
             />
             <ul>
@@ -67,14 +65,14 @@ const Cart: React.FC<CartProps> = ({
                 <CartItem key={item.id} {...item} />
               ))}
             </ul>
-            {addMoreProducts && <AddMoreProductsCard {...addMoreProducts} />}
+            <AddMoreProductsCard empty={empty} />
           </div>
           {items.length === 0 && (
             <div className="flex flex-1 flex-col items-center justify-start">
               <SadFaceIcon className="text-accent" width={40} height={40} />
 
               <p className="mt-5 text-center text-sm text-body">
-                {cartEmptyMessage}
+                {emptyMessage}
               </p>
             </div>
           )}

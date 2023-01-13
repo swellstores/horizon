@@ -7,9 +7,7 @@ import CloseIcon from 'assets/icons/close.svg';
 import useProductSearch from 'hooks/useProductSearch';
 import useClassNames from 'hooks/useClassNames';
 import ProductPreviewCardSimple from 'components/atoms/ProductPreviewCard/ProductPreviewCardSimple';
-
-// TODO: i18n
-const placeholderLabel = 'Search by product name or SKU';
+import useI18n from 'hooks/useI18n';
 
 interface SearchMenuProps {
   closeMenu: () => void;
@@ -22,12 +20,15 @@ const SearchMenu: React.FC<SearchMenuProps> = ({
   show,
   openDelay,
 }) => {
+  const i18n = useI18n();
   const { searchTerm, onSearchTermChange, isSearching, results, clear } =
     useProductSearch();
   const hideProducts = useMemo(
     () => !results.length && !isSearching,
     [isSearching, results.length],
   );
+
+  const placeholderLabel = i18n('search.placeholder');
 
   useEffect(() => {
     let timeout: NodeJS.Timeout | undefined;
