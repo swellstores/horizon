@@ -46,9 +46,12 @@ const setNewPasswordText = (i18n: I18n) => ({
   },
 });
 
-const propsCallback: GetServerSideProps<PageProps> = async () => {
+const propsCallback: GetServerSideProps<PageProps> = async (context) => {
+  const { locale } = context;
   return {
-    props: {},
+    props: {
+      ...(locale ? { locale } : {}),
+    },
   };
 };
 

@@ -73,7 +73,7 @@ const propsCallback: GetStaticProps<CategoryPageProps> = async (context) => {
         currentCategory.categoryBySlug.description ??
         '',
       keywords: currentCategory.categoryBySlug.metaKeywords ?? '',
-      locale,
+      ...(locale ? { locale } : {}),
     },
   };
 };

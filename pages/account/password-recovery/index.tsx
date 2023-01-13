@@ -1,7 +1,7 @@
 import { useCallback, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import type { GetStaticProps } from 'next';
+import type { GetServerSideProps } from 'next';
 import Input from 'components/atoms/Input';
 import Button from 'components/atoms/Button';
 import ValidationErrorText from 'components/atoms/ValidationErrorText';
@@ -36,9 +36,12 @@ const passwordRecoveryText = (i18n: I18n) => ({
   },
 });
 
-const propsCallback: GetStaticProps<PageProps> = async () => {
+const propsCallback: GetServerSideProps<PageProps> = async (context) => {
+  const { locale } = context;
   return {
-    props: {},
+    props: {
+      ...(locale ? { locale } : {}),
+    },
   };
 };
 

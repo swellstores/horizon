@@ -1,12 +1,23 @@
 import ErrorLayout from 'components/molecules/ErrorLayout';
 import useI18n from 'hooks/useI18n';
 import { withMainLayout } from 'lib/utils/fetch_decorators';
-import type { NextPage } from 'next';
+import type { GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { BUTTON_TYPE } from 'types/shared/button';
 
-export const getStaticProps = withMainLayout(() => ({ props: {} }));
+const propsCallback: GetStaticProps<Record<string, unknown>> = async (
+  context,
+) => {
+  const { locale } = context;
+
+  return {
+    props: {
+      ...(locale ? { locale } : {}),
+    },
+  };
+};
+export const getStaticProps = withMainLayout(propsCallback);
 
 const FiveOhFivePage: NextPage = () => {
   const router = useRouter();

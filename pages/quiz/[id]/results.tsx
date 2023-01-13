@@ -65,7 +65,7 @@ export const propsCallback: GetStaticProps<QuizResultsPageProps> = async (
   const mappedProps = await mapQuizResultsProps(quizData.results_page?.[0]);
 
   return {
-    props: { ...mappedProps, quizId: id },
+    props: { ...mappedProps, quizId: id, ...(locale ? { locale } : {}) },
   };
 };
 

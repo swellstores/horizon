@@ -44,12 +44,12 @@ const loginText = (i18n: I18n) => ({
   signupLink: i18n('account.login.signup_link'),
 });
 
-const propsCallback: GetStaticProps<PageProps> = async () => {
-  const storeName = 'Horizon';
+const propsCallback: GetStaticProps<PageProps> = async (context) => {
+  const { locale } = context;
+
   return {
     props: {
-      storeName,
-      title: `${storeName} | Log in`,
+      ...(locale ? { locale } : {}),
     },
   };
 };
