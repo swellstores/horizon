@@ -17,13 +17,19 @@ const Template: ComponentStory<typeof AccountHeader> = (args) => (
 export const Default = Template.bind({});
 Default.args = {
   hideOnScroll: true,
-  backToShopLabel: 'Back to shop',
-  storeUrl: 'https://horizon-demo.swell.store/',
-  logo: {
-    src: '/images/placeholder/logo.svg',
-    width: 132.3,
-    height: 20,
-    alt: 'Horizon logo',
+  logoSettings: {
+    logo: {
+      src: '/images/logo.svg',
+      width: 132.3,
+      height: 20,
+      alt: 'Horizon logo',
+      contentType: '',
+    },
+    logoHeight: {
+      desktop: 31,
+      mobile: 20,
+    },
+    storeName: 'Horizon',
   },
   mobileMenuLinks: accountLinks(getI18n(null)),
   pageTitle: 'Orders and Returns',
@@ -32,12 +38,18 @@ Default.args = {
 export const NoMobileMenu = Template.bind({});
 NoMobileMenu.args = {
   hideOnScroll: true,
-  backToShopLabel: 'Back to shop',
-  storeUrl: 'https://horizon-demo.swell.store/',
-  logo: {
-    src: '/images/placeholder/logo.svg',
-    width: 132.3,
-    height: 20,
-    alt: 'Horizon logo',
+  logoSettings: {
+    logo: {
+      src: '/images/logo.svg',
+      width: 132.3,
+      height: 20,
+      alt: 'Horizon logo',
+      contentType: '',
+    },
+    logoHeight: {
+      desktop: 31,
+      mobile: 20,
+    },
+    storeName: 'Horizon',
   },
 };

@@ -13,9 +13,9 @@ export const getMainLayout = (page: ReactElement) => {
 
 export const getAccountLayout = (page: ReactElement) => {
   const { pageType } = page.props;
-  const { header, settings } = page.props._layout ?? {};
+  const { settings } = page.props._layout ?? {};
 
-  if (!header || !settings || !pageType) return page;
+  if (!settings || !pageType) return page;
 
   return (
     <AccountLayout {...page.props._layout} pageType={pageType}>
@@ -25,9 +25,9 @@ export const getAccountLayout = (page: ReactElement) => {
 };
 
 export const getAuthLayout = (page: ReactElement) => {
-  const { header, settings } = page.props._layout ?? {};
+  const { settings } = page.props._layout ?? {};
 
-  if (!header || !settings) return page;
+  if (!settings) return page;
 
   return <AuthLayout {...page.props._layout}>{page}</AuthLayout>;
 };

@@ -11,7 +11,7 @@ import useI18n from 'hooks/useI18n';
 
 export interface SidebarProps {
   links: AccountNavLinkProps[];
-  accountDetails: AccountDetailsProps;
+  accountDetails?: AccountDetailsProps;
 }
 
 const TheSidebar: React.FC<SidebarProps> = ({ links, accountDetails }) => {
@@ -23,9 +23,11 @@ const TheSidebar: React.FC<SidebarProps> = ({ links, accountDetails }) => {
   return (
     <aside className="hidden h-full min-w-[275px] md:block">
       <div className="fixed flex h-full flex-col items-start overflow-auto">
-        <div className="mb-10">
-          <AccountDetails {...accountDetails} />
-        </div>
+        {accountDetails && (
+          <div className="mb-10">
+            <AccountDetails {...accountDetails} />
+          </div>
+        )}
         <NavMenu links={links} />
         <form
           onSubmit={(e) => {
