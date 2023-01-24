@@ -436,6 +436,18 @@
           "placeholder": "https://wa.me/18005551234"
         }
       ]
+    },
+    {
+      "id": "account",
+      "label": "Account",
+      "fields": [
+        {
+          "id": "account.header.hide_on_scroll",
+          "label": "Hide the header while scrolling down",
+          "type": "checkbox",
+          "default": true
+        }
+      ]
     }
   ],
   "page_route": "/:slug/",
@@ -2144,6 +2156,13 @@
           "id": "lang.navigation.account",
           "label": "Account link label",
           "default": "Account",
+          "type": "short_text",
+          "localized": true
+        },
+        {
+          "id": "lang.navigation.account_return_home",
+          "label": "Account page return home link label",
+          "default": "Back to shop",
           "type": "short_text",
           "localized": true
         }

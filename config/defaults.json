@@ -80,6 +80,11 @@
     "newsletter_placeholder": "E-mail address",
     "horizontal_padding": "large"
   },
+  "account": {
+    "header": {
+      "hide_on_scroll": true
+    }
+  },
   "lang": {
     "account": {
       "orders": {
@@ -388,7 +393,8 @@
       }
     },
     "navigation": {
-      "account": "Account"
+      "account": "Account",
+      "account_return_home": "Back to shop"
     },
     "search": {
       "placeholder": "Search by product name or SKU"

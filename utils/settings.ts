@@ -133,6 +133,7 @@ export function formatStoreSettings(
     footer: formattedFooter,
     socialLinks: settingsValues.socialLinks ?? [],
     lang: settingsValues?.lang ?? {},
+    account: settingsValues?.account ?? {},
   };
 }
 
@@ -163,3 +164,15 @@ export const formatCurrencies = (settings: any): Currency[] =>
       };
     })
     .filter(isNotNull) ?? [];
+
+export const formatAccountHeaderSettings = (settings: Settings | null) =>
+  settings
+    ? {
+        hideOnScroll: settings.account.header.hideOnScroll ?? true,
+        logoSettings: {
+          logo: settings.header.logo ?? null,
+          logoHeight: settings.header.logoHeight ?? null,
+          storeName: settings.header.storeName ?? 'Horizon',
+        },
+      }
+    : null;
