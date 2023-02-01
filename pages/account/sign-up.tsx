@@ -53,7 +53,7 @@ const signupText = (i18n: I18n) => ({
   },
   errors: {
     server: i18n('account.signup.errors.server_error_text'),
-    emailTaken: i18n('account.signup.errors.email_taken'),
+    invalidEmail: i18n('account.signup.errors.invalid_email'),
   },
   signupButton: i18n('account.signup.signup_button'),
   registeredUser: i18n('account.signup.registered_user_label'),
@@ -101,7 +101,7 @@ const SignUpPage: NextPageWithLayout<
       if (res.status === 409) {
         setError({
           field: ACCOUNT_FIELD.OTHER,
-          message: text.errors.emailTaken,
+          message: text.errors.invalidEmail,
         });
         return false;
       } else if (res.status !== 200) {
