@@ -755,9 +755,9 @@
           "localized": true
         },
         {
-          "id": "lang.account.signup.errors.email_taken",
+          "id": "lang.account.signup.errors.invalid_email",
           "label": "Email taken error text",
-          "default": "There is already an account with this email",
+          "default": "Email address is invalid or already in use. Please try again.",
           "type": "short_text",
           "localized": true
         },
