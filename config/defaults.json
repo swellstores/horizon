@@ -222,7 +222,7 @@
         },
         "password_recovery": "Forgot your password?",
         "errors": {
-          "invalid_credentials": "Your email or password is incorrect.",
+          "invalid_credentials": "Your email or password are incorrect, please try again.",
           "server": "Internal server error"
         },
         "login_button": "Log in",
