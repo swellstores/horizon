@@ -757,7 +757,7 @@
         {
           "id": "lang.account.signup.errors.invalid_email",
           "label": "Email taken error text",
-          "default": "Email address is invalid or already in use. Please try again.",
+          "default": "There was a problem creating your account. Please check your email and password.",
           "type": "short_text",
           "localized": true
         },

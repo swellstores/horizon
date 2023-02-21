@@ -57,7 +57,7 @@ export default async function handler(
     return res.status(200).send(undefined);
   } catch (error) {
     if ((error as ClientError)?.message?.includes('code: "INVALID"')) {
-      return res.status(409).end('Email address is invalid or already in use. Please try again.');
+      return res.status(409).end('There was a problem creating your account. Please check your email and password.');
     }
     return res.status(500).end('Internal Server Error');
   }

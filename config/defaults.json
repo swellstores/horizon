@@ -257,7 +257,7 @@
         },
         "errors": {
           "server_error_text": "Internal server error",
-          "invalid_email": "Email address is invalid or already in use. Please try again."
+          "invalid_email": "There was a problem creating your account. Please check your email and password."
         },
         "signup_button": "Create account",
         "registered_user_label": "Already have an account?",
