@@ -55,7 +55,7 @@ export default async function handler(
     return res.status(200).send(undefined);
   } catch (error) {
     const invalidCredentials = (error as ErrorObject)?.response?.errors?.some(
-      (err) => err.message === 'Your account credentials are invalid.',
+      (err) => err.message === 'Your email or password are incorrect, please try again.',
     );
 
     if (invalidCredentials) return res.status(401).end('Unauthorized');
