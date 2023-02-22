@@ -588,7 +588,7 @@
         {
           "id": "lang.account.login.errors.invalid_credentials",
           "label": "Invalid credentials error text",
-          "default": "Your email or password are incorrect, please try again.",
+          "default": "Your email or password is incorrect, please try again.",
           "type": "short_text",
           "localized": true
         },
