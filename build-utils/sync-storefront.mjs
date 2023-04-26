@@ -29,6 +29,12 @@ function executeCommand(command) {
 }
 
 executeCommand([
+  `${cli_envs}swell storefronts push`,
+  `--id ${STOREFRONT_ID}`,
+  '-i \'{"editor": true}\'',
+]);
+
+executeCommand([
   `${cli_envs}swell storefronts push-configs`,
   `--id ${STOREFRONT_ID}`,
   '-t editor',
