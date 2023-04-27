@@ -50,7 +50,7 @@ executeCommand([
 
 fs.readdirSync('./config/content').forEach((file) => {
   executeCommand([
-    `${cli_envs}swell model push`,
+    `${cli_envs}swell model push -c`,
     `-f ./config/content/${file}`,
   ]);
 });
