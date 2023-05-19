@@ -34,14 +34,14 @@ executeCommand([
 ]);
 
 executeCommand([
-  `${cli_envs}swell storefronts push-configs`,
+  `${cli_envs}swell storefronts push`,
   `--id ${STOREFRONT_ID}`,
   '-t editor',
   '-f ./config/editor.json',
 ]);
 
 executeCommand([
-  `${cli_envs}swell storefronts push-configs`,
+  `${cli_envs}swell storefronts push`,
   `--id ${STOREFRONT_ID}`,
   '-t settings',
   '-f ./config/defaults.json',
