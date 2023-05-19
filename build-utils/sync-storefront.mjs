@@ -5,7 +5,7 @@ import fs from 'fs';
 dotenv.config();
 
 const STOREFRONT_ID = process.env.SWELL_STOREFRONT_ID;
-const ADMIN_API_BASE_URL = process.env.SWELL_ADMIN_API_BASE_URL ?? '';
+const API_BASE_URL = process.env.SWELL_API_BASE_URL ?? '';
 
 let cli_envs = '';
 
@@ -13,8 +13,8 @@ if (!STOREFRONT_ID) {
   throw new Error('Missing SWELL_STOREFRONT_ID');
 }
 
-if (ADMIN_API_BASE_URL) {
-  cli_envs = `ADMIN_API_BASE_URL=${ADMIN_API_BASE_URL} `;
+if (API_BASE_URL) {
+  cli_envs = `API_BASE_URL=${API_BASE_URL} `;
 }
 
 function executeCommand(command) {
@@ -29,9 +29,8 @@ function executeCommand(command) {
 }
 
 executeCommand([
-  `${cli_envs}swell storefronts push`,
+  `${cli_envs}swell storefronts toggle-editor`,
   `--id ${STOREFRONT_ID}`,
-  '-i \'{"editor": true}\'',
 ]);
 
 executeCommand([
