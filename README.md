@@ -53,7 +53,7 @@ The first step will be to set up the environment variables. Create an `.env` fil
 
 - `SWELL_SECRET_KEY`: A Store's Secret Key. Can be found inside the Developer > API Keys route in the Admin Dashboard, and it's used to sync the store with the local editor configuration.
 
-- `STOREFRONT_ID`: The storefront you are using Horizon with. You can find it in the Admin Dashboard > All Storefronts > click your storefront and extract the last part of the URL path: `https://{SWELL_STORE_ID}.swell.store/admin/storefronts/{STOREFRONT_ID}`
+- `SWELL_STOREFRONT_ID`: The storefront you are using Horizon with. You can find it in the Admin Dashboard > All Storefronts > click your storefront and extract the last part of the URL path: `https://{SWELL_STORE_ID}.swell.store/admin/storefronts/{SWELL_STOREFRONT_ID}`
 
 - `NEXT_PUBLIC_SWELL_EDITOR`: This should be set to `true` to allow for correct functionality when using the swell editor. In a production environment you can safely set this to false.
 
