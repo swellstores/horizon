@@ -4,11 +4,16 @@ import fs from 'fs';
 
 dotenv.config();
 
+const STORE_ID = process.env.SWELL_STORE_ID;
 const STOREFRONT_ID = process.env.SWELL_STOREFRONT_ID;
 const API_BASE_URL = process.env.SWELL_API_BASE_URL ?? '';
 const SECRET_KEY = process.env.SWELL_SECRET_KEY;
 
 let cli_envs = '';
+
+if (!STORE_ID) {
+  throw new Error('Missing SWELL_STORE_ID');
+}
 
 if (!STOREFRONT_ID) {
   throw new Error('Missing SWELL_STOREFRONT_ID');
@@ -37,6 +42,7 @@ executeCommand([
   `${cli_envs}swell storefronts toggle-editor`,
   `--id ${STOREFRONT_ID}`,
   `--secret-key ${SECRET_KEY}`,
+  `--store ${STORE_ID}`,
 ]);
 
 executeCommand([
@@ -45,6 +51,7 @@ executeCommand([
   '-t editor',
   '-f ./config/editor.json',
   `--secret-key ${SECRET_KEY}`,
+  `--store ${STORE_ID}`,
 ]);
 
 executeCommand([
@@ -53,6 +60,7 @@ executeCommand([
   '-t settings',
   '-f ./config/defaults.json',
   `--secret-key ${SECRET_KEY}`,
+  `--store ${STORE_ID}`,
 ]);
 
 fs.readdirSync('./config/content').forEach((file) => {
@@ -60,5 +68,6 @@ fs.readdirSync('./config/content').forEach((file) => {
     `${cli_envs}swell model push -c`,
     `-f ./config/content/${file}`,
     `--secret-key ${SECRET_KEY}`,
+    `--store ${STORE_ID}`,
   ]);
 });
