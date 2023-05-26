@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "next dev",
     "generate": "npm run build",
-    "build": "npm run setup && next build",
+    "build": "next build",
     "start": "next start",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -18,7 +18,7 @@
     "lint": "tsc --noEmit && eslint . && npm run lint:prettier",
     "lintfix:prettier": "prettier --ignore-path .gitignore --write --plugin-search-dir=. --list-different .",
     "lintfix": "tsc --noEmit && npm run lintfix:prettier && eslint --fix .",
-    "prepare": "husky install && if [ -f codegen.yml ] && [ -f build-utils/generate-theme.mjs ]; then npm run setup; fi",
+    "prepare": "husky install && npm run setup",
     "setup": "npm run sync && npm run graphql:generate && npm run theme:generate",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
