@@ -41,6 +41,8 @@ function executeCommand(command) {
 executeCommand([
   `${cli_envs}swell storefronts toggle-editor`,
   `--id ${STOREFRONT_ID}`,
+  '--theme-id horizon',
+  '--enable true',
   `--secret-key ${SECRET_KEY}`,
   `--store ${STORE_ID}`,
 ]);
