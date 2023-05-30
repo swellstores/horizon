@@ -6,10 +6,7 @@ dotenv.config();
 
 const STORE_ID = process.env.SWELL_STORE_ID;
 const STOREFRONT_ID = process.env.SWELL_STOREFRONT_ID;
-const API_BASE_URL = process.env.SWELL_API_BASE_URL ?? '';
 const SECRET_KEY = process.env.SWELL_SECRET_KEY;
-
-let cli_envs = '';
 
 if (!STORE_ID) {
   throw new Error('Missing SWELL_STORE_ID');
@@ -21,10 +18,6 @@ if (!STOREFRONT_ID) {
 
 if (!SECRET_KEY) {
   throw new Error('Missing SWELL_SECRET_KEY');
-}
-
-if (API_BASE_URL) {
-  cli_envs = `API_BASE_URL=${API_BASE_URL} `;
 }
 
 function executeCommand(command) {
@@ -39,7 +32,7 @@ function executeCommand(command) {
 }
 
 executeCommand([
-  `${cli_envs}swell storefronts toggle-editor`,
+  'swell storefronts toggle-editor',
   `--id ${STOREFRONT_ID}`,
   '--theme-id horizon',
   '--enable true',
@@ -48,7 +41,7 @@ executeCommand([
 ]);
 
 executeCommand([
-  `${cli_envs}swell storefronts push`,
+  'swell storefronts push',
   `--id ${STOREFRONT_ID}`,
   '-t editor',
   '-f ./config/editor.json',
@@ -57,7 +50,7 @@ executeCommand([
 ]);
 
 executeCommand([
-  `${cli_envs}swell storefronts push`,
+  'swell storefronts push',
   `--id ${STOREFRONT_ID}`,
   '-t settings',
   '-f ./config/defaults.json',
@@ -67,7 +60,7 @@ executeCommand([
 
 fs.readdirSync('./config/content').forEach((file) => {
   executeCommand([
-    `${cli_envs}swell model push -c`,
+    'swell model push -c',
     `-f ./config/content/${file}`,
     `--secret-key ${SECRET_KEY}`,
     `--store ${STORE_ID}`,
