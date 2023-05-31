@@ -53,6 +53,8 @@ The first step will be to set up the environment variables. Create an `.env` fil
 
 - `SWELL_SECRET_KEY`: A Store's Secret Key. Can be found inside the Developer > API Keys route in the Admin Dashboard, and it's used to sync the store with the local editor configuration.
 
+- `SWELL_STOREFRONT_ID`: The storefront id you are using Horizon with. It can be found at the top of: All Storefronts > your storefront > Developer in the Admin Dashboard.
+
 - `NEXT_PUBLIC_SWELL_EDITOR`: This should be set to `true` to allow for correct functionality when using the swell editor. In a production environment you can safely set this to false.
 
 The next step will be setting up the development environment. We recommend installing Node.js through [nvm](https://github.com/nvm-sh/nvm). Afterwards, run the following commands to match the project's Node and NPM versions and install the project's dependencies:
