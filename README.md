@@ -4,7 +4,7 @@ Horizon is a fully-featured headless e-commerce theme developed around Swell's p
 
 ### Deploy Horizon on Vercel
 
-Since Horizon is a standard Next.js app, deploying it on Vercel only takes a few steps. Follow [this guide](https://developers.swell.is/guides/deploy-horizon-to-vercel) for a walk-through on how to do so.
+Since Horizon is a standard Next.js app, deploying it on Vercel only takes a few steps. Follow [this guide](https://developers.swell.is/storefronts/horizon#deploy-to-vercel) for a walk-through on how to do so.
 
 ## Features
 
