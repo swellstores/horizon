@@ -7,4 +7,4 @@
  * @returns {(keyof Obj)[]} An array of the keys of the given object.
  */
 export const objectKeys = <Obj>(obj: Obj): (keyof Obj)[] =>
-  Object.keys(obj) as (keyof Obj)[];
+  Object.keys(obj as object) as (keyof Obj)[];

@@ -87,7 +87,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images, aspectRatio }) => {
       </div>
 
       <SlideNav
-        className="absolute left-1/2 bottom-6 z-20 -translate-x-1/2 -translate-y-full lg:hidden"
+        className="absolute bottom-6 left-1/2 z-20 -translate-x-1/2 -translate-y-full lg:hidden"
         quantity={images.length}
         value={currentSlide}
         disabled

@@ -190,7 +190,6 @@ module.exports = {
   },
   plugins: [
     require('tailwindcss-radix')(),
-    require('@tailwindcss/line-clamp'),
     plugin(({ addVariant }) => {
       addVariant('touch', '@media (hover: none)');
     }),

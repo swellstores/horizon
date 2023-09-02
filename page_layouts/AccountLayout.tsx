@@ -44,7 +44,7 @@ const AccountLayout: React.FC<AccountLayoutProps> = ({
           mobileMenuLinks={links}
         />
       )}
-      <div className="p-6 md:flex md:gap-20 md:px-14 md:pt-16 md:pb-12">
+      <div className="p-6 md:flex md:gap-20 md:px-14 md:pb-12 md:pt-16">
         <Sidebar links={links} accountDetails={accountDetails} />
         <main className="flex-grow">{children}</main>
       </div>

@@ -9,15 +9,7 @@
           "name": "Size",
           "id": "size",
           "filterable": true,
-          "value": [
-            "6",
-            "7",
-            "8",
-            "9",
-            "10",
-            "11",
-            "12"
-          ]
+          "value": ["6", "7", "8", "9", "10", "11", "12"]
         }
       },
       "content": {
@@ -293,9 +285,7 @@
         "sort": {
           "62f56cab9530200013d4e248": 0
         },
-        "id": [
-          "62f56cab9530200013d4e248"
-        ]
+        "id": ["62f56cab9530200013d4e248"]
       }
     },
     {
@@ -306,14 +296,7 @@
           "name": "Size",
           "id": "size",
           "filterable": true,
-          "value": [
-            "XS",
-            "S",
-            "M",
-            "L",
-            "XL",
-            "XXL"
-          ]
+          "value": ["XS", "S", "M", "L", "XL", "XXL"]
         }
       },
       "content": {
@@ -419,54 +402,42 @@
             "id": "62f56cac9530200013d4e278",
             "currency": "USD",
             "name": "XXL",
-            "option_value_ids": [
-              "5f6227f747f619f41ab44590"
-            ],
+            "option_value_ids": ["5f6227f747f619f41ab44590"],
             "price": 27.95
           },
           {
             "id": "62f56cac9530200013d4e277",
             "currency": "USD",
             "name": "XL",
-            "option_value_ids": [
-              "5f6227f747f619f41ab4458f"
-            ],
+            "option_value_ids": ["5f6227f747f619f41ab4458f"],
             "price": 27.95
           },
           {
             "id": "62f56cac9530200013d4e276",
             "currency": "USD",
             "name": "L",
-            "option_value_ids": [
-              "5f6227f747f619f41ab4458e"
-            ],
+            "option_value_ids": ["5f6227f747f619f41ab4458e"],
             "price": 27.95
           },
           {
             "id": "62f56cac9530200013d4e275",
             "currency": "USD",
             "name": "M",
-            "option_value_ids": [
-              "5f6227f747f619f41ab4458d"
-            ],
+            "option_value_ids": ["5f6227f747f619f41ab4458d"],
             "price": 27.95
           },
           {
             "id": "62f56cac9530200013d4e274",
             "currency": "USD",
             "name": "S",
-            "option_value_ids": [
-              "5f6227f747f619f41ab4458c"
-            ],
+            "option_value_ids": ["5f6227f747f619f41ab4458c"],
             "price": 27.95
           },
           {
             "id": "62f56cac9530200013d4e273",
             "currency": "USD",
             "name": "XS",
-            "option_value_ids": [
-              "5f6227f747f619f41ab4458b"
-            ],
+            "option_value_ids": ["5f6227f747f619f41ab4458b"],
             "price": 27.95
           }
         ],
@@ -476,9 +447,7 @@
         "sort": {
           "62f56cab9530200013d4e248": 0
         },
-        "id": [
-          "62f56cab9530200013d4e248"
-        ]
+        "id": ["62f56cab9530200013d4e248"]
       }
     },
     {
@@ -489,22 +458,14 @@
           "name": "Size",
           "id": "size",
           "filterable": true,
-          "value": [
-            "Small",
-            "Large"
-          ]
+          "value": ["Small", "Large"]
         },
         "color": {
           "visible": true,
           "name": "Color",
           "id": "color",
           "filterable": true,
-          "value": [
-            "Red",
-            "Gray",
-            "Blue",
-            "Black"
-          ]
+          "value": ["Red", "Gray", "Blue", "Black"]
         }
       },
       "content": {
@@ -702,9 +663,7 @@
         "sort": {
           "62f56cab9530200013d4e248": 0
         },
-        "id": [
-          "62f56cab9530200013d4e248"
-        ]
+        "id": ["62f56cab9530200013d4e248"]
       }
     },
     {
@@ -790,9 +749,7 @@
             "id": "62f56cac9530200013d4e24d",
             "currency": "USD",
             "name": "Black",
-            "option_value_ids": [
-              "5f62279947f619f41ab44581"
-            ],
+            "option_value_ids": ["5f62279947f619f41ab44581"],
             "price": 24.95,
             "sku": null
           }
@@ -803,9 +760,7 @@
         "sort": {
           "62f56cab9530200013d4e248": 0
         },
-        "id": [
-          "62f56cab9530200013d4e248"
-        ]
+        "id": ["62f56cab9530200013d4e248"]
       }
     }
   ],

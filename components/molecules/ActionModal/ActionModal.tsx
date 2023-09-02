@@ -77,7 +77,7 @@ const ActionModal: React.FC<ActionModalProps> = ({
           <button
             onClick={onClose}
             aria-label="Close"
-            className="absolute top-[27.6px] right-6">
+            className="absolute right-6 top-[27.6px]">
             <Close className="w-[16.6px]" />
           </button>
         </Transition.Child>

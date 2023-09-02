@@ -79,7 +79,7 @@ const CounterInput = React.forwardRef<HTMLDivElement, CounterInputProps>(
 
         <button
           type="button"
-          className="inline-flex items-center py-2 pr-3 pl-1 text-sm text-primary disabled:text-disabled"
+          className="inline-flex items-center py-2 pl-1 pr-3 text-sm text-primary disabled:text-disabled"
           tabIndex={-1}
           disabled={props.max !== undefined && value >= Number(props.max)}
           onClick={increment}>

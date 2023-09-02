@@ -53,7 +53,7 @@ const ImageSelectCard: React.FC<ImageSelectCardProps> = ({
         name={id}
         onChange={onChange}
         checked={checked}
-        className="absolute top-0 left-0 h-full w-full cursor-pointer opacity-0"
+        className="absolute left-0 top-0 h-full w-full cursor-pointer opacity-0"
       />
     </label>
   );

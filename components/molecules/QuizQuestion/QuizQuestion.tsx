@@ -334,7 +334,7 @@ const QuizQuestion: React.FC<QuizQuestionProps> = ({
   return (
     <form
       className={useClassNames(
-        'flex h-full w-full flex-col items-center overflow-y-auto px-6 pt-[101px] pb-6 lg:pt-44 lg:pb-10',
+        'flex h-full w-full flex-col items-center overflow-y-auto px-6 pb-6 pt-[101px] lg:pb-10 lg:pt-44',
       )}
       aria-describedby={`question-description-${currentQuestion}`}
       aria-labelledby={`question-text-${currentQuestion}`}

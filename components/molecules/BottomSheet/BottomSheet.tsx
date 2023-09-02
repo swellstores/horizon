@@ -137,7 +137,7 @@ const BottomSheet: React.FC<BottomSheetProps> = ({ children, ...props }) => {
       {/* Line  */}
       <div
         className={useClassNames(
-          'absolute top-[5px] left-1/2 h-1 w-[72px] -translate-x-1/2 rounded-3xl bg-background-secondary',
+          'absolute left-1/2 top-[5px] h-1 w-[72px] -translate-x-1/2 rounded-3xl bg-background-secondary',
           {
             hidden: !isSticked && !isOpen,
             block: isSticked || isOpen,

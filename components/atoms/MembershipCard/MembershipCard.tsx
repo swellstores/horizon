@@ -84,7 +84,7 @@ const MembershipCard: React.FC<MembershipCardProps> = ({
           {highlight}
         </p>
       )}
-      <div className="z-10 flex grow flex-col items-center rounded-2xl bg-background-primary px-6 pt-14 pb-6">
+      <div className="z-10 flex grow flex-col items-center rounded-2xl bg-background-primary px-6 pb-6 pt-14">
         <header className="mb-4 flex flex-col items-center lg:mb-6">
           <div className="relative mb-8 h-20 w-20 lg:h-[100px] lg:w-[100px]">
             <Image {...image} {...layoutFillConfig} alt={image.alt} />
@@ -103,7 +103,7 @@ const MembershipCard: React.FC<MembershipCardProps> = ({
               <span className="text-7xl leading-[1.65] tracking-wide">
                 {subscriptionPlan.price}
               </span>
-              <span className="mt-auto mb-4 text-sm">{`/ ${
+              <span className="mb-4 mt-auto text-sm">{`/ ${
                 (subscriptionPlan.billingSchedule?.intervalCount ?? 1) > 1
                   ? `${subscriptionPlan.billingSchedule?.intervalCount} `
                   : ''

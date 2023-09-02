@@ -29,7 +29,7 @@ const BlockQuote: React.FC<QuoteProps> = ({
         <span
           className={[
             quoteSpanClasses,
-            'bottom-2 ml-3 rotate-180 lg:bottom-3 lg:mr-0 lg:ml-5',
+            'bottom-2 ml-3 rotate-180 lg:bottom-3 lg:ml-5 lg:mr-0',
           ].join(' ')}>
           “
         </span>

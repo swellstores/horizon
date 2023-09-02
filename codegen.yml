@@ -1,9 +1,8 @@
 overwrite: true
 schema: ${NEXT_PUBLIC_SWELL_STORE_URL}/graphql
-headers: {
-  cache-control: 'no-cache',
+headers:
+  cache-control: 'no-cache'
   authorization: ${NEXT_PUBLIC_SWELL_PUBLIC_KEY}
-}
 documents: 'lib/graphql/**/*.gql'
 generates:
   ./graphql.schema.json:

@@ -89,7 +89,7 @@ const QuizTransitionQuestion: React.FC<QuizTransitionQuestionProps> = ({
       )}
       <div
         className={useClassNames(
-          'flex w-full flex-col items-center px-6 pt-10 pb-6 lg:px-14 lg:pt-30 lg:pb-10',
+          'flex w-full flex-col items-center px-6 pb-6 pt-10 lg:px-14 lg:pb-10 lg:pt-30',
           {
             'lg:w-1/2': !!image,
           },

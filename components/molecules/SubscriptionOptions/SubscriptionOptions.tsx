@@ -36,7 +36,7 @@ const SubscriptionOptions: React.FC<SubscriptionOptionsProps> = ({
         {({ open }) => (
           <div className="relative mt-2 text-primary">
             <Listbox.Button
-              className={`flex w-full items-center justify-between rounded-lg border border-dividers py-2 px-6 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
+              className={`flex w-full items-center justify-between rounded-lg border border-dividers px-6 py-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
                 open ? 'rounded-b-[0] bg-background-primary' : ''
               }`}>
               <span className="flex gap-2">

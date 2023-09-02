@@ -46,7 +46,7 @@ const StackSelectCard: React.FC<StackSelectCardProps> = ({
           name={id}
           onChange={onChange}
           checked={checked}
-          className="absolute top-0 left-0 opacity-0"
+          className="absolute left-0 top-0 opacity-0"
         />
       </label>
     </article>

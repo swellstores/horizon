@@ -102,7 +102,7 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ items, ...props }) => {
           {/* Popup content if the nav item is of type trigger */}
           <NavigationMenu.Content
             className={`
-                  bg-background-primary py-8 px-14
+                  bg-background-primary px-14 py-8
                   radix-motion-from-end:animate-enter-from-right
                   radix-motion-from-start:animate-enter-from-left
                   radix-motion-to-end:animate-exit-to-right
