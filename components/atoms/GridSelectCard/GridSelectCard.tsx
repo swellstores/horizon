@@ -30,7 +30,7 @@ const GridSelectCard: React.FC<GridSelectCardProps> = ({
         name={id}
         onChange={onChange}
         checked={checked}
-        className="absolute top-0 left-0 z-[1] h-full w-full cursor-pointer opacity-0"
+        className="absolute left-0 top-0 z-[1] h-full w-full cursor-pointer opacity-0"
       />
       {label && (
         <label htmlFor={id} className="z-[2] cursor-pointer font-semibold">

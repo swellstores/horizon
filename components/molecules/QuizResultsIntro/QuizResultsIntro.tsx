@@ -42,7 +42,7 @@ const QuizResultsIntro: React.FC<QuizResultsIntroProps> = ({
         alt={background.alt}
         className="absolute inset-0 object-cover object-right-top lg:object-center"
       />
-      <div className="relative box-content flex max-w-[496px] flex-col px-6 pt-14 pb-[137px] text-primary lg:py-[122.5px] lg:px-[72px]">
+      <div className="relative box-content flex max-w-[496px] flex-col px-6 pb-[137px] pt-14 text-primary lg:px-[72px] lg:py-[122.5px]">
         <RichText
           content={headingContent}
           className="mb-2 flex flex-col text-5xl font-semibold tracking-wide lg:mb-8 lg:text-7xl"

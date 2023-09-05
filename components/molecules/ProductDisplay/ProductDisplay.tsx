@@ -38,14 +38,14 @@ const ProductDisplay: React.FC<ProductDisplayProps> = ({
       <div className="flex flex-col space-y-1">
         <Link href={href}>
           <a>
-            <h4 className="font-headings text-md font-semibold text-primary line-clamp-2">
+            <h4 className="line-clamp-2 font-headings text-md font-semibold text-primary">
               {title}
             </h4>
           </a>
         </Link>
         {!!description && (
           <RichText
-            className="block text-sm text-body line-clamp-2"
+            className="line-clamp-2 block text-sm text-body"
             content={description}
           />
         )}

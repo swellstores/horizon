@@ -30,7 +30,7 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
 }) => {
   return (
     <div
-      className={`flex w-3/4 min-w-[270px] max-w-sm flex-col overflow-hidden rounded-2xl bg-background-primary px-6 pt-6 pb-4 shadow-3xl lg:w-full 
+      className={`flex w-3/4 min-w-[270px] max-w-sm flex-col overflow-hidden rounded-2xl bg-background-primary px-6 pb-4 pt-6 shadow-3xl lg:w-full 
       ${TEXT_ALIGNMENT_MAP[content_alignment]}
       ${props.className ?? ''}`}>
       <div

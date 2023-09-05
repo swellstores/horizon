@@ -24,7 +24,7 @@ const AccountMobileMenu: React.FC<AccountMobileMenuProps> = ({
       <Disclosure>
         {({ open }) => (
           <div className="flex flex-col">
-            <Disclosure.Button className="flex w-full items-center justify-between border-b border-dividers py-4 px-6">
+            <Disclosure.Button className="flex w-full items-center justify-between border-b border-dividers px-6 py-4">
               <span className="font-medium uppercase">{label}</span>
               <ChevronDown
                 width={16}

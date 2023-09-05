@@ -332,7 +332,7 @@ const LevelSlider: React.FC<LevelSliderProps> = ({
         ))}
       </div>
       <div
-        className="relative flex h-4 w-full justify-between rounded-[0.75rem] bg-input-standard py-[3px] px-1"
+        className="relative flex h-4 w-full justify-between rounded-[0.75rem] bg-input-standard px-1 py-[3px]"
         ref={trackRef}>
         {/* Track filling */}
         <div

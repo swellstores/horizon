@@ -217,7 +217,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
             key={notification.id}
           />
         ))}
-        <ToastViewport className="fixed top-0 right-0 z-modal m-4 flex max-w-[500px] flex-col gap-2" />
+        <ToastViewport className="fixed right-0 top-0 z-modal m-4 flex max-w-[500px] flex-col gap-2" />
       </ToastProvider>
     </>
   );

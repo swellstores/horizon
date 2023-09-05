@@ -438,7 +438,7 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
       </Button>
 
       <Breadcrumb
-        className="mt-1 mb-6 px-6 lg:mt-8 lg:px-0"
+        className="mb-6 mt-1 px-6 lg:mt-8 lg:px-0"
         customText={breadcrumbText}
       />
 
@@ -722,7 +722,7 @@ const ProductsLayout: React.FC<ProductsLayoutProps> = ({
           {/* Products list */}
           <ul
             className={useClassNames(
-              'mt-4 grid w-full grid-cols-2 gap-y-8 gap-x-4 px-6 lg:mt-6 lg:gap-x-8 lg:gap-y-10 lg:px-0',
+              'mt-4 grid w-full grid-cols-2 gap-x-4 gap-y-8 px-6 lg:mt-6 lg:gap-x-8 lg:gap-y-10 lg:px-0',
               {
                 'lg:grid-cols-2': Number(liveSettings.productsPerRow) === 2,
                 'lg:grid-cols-3': Number(liveSettings.productsPerRow) === 3,

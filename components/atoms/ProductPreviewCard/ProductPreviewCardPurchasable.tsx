@@ -86,14 +86,14 @@ const ProductPreviewCardPurchasable: React.FC<
       <div className="flex flex-col" ref={wrapperRef}>
         <Link href={href}>
           <a>
-            <h4 className="font-headings text-md font-semibold line-clamp-2 lg:text-sm">
+            <h4 className="line-clamp-2 font-headings text-md font-semibold lg:text-sm">
               {title}
             </h4>
           </a>
         </Link>
         {show_product_description && (
           <span
-            className="text-sm text-body line-clamp-2"
+            className="line-clamp-2 text-sm text-body"
             dangerouslySetInnerHTML={{ __html: description }}
           />
         )}

@@ -275,7 +275,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({
             )}
             {liveSettings.calloutTitle || liveSettings.calloutDescription ? (
               <div className="mt-10">
-                <div className="rounded-md bg-background-secondary py-4 px-8 text-center text-primary">
+                <div className="rounded-md bg-background-secondary px-8 py-4 text-center text-primary">
                   {liveSettings.calloutTitle ? (
                     <p
                       className="text-lg font-semibold"

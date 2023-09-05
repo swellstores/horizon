@@ -32,7 +32,7 @@ const CheckEmailPage: NextPageWithLayout<PageProps> = ({
   const i18n = useI18n();
   const text = expiredText(i18n);
   return (
-    <article className="mx-6 h-full pt-12 pb-10 md:pb-18 md:pt-16">
+    <article className="mx-6 h-full pb-10 pt-12 md:pb-18 md:pt-16">
       <Head>
         <title>{text.pageTitle}</title>
         <meta name="description" content={metaDescription} />

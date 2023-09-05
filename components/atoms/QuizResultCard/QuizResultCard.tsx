@@ -140,7 +140,7 @@ const QuizResultCard: React.FC<QuizResultCardProps> = ({
           <div className="mt-6">
             <RichText
               content={description}
-              className="text-ellipsis text-sm text-body line-clamp-3"
+              className="line-clamp-3 text-ellipsis text-sm text-body"
             />
             {!!productOptions.length && (
               <div className="mt-6 flex flex-col gap-4">

@@ -95,7 +95,7 @@ const QuizCrossSellCard: React.FC<QuizCrossSellCardProps> = ({
         </header>
         <RichText
           content={description}
-          className="col-span-2 text-2xs text-body line-clamp-3 lg:col-[2/3] lg:line-clamp-4"
+          className="col-span-2 line-clamp-3 text-2xs text-body lg:col-[2/3] lg:line-clamp-4"
         />
         <div className="hidden text-sm font-semibold tracking-wide text-primary lg:col-[2/3] lg:my-[19px] lg:block">
           <Link href={href}>

@@ -49,7 +49,7 @@ const Navbar: React.FC<NavbarProps> = ({
 
   return (
     <div className="bg-background-primary">
-      <div className="relative mx-auto grid max-w-screen-3xl grid-cols-3 items-center py-5 px-4 text-primary lg:px-10 lg:py-6">
+      <div className="relative mx-auto grid max-w-screen-3xl grid-cols-3 items-center px-4 py-5 text-primary lg:px-10 lg:py-6">
         {/* Mobile burger icon */}
         <button
           className={`justify-self-start transition-opacity duration-300 ease-in-out lg:hidden ${

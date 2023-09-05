@@ -61,8 +61,7 @@ The next step will be setting up the development environment. We recommend insta
 
 ```bash
 nvm install
-npm install -g npm@8
-npm install
+yarn install
 ```
 
 This will also automatically setup the GraphQL client with end-to-end typings and download the content and settings from your store's editor. Check out the `graphql:generate` and `theme:generate` commands on the `package.json` file for more information.
@@ -70,7 +69,7 @@ This will also automatically setup the GraphQL client with end-to-end typings an
 Lastly, you can start the development server with:
 
 ```bash
-npm run dev
+yarn run dev
 ```
 
 Horizon should now be running on [http://localhost:3000](http://localhost:3000) by default.
@@ -80,7 +79,7 @@ Horizon should now be running on [http://localhost:3000](http://localhost:3000) 
 You can take a look at the available components and the props they accept by running the `storybook` npm script:
 
 ```bash
-npm run storybook
+yarn run storybook
 ```
 
 Storybook should now be running on [http://localhost:6006](http://localhost:6006), unless the port is already taken.
@@ -193,7 +192,7 @@ Add a default value in the `config/defaults.json` for the new setting (under the
 Push the new settings to the store by running the `sync` npm script. This will add the new language setting to the editor's schema.
 
 ```bash
-npm run sync
+yarn run sync
 ```
 
 Use the new language setting in the code with the i18n hook

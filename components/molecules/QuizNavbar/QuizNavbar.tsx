@@ -59,7 +59,7 @@ const QuizNavbar: React.FC<QuizNavbarProps> = ({
         },
       )}>
       <ProgressBar value={(currentQuestion / questions) * 100} />
-      <div className="relative flex h-[56px] w-full items-center p-[18px] lg:h-[115px] lg:py-[42px] lg:px-[58px]">
+      <div className="relative flex h-[56px] w-full items-center p-[18px] lg:h-[115px] lg:px-[58px] lg:py-[42px]">
         {onClickPrevious && (
           <button type="button" onClick={onClickPrevious}>
             <ArrowLeft className="w-5" />
@@ -70,7 +70,7 @@ const QuizNavbar: React.FC<QuizNavbarProps> = ({
           storeName={storeName}
           logo={logo}
           logoHeight={logoHeight}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
         />
 
         <Link href="/">

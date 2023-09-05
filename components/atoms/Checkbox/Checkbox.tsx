@@ -21,7 +21,7 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
           className="peer sr-only"
         />
         <div className="flex h-5 w-5 items-center justify-center rounded-md border border-input-standard transition-colors duration-400 ease-in-out peer-checked:border-primary" />
-        <div className="absolute top-1 left-1 h-3 w-3 rounded-sm transition-colors duration-400 ease-in-out peer-checked:bg-primary" />
+        <div className="absolute left-1 top-1 h-3 w-3 rounded-sm transition-colors duration-400 ease-in-out peer-checked:bg-primary" />
         <span className="sr-only">{label}</span>
       </label>
     );

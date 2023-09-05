@@ -98,7 +98,7 @@ const AccountHeader: React.FC<AccountHeaderProps> = ({
           </Link>
         </div>
         {accountDetails && (
-          <div className="px-6 pt-4 pb-6 md:hidden">
+          <div className="px-6 pb-6 pt-4 md:hidden">
             <AccountDetails {...accountDetails} />
           </div>
         )}

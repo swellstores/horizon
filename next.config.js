@@ -6,7 +6,11 @@ const graphqlKey = process.env.NEXT_PUBLIC_SWELL_PUBLIC_KEY;
 let nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ['cdn.schema.io', ...(isDev ? ['cdn.swell.test'] : [])],
+    domains: [
+      'cdn.schema.io',
+      'cdn.swell.store',
+      ...(isDev ? ['cdn.swell.test'] : []),
+    ],
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
