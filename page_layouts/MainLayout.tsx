@@ -13,12 +13,14 @@ export interface MainLayoutProps {
   settings: Settings;
   locales: Locale[];
   currencies: Currency[];
+  currency: Currency;
 }
 
 const MainLayout: React.FC<MainLayoutProps> = ({
   children,
   settings,
   currencies,
+  currency,
   locales,
 }) => {
   const cart = useCartStore((store) => store.cart);
@@ -30,6 +32,8 @@ const MainLayout: React.FC<MainLayoutProps> = ({
       state.settings?.footer,
       state.settings?.socialLinks,
     ]);
+
+  const setCurrency = useCurrencyStore((state) => state.setCurrency);
   const setCurrencies = useCurrencyStore((state) => state.setCurrencies);
   const setLocales = useLocaleStore((state) => state.setLocales);
 
@@ -38,9 +42,19 @@ const MainLayout: React.FC<MainLayoutProps> = ({
     if (settings && currencies && locales) {
       setSettings(settings);
       setCurrencies(currencies);
+      setCurrency(currency);
       setLocales(locales);
     }
-  }, [setSettings, setCurrencies, setLocales, settings, currencies, locales]);
+  }, [
+    setSettings,
+    setCurrencies,
+    setCurrency,
+    setLocales,
+    settings,
+    currencies,
+    currency,
+    locales,
+  ]);
 
   return (
     <div>

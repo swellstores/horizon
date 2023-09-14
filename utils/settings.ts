@@ -165,6 +165,18 @@ export const formatCurrencies = (settings: any): Currency[] =>
     })
     .filter(isNotNull) ?? [];
 
+export const formatCurrency = (settings: any) => {
+  const { store } = settings;
+
+  if (!store?.currencies || !store.currency) {
+    return { code: store?.currency || 'USD' };
+  }
+
+  const currency = store.currencies.find(({ code }) => code === store.currency);
+
+  return currency || { code: store.currency };
+};
+
 export const formatAccountHeaderSettings = (settings: Settings | null) =>
   settings
     ? {
