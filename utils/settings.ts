@@ -165,7 +165,7 @@ export const formatCurrencies = (settings: any): Currency[] =>
     })
     .filter(isNotNull) ?? [];
 
-export const formatCurrency = (settings: any) => {
+export const getCurrencyFromSettings = (settings: any) => {
   const { store } = settings;
 
   if (!store?.currencies || !store.currency) {

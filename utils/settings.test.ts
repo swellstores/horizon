@@ -1,6 +1,6 @@
-import { formatCurrency } from './settings';
+import { getCurrencyFromSettings } from './settings';
 
-describe('formatCurrency', () => {
+describe('getCurrencyFromSettings', () => {
   it('should return the correct currency object with defined store.currencies and store.currency', () => {
     const settings = {
       store: {
@@ -11,7 +11,7 @@ describe('formatCurrency', () => {
         currency: 'EUR',
       },
     };
-    const result = formatCurrency(settings);
+    const result = getCurrencyFromSettings(settings);
 
     expect(result).toEqual({ code: 'EUR', symbol: '€' });
   });
@@ -25,7 +25,7 @@ describe('formatCurrency', () => {
         ],
       },
     };
-    const result = formatCurrency(settings);
+    const result = getCurrencyFromSettings(settings);
 
     expect(result).toEqual({ code: 'USD' });
   });
@@ -36,7 +36,7 @@ describe('formatCurrency', () => {
         currency: 'EUR',
       },
     };
-    const result = formatCurrency(settings);
+    const result = getCurrencyFromSettings(settings);
 
     expect(result).toEqual({ code: 'EUR' });
   });
@@ -45,7 +45,7 @@ describe('formatCurrency', () => {
     const settings = {
       store: {},
     };
-    const result = formatCurrency(settings);
+    const result = getCurrencyFromSettings(settings);
 
     expect(result).toEqual({ code: 'USD' });
   });
