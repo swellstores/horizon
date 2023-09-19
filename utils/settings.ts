@@ -172,7 +172,9 @@ export const getCurrencyFromSettings = (settings: any) => {
     return { code: store?.currency || 'USD' };
   }
 
-  const currency = store.currencies.find(({ code }) => code === store.currency);
+  const currency = store.currencies.find(
+    ({ code }: { code: string }) => code === store.currency,
+  );
 
   return currency || { code: store.currency };
 };
