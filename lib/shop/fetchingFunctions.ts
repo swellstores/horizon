@@ -20,6 +20,7 @@ import type { QuizResultsProducts } from 'components/molecules/QuizResults';
 import { hasQuickAdd, mapProducts } from 'lib/utils/products';
 import {
   formatCurrencies,
+  getCurrencyFromSettings,
   formatLocales,
   formatStoreSettings,
 } from 'utils/settings';
@@ -387,12 +388,16 @@ export const getStoreSettings = async (locale?: string) => {
     client.getMenus(),
   ]);
 
+  const currencies = formatCurrencies(storeData.data.storeSettings);
+  const currency = getCurrencyFromSettings(storeData.data.storeSettings);
+
   return {
     ...formatStoreSettings(
       storeData.data.storeSettings,
       menusData.data.menuSettings,
     ),
     locales: formatLocales(storeData.data.storeSettings),
-    currencies: formatCurrencies(storeData.data.storeSettings),
+    currencies,
+    currency,
   };
 };

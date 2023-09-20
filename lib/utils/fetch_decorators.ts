@@ -30,9 +30,8 @@ export function withMainLayout<C extends GetProps<unknown>>(callback: C) {
       return result;
     }
 
-    const { currencies, locales, ...settings } = await getStoreSettings(
-      result.props.locale,
-    );
+    const { currencies, currency, locales, ...settings } =
+      await getStoreSettings(result.props.locale);
 
     return {
       ...result,
@@ -42,6 +41,7 @@ export function withMainLayout<C extends GetProps<unknown>>(callback: C) {
           settings,
           locales,
           currencies,
+          currency,
         },
       },
     };
