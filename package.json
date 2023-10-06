@@ -103,7 +103,7 @@
     "lodash.camelcase": "^4.3.0",
     "lodash.set": "^4.3.2",
     "msw": "^0.46.0",
-    "postcss": "^8.4.7",
+    "postcss": "^8.4.31",
     "prettier": "2.5.1",
     "prettier-plugin-tailwindcss": "^0.1.13",
     "storybook-addon-next": "^1.6.7",
