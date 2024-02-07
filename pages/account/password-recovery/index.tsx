@@ -63,10 +63,12 @@ const PasswordRecoveryPage: NextPageWithLayout<PageProps> = ({
   const otherError = error?.field === ACCOUNT_FIELD.OTHER;
   const emailError = error?.field === ACCOUNT_FIELD.EMAIL || otherError;
   const emailInputRef = useRef<HTMLInputElement>(null);
+  const loginLinkHref = `${
+    router.locale !== router.defaultLocale ? `/${router.locale}` : ''
+  }/account/login`;
+
   const backToLoginText = i18n('account.password_recovery.back_to_login_text', {
-    loginLink: `<a class="font-bold hover:underline" href='/${
-      router.locale !== router.defaultLocale ? `${router.locale}/` : ''
-    }/account/login'>${text.backToLoginLink}</a>`,
+    loginLink: `<a class="font-bold hover:underline" href='${loginLinkHref}'>${text.backToLoginLink}</a>`,
   });
   const responseCallback = useCallback(
     (res: Response) => {

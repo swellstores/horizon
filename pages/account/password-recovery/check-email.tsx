@@ -33,12 +33,14 @@ const CheckEmailPage: NextPageWithLayout<PageProps> = ({
   const router = useRouter();
   const i18n = useI18n();
   const text = checkEmailText(i18n);
+  const loginLinkHref = `${
+    router.locale !== router.defaultLocale ? `/${router.locale}` : ''
+  }/account/login`;
+
   const backToLoginText = i18n(
     'account.password_recovery.check_email.back_to_login_text',
     {
-      loginLink: `<a class="font-bold hover:underline" href='/${
-        router.locale !== router.defaultLocale ? `${router.locale}/` : ''
-      }/account/login'>${text.backToLoginLink}</a>`,
+      loginLink: `<a class="font-bold hover:underline" href='${loginLinkHref}'>${text.backToLoginLink}</a>`,
     },
   );
 
