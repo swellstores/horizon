@@ -24,8 +24,8 @@ Since Horizon is a standard Next.js app, deploying it on Vercel only takes a few
 
 ## Technology stack
 
-- Next.js
-- React
+- Next.js v12
+- React v17
 - TypeScript
 - TailwindCSS
 - Storybook
