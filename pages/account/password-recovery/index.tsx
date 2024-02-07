@@ -226,10 +226,6 @@ const PasswordRecoveryPage: NextPageWithLayout<PageProps> = ({
                 className="mt-4 text-center text-sm text-primary md:mt-6"
                 dangerouslySetInnerHTML={{ __html: backToLoginText }}
               />
-
-              <div>
-                {router.locale}, {router.defaultLocale}, {router.locale}
-              </div>
             </div>
           </div>
         </fieldset>
