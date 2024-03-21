@@ -1,8 +1,11 @@
 # Description
 
-Horizon is a fully-featured headless e-commerce theme developed around Swell's powerful and flexible subscription features. It comes pre-configured to work with the Swell Editor out-of-the-box, so that you can customize its content and styling as you need. The codebase itself is using a standard Next.js structure making it is easy to modify for anyone with some familiarity with React.
+Horizon is a reference example and starter project for building custom Next v12 storefronts powered by Swell.js.
 
-### Deploy Horizon on Vercel
+> [!IMPORTANT] 
+> **The app is provided in an 'as-is' state and will not be receiving updates or bug fixes from March 1, 2024.** [Swell.js](https://developers.swell.is/frontend-api/setup) itself is in active development and is recommended SDK for building full-stack JS storefronts on Swell.
+
+### Deploy on Vercel
 
 Since Horizon is a standard Next.js app, deploying it on Vercel only takes a few steps. Follow [this guide](https://developers.swell.is/storefronts/horizon#deploy-to-vercel) for a walk-through on how to do so.
 
